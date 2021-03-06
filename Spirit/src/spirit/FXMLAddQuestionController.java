@@ -21,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -35,18 +36,35 @@ public class FXMLAddQuestionController implements Initializable {
     @FXML
     private Button scene2;
 
-//    Changing Scenes test
+//    Changing scenes code
+//    @FXML
+//    private void changeScene(ActionEvent event) throws Exception {
+//        Stage stage;
+//        Parent root;
+//        
+//        stage = (Stage) scene2.getScene().getWindow();
+//        root = FXMLLoader.load(getClass().getResource("FXMLQuestionEdit.fxml"));
+//            
+//        Scene scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+//        
+//    }
+
+//    Popup Modal Code
     @FXML
     private void changeScene(ActionEvent event) throws Exception {
-        Stage stage;
-        Parent root;
+        Stage stage = new Stage();
+        Parent modal;
         
-        stage = (Stage) scene2.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("FXMLQuestionEdit.fxml"));
+        modal = FXMLLoader.load(getClass().getResource("FXMLQuestionEdit.fxml"));
+        
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Edit Question");
             
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(modal);
         stage.setScene(scene);
-        stage.show();
+        stage.showAndWait();
         
     }
     

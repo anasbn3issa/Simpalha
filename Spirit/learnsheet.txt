@@ -29,6 +29,8 @@ Day 2: 11h25 06/03/2021
     References:
         *Changing scenes with FXML:
             -https://gist.github.com/pethaniakshay/302072fda98098a24ce382a361bdf477
+        *JavaFX Documentation:
+            -https://docs.oracle.com/javase/8/javafx/api/index.html
 
 WORKTIME: 
 
@@ -74,3 +76,7 @@ Stopping time: 06/03/2021
 REFERENCES:
     *JavaFX GUI Tutorial :
         -https://www.youtube.com/playlist?list=PL6gx4Cwl9DGBzfXLWLSYVy8EbTdpGbUIG
+    *Changing scenes with FXML:
+        -https://gist.github.com/pethaniakshay/302072fda98098a24ce382a361bdf477
+    *JavaFX Documentation:
+        -https://docs.oracle.com/javase/8/javafx/api/index.html

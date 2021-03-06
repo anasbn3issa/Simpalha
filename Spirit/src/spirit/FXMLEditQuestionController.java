@@ -26,18 +26,28 @@ public class FXMLEditQuestionController implements Initializable {
     @FXML
     private Button scene1;
 
-//    Changing Scenes test
+//    Code For changing Scenes
+//    @FXML
+//    private void changeScene(ActionEvent event) throws Exception {
+//        Stage stage;
+//        Parent root;
+//        
+//        stage = (Stage) scene1.getScene().getWindow();
+//        root = FXMLLoader.load(getClass().getResource("FXMLQuestionAdd.fxml"));
+//        
+//        Scene scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+//        
+//    }
+    
     @FXML
-    private void changeScene(ActionEvent event) throws Exception {
+    private void closeScene(ActionEvent event) throws Exception {
         Stage stage;
         Parent root;
         
         stage = (Stage) scene1.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("FXMLQuestionAdd.fxml"));
-        
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        stage.close();
         
     }
 

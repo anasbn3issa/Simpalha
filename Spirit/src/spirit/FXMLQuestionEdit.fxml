@@ -5,6 +5,6 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spirit.FXMLEditQuestionController">
    <children>
-      <Button fx:id="scene1" layoutX="289.0" layoutY="156.0" mnemonicParsing="false" onAction="#changeScene" text="Button" />
+      <Button fx:id="scene1" layoutX="289.0" layoutY="156.0" mnemonicParsing="false" onAction="#closeScene" text="Button" />
    </children>
 </AnchorPane>
