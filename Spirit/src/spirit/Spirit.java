@@ -21,6 +21,7 @@ public class Spirit extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         
+        
         stage.setTitle("Quizz Creation");
         
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));

@@ -63,5 +63,35 @@ public class ServiceQuestion implements IServiceQuestion{
             
             return questions;
     }
+
+    @Override
+    public void RemoveQuestion(int id) {
+        
+        try{
+            Statement stm = cnx.createStatement();
+            
+//            String query="INSERT INTO `question`(`right_answer`, `question`) VALUES ('"+q.getRightAnswer()+"','"+q.getQuestion()+"')";
+            String query="DELETE FROM `question` WHERE `id`='"+id+"'";
+            stm.executeUpdate(query);
+        }
+        catch (SQLException ex) { 
+            Logger.getLogger(ServiceQuestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void EditQuestion(int id, Question q) {
+        RemoveQuestion(id);
+//        AddQuestion(q);
+        try{
+            Statement stm = cnx.createStatement();
+            
+            String query="INSERT INTO `question`(`id`,`right_answer`, `question`) VALUES ('"+id+"','"+q.getRightAnswer()+"','"+q.getQuestion()+"')";
+            stm.executeUpdate(query);
+        }
+        catch (SQLException ex) { 
+            Logger.getLogger(ServiceQuestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
 }

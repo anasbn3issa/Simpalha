@@ -14,7 +14,17 @@ import java.util.List;
  * @author Parsath
  */
 public interface IServiceQuestion {
+    
+//    add a question
     public void AddQuestion(Question q);
+    
+//    show all questions
     public List<Question> ReadQuestions() throws SQLException;
+    
+//    remove a question by its' id
+    public void RemoveQuestion (int id);
+    
+//    edit a question by its' id
+    public void EditQuestion(int id,Question q);
     
 }

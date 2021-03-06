@@ -31,16 +31,12 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Label LAffiche;
     
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-//        label.setText("Hello World!");
-    }
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
 
+//    Ajoute une question après avoir remplit les champs et cliquer sur "Ajouter"
     @FXML
     private void AjouterQuestion(ActionEvent event) {
     
@@ -54,6 +50,7 @@ public class FXMLDocumentController implements Initializable {
         
     }
 
+//    Affiche toutes les questions après avoir cliquer sur "Afficher"
     @FXML
     private void AfficherQuestions(ActionEvent event) {
     
