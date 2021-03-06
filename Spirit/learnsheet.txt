@@ -25,6 +25,10 @@ Day 2: 11h25 06/03/2021
     Notes:
         *Following the GUI tutorial to make the interface a bit richer and more fluid. This is going to be complicated.
 
+    References:
+        *Changing scenes with FXML:
+            -https://gist.github.com/pethaniakshay/302072fda98098a24ce382a361bdf477
+
 WORKTIME: 
 
 Stopping time: 06/03/2021 

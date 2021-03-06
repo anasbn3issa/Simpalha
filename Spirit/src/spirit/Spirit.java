@@ -24,7 +24,7 @@ public class Spirit extends Application {
         
         stage.setTitle("Quizz Creation");
         
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLQuestionAdd.fxml"));
         
         Scene scene = new Scene(root);
         

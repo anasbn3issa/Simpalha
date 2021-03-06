@@ -14,9 +14,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  *
@@ -30,6 +35,28 @@ public class FXMLDocumentController implements Initializable {
     private TextField tfRightAnswer;
     @FXML
     private Label LAffiche;
+    @FXML
+    private Button scene1,scene2;
+
+//    Changing Scenes test
+    @FXML
+    private void ChangeScene(ActionEvent event) throws Exception {
+        Stage stage;
+        Parent root;
+       
+        if(event.getSource()==scene2){
+            stage = (Stage) scene2.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("FXMLQuestionEdit.fxml"));
+        }
+        else{
+            stage = (Stage) scene1.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("FXMLQuestionAdd.fxml"));
+        }
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
