@@ -22,6 +22,8 @@ Day 2: 11h25 06/03/2021
 
     STEP 2 Complete the "Question" class CRUD scenario
 
+    STEP 2 Completed at 23h57
+
     Notes:
         *Following the GUI tutorial to make the interface a bit richer and more fluid. This is going to be complicated.
         *Added a few tweaks to make changing scenes independent from controllers. Meaning you can change scenes from different controllers not only ONE controller like the example I'm referencing below.
@@ -32,9 +34,9 @@ Day 2: 11h25 06/03/2021
         *JavaFX Documentation:
             -https://docs.oracle.com/javase/8/javafx/api/index.html
 
-WORKTIME: 
+WORKTIME: 5H50M
 
-Stopping time: 06/03/2021 
+Stopping time: 07/03/2021 00h11
 
 
 
@@ -51,6 +53,8 @@ Stopping time: 06/03/2021
             DONE 06/03/2021
 
         -Complete the "Question" class CRUD scenario w/out "Answers" & "Quizz" Classes
+
+            DONE 06/03/2021
 
         -Create the "Answer" class CRUD
 
