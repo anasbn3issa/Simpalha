@@ -1,0 +1,71 @@
+Day 1: 8h00 04/03/2021
+
+    STEP 1:
+        -Completing the "Question" Class CRUD
+
+    Notes:
+        *Followed the coachs' workshop and completed the "Add & Read", now I'm following a GUI tutorial on JavaFX to try and understand how this works.
+
+    References:
+        *How to use an HTML Template:
+            -https://www.youtube.com/playlist?list=PL6gx4Cwl9DGBzfXLWLSYVy8EbTdpGbUIG
+
+WORKTIME: 3H11M
+
+Stopping time: 04/03/2021 21h00
+
+
+
+Day 2: 11h25 06/03/2021
+
+    STEP 1 Completed at 11h45
+
+    STEP 2 Complete the "Question" class CRUD scenario
+
+    Notes:
+        *Following the GUI tutorial to make the interface a bit richer and more fluid. This is going to be complicated.
+
+WORKTIME: 
+
+Stopping time: 06/03/2021 
+
+
+
+
+
+/// TODO:
+
+        -Do the "Add & Read" Workshop 
+
+            DONE 04/03/2021
+
+        -Complete the "Question" class CRUD 
+
+            DONE 06/03/2021
+
+        -Complete the "Question" class CRUD scenario w/out "Answers" & "Quizz" Classes
+
+        -Create the "Answer" class CRUD
+
+        -Create the "Answer" and "Question" classes database relations
+
+        -Complete the "Question" class CRUD scenarion w/out "Quizz" Class
+
+        -Create the "Quizz" class CRUD
+
+        -Create the "Quizz" and "Question" classes database relations
+
+        -Complete the FULL "Question" class CRUD scenarion 
+
+
+
+///
+
+
+
+
+
+
+REFERENCES:
+    *JavaFX GUI Tutorial :
+        -https://www.youtube.com/playlist?list=PL6gx4Cwl9DGBzfXLWLSYVy8EbTdpGbUIG
