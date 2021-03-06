@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import utils.DataSource;
 
 /**
@@ -34,7 +36,7 @@ public class ServiceQuestion implements IServiceQuestion{
         try{
             Statement stm = cnx.createStatement();
             
-            String query="INSERT INTO `question`(`right_answer`, `question`) VALUES ('"+q.getRightAnswer()+"','"+q.getQuestion()+"')";
+            String query="INSERT INTO `question`(`right_answer`, `question`) VALUES ('"+q.getAnswer()+"','"+q.getQuestion()+"')";
             stm.executeUpdate(query);
         }
         catch (SQLException ex) { 
@@ -57,11 +59,38 @@ public class ServiceQuestion implements IServiceQuestion{
                 
                 Q.setId(rst.getInt("id"));
                 Q.setQuestion(rst.getString("question"));
-                Q.setRightAnswer(rst.getInt("right_answer"));
+                Q.setAnswer(rst.getInt("right_answer"));
                 questions.add(Q);
             }
             
             return questions;
+    }
+
+    @Override
+    public ObservableList<Question> ObservableListQuestions() throws SQLException{
+            Statement stm = cnx.createStatement();
+            
+            String query="SELECT * FROM `question`";
+            ResultSet rst = stm.executeQuery(query);
+            
+            List<Question> questions = new ArrayList<>();
+            
+            while(rst.next())
+            {
+                Question Q = new Question();
+                
+                Q.setId(rst.getInt("id"));
+                Q.setQuestion(rst.getString("question"));
+                Q.setAnswer(rst.getInt("right_answer"));
+                questions.add(Q);
+            }
+            
+            
+            ObservableList<Question> questionsObservable = FXCollections.observableArrayList();
+            
+            questionsObservable.addAll(questions);
+            
+            return questionsObservable;
     }
 
     @Override
@@ -86,7 +115,7 @@ public class ServiceQuestion implements IServiceQuestion{
         try{
             Statement stm = cnx.createStatement();
             
-            String query="INSERT INTO `question`(`id`,`right_answer`, `question`) VALUES ('"+id+"','"+q.getRightAnswer()+"','"+q.getQuestion()+"')";
+            String query="INSERT INTO `question`(`id`,`right_answer`, `question`) VALUES ('"+id+"','"+q.getAnswer()+"','"+q.getQuestion()+"')";
             stm.executeUpdate(query);
         }
         catch (SQLException ex) { 

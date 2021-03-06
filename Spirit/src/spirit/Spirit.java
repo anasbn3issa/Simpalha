@@ -22,9 +22,9 @@ public class Spirit extends Application {
     public void start(Stage stage) throws Exception {
         
         
-        stage.setTitle("Quizz Creation");
+        stage.setTitle("Quizz Questions");
         
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLQuestionAdd.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLTableQuestion.fxml"));
 //        Parent editLayout = FXMLLoader.load(getClass().getResource("FXMLQuestionEdit.fxml"));
         
         Scene scene = new Scene(root);

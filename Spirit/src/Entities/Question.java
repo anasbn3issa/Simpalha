@@ -21,7 +21,7 @@ public class Question {
         return id;
     }
 
-    public int getRightAnswer() {
+    public int getAnswer() {
         return rightAnswer;
     }
 
@@ -33,7 +33,7 @@ public class Question {
         this.id = id;
     }
 
-    public void setRightAnswer(int rightAnswer) {
+    public void setAnswer(int rightAnswer) {
         this.rightAnswer = rightAnswer;
     }
 

@@ -20,7 +20,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -30,43 +34,13 @@ import javafx.stage.Stage;
  */
 public class FXMLAddQuestionController implements Initializable {
     
+    @FXML
     private TextField tfQuestion;
+    @FXML
     private TextField tfRightAnswer;
-    private Label LAffiche;
+    private TableView<Question> LAffiche;
     @FXML
-    private Button scene2;
-
-//    Changing scenes code
-//    @FXML
-//    private void changeScene(ActionEvent event) throws Exception {
-//        Stage stage;
-//        Parent root;
-//        
-//        stage = (Stage) scene2.getScene().getWindow();
-//        root = FXMLLoader.load(getClass().getResource("FXMLQuestionEdit.fxml"));
-//            
-//        Scene scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
-//        
-//    }
-
-//    Popup Modal Code
-    @FXML
-    private void changeScene(ActionEvent event) throws Exception {
-        Stage stage = new Stage();
-        Parent modal;
-        
-        modal = FXMLLoader.load(getClass().getResource("FXMLQuestionEdit.fxml"));
-        
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Edit Question");
-            
-        Scene scene = new Scene(modal);
-        stage.setScene(scene);
-        stage.showAndWait();
-        
-    }
+    private Button ajouterEtQuitter;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -81,23 +55,16 @@ public class FXMLAddQuestionController implements Initializable {
         Question q = new Question();
         
         q.setQuestion(tfQuestion.getText());
-        q.setRightAnswer(Integer.parseInt(tfRightAnswer.getText()));
+        q.setAnswer(Integer.parseInt(tfRightAnswer.getText()));
         
         sq.AddQuestion(q);
         
-    }
-
-//    Affiche toutes les questions après avoir cliquer sur "Afficher"
-    @FXML
-    private void afficherQuestions(ActionEvent event) {
-    
-        ServiceQuestion sq = new ServiceQuestion();
+        Stage stage;
+        Parent root;
         
-        try {
-            LAffiche.setText(sq.ReadQuestions().toString());
-        } catch (SQLException ex) {
-            Logger.getLogger(FXMLAddQuestionController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        stage = (Stage) ajouterEtQuitter.getScene().getWindow();
+        stage.close();
+        
     }
     
 }

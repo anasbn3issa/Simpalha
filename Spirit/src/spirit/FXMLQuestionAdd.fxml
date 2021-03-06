@@ -7,13 +7,10 @@
 
 <AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spirit.FXMLAddQuestionController">
    <children>
-      <TextField fx:id="tfQuestion" layoutX="164.0" layoutY="153.0" />
-      <TextField fx:id="tfRightAnswer" layoutX="164.0" layoutY="238.0" />
-      <Label layoutX="213.0" layoutY="128.0" text="Question" />
-      <Label layoutX="195.0" layoutY="212.0" text="Indice Réponse" />
-      <Button layoutX="213.0" layoutY="290.0" mnemonicParsing="false" onAction="#ajouterQuestion" text="Ajouter" />
-      <Button layoutX="480.0" layoutY="264.0" mnemonicParsing="false" onAction="#afficherQuestions" text="Afficher" />
-      <Label fx:id="LAffiche" layoutX="398.0" layoutY="115.0" prefHeight="134.0" prefWidth="227.0" />
-      <Button fx:id="scene2" layoutX="302.0" layoutY="426.0" mnemonicParsing="false" onAction="#changeScene" text="Change Scenes" />
+      <TextField fx:id="tfQuestion" layoutX="276.0" layoutY="182.0" />
+      <TextField fx:id="tfRightAnswer" layoutX="276.0" layoutY="267.0" />
+      <Label layoutX="325.0" layoutY="157.0" text="Question" />
+      <Label layoutX="307.0" layoutY="241.0" text="Indice Réponse" />
+      <Button fx:id="ajouterEtQuitter" layoutX="325.0" layoutY="319.0" mnemonicParsing="false" onAction="#ajouterQuestion" text="Ajouter" />
    </children>
 </AnchorPane>
