@@ -24,6 +24,7 @@ Day 2: 11h25 06/03/2021
 
     Notes:
         *Following the GUI tutorial to make the interface a bit richer and more fluid. This is going to be complicated.
+        *Added a few tweaks to make changing scenes independent from controllers. Meaning you can change scenes from different controllers not only ONE controller like the example I'm referencing below.
 
     References:
         *Changing scenes with FXML:

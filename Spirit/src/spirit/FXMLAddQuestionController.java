@@ -27,31 +27,23 @@ import javafx.stage.Stage;
  *
  * @author Parsath
  */
-public class FXMLDocumentController implements Initializable {
+public class FXMLAddQuestionController implements Initializable {
     
-    @FXML
     private TextField tfQuestion;
-    @FXML
     private TextField tfRightAnswer;
-    @FXML
     private Label LAffiche;
     @FXML
-    private Button scene1,scene2;
+    private Button scene2;
 
 //    Changing Scenes test
     @FXML
-    private void ChangeScene(ActionEvent event) throws Exception {
+    private void changeScene(ActionEvent event) throws Exception {
         Stage stage;
         Parent root;
-       
-        if(event.getSource()==scene2){
-            stage = (Stage) scene2.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("FXMLQuestionEdit.fxml"));
-        }
-        else{
-            stage = (Stage) scene1.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("FXMLQuestionAdd.fxml"));
-        }
+        
+        stage = (Stage) scene2.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("FXMLQuestionEdit.fxml"));
+            
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -65,7 +57,7 @@ public class FXMLDocumentController implements Initializable {
 
 //    Ajoute une question après avoir remplit les champs et cliquer sur "Ajouter"
     @FXML
-    private void AjouterQuestion(ActionEvent event) {
+    private void ajouterQuestion(ActionEvent event) {
     
         ServiceQuestion sq = new ServiceQuestion();
         Question q = new Question();
@@ -79,14 +71,14 @@ public class FXMLDocumentController implements Initializable {
 
 //    Affiche toutes les questions après avoir cliquer sur "Afficher"
     @FXML
-    private void AfficherQuestions(ActionEvent event) {
+    private void afficherQuestions(ActionEvent event) {
     
         ServiceQuestion sq = new ServiceQuestion();
         
         try {
             LAffiche.setText(sq.ReadQuestions().toString());
         } catch (SQLException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLAddQuestionController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
