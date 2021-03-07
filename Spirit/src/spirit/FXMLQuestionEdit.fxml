@@ -2,15 +2,36 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spirit.FXMLEditQuestionController">
    <children>
-      <TextField fx:id="tfQuestion" layoutX="226.0" layoutY="132.0" />
-      <TextField fx:id="tfRightAnswer" layoutX="226.0" layoutY="217.0" />
-      <Label layoutX="275.0" layoutY="107.0" text="Question" />
-      <Label layoutX="257.0" layoutY="191.0" text="Indice Réponse" />
-      <Button fx:id="modifierEtQuitter" layoutX="275.0" layoutY="269.0" mnemonicParsing="false" onAction="#modifierQuestion" text="Modifier" />
+      <TextField fx:id="tfQuestion" layoutX="126.0" layoutY="103.0" />
+      <TextField fx:id="tfRightAnswer" layoutX="126.0" layoutY="188.0" />
+      <Label layoutX="175.0" layoutY="78.0" text="Question" />
+      <Label layoutX="157.0" layoutY="162.0" text="Indice Réponse" />
+      <Button fx:id="modifierEtQuitter" layoutX="270.0" layoutY="343.0" mnemonicParsing="false" onAction="#modifierQuestion" text="Modifier" />
+      <TableView fx:id="tableAnswers" layoutX="305.0" layoutY="46.0" prefHeight="200.0" prefWidth="240.0">
+        <columns>
+            <TableColumn fx:id="idColumn" prefWidth="53.0" text="ID">
+               <cellValueFactory>
+                  <PropertyValueFactory property="id" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="suggestionColumn" prefWidth="186.0" text="Suggestion">
+               <cellValueFactory>
+                  <PropertyValueFactory property="suggestion" />
+               </cellValueFactory>
+            </TableColumn>
+        </columns>
+      </TableView>
+      <TextField fx:id="tfReponse" layoutX="305.0" layoutY="298.0" />
+      <Button layoutX="464.0" layoutY="298.0" mnemonicParsing="false" onAction="#ajouterReponse" prefHeight="25.0" prefWidth="71.0" text="Ajouter r.." />
+      <Button layoutX="305.0" layoutY="258.0" mnemonicParsing="false" onAction="#supprimerReponse" prefHeight="25.0" prefWidth="119.0" text="Supprimer réponse" />
+      <Button layoutX="438.0" layoutY="258.0" mnemonicParsing="false" onAction="#modifierReponse" text="Modifier réponse" />
    </children>
 </AnchorPane>

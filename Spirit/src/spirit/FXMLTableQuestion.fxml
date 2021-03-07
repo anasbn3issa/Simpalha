@@ -8,7 +8,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spirit.FXMLTableQuestionController">
    <children>
-      <TableView fx:id="LAffiche" layoutY="-3.0" prefHeight="323.0" prefWidth="607.0">
+      <TableView fx:id="LAffiche" layoutY="-3.0" prefHeight="323.0" prefWidth="661.0">
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="50.0" text="ID">
                <cellValueFactory>
@@ -27,9 +27,11 @@
             </TableColumn>
          </columns>
       </TableView>
-      <Button layoutX="33.0" layoutY="361.0" mnemonicParsing="false" onAction="#addQuestion" prefHeight="25.0" prefWidth="168.0" text="Add" />
-      <Button layoutX="216.0" layoutY="361.0" mnemonicParsing="false" onAction="#editQuestion" prefHeight="25.0" prefWidth="168.0" text="Edit" />
-      <Button layoutX="407.0" layoutY="361.0" mnemonicParsing="false" onAction="#deleteQuestion" prefHeight="25.0" prefWidth="168.0" text="Delete" />
-      <Button layoutX="263.0" layoutY="328.0" mnemonicParsing="false" onAction="#reloadQuestions" prefHeight="25.0" prefWidth="81.0" text="Reload" />
+      <Button layoutX="60.0" layoutY="361.0" mnemonicParsing="false" onAction="#addQuestion" prefHeight="25.0" prefWidth="168.0" text="Add" />
+      <Button layoutX="243.0" layoutY="361.0" mnemonicParsing="false" onAction="#editQuestion" prefHeight="25.0" prefWidth="168.0" text="Edit" />
+      <Button layoutX="434.0" layoutY="361.0" mnemonicParsing="false" onAction="#deleteQuestion" prefHeight="25.0" prefWidth="168.0" text="Delete" />
+      <Button layoutX="290.0" layoutY="328.0" mnemonicParsing="false" onAction="#reloadQuestions" prefHeight="25.0" prefWidth="81.0" text="Reload" />
+      <Button layoutX="59.0" layoutY="328.0" mnemonicParsing="false" onAction="#addAnswers" prefHeight="25.0" prefWidth="168.0" text="Add Answers" />
+      <Button layoutX="434.0" layoutY="328.0" mnemonicParsing="false" onAction="#showAnswers" prefHeight="25.0" prefWidth="168.0" text="Show Answers" />
    </children>
 </AnchorPane>

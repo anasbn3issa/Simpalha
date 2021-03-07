@@ -20,7 +20,8 @@ Day 2: 11h25 06/03/2021
 
     STEP 1 Completed at 11h45
 
-    STEP 2 Complete the "Question" class CRUD scenario
+    STEP 2:
+        -Complete the "Question" class CRUD scenario
 
     STEP 2 Completed at 23h57
 
@@ -37,6 +38,27 @@ Day 2: 11h25 06/03/2021
 WORKTIME: 5H50M
 
 Stopping time: 07/03/2021 00h11
+
+
+
+Day 3: 11h45 07/03/2021
+
+    STEP 3:
+        -Create the "Answer" class CRUD
+        -Create the "Answer" and "Question" classes database relations
+        -Complete the "Question" class CRUD scenarion w/out "Quizz" Class
+
+    STEP 3 Completed at 16h12
+
+    Notes:
+        *
+
+    References:
+        *
+
+WORKTIME: 3H54M
+
+Stopping time: 07/03/2021
 
 
 
@@ -58,9 +80,15 @@ Stopping time: 07/03/2021 00h11
 
         -Create the "Answer" class CRUD
 
+            DONE 07/03/2021
+
         -Create the "Answer" and "Question" classes database relations
 
+            DONE 07/03/2021
+
         -Complete the "Question" class CRUD scenarion w/out "Quizz" Class
+
+            DONE 07/03/2021
 
         -Create the "Quizz" class CRUD
 

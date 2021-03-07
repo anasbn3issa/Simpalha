@@ -5,6 +5,7 @@
  */
 package Service;
 
+import Entities.Answer;
 import Entities.Question;
 import Services.IServiceQuestion;
 import java.sql.Connection;
@@ -99,7 +100,6 @@ public class ServiceQuestion implements IServiceQuestion{
         try{
             Statement stm = cnx.createStatement();
             
-//            String query="INSERT INTO `question`(`right_answer`, `question`) VALUES ('"+q.getRightAnswer()+"','"+q.getQuestion()+"')";
             String query="DELETE FROM `question` WHERE `id`='"+id+"'";
             stm.executeUpdate(query);
         }
@@ -110,17 +110,40 @@ public class ServiceQuestion implements IServiceQuestion{
 
     @Override
     public void EditQuestion(int id, Question q) {
-        RemoveQuestion(id);
-//        AddQuestion(q);
+//        RemoveQuestion(id);
+        
         try{
             Statement stm = cnx.createStatement();
             
-            String query="INSERT INTO `question`(`id`,`right_answer`, `question`) VALUES ('"+id+"','"+q.getAnswer()+"','"+q.getQuestion()+"')";
+            String query="UPDATE `question` SET `right_answer`='"+q.getAnswer()+"',`question`='"+q.getQuestion()+"' WHERE `id`='"+id+"'";
             stm.executeUpdate(query);
         }
         catch (SQLException ex) { 
             Logger.getLogger(ServiceQuestion.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public void LoadAnswers(Question q) throws SQLException {
+            Statement stm = cnx.createStatement();
+            
+            String query="SELECT * FROM `answer` WHERE `question_id`='"+q.getId()+"'";
+            ResultSet rst = stm.executeQuery(query);
+            
+            ArrayList<Answer> answers = new ArrayList<>();
+            
+            while(rst.next())
+            {
+                Answer A = new Answer();
+                
+                A.setId(rst.getInt("id"));
+                A.setSuggestion(rst.getString("question"));
+                A.setQ(q);
+                
+                answers.add(A);
+            }
+            
+            q.setAnswers(answers);
     }
     
 }

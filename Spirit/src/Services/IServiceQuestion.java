@@ -5,13 +5,13 @@
  */
 package Services;
 
+import Entities.Answer;
 import Entities.Question;
 import java.sql.SQLException;
 import java.util.List;
 import javafx.collections.ObservableList;
 
 /**
- *
  * @author Parsath
  */
 public interface IServiceQuestion {
@@ -21,6 +21,12 @@ public interface IServiceQuestion {
     
 //    show all questions
     public List<Question> ReadQuestions() throws SQLException;
+    
+//    load all answers
+    public void LoadAnswers(Question q) throws SQLException;
+    
+//    show the suggestions the question
+//    public List<Answer> ShowSuggestions() throws SQLException;
     
 //    show all questions in an observablelist
     public ObservableList<Question> ObservableListQuestions() throws SQLException ;

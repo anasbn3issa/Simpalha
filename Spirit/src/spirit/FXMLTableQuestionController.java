@@ -56,7 +56,7 @@ public class FXMLTableQuestionController implements Initializable {
         try {
             LAffiche.setItems(sq.ObservableListQuestions());
         } catch (SQLException ex) {
-            Logger.getLogger(FXMLAddQuestionController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLTableQuestionController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -125,6 +125,14 @@ public class FXMLTableQuestionController implements Initializable {
         
         reloadQuestionsList();
         
+    }
+
+    @FXML
+    private void addAnswers(ActionEvent event) {
+    }
+
+    @FXML
+    private void showAnswers(ActionEvent event) {
     }
     
 }

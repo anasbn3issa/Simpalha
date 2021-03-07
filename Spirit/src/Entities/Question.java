@@ -5,6 +5,8 @@
  */
 package Entities;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Parsath
@@ -13,8 +15,25 @@ public class Question {
     private int id;
     private int rightAnswer;
     private String question;
+    private ArrayList<Answer> answers;
     
     public Question(){
+    }
+
+    public ArrayList<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(ArrayList<Answer> answers) {
+        this.answers = answers;
+    }
+
+    public int getRightAnswer() {
+        return rightAnswer;
+    }
+
+    public void setRightAnswer(int rightAnswer) {
+        this.rightAnswer = rightAnswer;
     }
 
     public int getId() {
@@ -43,7 +62,7 @@ public class Question {
 
     @Override
     public String toString() {
-        return "Question{" + "id=" + id + ", rightAnswer=" + rightAnswer + ", question=" + question + '}';
+        return "Question{" + "id=" + id + ", rightAnswer=" + rightAnswer + ", question=" + question + ", answers=" + answers + '}';
     }
     
     
