@@ -15,17 +15,9 @@ public class Question {
     private int id;
     private int rightAnswer;
     private String question;
-    private ArrayList<Answer> answers;
+    private int quizzId;
     
     public Question(){
-    }
-
-    public ArrayList<Answer> getAnswers() {
-        return answers;
-    }
-
-    public void setAnswers(ArrayList<Answer> answers) {
-        this.answers = answers;
     }
 
     public int getRightAnswer() {
@@ -60,10 +52,17 @@ public class Question {
         this.question = question;
     }
 
+    public int getQuizz() {
+        return quizzId;
+    }
+
+    public void setQuizz(int quizzId) {
+        this.quizzId = quizzId;
+    }
+
     @Override
     public String toString() {
-        return "Question{" + "id=" + id + ", rightAnswer=" + rightAnswer + ", question=" + question + ", answers=" + answers + '}';
+        return "Question{" + "id=" + id + ", rightAnswer=" + rightAnswer + ", question=" + question + ", quizzId=" + quizzId + '}';
     }
-    
     
 }

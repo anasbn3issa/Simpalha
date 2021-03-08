@@ -58,7 +58,28 @@ Day 3: 11h45 07/03/2021
 
 WORKTIME: 3H54M
 
-Stopping time: 07/03/2021
+Stopping time: 07/03/2021 16h00
+
+
+
+Day 4: 16h44 08/03/2021
+
+    STEP 4:
+        -Create the "Quizz" class CRUD
+        -Create the "Quizz" and "Question" classes database relations
+        -Complete the FULL "Question" class CRUD scenario
+
+    Step 4 Completed at 23h01
+
+    Notes:
+        *SH*T WAS HAAARDDDDDD
+
+    References:
+        *
+
+WORKTIME: 5H12M
+
+Stopping time: 08/03/2021 23h01
 
 
 
@@ -92,9 +113,21 @@ Stopping time: 07/03/2021
 
         -Create the "Quizz" class CRUD
 
+            DONE 08/03/2021
+
         -Create the "Quizz" and "Question" classes database relations
 
-        -Complete the FULL "Question" class CRUD scenarion 
+            DONE 08/03/2021
+
+        -Complete the FULL "Question" class CRUD scenario
+
+            DONE 08/03/2021
+
+        -Correct the imperfections
+
+        -Create the student side of the Quizz
+
+        -Integrate the template to my works
 
 
 

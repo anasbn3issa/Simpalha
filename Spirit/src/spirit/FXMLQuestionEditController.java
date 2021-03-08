@@ -34,7 +34,7 @@ import javafx.stage.Stage;
  *
  * @author Parsath
  */
-public class FXMLEditQuestionController implements Initializable {
+public class FXMLQuestionEditController implements Initializable {
 
     private Button scene1;
     @FXML
@@ -69,7 +69,7 @@ public class FXMLEditQuestionController implements Initializable {
         try {
             tableAnswers.setItems(sa.ObservableListAnswers(this.q1));
         } catch (SQLException ex) {
-            Logger.getLogger(FXMLEditQuestionController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLQuestionEditController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -94,11 +94,12 @@ public class FXMLEditQuestionController implements Initializable {
     }
     
 //    Affiche les informations de l'objet transmit par "FXMLTableQuestionController" et enregistre l'Objet dans la variable q1
-    public void showInformation(Question q){
+    public void showInformation(Question q, int quizzId){
         q1 = new Question();
         q1.setAnswer(q.getAnswer());
         q1.setId(q.getId());
         q1.setQuestion(q.getQuestion());
+        q1.setQuizz(quizzId);
         
         tfQuestion.setText(q.getQuestion());
         tfRightAnswer.setText(String.valueOf(q.getAnswer()));

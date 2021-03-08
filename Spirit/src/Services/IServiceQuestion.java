@@ -8,6 +8,7 @@ package Services;
 import Entities.Answer;
 import Entities.Question;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.ObservableList;
 
@@ -20,16 +21,19 @@ public interface IServiceQuestion {
     public void AddQuestion(Question q);
     
 //    show all questions
-    public List<Question> ReadQuestions() throws SQLException;
+    public List<Question> ReadAllQuestions() throws SQLException;
     
-//    load all answers
-    public void LoadAnswers(Question q) throws SQLException;
-    
-//    show the suggestions the question
-//    public List<Answer> ShowSuggestions() throws SQLException;
+//    show all questions
+    public List<Question> ReadQuestions(int quizzId) throws SQLException;
     
 //    show all questions in an observablelist
-    public ObservableList<Question> ObservableListQuestions() throws SQLException ;
+    public ObservableList<Question> ObservableAllListQuestions() throws SQLException ;
+    
+//    show all questions of a quizzin an observablelist
+    public ObservableList<Question> ObservableListQuestions(int quizzId) throws SQLException ;
+    
+//    load all answers
+    public ArrayList<Answer> LoadAnswers(int questionId) throws SQLException;
     
 //    remove a question by its' id
     public void RemoveQuestion (int id);

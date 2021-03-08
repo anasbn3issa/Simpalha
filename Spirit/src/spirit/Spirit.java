@@ -5,6 +5,10 @@
  */
 package spirit;
 
+import Entities.Question;
+import Entities.Quizz;
+import Service.ServiceQuestion;
+import Service.ServiceQuizz;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,12 +24,29 @@ public class Spirit extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+    
+//        ServiceQuestion sq = new ServiceQuestion();
+//        Question q = new Question();
+//        
+//        q.setQuestion("yes");
+//        q.setAnswer(33);
+//        q.setQuizz(3);
+//        
+//        sq.AddQuestion(q);
+    
+//        ServiceQuizz sq = new ServiceQuizz();
+//        Quizz q = new Quizz();
+//        
+//        q.setTitle("yes");
+//        q.setSubject("non");
+//        q.setHelper(3);
+//        
+//        sq.AddQuizz(q);
         
         
-        stage.setTitle("Quizz Questions");
+        stage.setTitle("Quizz ");
         
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLTableQuestion.fxml"));
-//        Parent editLayout = FXMLLoader.load(getClass().getResource("FXMLQuestionEdit.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLQuizzTable.fxml"));
         
         Scene scene = new Scene(root);
         

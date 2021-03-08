@@ -7,6 +7,7 @@ package Service;
 
 import Entities.Answer;
 import Entities.Question;
+import Entities.Quizz;
 import Services.IServiceQuestion;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -37,7 +38,7 @@ public class ServiceQuestion implements IServiceQuestion{
         try{
             Statement stm = cnx.createStatement();
             
-            String query="INSERT INTO `question`(`right_answer`, `question`) VALUES ('"+q.getAnswer()+"','"+q.getQuestion()+"')";
+            String query="INSERT INTO `question`(`right_answer`, `question`, `quizz_id`) VALUES ('"+q.getAnswer()+"','"+q.getQuestion()+"','"+q.getQuizz()+"')";
             stm.executeUpdate(query);
         }
         catch (SQLException ex) { 
@@ -46,7 +47,7 @@ public class ServiceQuestion implements IServiceQuestion{
     }
 
     @Override
-    public List<Question> ReadQuestions() throws SQLException {
+    public List<Question> ReadAllQuestions() throws SQLException {
             Statement stm = cnx.createStatement();
             
             String query="SELECT * FROM `question`";
@@ -61,6 +62,33 @@ public class ServiceQuestion implements IServiceQuestion{
                 Q.setId(rst.getInt("id"));
                 Q.setQuestion(rst.getString("question"));
                 Q.setAnswer(rst.getInt("right_answer"));
+                Q.setQuizz(rst.getInt("quizz_id"));
+                
+                questions.add(Q);
+            }
+            
+            return questions;
+    }
+    
+    public List<Question> ReadQuestions(int quizzId) throws SQLException{
+        
+        
+            Statement stm = cnx.createStatement();
+            
+            String query="SELECT * FROM `question` WHERE `quizz_id`='"+quizzId+"'";
+            ResultSet rst = stm.executeQuery(query);
+            
+            List<Question> questions = new ArrayList<>();
+            
+            while(rst.next())
+            {
+                Question Q = new Question();
+                
+                Q.setId(rst.getInt("id"));
+                Q.setQuestion(rst.getString("question"));
+                Q.setAnswer(rst.getInt("right_answer"));
+                Q.setQuizz(quizzId);
+                
                 questions.add(Q);
             }
             
@@ -68,7 +96,7 @@ public class ServiceQuestion implements IServiceQuestion{
     }
 
     @Override
-    public ObservableList<Question> ObservableListQuestions() throws SQLException{
+    public ObservableList<Question> ObservableAllListQuestions() throws SQLException{
             Statement stm = cnx.createStatement();
             
             String query="SELECT * FROM `question`";
@@ -83,6 +111,8 @@ public class ServiceQuestion implements IServiceQuestion{
                 Q.setId(rst.getInt("id"));
                 Q.setQuestion(rst.getString("question"));
                 Q.setAnswer(rst.getInt("right_answer"));
+                Q.setQuizz(rst.getInt("quizz_id"));
+                
                 questions.add(Q);
             }
             
@@ -90,6 +120,33 @@ public class ServiceQuestion implements IServiceQuestion{
             ObservableList<Question> questionsObservable = FXCollections.observableArrayList();
             
             questionsObservable.addAll(questions);
+            
+            return questionsObservable;
+    }
+
+    @Override
+    public ObservableList<Question> ObservableListQuestions(int quizzId) throws SQLException {
+        
+            
+            Statement stm = cnx.createStatement();
+            
+            String query="SELECT * FROM `question` WHERE `quizz_id`='"+quizzId+"'";
+
+            ResultSet rst = stm.executeQuery(query);
+            
+            ObservableList<Question> questionsObservable = FXCollections.observableArrayList();
+            
+            while(rst.next())
+            {
+                Question Q = new Question();
+                
+                Q.setId(rst.getInt("id"));
+                Q.setQuestion(rst.getString("question"));
+                Q.setAnswer(rst.getInt("right_answer"));
+                Q.setQuizz(rst.getInt("quizz_id"));
+                
+                questionsObservable.add(Q);
+            }
             
             return questionsObservable;
     }
@@ -110,7 +167,6 @@ public class ServiceQuestion implements IServiceQuestion{
 
     @Override
     public void EditQuestion(int id, Question q) {
-//        RemoveQuestion(id);
         
         try{
             Statement stm = cnx.createStatement();
@@ -124,10 +180,10 @@ public class ServiceQuestion implements IServiceQuestion{
     }
 
     @Override
-    public void LoadAnswers(Question q) throws SQLException {
+    public ArrayList<Answer> LoadAnswers(int questionId) throws SQLException {
             Statement stm = cnx.createStatement();
             
-            String query="SELECT * FROM `answer` WHERE `question_id`='"+q.getId()+"'";
+            String query="SELECT * FROM `answer` WHERE `question_id`='"+questionId+"'";
             ResultSet rst = stm.executeQuery(query);
             
             ArrayList<Answer> answers = new ArrayList<>();
@@ -138,12 +194,11 @@ public class ServiceQuestion implements IServiceQuestion{
                 
                 A.setId(rst.getInt("id"));
                 A.setSuggestion(rst.getString("question"));
-                A.setQ(q);
                 
                 answers.add(A);
             }
             
-            q.setAnswers(answers);
+            return answers;
     }
     
 }

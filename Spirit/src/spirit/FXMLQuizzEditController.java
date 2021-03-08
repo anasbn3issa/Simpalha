@@ -6,7 +6,9 @@
 package spirit;
 
 import Entities.Question;
+import Entities.Quizz;
 import Service.ServiceQuestion;
+import Service.ServiceQuizz;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -19,8 +21,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -29,7 +33,7 @@ import javafx.stage.Stage;
  *
  * @author Parsath
  */
-public class FXMLTableQuestionController implements Initializable {
+public class FXMLQuizzEditController implements Initializable {
 
     @FXML
     private TableView<Question> LAffiche;
@@ -39,24 +43,33 @@ public class FXMLTableQuestionController implements Initializable {
     private TableColumn<Question, Integer> answerColumn;
     @FXML
     private TableColumn<Question, Integer> idColumn;
+    @FXML
+    private TextField tfTitle;
+    @FXML
+    private TextField tfSubject;
+    
+    private int addedQuizzId;
+    private Quizz q1;
+    @FXML
+    private Button addQuizzButton;
 
     /**
      * Initializes the controller class by loading the "Question" objects from the DB
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        reloadQuestionsList();
+        reloadQuestionsList(addedQuizzId);
     }    
     
 //    Reusable function to reload the table
-    public void reloadQuestionsList(){
+    public void reloadQuestionsList(int id){
     
         ServiceQuestion sq = new ServiceQuestion();
         
         try {
-            LAffiche.setItems(sq.ObservableListQuestions());
+            LAffiche.setItems(sq.ObservableListQuestions(id));
         } catch (SQLException ex) {
-            Logger.getLogger(FXMLTableQuestionController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLQuestionTableController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -65,18 +78,27 @@ public class FXMLTableQuestionController implements Initializable {
     private void addQuestion(ActionEvent event) throws Exception {
         
         Stage stage = new Stage();
-        Parent modal;
+        Parent root;
         
-        modal = FXMLLoader.load(getClass().getResource("FXMLQuestionAdd.fxml"));
+        FXMLLoader addQuestionModal = new FXMLLoader(getClass().getResource("FXMLQuestionAdd.fxml"));
+        root = addQuestionModal.load();
         
-        stage.initModality(Modality.APPLICATION_MODAL);
+        stage = (Stage) addQuizzButton.getScene().getWindow();
+        
+        FXMLQuestionAddController addQuestionControllerModal = addQuestionModal.getController();
+        
+        addQuestionControllerModal.addInformation(addedQuizzId);
+
         stage.setTitle("Add Question");
             
-        Scene scene = new Scene(modal);
+        
+//        stage.initModality(Modality.WINDOW_MODAL);
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.showAndWait();
         
-        reloadQuestionsList();
+//        reloadQuestionsList(3);
+        reloadQuestionsList(addedQuizzId);
     }
 
 //    Popup Modal for modifying a question (reloads the table right after)
@@ -87,9 +109,9 @@ public class FXMLTableQuestionController implements Initializable {
         FXMLLoader modal = new FXMLLoader(getClass().getResource("FXMLQuestionEdit.fxml"));
         Parent root = modal.load();
         
-        FXMLEditQuestionController editModal = modal.getController();
+        FXMLQuestionEditController editModal = modal.getController();
         
-        editModal.showInformation(editable);
+        editModal.showInformation(editable, addedQuizzId);
         
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -98,7 +120,8 @@ public class FXMLTableQuestionController implements Initializable {
         stage.setTitle("Edit Question");
         stage.showAndWait();
         
-        reloadQuestionsList();
+//        reloadQuestionsList(3);
+        reloadQuestionsList(addedQuizzId);
     }
 
 //    Deleting selected items and reloading the table
@@ -115,24 +138,53 @@ public class FXMLTableQuestionController implements Initializable {
         });
         
         
-        reloadQuestionsList();
+        reloadQuestionsList(addedQuizzId);
         
     }
 
 //    reloading the table through "reload" button
-    @FXML
     private void reloadQuestions(ActionEvent event) {
         
-        reloadQuestionsList();
+        reloadQuestionsList(addedQuizzId);
         
     }
 
     @FXML
-    private void addAnswers(ActionEvent event) {
-    }
-
-    @FXML
-    private void showAnswers(ActionEvent event) {
+    private void addQuizz(ActionEvent event) {
+    
+        ServiceQuizz sq = new ServiceQuizz();
+        Quizz q = new Quizz();
+        
+        q.setSubject(tfSubject.getText());
+        q.setTitle(tfTitle.getText());
+        
+        sq.EditQuizz(q1.getId(), q);
+        
+        Stage stage;
+        Parent root;
+        
+        stage = (Stage) addQuizzButton.getScene().getWindow();
+        stage.close();
     }
     
+    public void addInformation(int id){
+        addedQuizzId = id;
+    }
+    
+//    Affiche les informations de l'objet transmit par "FXMLTableQuizzController" et enregistre l'Objet dans la variable q1
+    public void showInformation(Quizz q){
+        q1 = new Quizz();
+        q1.setTitle(q.getTitle());
+        q1.setId(q.getId());
+        q1.setSubject(q.getSubject());
+        q1.setHelper(q.getHelper());
+        
+        addInformation(q1.getId());
+        
+        tfTitle.setText(q.getTitle());
+        tfSubject.setText(q.getSubject());
+        
+        reloadQuestionsList(addedQuizzId);
+    }
+
 }
