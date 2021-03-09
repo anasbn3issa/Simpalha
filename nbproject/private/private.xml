@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/src/simpalha/AddNewPostController.java</file>
-            <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/src/interfaces/IService.java</file>
-            <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/src/simpalha/FXMLDocumentController.java</file>
-            <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/src/simpalha/ViewPostsController.java</file>
-            <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/src/simpalha/ViewPosts.fxml</file>
-            <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/src/simpalha/FXMLDocument.fxml</file>
-            <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/src/simpalha/Simpalha.java</file>
-            <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/src/services/ServicePost.java</file>
-            <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/src/simpalha/AddNewPost.fxml</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
