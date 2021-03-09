@@ -121,4 +121,21 @@ public class ServiceAnswer implements IServiceAnswer {
         }
     }
     
+    @Override
+    public int CountAnswers(int questionId) throws SQLException{
+            
+            Statement stm = cnx.createStatement();
+            
+            String query="SELECT COUNT(*) FROM `answer` WHERE `question_id`='"+questionId+"'";
+
+            ResultSet rst = stm.executeQuery(query);
+            
+            rst.next();
+            int answers = rst.getInt(1);
+            
+            return answers;
+    }
+    
+    
+    
 }

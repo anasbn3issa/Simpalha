@@ -7,6 +7,7 @@ package spirit;
 
 import Entities.Question;
 import Entities.Quizz;
+import Service.ServiceAnswer;
 import Service.ServiceQuestion;
 import Service.ServiceQuizz;
 import javafx.application.Application;
@@ -24,25 +25,9 @@ public class Spirit extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-    
-//        ServiceQuestion sq = new ServiceQuestion();
-//        Question q = new Question();
-//        
-//        q.setQuestion("yes");
-//        q.setAnswer(33);
-//        q.setQuizz(3);
-//        
-//        sq.AddQuestion(q);
-    
-//        ServiceQuizz sq = new ServiceQuizz();
-//        Quizz q = new Quizz();
-//        
-//        q.setTitle("yes");
-//        q.setSubject("non");
-//        q.setHelper(3);
-//        
-//        sq.AddQuizz(q);
         
+        ServiceAnswer sa = new ServiceAnswer();
+        System.out.println(sa.CountAnswers(10));
         
         stage.setTitle("Quizz ");
         

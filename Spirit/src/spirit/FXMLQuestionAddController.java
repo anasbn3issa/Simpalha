@@ -6,6 +6,7 @@
 package spirit;
 
 import Entities.Question;
+import Service.ServiceAnswer;
 import Service.ServiceQuestion;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -28,13 +30,13 @@ public class FXMLQuestionAddController implements Initializable {
     
     @FXML
     private TextField tfQuestion;
-    @FXML
-    private TextField tfRightAnswer;
     private TableView<Question> LAffiche;
     @FXML
     private Button ajouterEtQuitter;
     
     private int addedQuizzId;
+    @FXML
+    private ChoiceBox<Integer> cbRightAnswer;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -49,7 +51,7 @@ public class FXMLQuestionAddController implements Initializable {
         Question q = new Question();
         
         q.setQuestion(tfQuestion.getText());
-        q.setAnswer(Integer.parseInt(tfRightAnswer.getText()));
+        q.setAnswer(cbRightAnswer.getValue());
         q.setQuizz(addedQuizzId);
         
         sq.AddQuestion(q);
@@ -73,6 +75,8 @@ public class FXMLQuestionAddController implements Initializable {
     
     public void addInformation(int id){
         addedQuizzId = id;
+        cbRightAnswer.getItems().add(0);
+        cbRightAnswer.setValue(0);
     }
     
 }

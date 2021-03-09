@@ -23,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -40,8 +41,6 @@ public class FXMLQuestionEditController implements Initializable {
     @FXML
     private TextField tfQuestion;
     @FXML
-    private TextField tfRightAnswer;
-    @FXML
     private Button modifierEtQuitter;
     @FXML
     private TableView<Answer> tableAnswers;
@@ -53,6 +52,8 @@ public class FXMLQuestionEditController implements Initializable {
     private Question q1;
     @FXML
     private TextField tfReponse;
+    @FXML
+    private ChoiceBox<Integer> cbRightAnswer;
 
     /**
      * Initializes the controller class and loads the answers to the question
@@ -68,9 +69,11 @@ public class FXMLQuestionEditController implements Initializable {
         
         try {
             tableAnswers.setItems(sa.ObservableListAnswers(this.q1));
+            setChoiceBox(q1.getId());
         } catch (SQLException ex) {
             Logger.getLogger(FXMLQuestionEditController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
 
@@ -82,7 +85,7 @@ public class FXMLQuestionEditController implements Initializable {
         Question q = new Question();
         
         q.setQuestion(tfQuestion.getText());
-        q.setAnswer(Integer.parseInt(tfRightAnswer.getText()));
+        q.setAnswer(cbRightAnswer.getValue());
         
         sq.EditQuestion(q1.getId(), q);
         
@@ -102,9 +105,31 @@ public class FXMLQuestionEditController implements Initializable {
         q1.setQuizz(quizzId);
         
         tfQuestion.setText(q.getQuestion());
-        tfRightAnswer.setText(String.valueOf(q.getAnswer()));
+        cbRightAnswer.setValue(q.getAnswer());
         
         reloadAnswersList();
+    }
+    
+    public void setChoiceBox(int questionId) throws SQLException{
+        ServiceAnswer sa = new ServiceAnswer();
+        
+        int answersCount;
+        
+        answersCount = sa.CountAnswers(questionId);
+        int i;
+        
+        cbRightAnswer.getItems().clear();
+        
+        if(answersCount==0){
+            cbRightAnswer.getItems().add(0);
+        }
+        else{
+            for(i=0; i<answersCount; i++){
+                cbRightAnswer.getItems().add(i+1);
+            }
+        }
+        
+        
     }
 
     @FXML

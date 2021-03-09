@@ -31,4 +31,8 @@ public interface IServiceAnswer {
     
 //    edit an answer by its' id
     public void EditAnswer(int id,Answer a);
+     
+//    counts the number of answers corresponding a question
+    public int CountAnswers(int questionId) throws SQLException;
+    
 }
