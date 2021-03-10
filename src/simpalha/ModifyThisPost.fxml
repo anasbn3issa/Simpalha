@@ -289,6 +289,8 @@
                                     <HBox prefHeight="100.0" prefWidth="200.0" />
                                     <HBox prefHeight="100.0" prefWidth="200.0" />
                                     <Button mnemonicParsing="false" onAction="#SaveChangesButtonPushed" text="Save Changes" />
+                                    <VBox prefHeight="38.0" prefWidth="28.0" />
+                                    <Button layoutX="755.0" layoutY="10.0" mnemonicParsing="false" onAction="#CancelButtonPushed" text="Cancel" />
                                  </children>
                               </HBox>
                            </children>

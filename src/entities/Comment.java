@@ -12,7 +12,7 @@ import java.sql.Timestamp;
  */
 public class Comment {
     
-     private int id;
+     private int id,id_Post;
     private String owner="Ali Ben la9ab";
     private Timestamp timestamp;
     private String solution="no solution yet lol";
@@ -23,6 +23,14 @@ public class Comment {
 
     public Comment(String solution) {
         this.solution = solution;
+    }
+
+    public void setId_Post(int id_Post) {
+        this.id_Post = id_Post;
+    }
+
+    public int getId_Post() {
+        return id_Post;
     }
 
     public int getId() {

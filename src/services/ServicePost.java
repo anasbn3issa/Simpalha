@@ -75,7 +75,7 @@ public class ServicePost implements IServicePost {
             rs = ste.executeQuery(req);
             while (rs.next()) {
                 Post p = new Post();
-                //p.setId(rs.getInt("id")); // removed because not needed in Accueil 
+                p.setId(rs.getInt("id")); 
                 p.setProblem(rs.getString("problem"));
                 p.setModule(rs.getString("module"));
                 p.setTimestamp(rs.getTimestamp("timestamp"));

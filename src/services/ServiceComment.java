@@ -38,7 +38,7 @@ public class ServiceComment implements IServiceComment {
     public void Create(Comment variable) {
         try {
             Statement st=cnx.createStatement();
-            String query="INSERT INTO post(owner, solution) VALUES ('"+variable.getOwner()+"','"+variable.getSolution()+"')";
+            String query="INSERT INTO comment(owner,id_Post,solution) VALUES ('"+variable.getOwner()+"','"+variable.getId_Post()+"','"+variable.getSolution()+"')";
             st.executeUpdate(query);
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("enregistré");
@@ -70,8 +70,9 @@ public class ServiceComment implements IServiceComment {
                  Comment p=new Comment();
                  p.setId(rst.getInt("id"));
                  p.setTimestamp(rst.getTimestamp("timestamp"));
-                 p.setSolution(rst.getString("problem"));
+                 p.setSolution(rst.getString("solution"));
                  p.setRating(rst.getInt("rating"));
+                 p.setId_Post(rst.getInt("id_Post"));
                  comments.add(p);
              }
          } catch (SQLException ex) {

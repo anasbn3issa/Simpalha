@@ -4,7 +4,6 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -268,27 +267,33 @@
                            <children>
                               <HBox prefHeight="122.0" prefWidth="1090.0">
                                  <children>
-                                    <Label text="Module" />
                                     <VBox prefHeight="200.0" prefWidth="100.0" />
-                                    <ComboBox fx:id="comboModule" prefWidth="150.0" promptText="choose .. " />
                                  </children>
                               </HBox>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Label text="Status   " />
                                     <VBox prefHeight="200.0" prefWidth="100.0" />
-                                    <ComboBox fx:id="comboStatus" prefWidth="150.0" promptText="choose .. " />
                                  </children>
                               </HBox>
                               <HBox prefHeight="100.0" prefWidth="200.0" />
                               <HBox layoutX="10.0" layoutY="29.0" prefHeight="100.0" prefWidth="200.0">
                                  <children>
                                     <Label text="Problem" />
-                                    <VBox prefHeight="200.0" prefWidth="100.0" />
+                                    <VBox prefHeight="38.0" prefWidth="237.0" />
                                     <TextArea fx:id="problemText" prefHeight="200.0" prefWidth="200.0" />
                                     <HBox prefHeight="100.0" prefWidth="200.0" />
                                     <HBox prefHeight="100.0" prefWidth="200.0" />
-                                    <Button mnemonicParsing="false" onAction="#SaveChangesButtonPushed" text="Save Changes" />
+                                    <Button mnemonicParsing="false" onAction="#CancelButtonPushed" text="Cancel" />
+                                 </children>
+                              </HBox>
+                              <HBox layoutX="10.0" layoutY="11.0" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Propose A Solution ?" />
+                                    <VBox prefHeight="38.0" prefWidth="174.0" />
+                                    <TextArea fx:id="solutionText" prefHeight="38.0" prefWidth="214.0" />
+                                    <HBox prefHeight="100.0" prefWidth="200.0" />
+                                    <HBox prefHeight="100.0" prefWidth="200.0" />
+                                    <Button mnemonicParsing="false" onAction="#SubmitButtonPushed" text="Submit " />
                                  </children>
                               </HBox>
                            </children>

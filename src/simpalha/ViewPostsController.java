@@ -73,6 +73,7 @@ public class ViewPostsController implements Initializable {
         List<Post> lc = cs.Read();
 
         for (Post p : lc) {
+            System.out.println(p);
 
             HBox postContainer = new HBox();
 
@@ -146,7 +147,7 @@ public class ViewPostsController implements Initializable {
             btnAddComment.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    try {
+                     try {
                         FXMLLoader loader = new FXMLLoader(
                                 getClass().getResource(
                                         "AddComment.fxml"
@@ -158,12 +159,12 @@ public class ViewPostsController implements Initializable {
                                 new Scene(loader.load())
                         );
 
-                        ModifyThisPostController controller = loader.getController();
+                        AddCommentController controller = loader.getController();
                         controller.initData(p.getId());
 
                         stage.show();
                     } catch (IOException ex) {
-                        Logger.getLogger(ViewPostsController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
                 }
