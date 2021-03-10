@@ -206,8 +206,8 @@
     <center>
         <AnchorPane>
            <children>
-              <Label fx:id="laQuestion" layoutX="410.0" layoutY="14.0" prefHeight="17.0" prefWidth="241.0" />
-              <TableView fx:id="tableAnswers" layoutX="270.0" layoutY="45.0" prefHeight="424.0" prefWidth="521.0">
+              <Label fx:id="laQuestion" layoutX="280.0" layoutY="14.0" prefHeight="17.0" prefWidth="496.0" />
+              <TableView fx:id="tableAnswers" layoutX="270.0" layoutY="45.0" onMouseClicked="#detectSuggestion" prefHeight="424.0" prefWidth="521.0">
                 <columns>
                     <TableColumn fx:id="suggestionColumn" prefWidth="520.0" text="Suggestion">
                        <cellValueFactory>

@@ -217,7 +217,12 @@
                           <PropertyValueFactory property="question" />
                        </cellValueFactory>
                     </TableColumn>
-                  <TableColumn fx:id="statusColumn" prefWidth="121.0" text="Status">
+                    <TableColumn fx:id="statusTranslationColumn" prefWidth="121.0" text="Status">
+                       <cellValueFactory>
+                          <PropertyValueFactory property="translation" />
+                       </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="statusColumn" prefWidth="121.0" text="Status">
                        <cellValueFactory>
                           <PropertyValueFactory property="status" />
                        </cellValueFactory>
@@ -226,8 +231,10 @@
               </TableView>
             <Button fx:id="btAnswerQuestion" layoutX="863.0" layoutY="256.0" mnemonicParsing="false" onAction="#answerQuestion" prefHeight="66.0" prefWidth="128.0" text="Answer" />
             <Button layoutX="889.0" layoutY="446.0" mnemonicParsing="false" onAction="#showResult" text="Show result" />
-            <Label layoutX="895.0" layoutY="485.0" prefHeight="17.0" prefWidth="65.0" />
-            <Button layoutX="866.0" layoutY="539.0" mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="122.0" text="Exit" />
+            <Label fx:id="laResult" layoutX="785.0" layoutY="485.0" prefHeight="17.0" prefWidth="286.0" />
+            <Button fx:id="btExit" layoutX="866.0" layoutY="539.0" mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="122.0" text="Exit" />
+            <Label layoutX="835.0" layoutY="46.0" text="Total Questions:" />
+            <Label fx:id="lTotalQuestions" layoutX="953.0" layoutY="46.0" prefHeight="17.0" prefWidth="86.0" />
            </children>
        </AnchorPane>
     </center>

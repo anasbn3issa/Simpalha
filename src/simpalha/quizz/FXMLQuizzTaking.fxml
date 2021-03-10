@@ -223,7 +223,7 @@
                     </TableColumn>
                  </columns>
               </TableView>
-              <Button layoutX="417.0" layoutY="547.0" mnemonicParsing="false" onAction="#takeQuizz" prefHeight="25.0" prefWidth="315.0" text="Take Quizz" />
+              <Button fx:id="btTakeQuizz" layoutX="417.0" layoutY="547.0" mnemonicParsing="false" onAction="#takeQuizz" prefHeight="25.0" prefWidth="315.0" text="Take Quizz" />
            </children>
         </AnchorPane>
     </center>

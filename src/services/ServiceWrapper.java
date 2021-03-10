@@ -48,6 +48,7 @@ public class ServiceWrapper implements IServiceWrapper {
                 Q.getQuestion().setAnswer(rst.getInt("right_answer"));
                 Q.getQuestion().setQuizz(rst.getInt("quizz_id"));
                 Q.setStatus(false);
+                Q.setTranslation();
                 
                 quizzWrapperObservable.add(Q);
             }

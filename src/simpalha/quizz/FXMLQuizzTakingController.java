@@ -6,6 +6,7 @@
 package simpalha.quizz;
 
 import entities.Quizz;
+import entities.QuizzWrapper;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
@@ -40,6 +42,8 @@ public class FXMLQuizzTakingController implements Initializable {
     private TableColumn<Quizz, String> quizzColumn;
     @FXML
     private TableColumn<Quizz, String> subjectColumn;
+    @FXML
+    private Button btTakeQuizz;
 
     /**
      * Initializes the controller class.
@@ -80,18 +84,17 @@ public class FXMLQuizzTakingController implements Initializable {
         FXMLLoader modal = new FXMLLoader(getClass().getResource("FXMLQuizzEval.fxml"));
         Parent root = modal.load();
         
+        
         FXMLQuizzEvalController editModal = modal.getController();
         
-        editModal.showInformation(editable.getId());
+        editModal.showInformationEval(editable.getId());
         
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
+        Stage stage;
+        stage = (Stage) btTakeQuizz.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Edit Question");
-        stage.showAndWait();
-        
-        reloadQuizzesList();
+        stage.setTitle("Quizz");
+        stage.show();
     }
     
 }

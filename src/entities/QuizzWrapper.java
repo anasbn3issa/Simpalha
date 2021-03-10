@@ -12,6 +12,7 @@ package entities;
 public class QuizzWrapper {
     private Question question;
     private boolean status;
+    private String statusTranslation;
 
     public QuizzWrapper() {
         question = new Question();
@@ -33,9 +34,19 @@ public class QuizzWrapper {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "QuizzWrapper{" + "question=" + question + ", status=" + status + '}';
+    public String getTranslation() {
+        return statusTranslation;
     }
+
+    public void setTranslation() {
+        if (this.status == true){
+            this.statusTranslation = "Done";
+        }
+        else{
+            this.statusTranslation = "Missing";
+        }
+    }
+    
+    
     
 }

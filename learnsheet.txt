@@ -96,9 +96,27 @@ Day 5: 12h25 09/03/2021
     References:
         *
 
-WORKTIME: 7H20M
+WORKTIME: 7H50M
 
 Stopping time: 10/03/2021 02h19
+
+
+
+Day 6: 9h10 10/03/2021
+
+    STEP 5 in Progress
+
+    STEP 5 Completed at 17h23 10/03/2021
+
+    Notes:
+        *
+
+    References:
+        *
+
+WORKTIME: 7H00M
+
+Stopping time: 10/03/2021
 
 
 
@@ -151,6 +169,8 @@ Stopping time: 10/03/2021 02h19
             DONE 09/03/2021
 
         -Create the student side of the Quizz
+
+            DONE 10/03/2021
 
 
 

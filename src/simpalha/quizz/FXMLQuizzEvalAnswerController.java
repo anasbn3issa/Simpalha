@@ -7,13 +7,16 @@ package simpalha.quizz;
 
 import entities.Answer;
 import entities.Question;
+import entities.QuizzStats;
 import entities.QuizzWrapper;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -46,11 +49,10 @@ public class FXMLQuizzEvalAnswerController implements Initializable {
     private ComboBox<Integer> cbAnswer;
     
     private QuizzWrapper q1;
-    private boolean result;
     private int addedQuizzId;
-    private int totalResult;
-    private int nbQuestions;
-    private int unresolved;
+    private int indexOfQuizz;
+    private QuizzStats qs1;
+    private ObservableList<QuizzWrapper> tableItems;
     @FXML
     private Button btAjouterReponse;
 
@@ -80,14 +82,37 @@ public class FXMLQuizzEvalAnswerController implements Initializable {
         
         FXMLQuizzEvalController editModal = modal.getController();
         
-        editModal.updateQuestions(editable, addedQuizzId,checkResult,this.totalResult,this.nbQuestions,this.unresolved);
-                
+        System.out.println("Quizz Eval Answer Controller : \n QuizzStats: "+qs1);
+        editModal.updateQuestions(this.indexOfQuizz,tableItems,editable, addedQuizzId);
+        editModal.updateValues(qs1,checkResult);
+        
         Stage stage;
         stage = (Stage) btAjouterReponse.getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Quizz");
-        stage.show();
+        stage.close();
+    }
+
+    
+//    Affiche les informations de l'objet transmit par "FXMLTableQuestionController" et enregistre l'Objet dans la variable q1
+    public void showInformation(int indexQuizz,ObservableList<QuizzWrapper> allItems,QuizzWrapper q, int quizzId, QuizzStats qss){
+        q1 = new QuizzWrapper();
+        
+        q1.setQuestion(q.getQuestion());
+        q1.setStatus(false);
+        q1.setTranslation();
+        
+        laQuestion.setText(q.getQuestion().getQuestion());
+        
+        this.indexOfQuizz = indexQuizz;
+        this.addedQuizzId = quizzId;
+        
+        qs1 = qss;
+        
+        reloadAnswersList();
+        
+        this.tableItems = allItems;
+        cbAnswer.getSelectionModel().select(0);
+        
+        System.out.println("Quizz Eval Answer Show information : \n"+qs1+"\n");
     }
     
 //    Reusable function to reload the answers to question q1
@@ -113,25 +138,6 @@ public class FXMLQuizzEvalAnswerController implements Initializable {
         
         return chResult;
     }
-
-    
-//    Affiche les informations de l'objet transmit par "FXMLTableQuestionController" et enregistre l'Objet dans la variable q1
-    public void showInformation(QuizzWrapper q, int quizzId, int totalResult, int nbQuestions, int unresolved){
-        q1 = new QuizzWrapper();
-        
-        q1.setQuestion(q.getQuestion());
-        q1.setStatus(true);
-        
-        laQuestion.setText(q.getQuestion().getQuestion());
-        cbAnswer.getSelectionModel().select(0);
-        
-        this.addedQuizzId = quizzId;
-        this.totalResult = totalResult;
-        this.nbQuestions = nbQuestions;
-        this.unresolved = unresolved;
-        
-        reloadAnswersList();
-    }
     
     
 //    Will set the choicebox indexes for the answers
@@ -154,6 +160,11 @@ public class FXMLQuizzEvalAnswerController implements Initializable {
             }
         }
     }
-    
+
+    @FXML
+    private void detectSuggestion(MouseEvent event) {
+        int i = tableAnswers.getSelectionModel().getSelectedIndex();
+        cbAnswer.getSelectionModel().select(i);
+    }
 }
 
