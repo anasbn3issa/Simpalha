@@ -6,13 +6,17 @@
 package simpalha.quizz;
 
 import entities.Question;
+import java.io.IOException;
 import services.ServiceQuestion;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import simpalha.FXMLDocumentController;
 
 /**
  *
@@ -73,18 +78,11 @@ public class FXMLQuestionAddController implements Initializable {
         
     }
     
+//    remplit le comboBox "cbRighAnswer" et initialise "addedQuizzId"
     public void addInformation(int id){
         addedQuizzId = id;
         cbRightAnswer.getItems().add(0);
         cbRightAnswer.setValue(0);
-    }
-
-    @FXML
-    private void showP2P(MouseEvent event) {
-    }
-
-    @FXML
-    private void showQuizz(MouseEvent event) {
     }
     
 }

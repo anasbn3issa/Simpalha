@@ -7,6 +7,7 @@ package simpalha.quizz;
 
 import entities.Question;
 import entities.Quizz;
+import java.io.IOException;
 import services.ServiceQuestion;
 import services.ServiceQuizz;
 import java.net.URL;
@@ -19,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,6 +30,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import simpalha.FXMLDocumentController;
 
 /**
  * FXML Controller class
@@ -102,7 +105,7 @@ public class FXMLQuizzEditController implements Initializable {
         reloadQuestionsList(addedQuizzId);
     }
 
-//    Popup Modal for modifying a question (reloads the table right after)
+//    Popup Modal for modifying a Question (reloads the table right after)
     @FXML
     private void editQuestion(ActionEvent event) throws Exception {
         Question editable = LAffiche.getSelectionModel().getSelectedItem();
@@ -125,7 +128,7 @@ public class FXMLQuizzEditController implements Initializable {
         reloadQuestionsList(addedQuizzId);
     }
 
-//    Deleting selected items and reloading the table
+//    Deleting selected Questions and reloading the table
     @FXML
     private void deleteQuestion(ActionEvent event) throws Exception {
     
@@ -143,13 +146,7 @@ public class FXMLQuizzEditController implements Initializable {
         
     }
 
-//    reloading the table through "reload" button
-    private void reloadQuestions(ActionEvent event) {
-        
-        reloadQuestionsList(addedQuizzId);
-        
-    }
-
+//    Updates the Quizz and closes the Modal
     @FXML
     private void addQuizz(ActionEvent event) {
     
@@ -169,6 +166,7 @@ public class FXMLQuizzEditController implements Initializable {
         stage.close();
     }
     
+//    Initializes "addedQuizzId"
     public void addInformation(int id){
         addedQuizzId = id;
     }
@@ -187,14 +185,6 @@ public class FXMLQuizzEditController implements Initializable {
         tfSubject.setText(q.getSubject());
         
         reloadQuestionsList(addedQuizzId);
-    }
-
-    @FXML
-    private void showP2P(MouseEvent event) {
-    }
-
-    @FXML
-    private void showQuizz(MouseEvent event) {
     }
 
 }

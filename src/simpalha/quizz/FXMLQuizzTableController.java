@@ -6,6 +6,7 @@
 package simpalha.quizz;
 
 import entities.Quizz;
+import java.io.IOException;
 import services.ServiceQuizz;
 import java.net.URL;
 import java.sql.SQLException;
@@ -17,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -24,6 +26,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import simpalha.FXMLDocumentController;
 
 /**
  * FXML Controller class
@@ -61,6 +64,7 @@ public class FXMLQuizzTableController implements Initializable {
         }
     }
 
+//    Opens the Quizz addition Modal (FXMLQuizzAddController)
     @FXML
     private void addQuizz(ActionEvent event) throws Exception {
         
@@ -79,11 +83,12 @@ public class FXMLQuizzTableController implements Initializable {
         reloadQuizzesList();
     }
 
+//    Opens the Quizz editing Modal and transmits the id of the Quizz to FXMLQuizzEditController
     @FXML
     private void editQuizz(ActionEvent event) throws Exception {
         Quizz editable = LAffiche.getSelectionModel().getSelectedItem();
         
-//        à effacer une fois intégre la Classe Helper
+//        à effacer une fois on intégre la Classe Helper
         editable.setHelper(1);
         
         FXMLLoader modal = new FXMLLoader(getClass().getResource("FXMLQuizzEdit.fxml"));
@@ -103,6 +108,7 @@ public class FXMLQuizzTableController implements Initializable {
         reloadQuizzesList();
     }
 
+//    deletes a quizz by its ID
     @FXML
     private void deleteQuizz(ActionEvent event) {
     
@@ -116,16 +122,51 @@ public class FXMLQuizzTableController implements Initializable {
         });
         
         
-//        reloadQuestionsList(3);
         reloadQuizzesList();
     }
 
     @FXML
     private void showP2P(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/simpalha/P2P/P2PFXML.fxml"
+                    )
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+            stage.show();
+        } 
+        catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     private void showQuizz(MouseEvent event) {
+    }
+
+    @FXML
+    private void showDashboard(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/simpalha/FXMLDocument.fxml"
+                    )
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+            stage.show();
+        } 
+        catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

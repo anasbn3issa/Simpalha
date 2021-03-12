@@ -15,11 +15,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 
@@ -42,12 +40,13 @@ public class FXMLDocumentController implements Initializable {
         // TODO
     }    
 
+//    Opens P2P
     @FXML
     private void showP2P(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-                            "P2P/P2PFXML.fxml"
+                            "/simpalha/P2P/P2PFXML.fxml"
                     )
             );
 
@@ -62,13 +61,35 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+//    Opens Quizz
     @FXML
     private void showQuizz(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-//                            "quizz/FXMLQuizzTaking.fxml"
-                            "quizz/FXMLQuizzTable.fxml"
+                            "/simpalha/quizz/FXMLQuizzTaking.fxml"
+//                            "/simpalha/quizz/FXMLQuizzTable.fxml"
+                    )
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+            stage.show();
+        } 
+        catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+//    Opens Dashboard
+    @FXML
+    private void showDashboard(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/simpalha/FXMLDocument.fxml"
                     )
             );
 

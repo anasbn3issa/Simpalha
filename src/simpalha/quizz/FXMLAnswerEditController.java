@@ -7,17 +7,24 @@ package simpalha.quizz;
 
 import entities.Answer;
 import entities.Question;
+import java.io.IOException;
 import services.ServiceAnswer;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import simpalha.FXMLDocumentController;
 
 /**
  * FXML Controller class
@@ -41,6 +48,7 @@ public class FXMLAnswerEditController implements Initializable {
         // TODO
     }    
 
+//    confirme la modification de l'Objet answer choisit et ferme la scène
     @FXML
     private void modifierReponse(ActionEvent event) {
         
@@ -72,14 +80,6 @@ public class FXMLAnswerEditController implements Initializable {
         System.out.println(a1);
         
         tfAnswer.setText(a.getSuggestion());
-    }
-
-    @FXML
-    private void showP2P(MouseEvent event) {
-    }
-
-    @FXML
-    private void showQuizz(MouseEvent event) {
     }
     
 }

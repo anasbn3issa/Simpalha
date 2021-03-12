@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -30,6 +31,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import simpalha.FXMLDocumentController;
 
 /**
  * FXML Controller class
@@ -57,7 +59,7 @@ public class FXMLQuestionEditController implements Initializable {
     private ChoiceBox<Integer> cbRightAnswer;
 
     /**
-     * Initializes the controller class and loads the answers to the question
+     * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -78,7 +80,7 @@ public class FXMLQuestionEditController implements Initializable {
     }
 
 
-//    Modifie une question après avoir remplit les champs et cliquer sur "Modifier"
+//    Modifie une question après avoir remplit les champs et cliquer sur "Modifier". Cette fonction ferme également la scène.
     @FXML
     private void modifierQuestion(ActionEvent event) {
     
@@ -112,6 +114,7 @@ public class FXMLQuestionEditController implements Initializable {
         reloadAnswersList();
     }
     
+//    initialise la choiceBox "cbRightAnswer"
     public void setChoiceBox(int questionId) throws SQLException{
         ServiceAnswer sa = new ServiceAnswer();
         
@@ -134,6 +137,7 @@ public class FXMLQuestionEditController implements Initializable {
         
     }
 
+//    Ajouter une réponse possible à la question q1
     @FXML
     private void ajouterReponse(ActionEvent event) {
     
@@ -148,6 +152,7 @@ public class FXMLQuestionEditController implements Initializable {
         reloadAnswersList();
     }
 
+//    Supprime une réponse 
     @FXML
     private void supprimerReponse(ActionEvent event) {
     
@@ -165,6 +170,7 @@ public class FXMLQuestionEditController implements Initializable {
         
     }
 
+//    Charge FXMLAnswerEdit.fxml en appelant la fonction showAnswer pour transmettre les informations nécessaire à la modification d'une "Answer"
     @FXML
     private void modifierReponse(ActionEvent event) throws IOException {
         Answer editable = tableAnswers.getSelectionModel().getSelectedItem();
@@ -184,14 +190,6 @@ public class FXMLQuestionEditController implements Initializable {
         stage.showAndWait();
         
         reloadAnswersList();
-    }
-
-    @FXML
-    private void showP2P(MouseEvent event) {
-    }
-
-    @FXML
-    private void showQuizz(MouseEvent event) {
     }
     
 }

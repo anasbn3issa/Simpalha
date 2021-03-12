@@ -6,7 +6,6 @@
 package simpalha.quizz;
 
 import entities.Answer;
-import entities.Question;
 import entities.QuizzStats;
 import entities.QuizzWrapper;
 import java.net.URL;
@@ -16,12 +15,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -64,14 +61,7 @@ public class FXMLQuizzEvalAnswerController implements Initializable {
         // TODO
     }    
 
-    @FXML
-    private void showP2P(MouseEvent event) {
-    }
-
-    @FXML
-    private void showQuizz(MouseEvent event) {
-    }
-
+//    vérifie si la suggestion choisie est correct et transmets les nouvelles statistiques (q1 après mise à jour) au QuizzEvalController
     @FXML
     private void ajouterReponse(ActionEvent event) throws Exception {
         QuizzWrapper editable = q1;
@@ -92,7 +82,7 @@ public class FXMLQuizzEvalAnswerController implements Initializable {
     }
 
     
-//    Affiche les informations de l'objet transmit par "FXMLTableQuestionController" et enregistre l'Objet dans la variable q1
+//    Affiche les informations de l'objet transmit par "FXMLQuizzEval" et enregistre les statisques dans l'Objet QuizzStats qs1 ainsi que l'état de la question dans l'Objet QuizzWrapper q1
     public void showInformation(int indexQuizz,ObservableList<QuizzWrapper> allItems,QuizzWrapper q, int quizzId, QuizzStats qss){
         q1 = new QuizzWrapper();
         
@@ -129,6 +119,7 @@ public class FXMLQuizzEvalAnswerController implements Initializable {
         
     }
     
+//    vérifie si la réponse choisie est la bonne réponse
     public boolean checkResult() throws SQLException{
         ServiceQuestion sa = new ServiceQuestion();
         boolean chResult;
@@ -161,6 +152,7 @@ public class FXMLQuizzEvalAnswerController implements Initializable {
         }
     }
 
+//    Will change the choiceBox "cbAnswer"s' selection depending on which row the user is selecting in the Answers Table
     @FXML
     private void detectSuggestion(MouseEvent event) {
         int i = tableAnswers.getSelectionModel().getSelectedIndex();

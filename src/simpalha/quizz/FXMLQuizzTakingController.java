@@ -6,7 +6,6 @@
 package simpalha.quizz;
 
 import entities.Quizz;
-import entities.QuizzWrapper;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -17,15 +16,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import services.ServiceQuizz;
+import simpalha.FXMLDocumentController;
 
 /**
  * FXML Controller class
@@ -46,14 +46,14 @@ public class FXMLQuizzTakingController implements Initializable {
     private Button btTakeQuizz;
 
     /**
-     * Initializes the controller class.
+     * Initializes the controller class and reloads the Quiz table
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         reloadQuizzesList();
     }    
     
-//    Reusable function to reload the table
+//    Reusable function to reload the Quiz table
     public void reloadQuizzesList(){
     
         ServiceQuizz sq = new ServiceQuizz();
@@ -64,16 +64,8 @@ public class FXMLQuizzTakingController implements Initializable {
             Logger.getLogger(FXMLQuestionTableController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-  
-
-    @FXML
-    private void showP2P(MouseEvent event) {
-    }
-
-    @FXML
-    private void showQuizz(MouseEvent event) {
-    }
-
+    
+//    sends id of the selected Quizz to the FXMLQuizzEvalController and opens the modal for passing the exam
     @FXML
     private void takeQuizz(ActionEvent event) throws Exception {
         Quizz editable = LAffiche.getSelectionModel().getSelectedItem();
@@ -95,6 +87,50 @@ public class FXMLQuizzTakingController implements Initializable {
         stage.setScene(scene);
         stage.setTitle("Quizz");
         stage.show();
+    }
+
+    @FXML
+    private void showP2P(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/simpalha/P2P/P2PFXML.fxml"
+                    )
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+            stage.show();
+        } 
+        catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void showQuizz(MouseEvent event) {
+    }
+
+    @FXML
+    private void showDashboard(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/simpalha/FXMLDocument.fxml"
+                    )
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+            stage.show();
+        } 
+        catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

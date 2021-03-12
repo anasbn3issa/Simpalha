@@ -30,6 +30,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import services.ServiceDisponibilite;
 import services.ServiceP2P;
+import simpalha.FXMLDocumentController;
 
 /**
  * FXML Controller class
@@ -229,9 +230,6 @@ public class P2PFXMLController implements Initializable {
 
     }    
 
-    @FXML
-    private void showP2P(MouseEvent event) {
-    }
 
     @FXML
     private void Ajouter(ActionEvent event) {
@@ -250,6 +248,51 @@ public class P2PFXMLController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(P2PFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void showQuizz(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/simpalha/quizz/FXMLQuizzTaking.fxml"
+//                            "quizz/FXMLQuizzTable.fxml"
+                    )
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+            stage.show();
+        } 
+        catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void showDashboard(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/simpalha/FXMLDocument.fxml"
+                    )
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+            stage.show();
+        } 
+        catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void showP2P(MouseEvent event) {
     }
     
 }

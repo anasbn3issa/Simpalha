@@ -124,6 +124,11 @@ Day 7: 10h47 12/03/2021
 
     STEP 6:
         -Comment all the code
+        -Make the other tabs accessible from all my controllers
+        -Integrate IService to my work
+        -Make my interface coherent with the templates' design (button style, etc.)
+
+    STEP 6  Completed at 15H26
 
     Notes:
         *
@@ -191,11 +196,19 @@ Stopping time: 12/03/2021
 
         -Comment all the code
 
+            DONE 12/03/2021
+
         -Make the other tabs accessible from all my controllers
+
+            DONE 12/03/2021
 
         -Integrate IService to my work
 
+            DONE 12/03/2021
+
         -Make my interface coherent with the templates' design (button style, etc.)
+
+            DONE 12/03/2021
 
         -Create a "QuizzResultsTracker" Class and create its CRUD
 

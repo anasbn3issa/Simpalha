@@ -5,9 +5,6 @@
  */
 package simpalha.quizz;
 
-import entities.Answer;
-import entities.Question;
-import entities.Quizz;
 import entities.QuizzStats;
 import entities.QuizzWrapper;
 import java.io.IOException;
@@ -31,8 +28,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import services.ServiceAnswer;
-import services.ServiceQuestion;
 import services.ServiceQuizzStats;
 import services.ServiceWrapper;
 import simpalha.FXMLDocumentController;
@@ -52,8 +47,6 @@ public class FXMLQuizzEvalController implements Initializable {
     @FXML
     private TableColumn<QuizzWrapper, String> statusTranslationColumn;
     @FXML
-    private TableColumn<QuizzWrapper, Boolean> statusColumn;
-    @FXML
     private Button btAnswerQuestion;
     
     private ObservableList<QuizzWrapper> quizzTableItems;
@@ -67,7 +60,7 @@ public class FXMLQuizzEvalController implements Initializable {
     private Button btExit;
     
     /**
-     * Initializes the controller class.
+     * Initializes the controller class and initializes quizzStats
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -87,37 +80,24 @@ public class FXMLQuizzEvalController implements Initializable {
         }
     }
     
+//    Will initialize addedQuizzId through the Information sent by the FXMLQuizzTakingController
     public void showInformationEval(int id) throws SQLException{
-        System.out.println("showInformationEval");
-        
         addedQuizzId = id;
         
         setUnresolved(id);
         
         reloadQuestionsList(addedQuizzId);        
-        
-//         System.out.println("show Information function: \nunresolved : "+this.unresolvedEval+"\ntotal Questions : "+this.nbQuestionsEval+"\nTotal Result : "+this.totalResultEval+"\n");
     }
     
+//    Will reset the Questions Table
     public void resetQuestionsTable(){
-        System.out.println("resetQuestionsTable");
         LAffiche.getItems().clear();
         LAffiche.setItems(quizzTableItems);
     }
 
-    @FXML
-    private void showP2P(MouseEvent event) {
-        System.out.println("showP2P");
-    }
-
-    @FXML
-    private void showQuizz(MouseEvent event) {
-        System.out.println("showQuizz");
-    }
-
+//    Will transmit the QuizzStats, the QuizzWrapper, and the index of the selected Question to the FXMLQuizzEvalAnswerController
     @FXML
     private void answerQuestion(ActionEvent event) throws Exception {
-        System.out.println("answerQuestion");
         
         QuizzWrapper editable = LAffiche.getSelectionModel().getSelectedItem();
         
@@ -125,27 +105,27 @@ public class FXMLQuizzEvalController implements Initializable {
             laResult.setText("You already answered this question!");
         }
         else{
-        int indexEditable = quizzTableItems.indexOf(editable);
-        
-        FXMLLoader modal = new FXMLLoader(getClass().getResource("FXMLQuizzEvalAnswer.fxml"));
-        Parent root = modal.load();
-        
-        FXMLQuizzEvalAnswerController editModal = modal.getController();
-        
+            int indexEditable = quizzTableItems.indexOf(editable);
 
-        editModal.showInformation(indexEditable,quizzTableItems,editable, addedQuizzId,quizzStats);
-        
-        Stage stage = new Stage();
-        Scene scene = new Scene(root);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.setTitle("Answer Question");
-        stage.showAndWait();
+            FXMLLoader modal = new FXMLLoader(getClass().getResource("FXMLQuizzEvalAnswer.fxml"));
+            Parent root = modal.load();
+
+            FXMLQuizzEvalAnswerController editModal = modal.getController();
+
+
+            editModal.showInformation(indexEditable,quizzTableItems,editable, addedQuizzId,quizzStats);
+
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.setTitle("Answer Question");
+            stage.showAndWait();
         }
     }
     
+//    Initializes the quizzStats variables
     public void setUnresolved(int id) throws SQLException{
-        System.out.println("setUnresolved");
         
         ServiceQuizzStats sqs = new ServiceQuizzStats();
         
@@ -156,9 +136,8 @@ public class FXMLQuizzEvalController implements Initializable {
         
     }
     
+//    Updates the values of the quizzStats upon answering a question
     public void updateValues(QuizzStats qss, boolean result){
-        System.out.println("updateValues");
-        
         ServiceQuizzStats sqs = new ServiceQuizzStats();
         
         sqs.UpdateValues(quizzStats, qss.getTotalResultEval(), qss.getNbQuestionsEval(), qss.getUnresolvedEval(), result);   
@@ -166,6 +145,7 @@ public class FXMLQuizzEvalController implements Initializable {
         lTotalQuestions.setText(String.valueOf(quizzStats.getNbQuestionsEval()));
     }
     
+//    Updates the status of an answered QuizzWrapper by setting its status to true
     public void updateQuestions(int indexQuizz,ObservableList<QuizzWrapper> tableItems,QuizzWrapper q, int id)throws SQLException{
         System.out.println("updateQuestions");
         
@@ -194,6 +174,7 @@ public class FXMLQuizzEvalController implements Initializable {
         
     }
 
+//    Will show the results of a Quizz or deny it if all the questions are still not answered.
     @FXML
     private void showResult(ActionEvent event) {
         if(quizzStats.getUnresolvedEval()!=0)
@@ -206,10 +187,9 @@ public class FXMLQuizzEvalController implements Initializable {
             int average = (20*result)/maxScore;
             laResult.setText(String.valueOf(average)+" / 20");
         }
-    
-        System.out.println("Check ints : \n"+quizzStats);
     }
 
+//    Exits the Quizz and goes to Dashboard
     @FXML
     private void exit(ActionEvent event) throws IOException{
         
@@ -217,7 +197,6 @@ public class FXMLQuizzEvalController implements Initializable {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
                             "/simpalha/FXMLDocument.fxml"
-//                            "quizz/FXMLQuizzTable.fxml"
                     )
             );
 
@@ -231,6 +210,4 @@ public class FXMLQuizzEvalController implements Initializable {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    
 }

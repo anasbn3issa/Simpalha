@@ -6,6 +6,7 @@
 package simpalha.quizz;
 
 import entities.Question;
+import java.io.IOException;
 import services.ServiceQuestion;
 import java.net.URL;
 import java.sql.SQLException;
@@ -17,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -25,6 +27,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import simpalha.FXMLDocumentController;
 
 /**
  * FXML Controller class
@@ -51,7 +54,6 @@ public class FXMLQuestionTableController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        reloadQuestionsList(3);
         reloadQuestionsList(addedQuizzId);
     }    
     
@@ -67,7 +69,7 @@ public class FXMLQuestionTableController implements Initializable {
         }
     }
 
-//    Popup Modal for adding a question then reloads table
+//    Popup Modal for adding a question then reloads table (transmits informations to FXMLQuestionAdd through addInformation())
     @FXML
     private void addQuestion(ActionEvent event) throws Exception {
         
@@ -84,18 +86,15 @@ public class FXMLQuestionTableController implements Initializable {
         addQuestionControllerModal.addInformation(addedQuizzId);
 
         stage.setTitle("Add Question");
-            
         
-//        stage.initModality(Modality.WINDOW_MODAL);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.showAndWait();
         
-//        reloadQuestionsList(3);
         reloadQuestionsList(addedQuizzId);
     }
 
-//    Popup Modal for modifying a question (reloads the table right after)
+//    Popup Modal for modifying a question (reloads the table right after) (transmits informations to FXMLQuestionAdd through showInformation())
     @FXML
     private void editQuestion(ActionEvent event) throws Exception {
         Question editable = LAffiche.getSelectionModel().getSelectedItem();
@@ -114,7 +113,6 @@ public class FXMLQuestionTableController implements Initializable {
         stage.setTitle("Edit Question");
         stage.showAndWait();
         
-//        reloadQuestionsList(3);
         reloadQuestionsList(addedQuizzId);
     }
 
@@ -131,20 +129,11 @@ public class FXMLQuestionTableController implements Initializable {
             sq2.Delete(e);
         });
         
-        
-//        reloadQuestionsList(3);
         reloadQuestionsList(addedQuizzId);
         
     }
 
-//    reloading the table through "reload" button
-    private void reloadQuestions(ActionEvent event) {
-        
-//        reloadQuestionsList(3);
-        reloadQuestionsList(addedQuizzId);
-        
-    }
-
+//    Confirms and closes the windows
     @FXML
     private void addQuizz(ActionEvent event) {
         
@@ -155,20 +144,11 @@ public class FXMLQuestionTableController implements Initializable {
         stage.close();
         
     }
-    
+
+//    Initializes "addedQuizzId" and reloads the Questions table
     public void addInformation(int id){
         addedQuizzId = id;
-//        reloadQuestionsList(3);
         reloadQuestionsList(addedQuizzId);
     }
-
-    @FXML
-    private void showP2P(MouseEvent event) {
-    }
-
-    @FXML
-    private void showQuizz(MouseEvent event) {
-    }
-
     
 }
