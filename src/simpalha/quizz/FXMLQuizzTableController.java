@@ -21,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
@@ -43,6 +44,8 @@ public class FXMLQuizzTableController implements Initializable {
     private TableColumn<Quizz, String> quizzColumn;
     @FXML
     private TableColumn<Quizz, String> subjectColumn;
+    @FXML
+    private Button btShowGraph;
 
     /**
      * Initializes the controller class.
@@ -123,6 +126,28 @@ public class FXMLQuizzTableController implements Initializable {
         
         
         reloadQuizzesList();
+    }
+
+    @FXML
+    private void showGraph(ActionEvent event) throws Exception {
+        Quizz editable = LAffiche.getSelectionModel().getSelectedItem();
+        int quizzId;
+        
+        quizzId = editable.getId();
+        
+        FXMLLoader modal = new FXMLLoader(getClass().getResource("FXMLQuizzResultGraph.fxml"));
+        Parent root = modal.load();
+        
+        FXMLQuizzResultGraphController editModal = modal.getController();
+        
+        editModal.showResults(quizzId);
+        
+        Stage stage;
+        stage = (Stage) btShowGraph.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Quizz");
+        stage.show();
     }
 
     @FXML

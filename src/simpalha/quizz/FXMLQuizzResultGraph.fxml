@@ -2,7 +2,11 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -13,9 +17,10 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="1280.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.quizz.FXMLQuizzTableController">
+<BorderPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="1280.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.quizz.FXMLQuizzResultGraphController">
        <top>
        <HBox style="-fx-background-color: white;" BorderPane.alignment="CENTER">
           <children>
@@ -202,32 +207,52 @@
        </VBox>
     </left>
     <center>
-        <AnchorPane prefHeight="539.0" prefWidth="1130.0">
+        <AnchorPane prefHeight="539.0" prefWidth="1130.0">  
            <children>
-              <TableView fx:id="LAffiche" layoutX="38.0" layoutY="32.0" prefHeight="502.0" prefWidth="505.0">
+              <TableView fx:id="LAffiche" layoutX="185.0" layoutY="68.0" prefHeight="214.0" prefWidth="761.0">
                  <columns>
                     <TableColumn fx:id="idColumn" prefWidth="50.0" text="ID">
                        <cellValueFactory>
                           <PropertyValueFactory property="id" />
                        </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="quizzColumn" prefWidth="345.0" text="Quizz">
+                    <TableColumn fx:id="resultColumn" prefWidth="244.0" text="Result">
                        <cellValueFactory>
-                          <PropertyValueFactory property="title" />
+                          <PropertyValueFactory property="result" />
                        </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="subjectColumn" prefWidth="109.0" text="Subject">
+                    <TableColumn fx:id="dateColumn" prefWidth="241.0" text="Date">
                        <cellValueFactory>
-                          <PropertyValueFactory property="subject" />
+                          <PropertyValueFactory property="date" />
+                       </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="quizzColumn" prefWidth="99.0" text="Quizz ID">
+                       <cellValueFactory>
+                          <PropertyValueFactory property="quizz" />
+                       </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="studentColumn" prefWidth="88.0" text="Student ID">
+                       <cellValueFactory>
+                          <PropertyValueFactory property="student" />
                        </cellValueFactory>
                     </TableColumn>
                  </columns>
               </TableView>
-              <Button layoutX="612.0" layoutY="169.0" mnemonicParsing="false" onAction="#addQuizz" prefHeight="25.0" prefWidth="168.0" style="-fx-background-color: #06BA63; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Add" />
-              <Button layoutX="612.0" layoutY="301.0" mnemonicParsing="false" onAction="#editQuizz" prefHeight="25.0" prefWidth="168.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Edit" />
-              <Button layoutX="612.0" layoutY="432.0" mnemonicParsing="false" onAction="#deleteQuizz" prefHeight="25.0" prefWidth="168.0" style="-fx-background-color: #E84855; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Delete" />
-            <Button fx:id="btShowGraph" layoutX="874.0" layoutY="289.0" mnemonicParsing="false" onAction="#showGraph" prefHeight="45.0" prefWidth="132.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Show Progression" />
+              <Button layoutX="481.0" layoutY="572.0" mnemonicParsing="false" onAction="#editQuizz" prefHeight="25.0" prefWidth="168.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Edit" />
+            <LineChart fx:id="progressionChart" layoutX="184.0" layoutY="282.0" prefHeight="284.0" prefWidth="763.0" title="Results Progression Chart">
+              <xAxis>
+                <CategoryAxis fx:id="timeAxis" side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis fx:id="resultsAxis" side="LEFT" />
+              </yAxis>
+            </LineChart>
+            <Label fx:id="lQuizzTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="184.0" layoutY="14.0" prefHeight="47.0" prefWidth="762.0">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Label>
            </children>
         </AnchorPane>
-   </center>
+    </center>
 </BorderPane>

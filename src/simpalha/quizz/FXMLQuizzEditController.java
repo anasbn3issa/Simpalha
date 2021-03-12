@@ -7,7 +7,6 @@ package simpalha.quizz;
 
 import entities.Question;
 import entities.Quizz;
-import java.io.IOException;
 import services.ServiceQuestion;
 import services.ServiceQuizz;
 import java.net.URL;
@@ -20,17 +19,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import simpalha.FXMLDocumentController;
 
 /**
  * FXML Controller class

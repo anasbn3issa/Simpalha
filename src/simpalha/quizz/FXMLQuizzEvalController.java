@@ -5,11 +5,13 @@
  */
 package simpalha.quizz;
 
+import entities.QuizzResult;
 import entities.QuizzStats;
 import entities.QuizzWrapper;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +30,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import services.ServiceQuizzResult;
 import services.ServiceQuizzStats;
 import services.ServiceWrapper;
 import simpalha.FXMLDocumentController;
@@ -51,6 +54,8 @@ public class FXMLQuizzEvalController implements Initializable {
     
     private ObservableList<QuizzWrapper> quizzTableItems;
     public static QuizzStats quizzStats;
+    private QuizzResult quizzResultsObject;
+    private boolean isResultShown;
     
     @FXML
     private Label lTotalQuestions;
@@ -64,7 +69,9 @@ public class FXMLQuizzEvalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        isResultShown = false;
         quizzStats = new QuizzStats();
+        quizzResultsObject = new QuizzResult();
     }    
     
 //    Reusable function to reload the table
@@ -182,11 +189,26 @@ public class FXMLQuizzEvalController implements Initializable {
             laResult.setText("You have not finished yet!");
         }
         else{
-            int maxScore = quizzStats.getNbQuestionsEval();
-            int result = quizzStats.getTotalResultEval();
-            int average = (20*result)/maxScore;
-            laResult.setText(String.valueOf(average)+" / 20");
-        }
+            if(!isResultShown)
+            {
+                ServiceQuizzResult qr = new ServiceQuizzResult();
+
+                int maxScore = quizzStats.getNbQuestionsEval();
+                int result = quizzStats.getTotalResultEval();
+                int average = (20*result)/maxScore;
+                laResult.setText(String.valueOf(average)+" / 20");
+
+                quizzResultsObject.setDate(LocalDateTime.now());
+                quizzResultsObject.setQuizz(addedQuizzId);
+                quizzResultsObject.setResult(average);
+    //            TODO : Replace setStudent value once we integrate our work
+                quizzResultsObject.setStudent(1);
+
+                qr.Create(quizzResultsObject);
+                
+                isResultShown = true;
+            }
+       }
     }
 
 //    Exits the Quizz and goes to Dashboard

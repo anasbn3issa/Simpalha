@@ -130,15 +130,22 @@ Day 7: 10h47 12/03/2021
 
     STEP 6  Completed at 15H26
 
+    STEP 7:
+        -Create a "QuizzResults" Class and create its CRUD
+        -Make the relations between the "QuizzResults" Class and the "Quizz" Class
+        -Make a Show Progression function on the Helper side of the Quizz functionnality that shows track of the results of a certain "Quizz". 
+
+    STEP 7 Completed at 21h37
+
     Notes:
         *
 
     References:
         *
 
-WORKTIME:
+WORKTIME: 7H10M
 
-Stopping time: 12/03/2021 
+Stopping time: 12/03/2021 21h37
 
 
 

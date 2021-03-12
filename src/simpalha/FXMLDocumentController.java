@@ -67,8 +67,8 @@ public class FXMLDocumentController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-                            "/simpalha/quizz/FXMLQuizzTaking.fxml"
-//                            "/simpalha/quizz/FXMLQuizzTable.fxml"
+//                            "/simpalha/quizz/FXMLQuizzTaking.fxml"
+                            "/simpalha/quizz/FXMLQuizzTable.fxml"
                     )
             );
 
