@@ -120,6 +120,23 @@ Stopping time: 10/03/2021 21h48
 
 
 
+Day 7: 10h47 12/03/2021
+
+    STEP 6:
+        -Comment all the code
+
+    Notes:
+        *
+
+    References:
+        *
+
+WORKTIME:
+
+Stopping time: 12/03/2021 
+
+
+
 
 
 /// TODO:
@@ -171,6 +188,24 @@ Stopping time: 10/03/2021 21h48
         -Create the student side of the Quizz
 
             DONE 10/03/2021
+
+        -Comment all the code
+
+        -Make the other tabs accessible from all my controllers
+
+        -Integrate IService to my work
+
+        -Make my interface coherent with the templates' design (button style, etc.)
+
+        -Create a "QuizzResultsTracker" Class and create its CRUD
+
+        -Make the relations between the "QuizzResultsTracker" Class and the "Quizz" Class
+
+        -Make a Show Progression function on the Helper side of the Quizz functionnality that shows track of the result of a certain "Student" depending on the "QuizzeResultsTracker" Table
+
+        -Create Notification API Class and its service
+
+        -Implement and test the Class
 
 
 

@@ -7,7 +7,6 @@ package services;
 
 import entities.Answer;
 import entities.Question;
-import entities.Quizz;
 import interfaces.IServiceQuestion;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -34,7 +33,7 @@ public class ServiceQuestion implements IServiceQuestion{
     }
 
     @Override
-    public void AddQuestion(Question q) {
+    public void Create(Question q) {
         try{
             Statement stm = cnx.createStatement();
             
@@ -47,209 +46,218 @@ public class ServiceQuestion implements IServiceQuestion{
     }
 
     @Override
-    public List<Question> ReadAllQuestions() throws SQLException {
+    public List<Question> Read(){
+        List<Question> questions = new ArrayList<>();
+        String query="SELECT * FROM `question`";
+
+        try{
+
             Statement stm = cnx.createStatement();
-            
-            String query="SELECT * FROM `question`";
             ResultSet rst = stm.executeQuery(query);
-            
-            List<Question> questions = new ArrayList<>();
-            
+
             while(rst.next())
             {
                 Question Q = new Question();
-                
+
                 Q.setId(rst.getInt("id"));
                 Q.setQuestion(rst.getString("question"));
                 Q.setAnswer(rst.getInt("right_answer"));
                 Q.setQuizz(rst.getInt("quizz_id"));
-                
+
                 questions.add(Q);
             }
-            
-            return questions;
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(ServiceQuestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return questions;
     }
     
-    public List<Question> ReadQuestions(int quizzId) throws SQLException{
+    @Override
+    public List<Question> findAllById(int id){
+        List<Question> questions = new ArrayList<>();
+        String query="SELECT * FROM `question` WHERE `quizz_id`='"+id+"'";
+
+        try{
+        Statement stm = cnx.createStatement();
+
+        ResultSet rst = stm.executeQuery(query);
+
+
+        while(rst.next())
+        {
+            Question Q = new Question();
+
+            Q.setId(rst.getInt("id"));
+            Q.setQuestion(rst.getString("question"));
+            Q.setAnswer(rst.getInt("right_answer"));
+            Q.setQuizz(id);
+
+            questions.add(Q);
+        }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(ServiceQuestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return questions;
+    }
+
+    @Override
+    public void Update(Question q) {
         
-        
+        try{
             Statement stm = cnx.createStatement();
             
-            String query="SELECT * FROM `question` WHERE `quizz_id`='"+quizzId+"'";
+            String query="UPDATE `question` SET `right_answer`='"+q.getAnswer()+"',`question`='"+q.getQuestion()+"' WHERE `id`='"+q.getId()+"'";
+            stm.executeUpdate(query);
+        }
+        catch (SQLException ex) { 
+            Logger.getLogger(ServiceQuestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void Delete(Question q) {
+        
+        try{
+            Statement stm = cnx.createStatement();
+            
+            String query="DELETE FROM `question` WHERE `id`='"+q.getId()+"'";
+            stm.executeUpdate(query);
+        }
+        catch (SQLException ex) { 
+            Logger.getLogger(ServiceQuestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Override
+    public Question findById(int id){
+        
+        Question Q = new Question();
+        String query="SELECT * FROM `question` WHERE `id`='"+id+"'";
+
+        try{
+            Statement stm = cnx.createStatement();
             ResultSet rst = stm.executeQuery(query);
-            
-            List<Question> questions = new ArrayList<>();
-            
+
             while(rst.next())
             {
-                Question Q = new Question();
-                
                 Q.setId(rst.getInt("id"));
                 Q.setQuestion(rst.getString("question"));
                 Q.setAnswer(rst.getInt("right_answer"));
-                Q.setQuizz(quizzId);
-                
-                questions.add(Q);
+                Q.setQuizz(rst.getInt("quizz_id"));
             }
-            
-            return questions;
+        }
+        catch (SQLException ex) { 
+            Logger.getLogger(ServiceQuestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return Q;
     }
 
     @Override
     public ObservableList<Question> ObservableAllListQuestions() throws SQLException{
-            Statement stm = cnx.createStatement();
-            
-            String query="SELECT * FROM `question`";
-            ResultSet rst = stm.executeQuery(query);
-            
-            List<Question> questions = new ArrayList<>();
-            
-            while(rst.next())
-            {
-                Question Q = new Question();
-                
-                Q.setId(rst.getInt("id"));
-                Q.setQuestion(rst.getString("question"));
-                Q.setAnswer(rst.getInt("right_answer"));
-                Q.setQuizz(rst.getInt("quizz_id"));
-                
-                questions.add(Q);
-            }
-            
-            
-            ObservableList<Question> questionsObservable = FXCollections.observableArrayList();
-            
-            questionsObservable.addAll(questions);
-            
-            return questionsObservable;
+        Statement stm = cnx.createStatement();
+
+        String query="SELECT * FROM `question`";
+        ResultSet rst = stm.executeQuery(query);
+
+        List<Question> questions = new ArrayList<>();
+
+        while(rst.next())
+        {
+            Question Q = new Question();
+
+            Q.setId(rst.getInt("id"));
+            Q.setQuestion(rst.getString("question"));
+            Q.setAnswer(rst.getInt("right_answer"));
+            Q.setQuizz(rst.getInt("quizz_id"));
+
+            questions.add(Q);
+        }
+
+
+        ObservableList<Question> questionsObservable = FXCollections.observableArrayList();
+
+        questionsObservable.addAll(questions);
+
+        return questionsObservable;
     }
 
     @Override
     public ObservableList<Question> ObservableListQuestions(int quizzId) throws SQLException {
-        
-            
-            Statement stm = cnx.createStatement();
-            
-            String query="SELECT * FROM `question` WHERE `quizz_id`='"+quizzId+"'";
+        Statement stm = cnx.createStatement();
 
-            ResultSet rst = stm.executeQuery(query);
-            
-            ObservableList<Question> questionsObservable = FXCollections.observableArrayList();
-            
-            while(rst.next())
-            {
-                Question Q = new Question();
-                
-                Q.setId(rst.getInt("id"));
-                Q.setQuestion(rst.getString("question"));
-                Q.setAnswer(rst.getInt("right_answer"));
-                Q.setQuizz(rst.getInt("quizz_id"));
-                
-                questionsObservable.add(Q);
-            }
-            
-            return questionsObservable;
-    }
+        String query="SELECT * FROM `question` WHERE `quizz_id`='"+quizzId+"'";
 
-    @Override
-    public void RemoveQuestion(int id) {
-        
-        try{
-            Statement stm = cnx.createStatement();
-            
-            String query="DELETE FROM `question` WHERE `id`='"+id+"'";
-            stm.executeUpdate(query);
-        }
-        catch (SQLException ex) { 
-            Logger.getLogger(ServiceQuestion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+        ResultSet rst = stm.executeQuery(query);
 
-    @Override
-    public void EditQuestion(int id, Question q) {
-        
-        try{
-            Statement stm = cnx.createStatement();
-            
-            String query="UPDATE `question` SET `right_answer`='"+q.getAnswer()+"',`question`='"+q.getQuestion()+"' WHERE `id`='"+id+"'";
-            stm.executeUpdate(query);
+        ObservableList<Question> questionsObservable = FXCollections.observableArrayList();
+
+        while(rst.next())
+        {
+            Question Q = new Question();
+
+            Q.setId(rst.getInt("id"));
+            Q.setQuestion(rst.getString("question"));
+            Q.setAnswer(rst.getInt("right_answer"));
+            Q.setQuizz(rst.getInt("quizz_id"));
+
+            questionsObservable.add(Q);
         }
-        catch (SQLException ex) { 
-            Logger.getLogger(ServiceQuestion.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        return questionsObservable;
     }
 
     @Override
     public ArrayList<Answer> LoadAnswers(int questionId) throws SQLException {
-            Statement stm = cnx.createStatement();
-            
-            String query="SELECT * FROM `answer` WHERE `question_id`='"+questionId+"'";
-            ResultSet rst = stm.executeQuery(query);
-            
-            ArrayList<Answer> answers = new ArrayList<>();
-            
-            while(rst.next())
-            {
-                Answer A = new Answer();
-                
-                A.setId(rst.getInt("id"));
-                A.setSuggestion(rst.getString("suggestion"));
-                
-                answers.add(A);
-            }
-            
-            return answers;
-    }
-    
-    @Override
-    public Question FindById(int id) throws SQLException{
-        
-            Statement stm = cnx.createStatement();
-            
-            String query="SELECT * FROM `question` WHERE `id`='"+id+"'";
-            ResultSet rst = stm.executeQuery(query);
-            
-            Question Q = new Question();
-            
-            while(rst.next())
-            {
-                Q.setId(rst.getInt("id"));
-                Q.setQuestion(rst.getString("question"));
-                Q.setAnswer(rst.getInt("right_answer"));
-                Q.setQuizz(rst.getInt("quizz_id"));
-            }
-            
-            
-            return Q;
+        Statement stm = cnx.createStatement();
+
+        String query="SELECT * FROM `answer` WHERE `question_id`='"+questionId+"'";
+        ResultSet rst = stm.executeQuery(query);
+
+        ArrayList<Answer> answers = new ArrayList<>();
+
+        while(rst.next())
+        {
+            Answer A = new Answer();
+
+            A.setId(rst.getInt("id"));
+            A.setSuggestion(rst.getString("suggestion"));
+
+            answers.add(A);
+        }
+
+        return answers;
     }
     
     @Override
     public boolean IsCorrectAnswer(int indice,int questionId) throws SQLException{
-        
         boolean answer=false;
-        
+
         Question q = new Question();
-        
-        q = FindById(questionId);
-        
+
+        q = findById(questionId);
+
         if(q.getAnswer() == indice)
             answer = true;
-        
+
         return answer;
     }
     
     @Override
     public int CountQuestions(int quizzId) throws SQLException{
-            
-            Statement stm = cnx.createStatement();
-            
-            String query="SELECT COUNT(*) FROM `question` WHERE `quizz_id`='"+quizzId+"'";
+        
+        Statement stm = cnx.createStatement();
+        String query="SELECT COUNT(*) FROM `question` WHERE `quizz_id`='"+quizzId+"'";
 
-            ResultSet rst = stm.executeQuery(query);
-            
-            rst.next();
-            int questionCount = rst.getInt(1);
-            
-            return questionCount;
+        ResultSet rst = stm.executeQuery(query);
+        rst.next();
+        int questionCount = rst.getInt(1);
+
+        return questionCount;
+        
     }
 }

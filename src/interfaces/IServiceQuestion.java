@@ -15,37 +15,47 @@ import javafx.collections.ObservableList;
 /**
  * @author Parsath
  */
-public interface IServiceQuestion {
+public interface IServiceQuestion extends IService<Question> {
     
 //    add a question
-    public void AddQuestion(Question q);
+//    old : public void Create(T variable);
+//    public void AddQuestion(Question q);
+    
     
 //    show all questions
-    public List<Question> ReadAllQuestions() throws SQLException;
+//    old : public List<Question> ReadAllQuestions() throws SQLException;
+//    public List<T> Read();
     
-//    show all questions
-    public List<Question> ReadQuestions(int quizzId) throws SQLException;
+    
+//    show all Questions in a certain Quizz
+//    old : public List<Question> ReadQuestions(int quizzId) throws SQLException;
+//    public List<T> findAllById(int id);
+    
+    
+//    update a question by its' id
+//    old : public void EditQuestion(int id,Question q);
+//    public void Update(T variable);
+    
+    
+//    remove a question by its' id
+//    old : public void RemoveQuestion (int id);
+//    public void Delete(T variable);
+    
+//    find question by its' id
+//    old : public Question FindById(int id) throws SQLException;
+//    public T findById(int id);
+    
+//    load all answers
+    public ArrayList<Answer> LoadAnswers(int questionId) throws SQLException;
+    
+//    returns answer is right or wrong
+    public boolean IsCorrectAnswer(int indice,int questionId) throws SQLException;
     
 //    show all questions in an observablelist
     public ObservableList<Question> ObservableAllListQuestions() throws SQLException ;
     
 //    show all questions of a quizzin an observablelist
     public ObservableList<Question> ObservableListQuestions(int quizzId) throws SQLException ;
-    
-//    load all answers
-    public ArrayList<Answer> LoadAnswers(int questionId) throws SQLException;
-    
-//    remove a question by its' id
-    public void RemoveQuestion (int id);
-    
-//    edit a question by its' id
-    public void EditQuestion(int id,Question q);
-    
-//    returns answer is right or wrong
-    public boolean IsCorrectAnswer(int indice,int questionId) throws SQLException;
-    
-//    find question by id
-    public Question FindById(int id) throws SQLException;
     
 //    count questions in a quizz
     public int CountQuestions(int quizzId) throws SQLException;

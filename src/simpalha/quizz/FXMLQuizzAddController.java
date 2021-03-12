@@ -5,9 +5,7 @@
  */
 package simpalha.quizz;
 
-import entities.Question;
 import entities.Quizz;
-import services.ServiceQuestion;
 import services.ServiceQuizz;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,7 +18,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -55,7 +52,7 @@ public class FXMLQuizzAddController implements Initializable {
         q.setSubject(tfSubject.getText());
         q.setHelper(1);
         
-        sq.AddQuizz(q);
+        sq.Create(q);
         
         Stage stage;
         stage = (Stage) addQuizzButton.getScene().getWindow();

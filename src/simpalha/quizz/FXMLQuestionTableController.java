@@ -22,7 +22,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -129,7 +128,7 @@ public class FXMLQuestionTableController implements Initializable {
         questionsSelected = LAffiche.getSelectionModel().getSelectedItems();
         
         questionsSelected.forEach(e -> {
-            sq2.RemoveQuestion(e.getId());
+            sq2.Delete(e);
         });
         
         

@@ -54,7 +54,7 @@ public class FXMLQuestionAddController implements Initializable {
         q.setAnswer(cbRightAnswer.getValue());
         q.setQuizz(addedQuizzId);
         
-        sq.AddQuestion(q);
+        sq.Create(q);
         
         Stage stage;
         stage = (Stage) ajouterEtQuitter.getScene().getWindow();

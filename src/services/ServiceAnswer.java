@@ -32,7 +32,7 @@ public class ServiceAnswer implements IServiceAnswer {
     }
 
     @Override
-    public void AddAnswer(Answer a) {
+    public void Create(Answer a) {
         try{
             Statement stm = cnx.createStatement();
             
@@ -40,85 +40,147 @@ public class ServiceAnswer implements IServiceAnswer {
             stm.executeUpdate(query);
         }
         catch (SQLException ex) { 
-            Logger.getLogger(ServiceQuestion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceAnswer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public List<Answer> ReadAnswers(Question q) throws SQLException {
+    public void Update(Answer a) {
+        
+        try{
             Statement stm = cnx.createStatement();
             
-            String query="SELECT * FROM `answer` WHERE `question_id`='"+q.getId()+"'";
+            String query="UPDATE `answer` SET `suggestion`='"+a.getSuggestion()+"',`question_id`='"+a.getQ().getId()+"' WHERE `id`='"+a.getId()+"'";
+            stm.executeUpdate(query);
+        }
+        catch (SQLException ex) { 
+            Logger.getLogger(ServiceAnswer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Override
+    public List<Answer> Read(){
+        List<Answer> answers = new ArrayList<>();
+        String query="SELECT * FROM `answer`";
+
+        try{
+            Statement stm = cnx.createStatement();
+
             ResultSet rst = stm.executeQuery(query);
-            
-            List<Answer> answers = new ArrayList<>();
-            
+
+
             while(rst.next())
             {
                 Answer A = new Answer();
-                
+
+                A.setId(rst.getInt("id"));
+                A.setSuggestion(rst.getString("question"));
+
+                answers.add(A);
+            }
+        }
+        catch (SQLException ex) { 
+            Logger.getLogger(ServiceAnswer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return answers;
+    }
+
+    @Override
+    public void Delete(Answer a) {
+        
+        try{
+            Statement stm = cnx.createStatement();
+            
+            String query="DELETE FROM `answer` WHERE `id`='"+a.getId()+"'";
+            stm.executeUpdate(query);
+        }
+        catch (SQLException ex) { 
+            Logger.getLogger(ServiceAnswer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public List<Answer> findAllById(int id) {
+        ServiceQuestion sq = new ServiceQuestion();
+               
+        List<Answer> answers = new ArrayList<>();
+        String query="SELECT * FROM `answer` WHERE `question_id`='"+id+"'";
+
+        try{
+            Statement stm = cnx.createStatement();
+
+            ResultSet rst = stm.executeQuery(query);
+
+
+            while(rst.next())
+            {
+                Answer A = new Answer();
+                Question q;
+                q = sq.findById(id);
+
                 A.setId(rst.getInt("id"));
                 A.setSuggestion(rst.getString("question"));
                 A.setQ(q);
-                
+
                 answers.add(A);
             }
-            
-            return answers;
+        }
+        catch (SQLException ex) { 
+            Logger.getLogger(ServiceAnswer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return answers;
+    }
+    
+    @Override
+    public Answer findById(int id){
+        
+        Answer A = new Answer();
+        String query="SELECT * FROM `answer` WHERE `id`='"+id+"'";
+
+        try{
+            Statement stm = cnx.createStatement();
+            ResultSet rst = stm.executeQuery(query);
+
+            while(rst.next())
+            {
+                A.setId(rst.getInt("id"));
+                A.setSuggestion(rst.getString("question"));
+            }
+        }
+        catch (SQLException ex) { 
+            Logger.getLogger(ServiceAnswer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return A;
+        
     }
 
     @Override
     public ObservableList<Answer> ObservableListAnswers(Question q) throws SQLException {
             
-            Statement stm = cnx.createStatement();
-            
-            System.out.println(q);
-            String query="SELECT * FROM `answer` WHERE `question_id`='"+q.getId()+"'";
+        Statement stm = cnx.createStatement();
 
-            ResultSet rst = stm.executeQuery(query);
-            
-            ObservableList<Answer> answersObservable = FXCollections.observableArrayList();
-            
-            while(rst.next())
-            {
-                Answer A = new Answer(q);
-                
-                A.setId(rst.getInt("id"));
-                A.setSuggestion(rst.getString("suggestion"));
-                
-                answersObservable.add(A);
-            }
-            
-            return answersObservable;
-        
-    }
+        System.out.println(q);
+        String query="SELECT * FROM `answer` WHERE `question_id`='"+q.getId()+"'";
 
-    @Override
-    public void RemoveAnswer(int id) {
-        
-        try{
-            Statement stm = cnx.createStatement();
-            
-            String query="DELETE FROM `answer` WHERE `id`='"+id+"'";
-            stm.executeUpdate(query);
-        }
-        catch (SQLException ex) { 
-            Logger.getLogger(ServiceQuestion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+        ResultSet rst = stm.executeQuery(query);
 
-    @Override
-    public void EditAnswer(int id, Answer a) {
+        ObservableList<Answer> answersObservable = FXCollections.observableArrayList();
+
+        while(rst.next())
+        {
+            Answer A = new Answer(q);
+
+            A.setId(rst.getInt("id"));
+            A.setSuggestion(rst.getString("suggestion"));
+
+            answersObservable.add(A);
+        }
+
+        return answersObservable;
         
-        try{
-            Statement stm = cnx.createStatement();
-            
-            String query="UPDATE `answer` SET `suggestion`='"+a.getSuggestion()+"',`question_id`='"+a.getQ().getId()+"' WHERE `id`='"+id+"'";
-            stm.executeUpdate(query);
-        }
-        catch (SQLException ex) { 
-            Logger.getLogger(ServiceQuestion.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     @Override

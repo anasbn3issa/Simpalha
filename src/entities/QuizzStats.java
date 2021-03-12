@@ -6,13 +6,17 @@
 package entities;
 
 /**
- *
+ * This class was created to track the result of a Quiz between the FXMLEvalController and the 
+ * FXMLEvalAnswer Controller.
  * @author Parsath
  */
 public class QuizzStats {
     
+//    meant to track the number of still unresolved questions in a Quizz
     private int unresolvedEval;
+//    track the result of the Quiz during the evaluation
     private int totalResultEval;
+//    keep the total number of Questions a Quiz has.
     private int nbQuestionsEval;
 
     public QuizzStats() {

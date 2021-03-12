@@ -112,7 +112,7 @@ public class FXMLQuizzTableController implements Initializable {
         quizzesSelected = LAffiche.getSelectionModel().getSelectedItems();
         
         quizzesSelected.forEach(e -> {
-            sq2.RemoveQuizz(e.getId());
+            sq2.Delete(e);
         });
         
         

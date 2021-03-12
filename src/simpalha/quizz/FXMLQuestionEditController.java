@@ -24,8 +24,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -89,8 +87,9 @@ public class FXMLQuestionEditController implements Initializable {
         
         q.setQuestion(tfQuestion.getText());
         q.setAnswer(cbRightAnswer.getValue());
+        q.setId(q1.getId());
         
-        sq.EditQuestion(q1.getId(), q);
+        sq.Update(q);
         
         Stage stage;
         Parent root;
@@ -144,7 +143,7 @@ public class FXMLQuestionEditController implements Initializable {
         a.setSuggestion(tfReponse.getText());
         a.setQ(q1);
         
-        sa.AddAnswer(a);
+        sa.Create(a);
         
         reloadAnswersList();
     }
@@ -158,7 +157,7 @@ public class FXMLQuestionEditController implements Initializable {
         answersSelected = tableAnswers.getSelectionModel().getSelectedItems();
         
         answersSelected.forEach(e -> {
-            sa2.RemoveAnswer(e.getId());
+            sa2.Delete(e);
         });
         
         

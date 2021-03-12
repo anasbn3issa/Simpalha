@@ -135,7 +135,7 @@ public class FXMLQuizzEditController implements Initializable {
         questionsSelected = LAffiche.getSelectionModel().getSelectedItems();
         
         questionsSelected.forEach(e -> {
-            sq2.RemoveQuestion(e.getId());
+            sq2.Delete(e);
         });
         
         
@@ -158,8 +158,9 @@ public class FXMLQuizzEditController implements Initializable {
         
         q.setSubject(tfSubject.getText());
         q.setTitle(tfTitle.getText());
+        q.setId(q1.getId());
         
-        sq.EditQuizz(q1.getId(), q);
+        sq.Update(q);
         
         Stage stage;
         Parent root;

@@ -222,11 +222,6 @@
                           <PropertyValueFactory property="translation" />
                        </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="statusColumn" prefWidth="121.0" text="Status">
-                       <cellValueFactory>
-                          <PropertyValueFactory property="status" />
-                       </cellValueFactory>
-                    </TableColumn>
                  </columns>
               </TableView>
             <Button fx:id="btAnswerQuestion" layoutX="863.0" layoutY="256.0" mnemonicParsing="false" onAction="#answerQuestion" prefHeight="66.0" prefWidth="128.0" text="Answer" />

@@ -33,7 +33,7 @@ public class ServiceQuizz implements IServiceQuizz {
     }
 
     @Override
-    public void AddQuizz(Quizz q) {
+    public void Create(Quizz q) {
         
         try{
             Statement stm = cnx.createStatement();
@@ -47,52 +47,113 @@ public class ServiceQuizz implements IServiceQuizz {
     }
 
     @Override
-    public List<Quizz> ReadAllQuizzes() throws SQLException {
+    public void Update(Quizz q) {
         
+        try{
             Statement stm = cnx.createStatement();
             
-            String query="SELECT * FROM `quizz`";
+            String query="UPDATE `quizz` SET `title`='"+q.getTitle()+"',`subject`='"+q.getSubject()+"' WHERE `id`='"+q.getId()+"'";
+            stm.executeUpdate(query);
+        }
+        catch (SQLException ex) { 
+            Logger.getLogger(ServiceQuizz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public List<Quizz> Read(){
+        List<Quizz> quizzes = new ArrayList<>();
+        String query="SELECT * FROM `quizz`";
+        
+        try{
+            Statement stm = cnx.createStatement();
             ResultSet rst = stm.executeQuery(query);
-            
-            List<Quizz> quizzes = new ArrayList<>();
-            
+
             while(rst.next())
             {
                 Quizz Q = new Quizz();
-                
+
                 Q.setId(rst.getInt("id"));
                 Q.setTitle(rst.getString("title"));
                 Q.setSubject(rst.getString("subject"));
                 Q.setHelper(rst.getInt("helper_id"));
                 quizzes.add(Q);
             }
-            
-            return quizzes;
+        }
+        catch(SQLException ex){
+            Logger.getLogger(ServiceQuizz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return quizzes;
     }
 
     @Override
-    public List<Quizz> ReadQuizzes(int helperId) throws SQLException {
-        
+    public void Delete(Quizz q) {
+        try{
             Statement stm = cnx.createStatement();
             
-            String query="SELECT * FROM `quizz` WHERE `helper_id`='"+helperId+"'";
+            String query="DELETE FROM `quizz` WHERE `id`='"+q.getId()+"'";
+            stm.executeUpdate(query);
+        }
+        catch (SQLException ex) { 
+            Logger.getLogger(ServiceQuizz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public List<Quizz> findAllById(int helperId){
+        
+        List<Quizz> quizzes = new ArrayList<>();
+        String query="SELECT * FROM `quizz` WHERE `helper_id`='"+helperId+"'";
+
+        try{
+            Statement stm = cnx.createStatement();
             ResultSet rst = stm.executeQuery(query);
-            
-            List<Quizz> quizzes = new ArrayList<>();
-            
+
+
             while(rst.next())
             {
                 Quizz Q = new Quizz();
-                
+
                 Q.setId(rst.getInt("id"));
                 Q.setTitle(rst.getString("title"));
                 Q.setSubject(rst.getString("subject"));
                 Q.setHelper(helperId);
-                
+
                 quizzes.add(Q);
             }
-            
-            return quizzes;
+        }
+        catch(SQLException ex){
+            Logger.getLogger(ServiceQuizz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return quizzes;
+    }
+    
+    @Override
+    public Quizz findById(int id){
+        
+        Quizz Q = new Quizz();
+        String query="SELECT * FROM `quizz` WHERE `id`='"+id+"'";
+
+        try{
+            Statement stm = cnx.createStatement();
+            ResultSet rst = stm.executeQuery(query);
+
+
+            while(rst.next())
+            {
+                Q.setId(rst.getInt("id"));
+                Q.setTitle(rst.getString("title"));
+                Q.setSubject(rst.getString("subject"));
+                Q.setHelper(rst.getInt("helper_id"));
+            }
+        }
+        catch(SQLException ex){
+            Logger.getLogger(ServiceQuizz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return Q;
     }
 
     @Override
@@ -173,33 +234,6 @@ public class ServiceQuizz implements IServiceQuizz {
             }
             
             return quizzesObservable;
-    }
-
-    @Override
-    public void RemoveQuizz(int id) {
-        try{
-            Statement stm = cnx.createStatement();
-            
-            String query="DELETE FROM `quizz` WHERE `id`='"+id+"'";
-            stm.executeUpdate(query);
-        }
-        catch (SQLException ex) { 
-            Logger.getLogger(ServiceQuizz.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @Override
-    public void EditQuizz(int id, Quizz q) {
-        
-        try{
-            Statement stm = cnx.createStatement();
-            
-            String query="UPDATE `quizz` SET `title`='"+q.getTitle()+"',`subject`='"+q.getSubject()+"' WHERE `id`='"+id+"'";
-            stm.executeUpdate(query);
-        }
-        catch (SQLException ex) { 
-            Logger.getLogger(ServiceQuizz.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     @Override

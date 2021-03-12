@@ -5,8 +5,6 @@
  */
 package entities;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Parsath

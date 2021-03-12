@@ -6,7 +6,8 @@
 package entities;
 
 /**
- *
+ * This Class is meant to wrap the Question class and its' status in a certain Quiz, if the Questions'
+ * status is true then the Question have been answered else it still hasn't been.
  * @author Parsath
  */
 public class QuizzWrapper {
@@ -38,6 +39,7 @@ public class QuizzWrapper {
         return statusTranslation;
     }
 
+//    The translation of the status into a Human readable String.
     public void setTranslation() {
         if (this.status == true){
             this.statusTranslation = "Done";

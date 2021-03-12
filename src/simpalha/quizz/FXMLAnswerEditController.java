@@ -51,8 +51,9 @@ public class FXMLAnswerEditController implements Initializable {
         
         a.setSuggestion(tfAnswer.getText());
         a.setQ(a1.getQ());
+        a.setId(a1.getId());
         
-        sa.EditAnswer(a1.getId(),a);
+        sa.Update(a);
         
         Stage stage;
         Parent root;

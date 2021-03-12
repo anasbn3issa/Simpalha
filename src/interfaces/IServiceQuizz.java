@@ -16,16 +16,36 @@ import javafx.collections.ObservableList;
  *
  * @author Parsath
  */
-public interface IServiceQuizz {
+public interface IServiceQuizz extends IService<Quizz> {
     
 //    add a quizz
-    public void AddQuizz(Quizz q);
+//    public void AddQuizz(Quizz q);
+//    public void Create(T variable);
+//    TODO
+    
+//    edit a quizz by its' id
+//    public void EditQuizz(int id,Quizz q);
+//    public void Update(T variable);
+//    TODO
     
 //    show all quizzes
-    public List<Quizz> ReadAllQuizzes() throws SQLException;
+//    public List<Quizz> ReadAllQuizzes() throws SQLException;
+//    public List<T> Read();
+//    TODO
+    
+//    remove a quizz by its' id
+//    public void RemoveQuizz (int id);
+//    public void Delete(T variable);
+//    TODO
     
 //    show all quizzes that a certain helper Created
-    public List<Quizz> ReadQuizzes(int helperId) throws SQLException;
+//    public List<Quizz> ReadQuizzes(int helperId) throws SQLException;
+//    public List<T> findAllById(int id);
+//    TODO
+    
+//    find a Quiz by its' id
+//    public T findById(int id);
+//    TODO
     
 //    load all questions of the quizz
     public ArrayList<Question> LoadQuestions(int quizzId) throws SQLException;
@@ -35,12 +55,6 @@ public interface IServiceQuizz {
     
 //    show all quizzes in an observablelist
     public ObservableList<Quizz> ObservableListQuizzes(int helperId) throws SQLException ;
-    
-//    remove a quizz by its' id
-    public void RemoveQuizz (int id);
-    
-//    edit a quizz by its' id
-    public void EditQuizz(int id,Quizz q);
     
 //    find last added Quizz row and take its ID
     public int LastAddedQuizzId() throws SQLException;
