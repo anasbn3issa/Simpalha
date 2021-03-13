@@ -6,6 +6,7 @@
 package services;
 
 import entities.Disponibilite;
+import entities.Feedback;
 import entities.Meet;
 import entities.Users;
 import interfaces.IServiceP2P;
@@ -32,11 +33,13 @@ public class ServiceP2P implements IServiceP2P{
     private ResultSet rs;
     private ServiceDisponibilite serviceDisp;
     private ServiceUser serviceUser;
+    private ServiceFeedback serviceFeedback;
 
     public ServiceP2P() {
         cnx = Maconnexion.getInstance().getConnection();
         serviceDisp = new ServiceDisponibilite();
         serviceUser = new ServiceUser();
+        serviceFeedback = new ServiceFeedback();
     }
     
     
@@ -59,11 +62,12 @@ public class ServiceP2P implements IServiceP2P{
 
     @Override
     public void Update(Meet variable) {
-        String query = "update meet set disponibilite_id=? where id=?";
+        String query = "update meet set disponibilite_id=?, feedback_id=? where id=?";
         try {
             pst = cnx.prepareStatement(query);
             pst.setInt(1, Integer.valueOf(variable.getTime()));
-            pst.setString(2, variable.getId());
+            pst.setInt(2, variable.getFeedback_id());
+            pst.setString(3, variable.getId());
             
             pst.executeUpdate();
             
@@ -91,6 +95,10 @@ public class ServiceP2P implements IServiceP2P{
                 
                 Users student = serviceUser.findById(meet.getId_student());
                 meet.setStudentDisplay(student.getFname()+" "+student.getLname());
+                
+                Feedback feedback = serviceFeedback.findById(meet.getFeedback_id());
+                System.out.println(feedback);
+                meet.setFeedbackDisplay(feedback.getFeedback());
                 
                 list.add(meet);
             }
