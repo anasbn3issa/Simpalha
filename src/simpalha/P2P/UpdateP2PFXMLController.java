@@ -30,6 +30,7 @@ import javafx.stage.Stage;
 import services.ServiceDisponibilite;
 import services.ServiceP2P;
 import services.ServiceUser;
+import simpalha.FXMLDocumentController;
 
 /**
  * FXML Controller class
@@ -82,6 +83,21 @@ public class UpdateP2PFXMLController implements Initializable {
 
     @FXML
     private void showP2P(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "P2PFXML.fxml"
+                    )
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML

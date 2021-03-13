@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  */
 public class Maconnexion {
     
-    private String URL="jdbc:mysql://127.0.0.1/simpalha";
+    private String URL="jdbc:mysql://127.0.0.1/simapalha";
     private String LOGIN="root";
     private String PASS="";
     static Maconnexion instance = null;

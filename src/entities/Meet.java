@@ -14,7 +14,7 @@ import java.util.UUID;
 public class Meet {
     
     private int id_student,id_helper, feedback_id;
-    private String id, specialite, time, studentDisplay, helperDisplay;
+    private String id, specialite, time, studentDisplay, helperDisplay, feedbackDisplay;
     
     public Meet(){
         
@@ -100,6 +100,16 @@ public class Meet {
     public void setHelperDisplay(String helperDisplay) {
         this.helperDisplay = helperDisplay;
     }
+
+    public String getFeedbackDisplay() {
+        return feedbackDisplay;
+    }
+
+    public void setFeedbackDisplay(String feedbackDisplay) {
+        this.feedbackDisplay = feedbackDisplay;
+    }
+    
+    
     
     
 
