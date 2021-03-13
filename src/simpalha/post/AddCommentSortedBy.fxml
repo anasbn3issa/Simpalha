@@ -16,7 +16,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="1280.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.AddCommentController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="1280.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.post.AddCommentSortedByController">
    <top>
       <HBox style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
@@ -213,7 +213,7 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="Posts List" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="Post Details" />
                   <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                      <children>
                         <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-background-radius: 0px;">
@@ -252,7 +252,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="239.0" prefWidth="1050.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                        <HBox fx:id="CopyOfPageHeader" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -263,19 +263,8 @@
                               <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" />
                            </children>
                         </HBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <VBox fx:id="problemInfoContainer" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <HBox prefHeight="122.0" prefWidth="1090.0">
-                                 <children>
-                                    <VBox prefHeight="200.0" prefWidth="100.0" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <VBox prefHeight="200.0" prefWidth="100.0" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="100.0" prefWidth="200.0" />
                               <HBox layoutX="10.0" layoutY="29.0" prefHeight="100.0" prefWidth="200.0">
                                  <children>
                                     <Label text="Problem" />
@@ -291,9 +280,10 @@
                                     <Label text="Propose A Solution ?" />
                                     <VBox prefHeight="38.0" prefWidth="174.0" />
                                     <TextArea fx:id="solutionText" prefHeight="38.0" prefWidth="214.0" />
-                                    <HBox prefHeight="100.0" prefWidth="200.0" />
-                                    <HBox prefHeight="100.0" prefWidth="200.0" />
+                                    <HBox prefHeight="38.0" prefWidth="88.0" />
                                     <Button mnemonicParsing="false" onAction="#SubmitButtonPushed" text="Submit " />
+                                    <HBox prefHeight="38.0" prefWidth="270.0" />
+                                    <Button mnemonicParsing="false" onAction="#sortByRatingButtonPushed" text="Sort by rating" />
                                  </children>
                               </HBox>
                            </children>

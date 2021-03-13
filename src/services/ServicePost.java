@@ -5,6 +5,7 @@
  */
 package services;
 
+import entities.Comment;
 import entities.Post;
 import interfaces.IServicePost;
 import java.sql.Connection;
@@ -24,16 +25,16 @@ import utils.Maconnexion;
  * @author anaso
  */
 public class ServicePost implements IServicePost {
-    
+
     Connection cnx;
     private Statement ste;
     private PreparedStatement pst;
     private ResultSet rs;
-    
+
     public ServicePost() {
         cnx = Maconnexion.getInstance().getConnection();
     }
-    
+
     @Override
     public void Create(Post variable) {
         try {
@@ -47,7 +48,7 @@ public class ServicePost implements IServicePost {
             Logger.getLogger(ServicePost.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public void Update(Post variable) {
         String query = "update post set module=?,status=?,problem=? where id=?";
@@ -59,15 +60,15 @@ public class ServicePost implements IServicePost {
             pst.setString(3, variable.getProblem());
             pst.setInt(4, variable.getId());
             pst.executeUpdate();
-            
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-        }    
+        }
     }
-    
+
     @Override
     public List<Post> Read() {
-        
+
         List<Post> list = new ArrayList<>();
         String req = "select * from post";
         try {
@@ -75,18 +76,18 @@ public class ServicePost implements IServicePost {
             rs = ste.executeQuery(req);
             while (rs.next()) {
                 Post p = new Post();
-                p.setId(rs.getInt("id")); 
+                p.setId(rs.getInt("id"));
                 p.setProblem(rs.getString("problem"));
                 p.setModule(rs.getString("module"));
                 p.setTimestamp(rs.getTimestamp("timestamp"));
                 list.add(p);
             }
-            
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        return list;        
-        
+        return list;
+
     }
 
     @Override
@@ -104,7 +105,7 @@ public class ServicePost implements IServicePost {
             System.out.println(ex.getMessage());
         }
     }
-    
+
     @Override
     public List<Post> findAllById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -122,14 +123,67 @@ public class ServicePost implements IServicePost {
                 p.setId(rs.getInt("id"));
                 p.setTimestamp(rs.getTimestamp("timestamp"));
                 p.setStatus(rs.getString("status"));
+                System.out.println(p.getStatus()+" <-- hetha fel Service Post ");
                 p.setProblem(rs.getString("problem"));
-                p.setModule(rs.getString("module"));                
+                p.setModule(rs.getString("module"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServicePost.class.getName()).log(Level.SEVERE, null, ex);
         }
         return p;
-        
+
     }
-    
+
+    @Override
+    public List<Comment> findAllCommentsForThisPost(int postId) {
+        List<Comment> comments = new ArrayList<>();
+        String query = "select * from comment where id_Post=?";
+
+        try {
+            pst = cnx.prepareStatement(query);
+            pst.setInt(1, postId);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                Comment c = new Comment();
+                c.setId(rs.getInt("id"));
+                c.setTimestamp(rs.getTimestamp("timestamp"));
+                c.setId_Post(rs.getInt("id_Post"));
+                c.setSolution(rs.getString("solution"));
+                c.setOwner(rs.getString("owner"));
+                c.setRating(rs.getInt("rating"));
+                comments.add(c);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServicePost.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return comments;
+    }
+
+    @Override
+    public List<Comment> findAllCommentsForThisPostSortedBy(String condition,int postId) {
+        List<Comment> comments = new ArrayList<>();
+        String query = "select * from comment where id_Post=? "+"ORDER BY "+condition;
+
+        try {
+            pst = cnx.prepareStatement(query);
+            pst.setInt(1, postId);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                Comment c = new Comment();
+                c.setId(rs.getInt("id"));
+                c.setTimestamp(rs.getTimestamp("timestamp"));
+                c.setId_Post(rs.getInt("id_Post"));
+                c.setSolution(rs.getString("solution"));
+                c.setOwner(rs.getString("owner"));
+                c.setRating(rs.getInt("rating"));
+                comments.add(c);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServicePost.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return comments;
+    }
+
 }
