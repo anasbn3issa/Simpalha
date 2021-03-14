@@ -4,8 +4,6 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -252,42 +250,9 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="239.0" prefWidth="1050.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
                      <children>
-                        <HBox fx:id="CopyOfPageHeader" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../assets/logo.png" />
-                                 </image>
-                              </ImageView>
-                              <Text fx:id="todaysDate" strokeType="OUTSIDE" strokeWidth="0.0" text="22 Febuary 2020" />
-                              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" />
-                           </children>
-                        </HBox>
-                        <VBox fx:id="problemInfoContainer" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <HBox layoutX="10.0" layoutY="29.0" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label text="Problem" />
-                                    <VBox prefHeight="38.0" prefWidth="237.0" />
-                                    <TextArea fx:id="problemText" prefHeight="200.0" prefWidth="200.0" />
-                                    <HBox prefHeight="100.0" prefWidth="200.0" />
-                                    <HBox prefHeight="100.0" prefWidth="200.0" />
-                                    <Button mnemonicParsing="false" onAction="#CancelButtonPushed" text="Cancel" />
-                                 </children>
-                              </HBox>
-                              <HBox layoutX="10.0" layoutY="11.0" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label text="Propose A Solution ?" />
-                                    <VBox prefHeight="38.0" prefWidth="174.0" />
-                                    <TextArea fx:id="solutionText" prefHeight="38.0" prefWidth="214.0" />
-                                    <HBox prefHeight="38.0" prefWidth="88.0" />
-                                    <Button mnemonicParsing="false" onAction="#SubmitButtonPushed" text="Submit " />
-                                    <HBox prefHeight="38.0" prefWidth="270.0" />
-                                    <Button mnemonicParsing="false" onAction="#sortByRatingButtonPushed" text="Sort by rating" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
+                        <VBox fx:id="vboxPost2" prefHeight="200.0" prefWidth="100.0" />
+                        <HBox fx:id="hboxPost2" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
+                        <VBox fx:id="problemInfoContainer" prefHeight="200.0" prefWidth="100.0" />
                      </children>
                      <HBox.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

@@ -67,7 +67,7 @@ public class AddCommentSortedByController implements Initializable {
         // TODO
         Platform.runLater(() -> {
             serviceComment = new ServiceComment();
-            //servicePost = new ServicePost();
+            servicePost = new ServicePost();
 
             p = servicePost.findById(idPost);
             commentsForThisPost = servicePost.findAllCommentsForThisPostSortedBy("rating",idPost);
@@ -85,18 +85,25 @@ public class AddCommentSortedByController implements Initializable {
                 ratingText = new Text(String.valueOf(parcours.getRating()));
                 TimestampText = new Text(String.valueOf(parcours.getTimestamp()));
 
-                HBox hboxCommentOwner = new HBox();
-                hboxCommentOwner.getChildren().addAll(commentOwnerName); // 3maltelha HBox wa7adha psk mbaad newi nzid des infos okhrin bjanb el name kima specialite main mte3ou
+                VBox vboxCommentOwner = new VBox();
+
+                vboxCommentOwner.getChildren().addAll(commentOwnerName); // 3maltelha HBox wa7adha psk mbaad newi nzid des infos okhrin bjanb el name kima specialite main mte3ou
                 HBox hboxRating = new HBox();
                 hboxRating.getChildren().addAll(ratingLabel, ratingText);
                 HBox hboxComment = new HBox();
-                hboxComment.getChildren().addAll(commentLabel, commentText);
-
+                hboxComment.getChildren().addAll(commentText);
+                hboxComment.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                        + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
+                        + "-fx-border-radius: 5;" + "-fx-border-color: black;" + "-fx-background-color: white;");
+                hboxComment.setPrefWidth(500);
                 HBox hboxButtons = new HBox();
                 Button RienAFaire = new Button("maya3ml shay");
                 hboxButtons.getChildren().addAll(RienAFaire);
 
-                commentContainer.getChildren().addAll(hboxCommentOwner, hboxRating, hboxComment, hboxButtons);
+                commentContainer.getChildren().addAll(vboxCommentOwner, hboxRating, hboxComment, hboxButtons);
+                commentContainer.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                        + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
+                        + "-fx-border-radius: 5;" + "-fx-border-color: black;"+"-fx-background-color: white;");
                 problemInfoContainer.getChildren().addAll(commentContainer);
                 problemInfoContainer.setMargin(commentContainer, new Insets(6, 6, 6, 6));
                 commentContainer.setSpacing(15);
