@@ -85,11 +85,15 @@ public class ViewPostsController implements Initializable {
             //HBox hboxId = new HBox();
             //hboxId.getChildren().addAll(idLabel, idText);
             HBox hboxProblem = new HBox();
-            hboxProblem.getChildren().addAll(problemLabel, problemText);
-            HBox hboxModule = new HBox();
-            hboxModule.getChildren().addAll(moduleLabel, moduleText);
-            HBox hboxTimestamp = new HBox();
-            hboxTimestamp.getChildren().addAll(timestampLabel, timestampText);
+            hboxProblem.getChildren().addAll(problemText);
+            hboxProblem.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                    + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
+                    + "-fx-border-radius: 5;" + "-fx-border-color: black;");
+            hboxProblem.setPrefWidth(500);
+            VBox vboxModuleAndTimestamp = new VBox();
+            vboxModuleAndTimestamp.getChildren().addAll(timestampText, moduleText);
+//            HBox hboxTimestamp = new HBox();
+//            hboxTimestamp.getChildren().addAll(timestampLabel, timestampText);
             HBox hboxButtons = new HBox();
             Button btnDelete = new Button("Delete");
             Button btnModify = new Button("Modify");
@@ -136,7 +140,7 @@ public class ViewPostsController implements Initializable {
             btnAddComment.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                     try {
+                    try {
                         FXMLLoader loader = new FXMLLoader(
                                 getClass().getResource(
                                         "AddComment.fxml"
@@ -160,10 +164,13 @@ public class ViewPostsController implements Initializable {
             });
 
             //h.getChildren().addAll(idLabel,idText,problemLabel,problemText,moduleLabel,moduleText,timestampLabel,timestampText);
-            postContainer.getChildren().addAll(hboxTimestamp, hboxModule, hboxProblem, hboxButtons);
+            postContainer.getChildren().addAll( hboxProblem, hboxButtons,vboxModuleAndTimestamp);
             postContainer.setSpacing(35);// hethy nzidha mba3d lbarsha Hboxouét bsh nba3dou razzebi men razzebi
             postContainer.setStyle("-fx-background-color: white;");
             postContainer.setStyle("-fx-border-color: black;");
+            postContainer.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                    + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
+                    + "-fx-border-radius: 5;" + "-fx-border-color: black;");
             PostsContainer.getChildren().addAll(postContainer);
             PostsContainer.setMargin(postContainer, new Insets(6, 6, 6, 6));
 

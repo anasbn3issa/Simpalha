@@ -78,21 +78,25 @@ public class AddCommentController implements Initializable {
                 ratingText = new Text(String.valueOf(parcours.getRating()));
                 TimestampText = new Text(String.valueOf(parcours.getTimestamp()));
 
-                HBox hboxCommentOwner = new HBox();
-                
-                
-                
-               hboxCommentOwner.getChildren().addAll(commentOwnerName); // 3maltelha HBox wa7adha psk mbaad newi nzid des infos okhrin bjanb el name kima specialite main mte3ou
+                VBox vboxCommentOwner = new VBox();
+
+                vboxCommentOwner.getChildren().addAll(commentOwnerName); // 3maltelha HBox wa7adha psk mbaad newi nzid des infos okhrin bjanb el name kima specialite main mte3ou
                 HBox hboxRating = new HBox();
                 hboxRating.getChildren().addAll(ratingLabel, ratingText);
                 HBox hboxComment = new HBox();
-                hboxComment.getChildren().addAll(commentLabel, commentText);
-
+                hboxComment.getChildren().addAll(commentText);
+                hboxComment.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                        + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
+                        + "-fx-border-radius: 5;" + "-fx-border-color: black;");
+                hboxComment.setPrefWidth(500);
                 HBox hboxButtons = new HBox();
                 Button RienAFaire = new Button("maya3ml shay");
                 hboxButtons.getChildren().addAll(RienAFaire);
 
-                commentContainer.getChildren().addAll(hboxCommentOwner, hboxRating, hboxComment, hboxButtons);
+                commentContainer.getChildren().addAll(vboxCommentOwner, hboxRating, hboxComment, hboxButtons);
+                commentContainer.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                        + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
+                        + "-fx-border-radius: 5;" + "-fx-border-color: black;");
                 problemInfoContainer.getChildren().addAll(commentContainer);
                 problemInfoContainer.setMargin(commentContainer, new Insets(6, 6, 6, 6));
                 commentContainer.setSpacing(15);
@@ -176,7 +180,7 @@ public class AddCommentController implements Initializable {
         TimestampText = new Text(String.valueOf(c.getTimestamp()));
 
         HBox hboxCommentOwner = new HBox();
-        hboxCommentOwner.getChildren().addAll(commentOwnerName); 
+        hboxCommentOwner.getChildren().addAll(commentOwnerName);
         HBox hboxRating = new HBox();
         hboxRating.getChildren().addAll(ratingLabel, ratingText);
         HBox hboxComment = new HBox();
@@ -198,20 +202,16 @@ public class AddCommentController implements Initializable {
     @FXML
     private void sortByRatingButtonPushed(ActionEvent event) {
         try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("AddCommentSortedBy.fxml"));
-                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
-                        stage.setScene(new Scene(loader.load()));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AddCommentSortedBy.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(new Scene(loader.load()));
 
-                        AddCommentSortedByController controller = loader.getController();
-                        controller.initData(p.getId());  // hethy mbaad bsh nzidha postownerid
+            AddCommentSortedByController controller = loader.getController();
+            controller.initData(p.getId());  // hethy mbaad bsh nzidha postownerid
 
-                        stage.show();
-                    } catch (IOException ex) {
-                        Logger.getLogger(ViewPostsController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(ViewPostsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    }
-
-       
-        
-
+}
