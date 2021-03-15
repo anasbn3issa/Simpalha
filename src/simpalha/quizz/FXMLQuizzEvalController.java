@@ -5,6 +5,7 @@
  */
 package simpalha.quizz;
 
+import entities.Notification;
 import entities.QuizzResult;
 import entities.QuizzStats;
 import entities.QuizzWrapper;
@@ -30,6 +31,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import services.ServiceNotification;
 import services.ServiceQuizzResult;
 import services.ServiceQuizzStats;
 import services.ServiceWrapper;
@@ -42,7 +44,6 @@ import simpalha.FXMLDocumentController;
  */
 public class FXMLQuizzEvalController implements Initializable {
 
-    private int addedQuizzId;
     @FXML
     private TableView<QuizzWrapper> LAffiche;
     @FXML
@@ -51,18 +52,18 @@ public class FXMLQuizzEvalController implements Initializable {
     private TableColumn<QuizzWrapper, String> statusTranslationColumn;
     @FXML
     private Button btAnswerQuestion;
-    
-    private ObservableList<QuizzWrapper> quizzTableItems;
-    public static QuizzStats quizzStats;
-    private QuizzResult quizzResultsObject;
-    private boolean isResultShown;
-    
     @FXML
     private Label lTotalQuestions;
     @FXML
     private Label laResult;
     @FXML
     private Button btExit;
+    
+    private ObservableList<QuizzWrapper> quizzTableItems;
+    public static QuizzStats quizzStats;
+    private QuizzResult quizzResultsObject;
+    private boolean isResultShown;
+    private int addedQuizzId;
     
     /**
      * Initializes the controller class and initializes quizzStats
@@ -191,7 +192,9 @@ public class FXMLQuizzEvalController implements Initializable {
         else{
             if(!isResultShown)
             {
+                ServiceNotification serviceNotif = new ServiceNotification();
                 ServiceQuizzResult qr = new ServiceQuizzResult();
+                Notification n = new Notification();
 
                 int maxScore = quizzStats.getNbQuestionsEval();
                 int result = quizzStats.getTotalResultEval();
@@ -207,6 +210,15 @@ public class FXMLQuizzEvalController implements Initializable {
                 qr.Create(quizzResultsObject);
                 
                 isResultShown = true;
+                
+                n.setTitle("Quizz Result");
+                n.setContent("The Student X has received a mark of "+average+"/20 in the Quizz \""+addedQuizzId+".");
+                n.setRead(false);
+                n.setSent(false);
+                n.setUser(1);
+                
+                serviceNotif.createNotification(n);
+                
             }
        }
     }

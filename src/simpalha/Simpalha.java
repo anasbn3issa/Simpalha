@@ -5,11 +5,14 @@
  */
 package simpalha;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import services.ServiceNotification;
 
 
 /**
@@ -18,8 +21,12 @@ import javafx.stage.Stage;
  */
 public class Simpalha extends Application {
     
+    public static String notReadCount="yep";
+    
     @Override
     public void start(Stage stage) throws Exception {
+        
+        ServiceNotification sn = new ServiceNotification();
         
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
@@ -27,6 +34,18 @@ public class Simpalha extends Application {
         
         stage.setScene(scene);
         stage.show();
+        
+        Thread t = new Thread(sn);
+        t.start();
+        
+        stage.setOnCloseRequest(e->{
+            sn.terminate();
+            try {
+                t.join();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Simpalha.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }
 
     /**

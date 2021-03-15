@@ -20,6 +20,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
@@ -44,6 +45,8 @@ public class FXMLQuizzTakingController implements Initializable {
     private TableColumn<Quizz, String> subjectColumn;
     @FXML
     private Button btTakeQuizz;
+    @FXML
+    private Label lNotificationNotRead;
 
     /**
      * Initializes the controller class and reloads the Quiz table

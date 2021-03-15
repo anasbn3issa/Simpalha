@@ -65,6 +65,8 @@ public class FXMLQuizzResultGraphController implements Initializable {
     private Label lQuizzTitle;
 
     private int addedQuizzId;
+    @FXML
+    private Label lNotificationNotRead;
     /**
      * Initializes the controller class.
      */

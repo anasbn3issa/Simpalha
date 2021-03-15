@@ -149,6 +149,24 @@ Stopping time: 12/03/2021 21h37
 
 
 
+Day 8: 17h30 15/03/2021
+
+    STEP 8:
+        -Create Notification API Class and its service
+        -Implement and test the Class
+
+    Notes:
+        *NOTIFICATION IS HELL
+
+    References:
+        *
+
+WORKTIME: 5H37M
+
+Stopping time: 16/03/2021 00h35
+
+
+
 
 
 /// TODO:
@@ -219,13 +237,23 @@ Stopping time: 12/03/2021 21h37
 
         -Create a "QuizzResultsTracker" Class and create its CRUD
 
+            DONE 12/03/2021
+
         -Make the relations between the "QuizzResultsTracker" Class and the "Quizz" Class
 
+            DONE 12/03/2021
+
         -Make a Show Progression function on the Helper side of the Quizz functionnality that shows track of the result of a certain "Student" depending on the "QuizzeResultsTracker" Table
+
+            DONE 12/03/2021
 
         -Create Notification API Class and its service
 
         -Implement and test the Class
+
+        -Implement a progression calculating algorythm to the Quizzes
+
+        -Add the user Class and Table, and implement them in my work.
 
 
 
