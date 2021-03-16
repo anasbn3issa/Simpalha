@@ -26,6 +26,7 @@ public class Post {
     private Timestamp timestamp;
     private Status status = Status.PENDING;
     private String module;
+    //private List<String> filePaths
 
     public Post() {
     }

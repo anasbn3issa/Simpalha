@@ -40,14 +40,6 @@ import javafx.scene.text.Text;
  * @author anaso
  */
 public class ViewPostsController implements Initializable {
-
-//    private TableView<Post> table;
-//    private TableColumn<Post,String> id;
-//    private TableColumn<Post, String> problem;
-//    private TableColumn<Post, String> timestamp;
-//    private TableColumn<Post, String> module;
-//    private TableColumn<Post, String> status;
-    //ObservableList<Post> data =FXCollections.observableArrayList();
     @FXML
     private VBox PostsContainer; // eli bsh n7ot fih l posts lkol 
     @FXML
@@ -86,6 +78,9 @@ public class ViewPostsController implements Initializable {
             //idText = new Text(String.valueOf(p.getId()));
             problemText = new Text(p.getProblem());
             moduleText = new Text(p.getModule());
+            
+             
+            
             timestampText = new Text(String.valueOf(p.getTimestamp()));
             postOwnerName = new Text("post owner name");
             postOwnerName.setStyle("-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%);\n"
@@ -114,12 +109,7 @@ public class ViewPostsController implements Initializable {
             //postOwnerPhoto= new ImageView(getClass().getClassLoader().getResourceAsStream(("..\img\einstein.jpg"),true));
             Alert alertDeletepushed = new Alert(Alert.AlertType.WARNING);
 
-            //HBox hboxId = new HBox();
-            //hboxId.getChildren().addAll(idLabel, idText);
             VBox vboxOwnerPhoto = new VBox();
-//            VBox moreSpaceV=new VBox();
-//            moreSpaceV.setPrefHeight(15);
-//            moreSpaceV.setPadding(Insets=new Insets);
             vboxOwnerPhoto.setPadding(new Insets(15, 5, 15, 5));
             vboxOwnerPhoto.getChildren().addAll(postOwnerPhoto);
             VBox vboxProblem = new VBox();
@@ -137,15 +127,15 @@ public class ViewPostsController implements Initializable {
             vboxProblemAndName.getChildren().addAll(vboxName,vboxProblem);
             VBox vboxModuleAndTimestamp = new VBox();
             vboxModuleAndTimestamp.getChildren().addAll(timestampText, moduleText);
-//            HBox hboxTimestamp = new HBox();
-//            hboxTimestamp.getChildren().addAll(timestampLabel, timestampText);
+
+            
             HBox hboxButtons = new HBox();
             Button btnDelete = new Button("Delete");
             Button btnModify = new Button("Modify");
             Button btnAddComment = new Button("Add Comment");
             hboxButtons.getChildren().addAll(btnDelete, btnModify, btnAddComment);
             
-            //h.getChildren().addAll(idLabel,idText,problemLabel,problemText,moduleLabel,moduleText,timestampLabel,timestampText);
+           
             postContainer.getChildren().addAll(vboxOwnerPhoto, vboxProblemAndName, hboxButtons, vboxModuleAndTimestamp);
             postContainer.setSpacing(35);// hethy nzidha mba3d lbarsha Hboxouét bsh nba3dou razzebi men razzebi
             

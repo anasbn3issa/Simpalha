@@ -12,7 +12,7 @@ import java.sql.Timestamp;
  */
 public class Comment {
     
-     private int id,id_Post;
+     private int id,id_Post,upvotes,downvotes;
     private String owner="Ali Ben la9ab";
     private Timestamp timestamp;
     private String solution="no solution yet lol";
@@ -75,6 +75,24 @@ public class Comment {
         this.rating = rating;
     }
 
+    public int getUpvotes() {
+        return upvotes;
+    }
+
+    public int getDownvotes() {
+        return downvotes;
+    }
+
+    public void setUpvotes(int upvotes) {
+        this.upvotes = upvotes;
+    }
+
+    public void setDownvotes(int downvotes) {
+        this.downvotes = downvotes;
+    }
+
+    
+    
     @Override
     public String toString() {
         return "Comment{" + "id=" + id + ", timestamp=" + timestamp + ", solution=" + solution + ", rating=" + rating + '}';
