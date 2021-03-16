@@ -6,21 +6,32 @@
 package services;
 
 import entities.Notification;
+import entities.Quizz;
 import interfaces.IServiceNotification;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import simpalha.FXMLDocumentController;
+import simpalha.notification.FXMLNotificationController;
+import simpalha.quizz.FXMLQuizzEvalAnswerController;
+import static simpalha.quizz.FXMLQuizzEvalController.quizzStats;
 import utils.DataSource;
 
 /**
@@ -29,9 +40,8 @@ import utils.DataSource;
  */
 public class ServiceNotification implements IServiceNotification {
     
-    public static IntegerProperty countNotRead;
     private volatile boolean running = true;
-    private int count;
+    private int userId;
     Connection cnx;
     
     public boolean isRunning(){
@@ -41,10 +51,34 @@ public class ServiceNotification implements IServiceNotification {
     public ServiceNotification(){
         cnx = DataSource.getInstance().getConnection();
     }
+    
+    public ServiceNotification(int uId){
+        cnx = DataSource.getInstance().getConnection();
+        userId = uId;
+    }
+
+    @Override
+    public void updateNotification(Notification n) {
+        
+        int read = n.isRead() ? 1 : 0;
+        int sent = n.isSent() ? 1 : 0;
+        
+        try{
+            Statement stm = cnx.createStatement();
+            
+//            String query="UPDATE `quizz` SET `title`='"+q.getTitle()+"',`subject`='"+q.getSubject()+"' WHERE `id`='"+q.getId()+"'";
+            String query="UPDATE `notification` SET `title`='"+n.getTitle()+"',`content`='"+n.getContent()+"',`user_id`='"+n.getUser()+"',`is_read`='"+read+"',`is_sent`='"+sent+"' WHERE `id`='"+n.getId()+"'";
+            stm.executeUpdate(query);
+        }
+        catch (SQLException ex) { 
+            Logger.getLogger(ServiceQuizz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 
     @Override
     public void createNotification(Notification n) {
+        
         int read = n.isRead() ? 1 : 0;
         int sent = n.isSent() ? 1 : 0;
         
@@ -90,12 +124,152 @@ public class ServiceNotification implements IServiceNotification {
 
         return notifications;
     }
+    
+    @Override
+    public ObservableList<Notification> ObservableListAllNotSentNotifications() throws SQLException {
+        
+            Statement stm = cnx.createStatement();
+            
+            String query="SELECT * FROM `notification` WHERE `is_sent`=0";
+            ResultSet rst = stm.executeQuery(query);
+            
+            List<Notification> notifications = new ArrayList<>();
+            
+            while(rst.next())
+            {
+                Notification n = new Notification();
+                
+                n.setId(rst.getInt("id"));
+                n.setTitle(rst.getString("title"));
+                n.setContent(rst.getString("content"));
+                n.setRead(rst.getBoolean("is_read"));
+                n.setSent(rst.getBoolean("is_sent"));
+                n.setUser(rst.getInt("user_id"));
+
+                notifications.add(n);
+            }
+            
+            
+            ObservableList<Notification> notificationsObservable = FXCollections.observableArrayList();
+            
+            notificationsObservable.addAll(notifications);
+            
+            return notificationsObservable;
+    }
+
+    @Override
+    public ObservableList<Notification> ObservableListAllNotSentNotificationsAndUpdate() throws SQLException {
+        
+            Statement stm = cnx.createStatement();
+            
+            String query="SELECT * FROM `notification` WHERE `is_sent`=0";
+            ResultSet rst = stm.executeQuery(query);
+            
+            List<Notification> notifications = new ArrayList<>();
+            
+            while(rst.next())
+            {
+                Notification n = new Notification();
+                
+                n.setId(rst.getInt("id"));
+                n.setTitle(rst.getString("title"));
+                n.setContent(rst.getString("content"));
+                n.setRead(rst.getBoolean("is_read"));
+                n.setSent(rst.getBoolean("is_sent"));
+                n.setUser(rst.getInt("user_id"));
+
+                notifications.add(n);
+                
+                n.setSent(true);
+                n.setRead(true);
+                updateNotification(n);
+            }
+            
+            
+            ObservableList<Notification> notificationsObservable = FXCollections.observableArrayList();
+            
+            notificationsObservable.addAll(notifications);
+            
+            return notificationsObservable;
+    }
+
+    @Override
+    public ObservableList<Notification> ObservableListNotSentNotifications(int userId) throws SQLException {
+        
+            
+            Statement stm = cnx.createStatement();
+            String query="SELECT * FROM `notification` WHERE `is_sent`=0 AND `user_id`='"+userId+"'";
+            ResultSet rst = stm.executeQuery(query);
+            
+            List<Notification> notifications = new ArrayList<>();
+            
+            while(rst.next())
+            {
+                Notification n = new Notification();
+                
+                n.setId(rst.getInt("id"));
+                n.setTitle(rst.getString("title"));
+                n.setContent(rst.getString("content"));
+                n.setRead(rst.getBoolean("is_read"));
+                n.setSent(rst.getBoolean("is_sent"));
+                n.setUser(rst.getInt("user_id"));
+
+                notifications.add(n);
+                
+                n.setSent(true);
+                n.setRead(true);
+                updateNotification(n);
+            }
+            
+            
+            ObservableList<Notification> notificationsObservable = FXCollections.observableArrayList();
+            
+            notificationsObservable.addAll(notifications);
+            
+            return notificationsObservable;
+    }
+
+    @Override
+    public ObservableList<Notification> ObservableListNotSentNotificationsAndUpdate(int userId) throws SQLException {
+        
+            
+            Statement stm = cnx.createStatement();
+            String query="SELECT * FROM `notification` WHERE `is_sent`=0 AND `user_id`='"+userId+"'";
+            ResultSet rst = stm.executeQuery(query);
+            
+            List<Notification> notifications = new ArrayList<>();
+            
+            while(rst.next())
+            {
+                Notification n = new Notification();
+                
+                n.setId(rst.getInt("id"));
+                n.setTitle(rst.getString("title"));
+                n.setContent(rst.getString("content"));
+                n.setRead(rst.getBoolean("is_read"));
+                n.setSent(rst.getBoolean("is_sent"));
+                n.setUser(rst.getInt("user_id"));
+
+                notifications.add(n);
+                
+                n.setSent(true);
+                n.setRead(true);
+                updateNotification(n);
+            }
+            
+            
+            ObservableList<Notification> notificationsObservable = FXCollections.observableArrayList();
+            
+            notificationsObservable.addAll(notifications);
+            
+            return notificationsObservable;
+    }
 
     @Override
     public int countNotRead() throws SQLException {
         
         Integer notificationCount;
-        String query="SELECT COUNT(*) FROM `notification` WHERE `is_read`=0";
+        String query="SELECT COUNT(*) FROM `notification` WHERE `is_read`=0 AND `user_id`='"+userId+"'";
         
         Statement stm = cnx.createStatement();
         ResultSet rst = stm.executeQuery(query);
@@ -114,23 +288,38 @@ public class ServiceNotification implements IServiceNotification {
         while(running){
             Platform.runLater(new Runnable(){
                 @Override
-                public void run(){
-                    countNotRead.setValue(3);
+                public void run(){    
+                    try {
+                        if(countNotRead() > 0){
+                            FXMLLoader modal = new FXMLLoader(getClass().getResource("/simpalha/notification/FXMLNotification.fxml"));
+                            Parent root = null;
+                            try{
+                                root = modal.load();
+                            }catch(IOException io){};
+
+                            FXMLNotificationController editModal = modal.getController();
+
+
+                            editModal.reloadNotificationsList(userId);
+
+                            Stage stage = new Stage();
+                            Scene scene = new Scene(root);
+                            stage.setScene(scene);
+                            stage.setTitle("Notifications");
+                            stage.showAndWait();
+                            System.out.println(countNotRead());
+                        }
+                    } 
+                    catch (SQLException ex) {
+                        Logger.getLogger(ServiceNotification.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             });
-            try{
-                count = countNotRead();
-            }catch(SQLException ex){};
-            System.out.println(notSent());
+            
             try{
                 Thread.sleep(10000);
             }catch(Exception e){}
         }
-    }
-
-    @Override
-    public void modifyLabelNotification(Label l) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

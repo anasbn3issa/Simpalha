@@ -6,6 +6,7 @@
 package simpalha.quizz;
 
 import entities.Answer;
+import entities.Notification;
 import entities.QuizzStats;
 import entities.QuizzWrapper;
 import java.net.URL;
@@ -48,10 +49,12 @@ public class FXMLQuizzEvalAnswerController implements Initializable {
     private QuizzWrapper q1;
     private int addedQuizzId;
     private int indexOfQuizz;
+    private Notification notif;
     private QuizzStats qs1;
     private ObservableList<QuizzWrapper> tableItems;
     @FXML
     private Button btAjouterReponse;
+    private int userId;
 
     /**
      * Initializes the controller class.
@@ -73,7 +76,7 @@ public class FXMLQuizzEvalAnswerController implements Initializable {
         FXMLQuizzEvalController editModal = modal.getController();
         
         System.out.println("Quizz Eval Answer Controller : \n QuizzStats: "+qs1);
-        editModal.updateQuestions(this.indexOfQuizz,tableItems,editable, addedQuizzId);
+        editModal.updateQuestions(this.indexOfQuizz,tableItems,editable, addedQuizzId,notif);
         editModal.updateValues(qs1,checkResult);
         
         Stage stage;
@@ -83,7 +86,8 @@ public class FXMLQuizzEvalAnswerController implements Initializable {
 
     
 //    Affiche les informations de l'objet transmit par "FXMLQuizzEval" et enregistre les statisques dans l'Objet QuizzStats qs1 ainsi que l'état de la question dans l'Objet QuizzWrapper q1
-    public void showInformation(int indexQuizz,ObservableList<QuizzWrapper> allItems,QuizzWrapper q, int quizzId, QuizzStats qss){
+    public void showInformation(int indexQuizz,ObservableList<QuizzWrapper> allItems,QuizzWrapper q, int quizzId, QuizzStats qss, Notification n){
+        notif = n;
         q1 = new QuizzWrapper();
         
         q1.setQuestion(q.getQuestion());

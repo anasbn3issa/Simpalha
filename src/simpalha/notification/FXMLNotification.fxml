@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.notification.FXMLNotificationController">
+   <children>
+      <TableView fx:id="LAffiche" layoutX="24.0" layoutY="24.0" prefHeight="259.0" prefWidth="692.0">
+         <columns>
+            <TableColumn fx:id="idColumn" prefWidth="44.0" text="ID">
+               <cellValueFactory>
+                  <PropertyValueFactory property="id" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="titleColumn" prefWidth="136.0" text="Title">
+               <cellValueFactory>
+                  <PropertyValueFactory property="title" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="contentColumn" prefWidth="388.0" text="Content">
+               <cellValueFactory>
+                  <PropertyValueFactory property="content" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="readColumn" minWidth="0.0" prefWidth="65.0" text="Read">
+               <cellValueFactory>
+                  <PropertyValueFactory property="read" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="sentColumn" prefWidth="58.0" text="Sent">
+               <cellValueFactory>
+                  <PropertyValueFactory property="sent" />
+               </cellValueFactory>
+            </TableColumn>
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

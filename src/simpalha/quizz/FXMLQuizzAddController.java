@@ -6,24 +6,18 @@
 package simpalha.quizz;
 
 import entities.Quizz;
-import java.io.IOException;
 import services.ServiceQuizz;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import simpalha.FXMLDocumentController;
 
 /**
  * FXML Controller class
@@ -38,6 +32,7 @@ public class FXMLQuizzAddController implements Initializable {
     private TextField tfSubject;
     @FXML
     private Button addQuizzButton;
+    private int userId;
 
     /**
      * Initializes the controller class.
@@ -45,7 +40,11 @@ public class FXMLQuizzAddController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }   
+    
+    public void initializeUser(int uId){
+        userId = uId;
+    }
 
 //    Creates a "Quizz" object, adds it to the DB and transmits its' id to the FXMLQuestionTableController so the user can create Questions to the newly created Quizz
     @FXML
@@ -56,7 +55,7 @@ public class FXMLQuizzAddController implements Initializable {
         
         q.setTitle(tfTitle.getText());
         q.setSubject(tfSubject.getText());
-        q.setHelper(1);
+        q.setHelper(userId);
         
         sq.Create(q);
         

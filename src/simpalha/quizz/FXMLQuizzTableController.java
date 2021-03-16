@@ -47,16 +47,21 @@ public class FXMLQuizzTableController implements Initializable {
     private TableColumn<Quizz, String> subjectColumn;
     @FXML
     private Button btShowGraph;
-    @FXML
-    private Label lNotificationNotRead;
+    
+    private int userId;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        reloadQuizzesList();
+//        reloadQuizzesList();
     }    
+    
+    public void initializeUserId(int uId){
+        userId = uId;
+        reloadQuizzesList();
+    }
     
 //    Reusable function to reload the table
     public void reloadQuizzesList(){
@@ -64,9 +69,9 @@ public class FXMLQuizzTableController implements Initializable {
         ServiceQuizz sq = new ServiceQuizz();
         
         try {
-            LAffiche.setItems(sq.ObservableListAllQuizzes());
+            LAffiche.setItems(sq.ObservableListQuizzes(userId));
         } catch (SQLException ex) {
-            Logger.getLogger(FXMLQuestionTableController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLQuizzTableController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -74,11 +79,18 @@ public class FXMLQuizzTableController implements Initializable {
     @FXML
     private void addQuizz(ActionEvent event) throws Exception {
         
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/simpalha/quizz/FXMLQuizzAdd.fxml"
+                )
+        );
+        Parent modal = loader.load();
+        
+        FXMLQuizzAddController addController = loader.getController();
+        
+        addController.initializeUser(userId);
+        
         Stage stage = new Stage();
-        Parent modal;
-        
-        modal = FXMLLoader.load(getClass().getResource("FXMLQuizzAdd.fxml"));
-        
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Quizz Creation Modal");
             
@@ -95,7 +107,7 @@ public class FXMLQuizzTableController implements Initializable {
         Quizz editable = LAffiche.getSelectionModel().getSelectedItem();
         
 //        à effacer une fois on intégre la Classe Helper
-        editable.setHelper(1);
+        editable.setHelper(userId);
         
         FXMLLoader modal = new FXMLLoader(getClass().getResource("FXMLQuizzEdit.fxml"));
         Parent root = modal.load();
@@ -143,7 +155,7 @@ public class FXMLQuizzTableController implements Initializable {
         
         FXMLQuizzResultGraphController editModal = modal.getController();
         
-        editModal.showResults(quizzId);
+        editModal.showResults(quizzId, userId);
         
         Stage stage;
         stage = (Stage) btShowGraph.getScene().getWindow();

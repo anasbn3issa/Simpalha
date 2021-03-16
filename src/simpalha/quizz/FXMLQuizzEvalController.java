@@ -62,8 +62,10 @@ public class FXMLQuizzEvalController implements Initializable {
     private ObservableList<QuizzWrapper> quizzTableItems;
     public static QuizzStats quizzStats;
     private QuizzResult quizzResultsObject;
+    private Notification notif;
     private boolean isResultShown;
     private int addedQuizzId;
+    private int userId;
     
     /**
      * Initializes the controller class and initializes quizzStats
@@ -73,6 +75,7 @@ public class FXMLQuizzEvalController implements Initializable {
         isResultShown = false;
         quizzStats = new QuizzStats();
         quizzResultsObject = new QuizzResult();
+        notif = new Notification();
     }    
     
 //    Reusable function to reload the table
@@ -89,7 +92,9 @@ public class FXMLQuizzEvalController implements Initializable {
     }
     
 //    Will initialize addedQuizzId through the Information sent by the FXMLQuizzTakingController
-    public void showInformationEval(int id) throws SQLException{
+    public void showInformationEval(int id, int userIdSent, int helperQuizzCreator) throws SQLException{
+        notif.setUser(helperQuizzCreator);
+        userId = userIdSent;
         addedQuizzId = id;
         
         setUnresolved(id);
@@ -121,7 +126,7 @@ public class FXMLQuizzEvalController implements Initializable {
             FXMLQuizzEvalAnswerController editModal = modal.getController();
 
 
-            editModal.showInformation(indexEditable,quizzTableItems,editable, addedQuizzId,quizzStats);
+            editModal.showInformation(indexEditable,quizzTableItems,editable, addedQuizzId,quizzStats,notif);
 
             Stage stage = new Stage();
             Scene scene = new Scene(root);
@@ -154,7 +159,8 @@ public class FXMLQuizzEvalController implements Initializable {
     }
     
 //    Updates the status of an answered QuizzWrapper by setting its status to true
-    public void updateQuestions(int indexQuizz,ObservableList<QuizzWrapper> tableItems,QuizzWrapper q, int id)throws SQLException{
+    public void updateQuestions(int indexQuizz,ObservableList<QuizzWrapper> tableItems,QuizzWrapper q, int id, Notification n)throws SQLException{
+        notif = n;
         System.out.println("updateQuestions");
         
         quizzTableItems = tableItems;
@@ -194,7 +200,6 @@ public class FXMLQuizzEvalController implements Initializable {
             {
                 ServiceNotification serviceNotif = new ServiceNotification();
                 ServiceQuizzResult qr = new ServiceQuizzResult();
-                Notification n = new Notification();
 
                 int maxScore = quizzStats.getNbQuestionsEval();
                 int result = quizzStats.getTotalResultEval();
@@ -205,19 +210,20 @@ public class FXMLQuizzEvalController implements Initializable {
                 quizzResultsObject.setQuizz(addedQuizzId);
                 quizzResultsObject.setResult(average);
     //            TODO : Replace setStudent value once we integrate our work
-                quizzResultsObject.setStudent(1);
+                quizzResultsObject.setStudent(notif.getUser());
 
                 qr.Create(quizzResultsObject);
                 
                 isResultShown = true;
                 
-                n.setTitle("Quizz Result");
-                n.setContent("The Student X has received a mark of "+average+"/20 in the Quizz \""+addedQuizzId+".");
-                n.setRead(false);
-                n.setSent(false);
-                n.setUser(1);
+                notif.setTitle("Quizz Result");
+                notif.setContent("The Student "+userId+" has received a mark of "+average+"/20 in the Quizz \""+addedQuizzId+".");
+                notif.setRead(false);
+                notif.setSent(false);
+                System.out.println(notif);
+                System.out.println(userId);
                 
-                serviceNotif.createNotification(n);
+                serviceNotif.createNotification(notif);
                 
             }
        }

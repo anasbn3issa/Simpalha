@@ -45,9 +45,11 @@ public class FXMLQuizzTakingController implements Initializable {
     private TableColumn<Quizz, String> subjectColumn;
     @FXML
     private Button btTakeQuizz;
-    @FXML
-    private Label lNotificationNotRead;
+    
+    
+    private int userId;
 
+    
     /**
      * Initializes the controller class and reloads the Quiz table
      */
@@ -55,6 +57,10 @@ public class FXMLQuizzTakingController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         reloadQuizzesList();
     }    
+    
+    public void initializeUserId(int uid){
+        userId = uid;
+    }
     
 //    Reusable function to reload the Quiz table
     public void reloadQuizzesList(){
@@ -73,16 +79,14 @@ public class FXMLQuizzTakingController implements Initializable {
     private void takeQuizz(ActionEvent event) throws Exception {
         Quizz editable = LAffiche.getSelectionModel().getSelectedItem();
         
-//        à effacer une fois on intégre la Classe Helper
-        editable.setHelper(1);
-        
         FXMLLoader modal = new FXMLLoader(getClass().getResource("FXMLQuizzEval.fxml"));
         Parent root = modal.load();
         
         
         FXMLQuizzEvalController editModal = modal.getController();
         
-        editModal.showInformationEval(editable.getId());
+        System.out.println(userId);
+        editModal.showInformationEval(editable.getId(),userId,editable.getHelper());
         
         Stage stage;
         stage = (Stage) btTakeQuizz.getScene().getWindow();

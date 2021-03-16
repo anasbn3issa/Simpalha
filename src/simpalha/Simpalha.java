@@ -21,12 +21,8 @@ import services.ServiceNotification;
  */
 public class Simpalha extends Application {
     
-    public static String notReadCount="yep";
-    
     @Override
     public void start(Stage stage) throws Exception {
-        
-        ServiceNotification sn = new ServiceNotification();
         
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
@@ -35,17 +31,20 @@ public class Simpalha extends Application {
         stage.setScene(scene);
         stage.show();
         
-        Thread t = new Thread(sn);
-        t.start();
         
-        stage.setOnCloseRequest(e->{
-            sn.terminate();
-            try {
-                t.join();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Simpalha.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
+//        ServiceNotification sn = new ServiceNotification(2);
+//        
+//        Thread t = new Thread(sn);
+//        t.start();
+//        
+//        stage.setOnCloseRequest(e->{
+//            sn.terminate();
+//            try {
+//                t.join();
+//            } catch (InterruptedException ex) {
+//                Logger.getLogger(Simpalha.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        });
     }
 
     /**

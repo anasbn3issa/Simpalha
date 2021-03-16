@@ -155,6 +155,13 @@ Day 8: 17h30 15/03/2021
         -Create Notification API Class and its service
         -Implement and test the Class
 
+    STEP 8 Completed at 12h30
+
+    STEP 9:
+        -Implement userId fetching in QuizzTable
+        -Implement userId fetching in QuizzTaking
+        -Implement userId fetching in Notification
+
     Notes:
         *NOTIFICATION IS HELL
 
@@ -164,6 +171,30 @@ Day 8: 17h30 15/03/2021
 WORKTIME: 5H37M
 
 Stopping time: 16/03/2021 00h35
+
+
+
+Day 9: 10h10 16/03/2021
+
+    STEP 8 in Progress
+
+    STEP 8 Completed at 18h55
+
+    STEP 9:
+        -Implement a progression calculating algorythm to the Quizzes
+        -Last Checks
+
+    STEP 9 Completed at 22h01
+
+    Notes:
+        *Hamdoullah
+
+    References:
+        *
+
+WORKTIME: 5H06M
+
+Stopping time: 16/03/2021 22h01
 
 
 
@@ -249,11 +280,25 @@ Stopping time: 16/03/2021 00h35
 
         -Create Notification API Class and its service
 
+            DONE 16/03/2021
+
         -Implement and test the Class
 
-        -Implement a progression calculating algorythm to the Quizzes
+            DONE 16/03/2021
 
-        -Add the user Class and Table, and implement them in my work.
+        -Implement userId fetching in QuizzTable
+
+            DONE 16/03/2021
+
+        -Implement userId fetching in QuizzTaking
+
+            DONE 16/03/2021
+
+        -Implement userId fetching in Notification
+
+            DONE 16/03/2021
+
+        -Implement a progression calculating algorythm to the Quizzes
 
 
 

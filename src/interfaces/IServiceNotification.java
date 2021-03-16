@@ -6,8 +6,11 @@
 package interfaces;
 
 import entities.Notification;
+import entities.Quizz;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javafx.beans.property.IntegerProperty;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 
 /**
@@ -18,10 +21,22 @@ public interface IServiceNotification extends Runnable {
     
     public void createNotification(Notification n);
     
+    public void updateNotification(Notification n);
+    
     public ArrayList<Notification> notSent();
     
     public int countNotRead() throws SQLException ;
     
-    public void modifyLabelNotification(Label l);
+//    show all quizzes in an observablelist
+    public ObservableList<Notification> ObservableListAllNotSentNotifications() throws SQLException ;
+    
+//    show all quizzes in an observablelist
+    public ObservableList<Notification> ObservableListAllNotSentNotificationsAndUpdate() throws SQLException ;
+    
+//    show all quizzes in an observablelist
+    public ObservableList<Notification> ObservableListNotSentNotifications(int userId) throws SQLException ;
+    
+//    show all quizzes in an observablelist
+    public ObservableList<Notification> ObservableListNotSentNotificationsAndUpdate(int userId) throws SQLException ;
     
 }

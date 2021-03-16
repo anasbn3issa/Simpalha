@@ -5,33 +5,37 @@
  */
 package simpalha.quizz;
 
+import com.mysql.jdbc.Util;
 import entities.Quizz;
 import entities.QuizzResult;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-import services.ServiceQuestion;
 import services.ServiceQuizz;
 import services.ServiceQuizzResult;
 import simpalha.FXMLDocumentController;
@@ -43,18 +47,7 @@ import simpalha.FXMLDocumentController;
  */
 public class FXMLQuizzResultGraphController implements Initializable {
 
-    @FXML
     private TableView<QuizzResult> LAffiche;
-    @FXML
-    private TableColumn<QuizzResult, Integer> idColumn;
-    @FXML
-    private TableColumn<QuizzResult, Integer> resultColumn;
-    @FXML
-    private TableColumn<QuizzResult, LocalDateTime> dateColumn;
-    @FXML
-    private TableColumn<QuizzResult, Integer> quizzColumn;
-    @FXML
-    private TableColumn<QuizzResult, Integer> studentColumn;
     @FXML
     private LineChart<String, Integer> progressionChart;
     @FXML
@@ -65,8 +58,14 @@ public class FXMLQuizzResultGraphController implements Initializable {
     private Label lQuizzTitle;
 
     private int addedQuizzId;
+    private int userId;
     @FXML
-    private Label lNotificationNotRead;
+    private Button btExitGraph;
+    @FXML
+    private Label lbAverage;
+    @FXML
+    private Label lbAnnotation;
+    
     /**
      * Initializes the controller class.
      */
@@ -97,10 +96,11 @@ public class FXMLQuizzResultGraphController implements Initializable {
     public void reloadResultsList(int id) {
     
         ServiceQuizzResult qr = new ServiceQuizzResult();
+        double average = calculateAverageOfQuizzes(qr.findAllById(id));
         
         try {
-            LAffiche.setItems(qr.ObservableListQuizzResults(id));
-            
+            setAverageAnnotation(average);
+//            LAffiche.setItems(qr.ObservableListQuizzResults(id));
             XYChart.Series series = loadSeries();
             progressionChart.getData().add(series);
             resultsAxis.setLowerBound(0);
@@ -109,6 +109,47 @@ public class FXMLQuizzResultGraphController implements Initializable {
         } catch (Exception ex) {
             Logger.getLogger(FXMLQuizzResultGraphController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    private void setAverageAnnotation(double average){
+        
+        lbAverage.setText(new DecimalFormat("#.00").format(average)+"/20");
+        
+        if(average<5){
+            lbAverage.setTextFill(Color.web("#e84855"));
+            lbAnnotation.setTextFill(Color.web("#e84855"));
+            lbAnnotation.setText("Kids aren't getting smarter..");
+            
+        }
+        else if(average>=5 && average<10)
+            lbAnnotation.setText("It could be worse!");
+        else if(average>=10 && average<15)
+            lbAnnotation.setText("Getting close to excellence!");
+        else{
+            lbAverage.setTextFill(Color.web("#06ba63"));
+            lbAnnotation.setTextFill(Color.web("#06ba63"));
+            lbAnnotation.setText("Outstanding, or was your test too easy?");
+        }
+    }
+    
+    private double calculateAverage(List<Integer> marks) {
+        Integer sum = 0;
+        if(!marks.isEmpty()) {
+          for (Integer mark : marks) {
+              sum += mark;
+          }
+          return sum.doubleValue() / marks.size();
+        }
+        return sum;
+    }
+    
+    private double calculateAverageOfQuizzes(List<QuizzResult> quizzList){
+        
+        List<Integer> quizzMarks = quizzList.stream().map(QuizzResult::getResult).collect(Collectors.toList());
+        
+        System.out.println(quizzMarks);
+        
+        return calculateAverage(quizzMarks);
     }
     
 //    sets title of quizz
@@ -121,17 +162,40 @@ public class FXMLQuizzResultGraphController implements Initializable {
         lQuizzTitle.setText("\""+q.getTitle() + "\" Quizz Progression");
     }
     
-//    initializes addedQuizzId and loads the table of Results
-    public void showResults(int quizzId){
+//    initializes addedQuizzId and userId and loads the table of Results
+    public void showResults(int quizzId, int uId){
+        userId = uId;
         addedQuizzId = quizzId;
         setTitle(quizzId);
         
         reloadResultsList(addedQuizzId);
     }
 
-
     @FXML
-    private void editQuizz(ActionEvent event) {
+    private void exitGraph(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/simpalha/quizz/FXMLQuizz.fxml"
+                    )
+            );
+            
+            Parent root = loader.load();
+            
+            FXMLQuizzController tableController = loader.getController();
+            
+            tableController.initializeUserId(userId);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(root)
+            );
+            stage.setTitle("Quiz Section");
+            stage.show();
+        } 
+        catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 
@@ -157,6 +221,29 @@ public class FXMLQuizzResultGraphController implements Initializable {
 
     @FXML
     private void showQuizz(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/simpalha/quizz/FXMLQuizz.fxml"
+                    )
+            );
+            
+            Parent root = loader.load();
+            
+            FXMLQuizzController tableController = loader.getController();
+            
+            tableController.initializeUserId(userId);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(root)
+            );
+            stage.setTitle("Quiz Section");
+            stage.show();
+        } 
+        catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
