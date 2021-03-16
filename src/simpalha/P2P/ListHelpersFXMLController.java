@@ -24,7 +24,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import services.ServiceUser;
+import services.ServiceUsers;
 import simpalha.FXMLDocumentController;
 
 /**
@@ -38,7 +38,7 @@ public class ListHelpersFXMLController implements Initializable {
     private Button back;
     
     //var
-    private ServiceUser service;
+    private ServiceUsers service;
     @FXML
     private TableView<Users> helpersList;
 
@@ -49,7 +49,7 @@ public class ListHelpersFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         // TODO
-        service = new ServiceUser();
+        service = new ServiceUsers();
 
         TableColumn<Users, String> nameCol = new TableColumn<>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("fname"));

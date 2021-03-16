@@ -29,7 +29,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.ServiceDisponibilite;
 import services.ServiceP2P;
-import services.ServiceUser;
+import services.ServiceUsers;
 import simpalha.FXMLDocumentController;
 
 /**
@@ -44,7 +44,7 @@ public class UpdateP2PFXMLController implements Initializable {
     private int idHelper;
     private ServiceP2P service;
     private ServiceDisponibilite serviceDisp;
-    private ServiceUser serviceUser;
+    private ServiceUsers serviceUser;
     
     @FXML
     private Button back;
@@ -65,13 +65,13 @@ public class UpdateP2PFXMLController implements Initializable {
         Platform.runLater(() -> {
             service = new ServiceP2P();
             serviceDisp = new ServiceDisponibilite();
-            serviceUser = new ServiceUser();
+            serviceUser = new ServiceUsers();
 
             List<Disponibilite> dispoList = serviceDisp.findAllById(idHelper);
             times.getItems().addAll(dispoList.stream().map(d -> d.getDatedeb() + " -> " + d.getDateFin()).toArray(String[]::new));
             Users student = serviceUser.findById(idHelper);
-            helper.setText(student.getFname() + " " + student.getLname());
-            specialite.setText(student.getSpecialites());
+            helper.setText(student.getUsername());
+            specialite.setText(student.getSpecialité());
 
         });
     }   
