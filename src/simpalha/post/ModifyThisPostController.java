@@ -57,7 +57,6 @@ public class ModifyThisPostController implements Initializable {
             
 
             p = myService.findById(idPost);
-            System.out.println(p.toString());
 
  
         comboModule.getItems().removeAll(comboModule.getItems());

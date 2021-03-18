@@ -49,6 +49,11 @@ public class AddNewPostController implements Initializable {
     private TextArea textProblem;
     @FXML
     private VBox addProblemContainer;
+    
+    
+    private File selectedFile;
+    
+    
 
     /**
      * Initializes the controller class.
@@ -56,6 +61,8 @@ public class AddNewPostController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
+
+            
             // first Label in page 
             Text shareYourProblemText = new Text("Share your problem");
             shareYourProblemText.setStyle("-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%);\n"
@@ -83,11 +90,11 @@ public class AddNewPostController implements Initializable {
             Text fileLabel = new Text("Import File");
             HBox hboxFile1 = new HBox();
             hboxFile1.getChildren().addAll(fileLabel, buttonFile1);
-
-            Button buttonFile2 = new Button("Add Files");
-            Text filesLabel = new Text("Import Files");
-            HBox hboxFile2 = new HBox();
-            hboxFile2.getChildren().addAll(filesLabel, buttonFile2);
+//
+//            Button buttonFile2 = new Button("Add Files");
+//            Text filesLabel = new Text("Import Files");
+//            HBox hboxFile2 = new HBox();
+//            hboxFile2.getChildren().addAll(filesLabel, buttonFile2);
             buttonFile1.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -96,11 +103,10 @@ public class AddNewPostController implements Initializable {
                     fc.getExtensionFilters().addAll(
                             new FileChooser.ExtensionFilter("img files", "*.jpg", "*.png")
                     );
-                    File selectedFile = fc.showOpenDialog(null);
+                    selectedFile = fc.showOpenDialog(null);
 
                     if (selectedFile != null) {
                         System.out.println(selectedFile.getAbsolutePath());
-                        copy(selectedFile);
 
                     } else {
                         System.out.println("file not valid");
@@ -109,30 +115,32 @@ public class AddNewPostController implements Initializable {
 
                 }
             });
-            buttonFile2.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    FileChooser fc = new FileChooser();
-                    //fc.setInitialFileName("w na3tih houni l path"); // hethy tkhali el filechooser yet7al fel page mta3  lpath donné
-                    fc.getExtensionFilters().addAll(
-                            new FileChooser.ExtensionFilter("img files", "*.jpg", "*.png")
-                    );
-                    List<File> selectedFiles = fc.showOpenMultipleDialog(null);
+//            buttonFile2.setOnAction(new EventHandler<ActionEvent>() {
+//                @Override
+//                public void handle(ActionEvent event) {
+//                    FileChooser fc = new FileChooser();
+//                    //fc.setInitialFileName("w na3tih houni l path"); // hethy tkhali el filechooser yet7al fel page mta3  lpath donné
+//                    fc.getExtensionFilters().addAll(
+//                            new FileChooser.ExtensionFilter("img files", "*.jpg", "*.png")
+//                    );
+//                    List<File> selectedFiles = fc.showOpenMultipleDialog(null);
+//
+//                    if (selectedFiles != null) {
+//                        for (int i = 0; i < selectedFiles.size(); i++) {
+//                            System.out.println(selectedFiles.get(i).getAbsolutePath());
+//                        }
+//
+//                    } else {
+//                        System.out.println("files not valid");
+//
+//                    }
+//
+//                }
+//            });
 
-                    if (selectedFiles != null) {
-                        for (int i = 0; i < selectedFiles.size(); i++) {
-                            System.out.println(selectedFiles.get(i).getAbsolutePath());
-                        }
 
-                    } else {
-                        System.out.println("files not valid");
-
-                    }
-
-                }
-            });
-
-            addProblemContainer.getChildren().addAll(shareYourProblemText, hboxModule, hboxProblem, hboxFile1, hboxFile2, submit);
+            // if i would be adding another button to add multiple files , i just need to add  hboxFile2 in the parameters . 
+            addProblemContainer.getChildren().addAll(shareYourProblemText, hboxModule, hboxProblem, hboxFile1, submit);
 
             submit.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -140,10 +148,15 @@ public class AddNewPostController implements Initializable {
                     // Partie 1 : Add this post to Database , only need to set 
                     String s1 = textProblem.getText();
                     String s2 = comboModule.getValue();
-                    Post p = new Post(s1, s2);
-                    System.out.println("s1" + s1 + "s2" + s2);
+                    String s3= selectedFile.getName();
+                    Post p = new Post(s1, s2,s3);
+                    System.out.println("s1" + s1 + "s2" + s2+"s3"+s3);
                     ServicePost s = new ServicePost();
-                    s.Create(p);
+                    s.Create(p);                   
+                    copy(selectedFile);
+
+                    
+                    
                     //Partie 2 : go to view Posts
                     try {
                         FXMLLoader loader = new FXMLLoader(
