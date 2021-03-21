@@ -4,6 +4,7 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -25,7 +26,7 @@
                <children>
                   <ImageView fitHeight="120.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assets/Simpalha.png" />
+                        <Image url="@../../assets/Simpalha.png" />
                      </image>
                   </ImageView>
                </children></HBox>
@@ -221,16 +222,12 @@
                         </Button>
                         <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-background-radius: 0px;">
                            <graphic>
-                              <FontAwesomeIcon fill="#485460" iconName="TH_LIST" size="1.3em" />
+                              <FontAwesomeIcon fill="#485460" iconName="TH_LIST" size="1.3em" text="" />
                            </graphic>
                         </Button>
                         <HBox alignment="CENTER">
                            <children>
-                              <TextField promptText="Search post" style="-fx-background-color: transparent; -fx-prompt-text-fill: #485460;">
-                                 <HBox.margin>
-                                    <Insets left="5.0" right="10.0" />
-                                 </HBox.margin>
-                              </TextField>
+                              <ComboBox fx:id="comboSearch" prefWidth="150.0" />
                               <FontAwesomeIcon fill="#485460" iconName="SEARCH" size="1.5em" styleClass="cursor_hand" text="" />
                            </children>
                         </HBox>

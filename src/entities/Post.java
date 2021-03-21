@@ -26,6 +26,8 @@ public class Post {
     private Timestamp timestamp;
     private Status status = Status.PENDING;
     private String module;
+    private String imageName;
+    //private List<String> filePaths
 
     public Post() {
     }
@@ -42,6 +44,29 @@ public class Post {
         this.timestamp = timestamp;
     }
 
+    public Post(int id, String problem, String imageName) {
+        this.id = id;
+        this.problem = problem;
+        this.imageName = imageName;
+    }
+
+    public Post(String problem, String module, String imageName) {
+        this.problem = problem;
+        this.module = module;
+        this.imageName = imageName;
+    }
+
+    
+    
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    
     public int getId() {
         return id;
     }
@@ -85,7 +110,8 @@ public class Post {
             this.status = Status.OPEN;
         } else if (status.equals("SOLVED")) {
             this.status = Status.SOLVED;
-        } else {
+        } else if (status.equals("PENDING"))
+        {
             this.status = Status.PENDING;
         }
     }
@@ -96,7 +122,9 @@ public class Post {
 
     @Override
     public String toString() {
-        return "Post{" + "id=" + id + "status=" + status + ", problem=" + problem + ", timestamp=" + timestamp + ", module=" + module + '}' + "\n";
+        return "Post{" + "id=" + id + ", problem=" + problem + ", timestamp=" + timestamp + ", status=" + status + ", module=" + module + ", imageName=" + imageName + '}';
     }
+
+    
 
 }

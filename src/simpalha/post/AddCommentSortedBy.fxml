@@ -259,7 +259,6 @@
                                     <Image url="@../assets/logo.png" />
                                  </image>
                               </ImageView>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="22 Febuary 2020" />
                               <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" />
                            </children>
                         </HBox>

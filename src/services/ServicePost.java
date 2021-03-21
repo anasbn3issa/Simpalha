@@ -39,7 +39,7 @@ public class ServicePost implements IServicePost {
     public void Create(Post variable) {
         try {
             Statement st = cnx.createStatement();
-            String query = "INSERT INTO post(module, problem) VALUES ('" + variable.getModule() + "','" + variable.getProblem() + "')";
+            String query = "INSERT INTO post(module, problem,image_name) VALUES ('" + variable.getModule() + "','" + variable.getProblem() + "','" + variable.getImageName() + "')";
             st.executeUpdate(query);
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("enregistré");
@@ -80,6 +80,7 @@ public class ServicePost implements IServicePost {
                 p.setProblem(rs.getString("problem"));
                 p.setModule(rs.getString("module"));
                 p.setTimestamp(rs.getTimestamp("timestamp"));
+                p.setImageName(rs.getString("image_name"));
                 list.add(p);
             }
 
@@ -98,9 +99,7 @@ public class ServicePost implements IServicePost {
             PreparedStatement pst = cnx.prepareStatement(requete);
             pst.setInt(1, variable.getId());
             pst.executeUpdate();
-            int ss = pst.executeUpdate();
-            System.out.println(ss);
-            System.out.println("Post Deleted !!!!");
+            int ss = pst.executeUpdate(); 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -123,7 +122,6 @@ public class ServicePost implements IServicePost {
                 p.setId(rs.getInt("id"));
                 p.setTimestamp(rs.getTimestamp("timestamp"));
                 p.setStatus(rs.getString("status"));
-                System.out.println(p.getStatus()+" <-- hetha fel Service Post ");
                 p.setProblem(rs.getString("problem"));
                 p.setModule(rs.getString("module"));
             }
@@ -185,5 +183,34 @@ public class ServicePost implements IServicePost {
 
         return comments;
     }
+
+    @Override
+    public List<Post> findPostsByModule(String module) {
+        List<Post> posts = new ArrayList<>();
+        String query = "select * from post where module=?";
+
+        try {
+            pst = cnx.prepareStatement(query);
+            pst.setString(1, module);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                Post c = new Post();
+                c.setId(rs.getInt("id"));
+                c.setProblem(rs.getString("problem"));
+                c.setTimestamp(rs.getTimestamp("timestamp"));
+                c.setStatus(rs.getString("status"));
+                c.setModule(rs.getString("module"));
+                c.setImageName(rs.getString("image_name"));
+                System.out.println("b"+c.toString());
+                posts.add(c);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServicePost.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return posts;
+        
+        
+        }
 
 }
