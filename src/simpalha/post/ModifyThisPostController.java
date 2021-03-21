@@ -80,7 +80,6 @@ public class ModifyThisPostController implements Initializable {
     
     void initData(int id)
     {
-        System.out.println(id);
         idPost=id;
     }
 
