@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -132,7 +133,7 @@ public class ServiceUsers implements IserviceUsers {
     @Override
     public Boolean usernameExist(String username) {
 
-        /* User cu = User.CurrentUser(); */
+        
         try {
             String request = "SELECT username FROM users where username='" + username + "'";
             Statement s = cnx.createStatement();
@@ -259,4 +260,6 @@ public class ServiceUsers implements IserviceUsers {
     public Users findById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+  
+    
 }

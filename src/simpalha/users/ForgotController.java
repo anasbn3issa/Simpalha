@@ -130,13 +130,6 @@ public class ForgotController implements Initializable {
 
 
 
-    @FXML
-    private void goToViewPosts(MouseEvent event) {
-    }
-
-    @FXML
-    private void showP2P(MouseEvent event) {
-    }
 
     
 }

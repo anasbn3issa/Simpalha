@@ -5,6 +5,7 @@
  */
 package entities;
 
+import java.util.Base64;
 import static java.util.Collections.list;
 
 /**
@@ -53,8 +54,7 @@ public class Users {
     }
 
     public String getPassword() {
-        return password;
-    }
+return Base64.getEncoder().encodeToString(password.getBytes());    }
 
     public void setPassword(String password) {
         this.password = password;
@@ -78,8 +78,9 @@ public class Users {
     }
 
     public String getUsername() {
-        return username;
-    }
+      
+    return (username);}
+    
 
     public void setUsername(String username) {
         this.username = username;

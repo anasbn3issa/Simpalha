@@ -20,7 +20,7 @@ public class Candidature {
     private int idc;
     private int idu;
     private LocalDateTime datec;
-     private Blob fichier;
+     private String fichier;
     private int status;
     
     
@@ -38,7 +38,7 @@ public class Candidature {
    
     
 
-    public Candidature(String email, String spécialité, int status, int idc, Blob fichier, LocalDateTime datec) {
+    public Candidature(String email, String spécialité, int status, int idc, String fichier, LocalDateTime datec) {
         this.email = email;
         this.spécialité = spécialité;
         this.status = status;
@@ -75,7 +75,7 @@ public class Candidature {
         
     }
 
-    public Candidature(String email, String spécialité, Blob fichier) {
+    public Candidature(String email, String spécialité, String fichier) {
         this.email = email;
         this.spécialité = spécialité;
       
@@ -121,11 +121,11 @@ public class Candidature {
     }
 
 
-    public Blob getFichier() {
+    public String getFichier() {
         return fichier;
     }
 
-    public void setFichier(Blob fichier) {
+    public void setFichier(String fichier) {
         this.fichier = fichier;
     }
     

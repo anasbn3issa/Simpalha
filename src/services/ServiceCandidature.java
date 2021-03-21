@@ -46,7 +46,7 @@ public class ServiceCandidature implements IServiceCandidature {
             pst.setString(1, variable.getEmail());
             
            pst.setString(2, variable.getSpécialité());
-            pst.setBlob(3, variable.getFichier());
+            pst.setString(3, variable.getFichier());
             pst.executeUpdate();
             System.out.println("Candidature ajoutée");
 
@@ -121,7 +121,7 @@ public class ServiceCandidature implements IServiceCandidature {
             pst.setString(1, email);
            rs= pst.executeQuery();
           while(rs.next()){
-              cdr = new Candidature(rs.getString("email"),rs.getString("specialite"),rs.getBlob("fichier"));
+              cdr = new Candidature(rs.getString("email"),rs.getString("specialite"),rs.getString("fichier"));
           }  
         } catch (SQLException ex) {
             Logger.getLogger(ServiceCandidature.class.getName()).log(Level.SEVERE, null, ex);
@@ -143,7 +143,7 @@ List<Candidature> cdr = new ArrayList<>();
             while (rs.next()) {
                 Candidature cand = new Candidature(rs.getString(2),
                         rs.getString(3), rs.getInt(5),
-                        rs.getInt(1),rs.getBlob(4), 
+                        rs.getInt(1),rs.getString(4), 
                         rs.getTimestamp(6).toLocalDateTime());
                 cdr.add(cand);
             }
