@@ -215,6 +215,7 @@
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="Posts List" />
                   <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                      <children>
+                        <Button mnemonicParsing="false" onAction="#ExportExcelButtonPushed" text="Button" />
                         <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-background-radius: 0px;">
                            <graphic>
                               <FontAwesomeIcon fill="#485460" iconName="TH_LARGE" size="1.3em" />

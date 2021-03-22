@@ -8,16 +8,24 @@ package services;
 import entities.Comment;
 import entities.Post;
 import interfaces.IServicePost;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import utils.Maconnexion;
 
 /**
@@ -52,7 +60,6 @@ public class ServicePost implements IServicePost {
     @Override
     public void Update(Post variable) {
         String query = "update post set module=?,status=?,problem=? where id=?";
-        System.out.println(variable.toString());
         try {
             pst = cnx.prepareStatement(query);
             pst.setString(1, variable.getModule());
@@ -212,5 +219,108 @@ public class ServicePost implements IServicePost {
         
         
         }
+
+    @Override
+    public String xTimeAgo(Timestamp timestamp) {
+        long current = System.currentTimeMillis();
+        
+        
+        
+        return null;
+    }
+    
+    
+    private void ExportExcel(ActionEvent event) throws FileNotFoundException, IOException {
+         try {        
+             String query = "Select * from post";
+             pst = cnx.prepareStatement(query);
+             rs = pst.executeQuery();
+            //Variable counter for keeping track of number of rows inserted.  
+            int counter = 1;
+            FileOutputStream fileOut = null;
+           
+            
+
+            //Creation of New Work Book in Excel and sheet.  
+            HSSFWorkbook hwb = new HSSFWorkbook();
+            HSSFSheet sheet = hwb.createSheet("new sheet");
+            //Creating Headings in Excel sheet.  
+            HSSFRow rowhead = sheet.createRow((short) 0);
+            rowhead.createCell((short) 1).setCellValue("timestamp");//Row Name1  
+            rowhead.createCell((short) 2).setCellValue("status");//Row Name2  
+            rowhead.createCell((short) 3).setCellValue("module");//Row Name3  
+            rowhead.createCell((short) 5).setCellValue("problem");//Row Name4
+            
+
+            
+            while (rs.next()) {
+                //Insertion in corresponding row  
+                HSSFRow row = sheet.createRow((int) counter);
+               
+//                CellStyle dateCellStyle = hwb.createCellStyle();
+//                CellStyle dateCellStyle1 = hwb.createCellStyle();
+//                CreationHelper createHelper = hwb.getCreationHelper();
+                //Cell dateOfBirthCell = row.createCell(2);
+//            dateOfBirthCell.setCellValue(employee.getDateOfBirth());
+//            dateOfBirthCell.setCellStyle(dateCellStyle);
+//                dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
+//                dateCellStyle1.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
+
+                row.createCell((short) 1).setCellValue(rs.getInt("timestamp"));
+                row.createCell((short) 2).setCellValue(rs.getString("status"));
+                row.createCell((short) 3).setCellValue(rs.getString("module"));
+                row.createCell((short) 5).setCellValue(rs.getString("problem"));
+                
+
+//                row.createCell((short) 3).setCellStyle(dateCellStyle);
+//                row.createCell((short) 3).setCellValue(rs.getDate("date"));
+            
+//                Cell dateS = row.createCell((short) 4);
+//                dateS.setCellValue(rs.getDate("dates"));
+//                dateS.setCellStyle(dateCellStyle);
+//
+//
+//                Cell dateE = row.createCell((short) 5);
+//                dateE.setCellValue(rs.getDate("datee"));
+//                dateE.setCellStyle(dateCellStyle1);
+
+                sheet.autoSizeColumn(1);
+                sheet.autoSizeColumn(2);
+                sheet.setColumnWidth(3, 256 * 25);
+
+                sheet.setZoom(150);
+                sheet.autoSizeColumn(1);
+                sheet.autoSizeColumn(2);
+                sheet.setColumnWidth(3, 256 * 25);
+
+                sheet.setZoom(150);
+
+                counter++;
+                try {
+                    //For performing write to Excel file  
+                    fileOut = new FileOutputStream("Users.xls");
+                    hwb.write(fileOut);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            //Close all the parameters once writing to excel is compelte.  
+            fileOut.close();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("INFORMATION DIALOG");
+            alert.setHeaderText(null);
+            alert.setContentText("All courses Has Been Exported in Excel Sheet");
+            alert.showAndWait();
+            rs.close();
+            
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+    }
+
 
 }

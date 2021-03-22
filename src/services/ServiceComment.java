@@ -37,9 +37,7 @@ public class ServiceComment implements IServiceComment {
             Statement st = cnx.createStatement();
             String query = "INSERT INTO comment(owner,id_Post,solution) VALUES ('" + variable.getOwner() + "','" + variable.getId_Post() + "','" + variable.getSolution() + "')";
             st.executeUpdate(query);
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("enregistré");
-            alert.show();
+           
         } catch (SQLException ex) {
             Logger.getLogger(ServicePost.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -89,7 +87,6 @@ public class ServiceComment implements IServiceComment {
             PreparedStatement pst = cnx.prepareStatement(requete);
             pst.setInt(1, variable.getId());
             pst.executeUpdate();
-            int ss = pst.executeUpdate();
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -110,6 +107,28 @@ public class ServiceComment implements IServiceComment {
     @Override
     public Comment findById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Boolean MarkAsSolution(int id_post, int id_comment) {
+        
+        String query = "update post set solution_id=? where id=?";
+        
+        try {
+            
+            PreparedStatement pst= cnx.prepareStatement(query);
+            pst.setInt(1,id_comment);
+            pst.setInt(2,id_post);
+            pst.executeUpdate();
+            
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        
+        return false;
     }
 
 }
