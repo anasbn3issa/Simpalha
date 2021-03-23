@@ -85,20 +85,25 @@ public class ViewPostsController implements Initializable {
 
         // we add the search combobox 
         comboSearch.getItems().removeAll(comboSearch.getItems());
-        comboSearch.getItems().addAll("IP Essentials", "Mathématique de base 1", "Mathématique de base 2", "Génie Logiciel"); // mba3d nrodou marbout b classe specialité .
+        comboSearch.getItems().addAll("IP Essentials", "Mathématique de base 1", "Mathématique de base 2", "Génie Logiciel","All"); // mba3d nrodou marbout b classe specialité .
         comboSearch.getSelectionModel().select("Search by module"); // shnowa maktoub par défaut . 
-        System.out.println("-*-*-*-*-*-*" + comboSearch.getValue() + "*--*-*-*-*-*");
 
         // search combobox on Action
         comboSearch.setOnAction(e -> {
             String s1 = comboSearch.getValue().trim();
             PostsContainer.getChildren().clear();
             System.out.println("-*-*-*-*-*-*" + comboSearch.getValue() + "*--*-*-*-*-*");
-            List<Post> listSearchedByModule = cs.findPostsByModule(s1);
+            
+            if(s1.equals("All"))
+                displayThisList(lc, cs);
+            else {
+                List<Post> listSearchedByModule = cs.findPostsByModule(s1);
 
             System.out.println("All posts searched by Module : " + listSearchedByModule.toString());
 
             displayThisList(listSearchedByModule, cs);
+            }
+            
 
         });
 

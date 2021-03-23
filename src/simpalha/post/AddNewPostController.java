@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import javafx.application.Platform;
@@ -30,11 +29,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import services.ServicePost;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 
@@ -45,13 +44,19 @@ import javafx.stage.FileChooser;
  */
 public class AddNewPostController implements Initializable {
 
-    private ComboBox<String> comboModule;
-    private TextArea textProblem;
-    @FXML
-    private VBox addProblemContainer;
+    
+    
     
     
     private File selectedFile;
+    @FXML
+    private ComboBox<String> comboModule;
+    @FXML
+    private TextArea textProblem;
+    @FXML
+    private Hyperlink buttonFile1;
+    @FXML
+    private Button submit;
     
     
 
@@ -64,37 +69,14 @@ public class AddNewPostController implements Initializable {
 
             
             // first Label in page 
-            Text shareYourProblemText = new Text("Share your problem");
-            shareYourProblemText.setStyle("-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%);\n"
-                    + "    -fx-stroke: black;\n"
-                    + "    -fx-stroke-width: 1;");
+            
             // the combobox to Set module
-            comboModule = new ComboBox<String>();
+            
             comboModule.getItems().removeAll(comboModule.getItems());
             comboModule.getItems().addAll("IP Essentials", "Mathématique de base 1", "Mathématique de base 2", "Génie Logiciel"); // mba3d nrodou marbout b classe specialité .
             comboModule.getSelectionModel().select("Math,java .."); // shnowa maktoub par défaut . 
             Text moduleLabel = new Text("Module");
-            HBox hboxModule = new HBox();
-            hboxModule.getChildren().addAll(moduleLabel, comboModule);
-
-            // the problem to Set problem 
-            Text problemLabel = new Text("Problem");
-            TextArea textProblem = new TextArea();
-            Button submit = new Button("Submit");
-
-            HBox hboxProblem = new HBox();
-            hboxProblem.getChildren().addAll(problemLabel, textProblem);
-
-            // the file / files 
-            Button buttonFile1 = new Button("Add File");
-            Text fileLabel = new Text("Import File");
-            HBox hboxFile1 = new HBox();
-            hboxFile1.getChildren().addAll(fileLabel, buttonFile1);
-//
-//            Button buttonFile2 = new Button("Add Files");
-//            Text filesLabel = new Text("Import Files");
-//            HBox hboxFile2 = new HBox();
-//            hboxFile2.getChildren().addAll(filesLabel, buttonFile2);
+            
             buttonFile1.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -115,66 +97,40 @@ public class AddNewPostController implements Initializable {
 
                 }
             });
-//            buttonFile2.setOnAction(new EventHandler<ActionEvent>() {
+
+//            submit.setOnAction(new EventHandler<ActionEvent>() {
 //                @Override
 //                public void handle(ActionEvent event) {
-//                    FileChooser fc = new FileChooser();
-//                    //fc.setInitialFileName("w na3tih houni l path"); // hethy tkhali el filechooser yet7al fel page mta3  lpath donné
-//                    fc.getExtensionFilters().addAll(
-//                            new FileChooser.ExtensionFilter("img files", "*.jpg", "*.png")
-//                    );
-//                    List<File> selectedFiles = fc.showOpenMultipleDialog(null);
+//                    // Partie 1 : Add this post to Database , only need to set 
+//                    String s1 = textProblem.getText();
+//                    String s2 = comboModule.getValue();
+//                    String s3= selectedFile.getName();
+//                    Post p = new Post(s1, s2,s3);
+//                    System.out.println("s1" + s1 + "s2" + s2+"s3"+s3);
+//                    ServicePost s = new ServicePost();
+//                    s.Create(p);                   
+//                    copy(selectedFile);
 //
-//                    if (selectedFiles != null) {
-//                        for (int i = 0; i < selectedFiles.size(); i++) {
-//                            System.out.println(selectedFiles.get(i).getAbsolutePath());
-//                        }
+//                    
+//                    
+//                    //Partie 2 : go to view Posts
+//                    try {
+//                        FXMLLoader loader = new FXMLLoader(
+//                                getClass().getResource(
+//                                        "ViewPosts.fxml"
+//                                )
+//                        );
 //
-//                    } else {
-//                        System.out.println("files not valid");
-//
+//                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+//                        stage.setScene(
+//                                new Scene(loader.load())
+//                        );
+//                        stage.show();
+//                    } catch (IOException ex) {
+//                        Logger.getLogger(AddNewPostController.class.getName()).log(Level.SEVERE, null, ex);
 //                    }
-//
 //                }
 //            });
-
-
-            // if i would be adding another button to add multiple files , i just need to add  hboxFile2 in the parameters . 
-            addProblemContainer.getChildren().addAll(shareYourProblemText, hboxModule, hboxProblem, hboxFile1, submit);
-
-            submit.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    // Partie 1 : Add this post to Database , only need to set 
-                    String s1 = textProblem.getText();
-                    String s2 = comboModule.getValue();
-                    String s3= selectedFile.getName();
-                    Post p = new Post(s1, s2,s3);
-                    System.out.println("s1" + s1 + "s2" + s2+"s3"+s3);
-                    ServicePost s = new ServicePost();
-                    s.Create(p);                   
-                    copy(selectedFile);
-
-                    
-                    
-                    //Partie 2 : go to view Posts
-                    try {
-                        FXMLLoader loader = new FXMLLoader(
-                                getClass().getResource(
-                                        "ViewPosts.fxml"
-                                )
-                        );
-
-                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
-                        stage.setScene(
-                                new Scene(loader.load())
-                        );
-                        stage.show();
-                    } catch (IOException ex) {
-                        Logger.getLogger(AddNewPostController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            });
 
         });
 
@@ -204,15 +160,7 @@ public class AddNewPostController implements Initializable {
     private void AddNewPost(ActionEvent event) {
     }
 
-    private void buttonAddPostPushed(ActionEvent event) {
-
-        String s1 = textProblem.getText();
-        String s2 = comboModule.getValue();
-        Post p = new Post(s1, s2);
-        ServicePost s = new ServicePost();
-        s.Create(p);
-    }
-
+    
       private void copy(File from) {
         String dir = System.getProperty("user.dir");//get project source path
         File dest = new File(dir + "\\ressources\\"+from.getName());//add the full path /ressources + file name
@@ -249,6 +197,40 @@ public class AddNewPostController implements Initializable {
         }
 
 
+    }
+
+    @FXML
+    private void buttonSubmitPushed(ActionEvent event) {
+        
+        
+ // Partie 1 : Add this post to Database , only need to set 
+                    String s1 = textProblem.getText();
+                    String s2 = comboModule.getValue();
+                    String s3= selectedFile.getName();
+                    Post p = new Post(s1, s2,s3);
+                    System.out.println("s1" + s1 + "s2" + s2+"s3"+s3);
+                    ServicePost s = new ServicePost();
+                    s.Create(p);                   
+                    copy(selectedFile);
+
+                    
+                    
+                    //Partie 2 : go to view Posts
+                    try {
+                        FXMLLoader loader = new FXMLLoader(
+                                getClass().getResource(
+                                        "ViewPosts.fxml"
+                                )
+                        );
+
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+                        stage.setScene(
+                                new Scene(loader.load())
+                        );
+                        stage.show();
+                    } catch (IOException ex) {
+                        Logger.getLogger(AddNewPostController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
     }
 
 }
