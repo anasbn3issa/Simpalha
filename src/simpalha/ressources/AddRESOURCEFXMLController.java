@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -7,7 +8,12 @@ package simpalha.ressources;
 
 import entities.Ressources;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -24,6 +30,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.ServiceRessources;
 
@@ -40,6 +47,8 @@ public class AddRESOURCEFXMLController implements Initializable {
     private TextField tfpath;
     @FXML
     private TextField tfdescription;
+    
+       boolean test = false;
     
     
     /**
@@ -115,6 +124,10 @@ public class AddRESOURCEFXMLController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Resource added..");
             alert.showAndWait();
+          
+//         if (test == true) {
+//         copy(browse(event));}
+          
         }}
        
     
@@ -134,19 +147,57 @@ public class AddRESOURCEFXMLController implements Initializable {
 
     @FXML
     private void browse(ActionEvent event) {
-//        
-//         final DirectoryChooser dirchooser = new DirectoryChooser();
-//       
-//       Stage stage = (Stage) anchorid.getScene().getWindow();
-//       
-//       File file = dirchooser.showDialog(stage);
-//       
-//       if ( file != null)
-//            {
-//                System.out.print("Path: "+ file.getAbsolutePath());
-//                tfpath.setText(file.getAbsolutePath());
-//            }
-          
+     
+         FileChooser fc = new FileChooser();
 
+        File selectedFile = fc.showOpenDialog(null);
+        tfpath.setText(selectedFile.getAbsolutePath());
+        
+        
+
+        if (selectedFile != null) {
+       
+            copy(selectedFile);
+        }
+    
     }
+    
+    
+    private void copy(File from) {
+        String dir = System.getProperty("user.dir");//get project source path
+        File dest = new File(dir + "\\ressources\\"+from.getName());//add the full path /ressources + file name
+        
+//check if folder ressources is created, sinon create it
+        File file = new File(dir+"\\ressources");
+        file.mkdirs();
+        /////
+        //COPY FILE OPERATION
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            try {
+                is = new FileInputStream(from);
+                os = new FileOutputStream(dest);
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = is.read(buffer)) > 0) {
+                    os.write(buffer, 0, length);
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } finally {
+            try {
+                is.close();
+                os.close();
+            }catch (IOException ex) {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            /////////////////
+        }
+
+
+   }
 }

@@ -254,17 +254,23 @@
                </font>
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="On this page, you can find the resources already available ,posted by simpalha's members." textAlignment="CENTER" wrappingWidth="1102.0390625" />
-            <ButtonBar prefHeight="40.0" prefWidth="200.0" />
+            <ButtonBar prefHeight="40.0" prefWidth="200.0">
+               <buttons>
+                  <Line endX="966.2929077148438" endY="1.3810396194458008E-4" startX="-135.92396545410156" startY="-6.467103958129883E-5" stroke="#0b79ee" />
+               </buttons></ButtonBar>
             <ButtonBar prefHeight="43.0" prefWidth="1107.0">
-              <buttons>
-                  <TextField fx:id="tfsupp" promptText="Resource's id" />
-                  <Button mnemonicParsing="false" onAction="#SupprimerRessource" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Delete Resource">
+               <buttons>
+                  <Text fill="#ff610c" strokeType="OUTSIDE" strokeWidth="0.0" text="       Add a resource    " wrappingWidth="166.26611328125">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <Button mnemonicParsing="false" onAction="#formulaireajout" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Add here!">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-              </buttons>
-            </ButtonBar>
+               </buttons></ButtonBar>
             <ButtonBar prefHeight="43.0" prefWidth="1107.0">
                <buttons>
                   <ButtonBar prefHeight="43.0" prefWidth="1107.0">
@@ -305,12 +311,22 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Text fill="#ff610c" strokeType="OUTSIDE" strokeWidth="0.0" text="       Add a resource    " wrappingWidth="166.26611328125">
+                  <Text fill="#ff5a07" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete Selected Resource" textAlignment="CENTER" wrappingWidth="162.4775390625">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Text>
-                  <Button mnemonicParsing="false" onAction="#formulaireajout" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Add here!">
+                  <Button mnemonicParsing="false" onAction="#DeleteSelected" prefHeight="30.0" prefWidth="161.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Click here to Delete!">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Text fill="#ff5a07" strokeType="OUTSIDE" strokeWidth="0.0" text="Update Selected Resource" textAlignment="CENTER" wrappingWidth="162.4775390625">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <Button mnemonicParsing="false" onAction="#UpdateSelected" prefHeight="30.0" prefWidth="161.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Click here to Update!">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -318,6 +334,7 @@
               </buttons>
             </ButtonBar>
             <Label prefHeight="77.0" prefWidth="1092.0" />
+            <Line endX="966.2929077148438" endY="1.3810396194458008E-4" startX="-135.92396545410156" startY="-6.467103958129883E-5" stroke="#0b79ee" />
          </children>
       </VBox>
    </center>

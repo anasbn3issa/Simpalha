@@ -5,17 +5,20 @@
  */
 package entities;
 
+import javafx.scene.control.Button;
+
 /**
  *
  * @author cyrin
  */
 public class Ressources {
+
     private int idR;
     private String path;
     private String title;
     private String description;
+  //  private Button buttonModify;
 
-    
     public void setIdR(int idR) {
         this.idR = idR;
     }
@@ -52,14 +55,31 @@ public class Ressources {
         this.idR = idR;
     }
 
+    public Ressources(int idR, String path, String description, String title) {
+        this.idR = idR;
+        this.description = description;
+        this.path = path;
+        this.title = title;
+      //  this.buttonModify = new Button("buttonModify");
+
+    }
+//
+//    public Button getButtonModify() {
+//        return buttonModify;
+//    }
+//
+//    public void setButtonModify(Button buttonModify) {
+//        this.buttonModify = buttonModify;
+//    }
+
+
     public Ressources() {
     }
-    
+
     @Override
     public String toString() {
         return "Ressources{" + "idR=" + idR + ", path=" + path + ", title=" + title + ", description=" + description + "}\n";
-        
+
     }
 
-   
 }

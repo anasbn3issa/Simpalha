@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import utils.Maconnexion;
 import entities.Ressources;
 import interfaces.IServiceRessources;
+import javafx.scene.control.Button;
 
 /**
  *
@@ -63,6 +64,10 @@ public class ServiceRessources implements IServiceRessources{
             R1.setDescription(resultat.getString("description"));
             R1.setPath(resultat.getString("path"));
             R1.setTitle(resultat.getString("title"));
+//            //button 
+//            Button buttonModify = null;
+//            R1.setButtonModify(buttonModify);
+//            //end button  
             ressources.add(R1);
         }
 
@@ -117,6 +122,8 @@ public class ServiceRessources implements IServiceRessources{
         }
         return R1;
     }
+    
+    
 
     @Override
     public void Delete(Ressources R) {

@@ -258,6 +258,7 @@
             <TextField fx:id="tfmtitle" prefWidth="851.0" />
             <Label prefHeight="36.0" prefWidth="212.0" text="New Path" />
             <TextField fx:id="tfmpath" prefWidth="851.0" />
+            <Button mnemonicParsing="false" onAction="#browse" prefHeight="32.0" prefWidth="91.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Browse File" />
             <Label prefHeight="36.0" prefWidth="212.0" text="New Description" />
             <TextField fx:id="tfmdescription" prefWidth="851.0" />
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
