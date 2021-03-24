@@ -29,7 +29,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import services.ServiceP2P;
-import services.ServiceUser;
+import services.ServiceUsers;
 import simpalha.FXMLDocumentController;
 
 /**
@@ -40,7 +40,7 @@ import simpalha.FXMLDocumentController;
 public class JoinMeetFXMLController implements Initializable {
 
     private String meetId;
-    private ServiceUser serviceUser;
+    private ServiceUsers serviceUser;
     private ServiceP2P serviceP2P;
 
     @FXML
@@ -61,12 +61,12 @@ public class JoinMeetFXMLController implements Initializable {
         Platform.runLater(() -> {
                   //  webview.getEngine().load("http://127.0.0.1:8000/");
                   //  webview.setZoom(0.75);  //zoom in 25%.
-            serviceUser = new ServiceUser();
+            serviceUser = new ServiceUsers();
             serviceP2P = new ServiceP2P();
 
             meet = serviceP2P.findById(meetId);
             Users helper = serviceUser.findById(meet.getId_helper());
-            title.setText("Welcome to " + meet.getSpecialite() + " meeting with " + helper.getFname() + " " + helper.getLname());
+            title.setText("Welcome to " + meet.getSpecialite() + " meeting with " + helper.getUsername());
         });
     }
 

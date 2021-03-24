@@ -30,7 +30,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.ServiceDisponibilite;
 import services.ServiceP2P;
-import services.ServiceUser;
+import services.ServiceUsers;
 import simpalha.FXMLDocumentController;
 
 /**
@@ -42,7 +42,7 @@ public class NewMeetFXMLController implements Initializable {
 
     private int helperId;
     private ServiceDisponibilite serviceDisp;
-    private ServiceUser serviceUser;
+    private ServiceUsers serviceUser;
     private ServiceP2P serviceP2P;
     
     @FXML
@@ -65,7 +65,7 @@ public class NewMeetFXMLController implements Initializable {
         Platform.runLater(() -> {
             
             serviceDisp  = new ServiceDisponibilite();
-            serviceUser = new ServiceUser();
+            serviceUser = new ServiceUsers();
             serviceP2P = new ServiceP2P();
             
             List<Disponibilite> dispoList = serviceDisp.findAllById(helperId);
@@ -75,8 +75,8 @@ public class NewMeetFXMLController implements Initializable {
             System.out.println(helperId);
             times.getItems().addAll(dispoList.stream().map(d-> d.getDatedeb()+" -> "+d.getDateFin()).toArray(String[]::new));
             Users student = serviceUser.findById(helperId);
-            helper.setText(student.getFname()+" "+student.getLname());
-            specialite.setText(student.getSpecialites());
+            helper.setText(student.getUsername());
+            specialite.setText(student.getSpecialité());
         });
     }    
     

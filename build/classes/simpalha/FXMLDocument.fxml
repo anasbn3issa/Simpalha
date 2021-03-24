@@ -141,7 +141,7 @@
                </padding>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="ENVELOPE_ALT" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Messages">
+                  <Text onMouseClicked="#candidatures" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Candidatures">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -175,7 +175,7 @@
                      </padding>
                      <children>
                         <FontAwesomeIcon fill="#485460" iconName="COG" size="1.5em" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Settings">
+                        <Text onMouseClicked="#profile" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Settings">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>

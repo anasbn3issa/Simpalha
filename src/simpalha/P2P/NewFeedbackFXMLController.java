@@ -21,7 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import services.ServiceFeedback;
 import services.ServiceP2P;
-import services.ServiceUser;
+import services.ServiceUsers;
 
 /**
  * FXML Controller class
@@ -39,7 +39,7 @@ public class NewFeedbackFXMLController implements Initializable {
     
     private String meetId;
     private ServiceP2P service;
-    private ServiceUser serviceUser;
+    private ServiceUsers serviceUser;
     private ServiceFeedback serviceFeedback;
 
     
@@ -55,12 +55,12 @@ public class NewFeedbackFXMLController implements Initializable {
         // TODO
                 Platform.runLater(() -> {
                      service = new ServiceP2P();
-                     serviceUser = new ServiceUser();
+                     serviceUser = new ServiceUsers();
                      serviceFeedback = new ServiceFeedback();
                      
                      meet = service.findById(meetId);
                      Users h = serviceUser.findById(meet.getId_helper());
-                     meet.setHelperDisplay(h.getFname()+" "+h.getLname());
+                     meet.setHelperDisplay(h.getUsername());
                      
                      helper.setText(meet.getHelperDisplay());
                      specialite.setText(meet.getSpecialite());

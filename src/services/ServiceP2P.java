@@ -32,13 +32,13 @@ public class ServiceP2P implements IServiceP2P{
     private PreparedStatement pst;
     private ResultSet rs;
     private ServiceDisponibilite serviceDisp;
-    private ServiceUser serviceUser;
+    private ServiceUsers serviceUser;
     private ServiceFeedback serviceFeedback;
 
     public ServiceP2P() {
         cnx = Maconnexion.getInstance().getConnection();
         serviceDisp = new ServiceDisponibilite();
-        serviceUser = new ServiceUser();
+        serviceUser = new ServiceUsers();
         serviceFeedback = new ServiceFeedback();
     }
     
@@ -91,10 +91,10 @@ public class ServiceP2P implements IServiceP2P{
                 meet.setTime(disponibilite.getDatedeb()+"->"+disponibilite.getDateFin());
                 
                 Users helper = serviceUser.findById(meet.getId_helper());
-                meet.setHelperDisplay(helper.getFname()+" "+helper.getLname());
+                meet.setHelperDisplay(helper.getUsername());
                 
                 Users student = serviceUser.findById(meet.getId_student());
-                meet.setStudentDisplay(student.getFname()+" "+student.getLname());
+                meet.setStudentDisplay(student.getUsername());
                 
                 Feedback feedback = serviceFeedback.findById(meet.getFeedback_id());
                 System.out.println(feedback);
