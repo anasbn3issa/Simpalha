@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import utils.Maconnexion;
+import utils.UserSession;
 
 /**
  *
@@ -42,12 +43,12 @@ public class ServiceUsers implements IserviceUsers {
     public void Create(Users variable) {
         try {
             st = cnx.createStatement();
-            String query = "INSERT INTO `users` (`Email`, `Password`, `Username`, `Spécialité`) VALUES ('"
+            String query = "INSERT INTO `users` (`Email`, `Password`, `Username`,`about`) VALUES ('"
                     + variable.getEmail()
                     + "','" + variable.getPassword()
                     + "','" + variable.getUsername()
-                    + "','test'"
-                    + ")";
+                    + "','"+ variable.getAbout()
+                    + "')";
             st.execute(query);
             System.out.println("Ajout abouti");
 
@@ -147,6 +148,23 @@ public class ServiceUsers implements IserviceUsers {
         }
         return false;
     }
+    @Override
+    public Boolean emailExist(String email) {
+
+        
+        try {
+            String request = "SELECT email FROM users where email='" + email + "'";
+            Statement s = cnx.createStatement();
+            ResultSet result = s.executeQuery(request);
+            while (result.next()) {
+                return true;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
 
     public String getAlphaNumericString(int n) {
 
@@ -173,6 +191,18 @@ public class ServiceUsers implements IserviceUsers {
 
         return sb.toString();
     }
+    public void updateAbout (String about)
+     {
+         UserSession cu = UserSession.getInstace(0);
+             String requete="UPDATE users SET about='"+about+"' WHERE id="+cu.userid;
+         try{
+             st = cnx.createStatement();
+            st.executeUpdate(requete);
+            System.out.println("Description modifié");
+        } catch (SQLException ex) {
+            Logger.getLogger(Maconnexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     } 
 
     public int geIdbyUsername(String username) throws SQLException {
 

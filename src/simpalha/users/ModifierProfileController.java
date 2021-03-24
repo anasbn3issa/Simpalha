@@ -33,7 +33,7 @@ import services.ServiceUsers;
  * @author win10
  */
 public class ModifierProfileController implements Initializable {
-    private int userId;
+
     @FXML
     private TextField nom;
     @FXML
@@ -46,16 +46,15 @@ public class ModifierProfileController implements Initializable {
     private Label spécialité;
     @FXML
     private ImageView img;
-            private ServiceUsers service;
-
-
+    private int userId;
+private ServiceUsers service;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        Platform.runLater(() -> {
+         Platform.runLater(() -> {
             service = new ServiceUsers();
             
             Users user = service.finfById(userId);
@@ -64,10 +63,7 @@ public class ModifierProfileController implements Initializable {
             spécialité.setText(user.getSpecialité());
             email.setText(user.getEmail());
         });
-    }
-
-    void initData(int id) {
-userId = id;    }
+    }    
 
     @FXML
     private void goToViewPosts(MouseEvent event) {
@@ -77,10 +73,16 @@ userId = id;    }
     private void showP2P(MouseEvent event) {
     }
 
-     @FXML
-    private void update(ActionEvent event) {
-        
-        Users user = service.finfById(userId);
+    @FXML
+    private void candidatures(MouseEvent event) {
+    }
+
+    @FXML
+    private void profile(MouseEvent event) {
+    }
+
+    @FXML
+    private void update(ActionEvent event) {Users user = service.finfById(userId);
         user.setUsername(nom.getText());
         
         user.setEmail(email.getText());
@@ -106,13 +108,13 @@ userId = id;    }
     @FXML
     private void DésactiverCompte(ActionEvent event) {
     }
+     void initData(int id) {
+        userId = id;
+    }
 
-     @FXML
+    @FXML
     private void back(ActionEvent event) {
-        
-         {
-
-            //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
+         //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
             Parent loader;
             try {
                 loader = FXMLLoader.load(getClass().getResource("CompteAdmin.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
@@ -126,7 +128,6 @@ userId = id;    }
                 app_stage.show(); // this shows the scene
             } catch (IOException ex) {
             }
-        }
-        
     }
+    
 }

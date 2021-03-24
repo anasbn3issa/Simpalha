@@ -7,12 +7,16 @@ package interfaces;
 
 import entities.Users;
 
-
 /**
  *
  * @author win10
  */
 public interface IserviceUsers extends IService<Users> {
-   public Users finfById(int id);
-   public Boolean usernameExist(String username);
+
+    public Users finfById(int id);
+
+    public Boolean usernameExist(String username);
+
+    public Boolean emailExist(String email);
+
 }

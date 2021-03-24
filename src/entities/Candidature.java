@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 public class Candidature {
 
    
-    private String email,spécialité,userrname;
+    private String spécialité,userrname;
     private int idc;
     private int idu;
     private LocalDateTime datec;
@@ -38,13 +38,13 @@ public class Candidature {
    
     
 
-    public Candidature(String email, String spécialité, int status, int idc, String fichier, LocalDateTime datec) {
-        this.email = email;
+    public Candidature(String spécialité, int status, int idc, String fichier, LocalDateTime datec, int idu) {
         this.spécialité = spécialité;
         this.status = status;
         this.idc = idc;
         this.fichier = fichier;
         this.datec = datec;
+        this.idu = idu;
     }
 
     public int getId() {
@@ -75,19 +75,10 @@ public class Candidature {
         
     }
 
-    public Candidature(String email, String spécialité, String fichier) {
-        this.email = email;
-        this.spécialité = spécialité;
-      
+    public Candidature(String spécialité, String fichier, int idu) {
+        this.spécialité = spécialité;      
         this.fichier = fichier;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+        this.idu = idu;
     }
 
     public String getSpécialité() {
@@ -138,11 +129,11 @@ public class Candidature {
             return "En attente";
         if (status==2)
             return "Confirmée";
-        return "Annulée";
+        return "Refusée";
     }
     @Override
     public String toString() {
-        return "Candidature{" + "email=" + email + ", sp\u00e9cialit\u00e9=" + spécialité + ", status=" + status + ", userrname=" + userrname + ", idc=" + idc + ", idu=" + idu + ", fichier=" + fichier + ", datec=" + datec + '}';
+        return "Candidature{" + " specialite=" + spécialité + ", status=" + status + ", userrname=" + userrname + ", idc=" + idc + ", idu=" + idu + ", fichier=" + fichier + ", datec=" + datec + '}';
     }
 
     

@@ -9,6 +9,7 @@ import entities.Users;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +19,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -129,10 +133,19 @@ public class CompteAdminController implements Initializable {
                         setText(null);
                     } else {
                         delete.setOnAction(event -> {
+                            Alert alert=new Alert(AlertType.CONFIRMATION);
+                            alert.setTitle("confirmation dialog");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Are you sure you want to delete?");
+                            Optional <ButtonType> action=alert.showAndWait();
+                            if(action.get()==ButtonType.OK){
+                            
                             Users user = getTableView().getItems().get(getIndex());
                             service.Delete(user);
+                      
+ 
                             table.getItems().clear();
-                            table.getItems().addAll(service.Read());
+                            table.getItems().addAll(service.Read());}
 
                         });
 

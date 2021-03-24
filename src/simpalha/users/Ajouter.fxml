@@ -13,14 +13,17 @@
       <Label layoutX="95.0" layoutY="34.0" text="Email" />
       <TextField fx:id="username" layoutX="95.0" layoutY="131.0" />
       <Label layoutX="95.0" layoutY="104.0" text="Username" />
-      <TextField fx:id="passwd" layoutX="95.0" layoutY="201.0" />
-      <Label layoutX="95.0" layoutY="174.0" text="Mot de passe" />
-      <Button fx:id="confirm" layoutX="276.0" layoutY="293.0" mnemonicParsing="false" onAction="#ajouter" text="Confirmer" />
+      <TextField fx:id="passwd" layoutX="95.0" layoutY="239.0" />
+      <Label layoutX="95.0" layoutY="207.0" text="Mot de passe" />
+      <Button fx:id="confirm" layoutX="279.0" layoutY="349.0" mnemonicParsing="false" onAction="#ajouter" text="Confirmer" />
       <Button layoutX="14.0" layoutY="22.0" mnemonicParsing="false" onAction="#back" text="Retour" />
       <ImageView fitHeight="65.0" fitWidth="136.0" layoutX="433.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/Simpalha.png" />
                      </image>
                   </ImageView>
+      <TextField fx:id="exists" layoutX="99.0" layoutY="163.0" prefHeight="17.0" prefWidth="142.0" />
+      <Label layoutX="95.0" layoutY="283.0" text="About" />
+      <TextField fx:id="about" layoutX="96.0" layoutY="317.0" />
    </children>
 </AnchorPane>

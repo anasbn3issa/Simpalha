@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simpalha;
+package simpalha.menu;
 
+import simpalha.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,7 +27,7 @@ import utils.UserSession;
  *
  * @author α Ω
  */
-public class FXMLDocumentController implements Initializable {
+public class MenuController implements Initializable {
     
     private Label label;
     private UserSession usr;
@@ -95,7 +96,7 @@ public class FXMLDocumentController implements Initializable {
             );
             stage.show();
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -104,7 +105,7 @@ public class FXMLDocumentController implements Initializable {
          try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-                            "users/CandidatureUser.fxml"
+                            "users/CandidatureAdmin.fxml"
                     )
             );
 
@@ -114,26 +115,7 @@ public class FXMLDocumentController implements Initializable {
             );
             stage.show();
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @FXML
-    private void profile(MouseEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(
-                            "users/Profile.fxml"
-                    )
-            );
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
-            stage.setScene(
-                    new Scene(loader.load())
-            );
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

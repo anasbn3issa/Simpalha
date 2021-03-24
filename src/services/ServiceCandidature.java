@@ -41,12 +41,12 @@ public class ServiceCandidature implements IServiceCandidature {
         System.out.println(variable.getFichier());
         try {
 
-            String query = "INSERT INTO candidatures (email,specialite,fichier) VALUES (?,?,?)";
+            String query = "INSERT INTO candidatures (specialite,fichier, idu) VALUES (?,?,?)";
             pst = cnx.prepareStatement(query);
-            pst.setString(1, variable.getEmail());
             
-           pst.setString(2, variable.getSpécialité());
-            pst.setString(3, variable.getFichier());
+           pst.setString(1, variable.getSpécialité());
+            pst.setString(2, variable.getFichier());
+            pst.setInt(3, variable.getId());
             pst.executeUpdate();
             System.out.println("Candidature ajoutée");
 
@@ -113,15 +113,15 @@ public class ServiceCandidature implements IServiceCandidature {
 
     
 
-    public Candidature findby(String email){
+    public Candidature findby(int id){
         Candidature cdr=null;
         try {
-            String query="Select * from candidatures where email=?";
+            String query="Select * from candidatures where idu=?";
             pst=cnx.prepareStatement(query);
-            pst.setString(1, email);
+            pst.setInt(1, id);
            rs= pst.executeQuery();
           while(rs.next()){
-              cdr = new Candidature(rs.getString("email"),rs.getString("specialite"),rs.getString("fichier"));
+              cdr = new Candidature(rs.getString("specialite"),rs.getString("fichier"), rs.getInt("idu"));
           }  
         } catch (SQLException ex) {
             Logger.getLogger(ServiceCandidature.class.getName()).log(Level.SEVERE, null, ex);
@@ -141,10 +141,12 @@ List<Candidature> cdr = new ArrayList<>();
             String query = "SELECT * FROM candidatures";
             rs = ste.executeQuery(query);
             while (rs.next()) {
-                Candidature cand = new Candidature(rs.getString(2),
+                Candidature cand = new Candidature(
                         rs.getString(3), rs.getInt(5),
                         rs.getInt(1),rs.getString(4), 
-                        rs.getTimestamp(6).toLocalDateTime());
+                        rs.getTimestamp(6).toLocalDateTime(),
+                        rs.getInt(7)
+                );
                 cdr.add(cand);
             }
 
@@ -156,10 +158,10 @@ List<Candidature> cdr = new ArrayList<>();
     }
  public void modifierEtatCandidature(Candidature c, int status) {
         try {
-            String request="UPDATE candidatures SET status = ? WHERE id = ?";
+            String request="UPDATE candidatures SET status = ? WHERE idc = ?";
             PreparedStatement pre=cnx.prepareStatement(request);
             pre.setInt(1, status);
-            pre.setInt(2, c.getId());
+            pre.setInt(2, c.getIdc());
             pre.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -180,6 +182,45 @@ List<Candidature> cdr = new ArrayList<>();
     public Candidature findById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    /*public ArrayList<Candidature> trierCommande(String client, boolean attente, boolean confirme, boolean annulee) {
+        ArrayList<Candidature> liste=new ArrayList<>();
+        String request="SELECT c.idc, c.idu, c.date, c.status, u.username FROM candidatures c JOIN users u ON u.id = c.idu WHERE";
+        if (attente || confirme || annulee) {
+            request+=" ( ";
+            if (attente)
+                request+="status = 1";
+            if (confirme && attente)
+                request+=" OR status = 2";
+            else if (confirme)
+                request+="status = 2";
+            if (annulee && (attente || confirme))
+                request+=" OR status = 3";
+            else if (annulee)
+                request+="status = 3";
+            request+=" ) ";
+        } else
+            request+="status <> 0";
+        if (!client.isEmpty())
+            request+=" AND u.username LIKE ?";
+        try {
+            PreparedStatement pre=cnx.prepareStatement(request);
+            if (!client.isEmpty())
+                pre.setString(1, "%"+client+"%");
+            ResultSet result=pre.executeQuery();
+            while(result.next()){
+                Candidature c=new Candidature();
+                c.setId(result.getInt("c.id"));
+                c.setId(result.getInt("c.user_id"));
+                c.setDate(result.getTimestamp(3).toLocalDateTime());
+                c.setStatus(result.getInt("c.status"));
+                c.setUserrname(result.getString("u.username"));
+                
+                liste.add(c);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return liste;
+    }*/
     }
 

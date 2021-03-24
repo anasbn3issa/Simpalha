@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -33,6 +35,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
 import services.ServiceCandidature;
+import utils.UserSession;
 
 /**
  * FXML Controller class
@@ -41,8 +44,6 @@ import services.ServiceCandidature;
  */
 public class CandidatureUserController implements Initializable {
 
-    @FXML
-    private TextField tfemail;
     @FXML
     private Button upload;
     @FXML
@@ -54,10 +55,10 @@ public class CandidatureUserController implements Initializable {
     @FXML
     private ComboBox<String> comb;
     private ServiceCandidature srv;
-      private File selectedFile;
+    private File selectedFile;
     ImageView imageView = new ImageView();
     private ListView liste;
-
+    private int userid;
 
     /**
      * Initializes the controller class.
@@ -65,15 +66,14 @@ public class CandidatureUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
-         srv = new ServiceCandidature();
-        
-         ObservableList<String> List=FXCollections.observableArrayList("Java","UML","math");
-        comb.setItems(List);
-        
-    }    
+        userid = UserSession.getInstace(0).getUserid();
+        System.out.println(userid);
+        srv = new ServiceCandidature();
 
-    
+        ObservableList<String> List = FXCollections.observableArrayList("Java", "UML", "math");
+        comb.setItems(List);
+
+    }
 
     @FXML
     private void goToViewPosts(MouseEvent event) {
@@ -85,48 +85,43 @@ public class CandidatureUserController implements Initializable {
 
     @FXML
     private void UploadFichier(ActionEvent event) {
-    
+
         FileChooser fc = new FileChooser();
 
-         selectedFile = fc.showOpenDialog(null);
+        selectedFile = fc.showOpenDialog(null);
 
-       
-        
     }
 
     @FXML
-    private void Confirmer(ActionEvent event) { Candidature cdr ;
-        
-        
-      
-                  cdr = new Candidature(tfemail.getText(), (String) comb.getValue(), selectedFile.getName());
-                  srv.Create(cdr);
-                  Candidature can =srv.findby(tfemail.getText());
-                   String data = can.getFichier();
-                    if (selectedFile != null) {
+    private void Confirmer(ActionEvent event) {
+        String file="";
+        if (selectedFile != null) {
 
-            copy(selectedFile);}
-        
-
-               
-
-            
+            file = copy(selectedFile);
         }
-    
+        Candidature cdr = new Candidature(comb.getValue(), file, userid);
+        srv.Create(cdr);
+        Candidature can = srv.findby(userid);
+        System.out.println(can);
+        
+
+    }
 
     @FXML
     private void selectspec(ActionEvent event) {
-          String s=comb.getSelectionModel().getSelectedItem().toString();
+        String s = comb.getSelectionModel().getSelectedItem().toString();
         screen.setText(s);
     }
-    
-    
-     private void copy(File from) {
+
+    private String copy(File from) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+
         String dir = System.getProperty("user.dir");//get project source path
-        File dest = new File(dir + "\\ressources\\"+from.getName());//add the full path /ressources + file name
+        File dest = new File(dir + "\\ressources\\" +sdf1.format(timestamp)+ from.getName());//add the full path /ressources + file name
         
 //check if folder ressources is created, sinon create it
-        File file = new File(dir+"\\ressources");
+        File file = new File(dir + "\\ressources");
         file.mkdirs();
         /////
         //COPY FILE OPERATION
@@ -150,13 +145,11 @@ public class CandidatureUserController implements Initializable {
             try {
                 is.close();
                 os.close();
-            }catch (IOException ex) {
+            } catch (IOException ex) {
                 Logger.getLogger(CandidatureUserController.class.getName()).log(Level.SEVERE, null, ex);
             }
             /////////////////
         }
-    
-    
-    
-     }}
-    
+        return dest.getName();
+    }
+}

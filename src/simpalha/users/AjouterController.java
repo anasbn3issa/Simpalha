@@ -18,7 +18,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.ServiceUsers;
 
@@ -38,6 +37,10 @@ public class AjouterController implements Initializable {
     @FXML
     private Button confirm;
 private ServiceUsers srv;
+    @FXML
+    private TextField exists;
+    @FXML
+    private TextField about;
     /**
      * Initializes the controller class.
      */
@@ -51,8 +54,23 @@ private ServiceUsers srv;
 
     @FXML
     private void ajouter(ActionEvent event) {
-        Users user = new Users(passwd.getText(), email.getText(), username.getText());
-        srv.Create(user);
+       
+        Users user = new Users(username.getText(), passwd.getText(), about.getText());
+        ServiceUsers us = new ServiceUsers();
+       
+ 
+            if (us.usernameExist(username.getText()) )
+            {
+             exists.setText("username already exists");
+             exists.setStyle("-fx-text-inner-color: red;");
+               // System.out.println("username already exists "); 
+            }else{
+                srv.Create(user);
+                System.out.println("c bon");
+            }
+           
+        
+        
     }
 
     @FXML

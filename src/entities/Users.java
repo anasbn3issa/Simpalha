@@ -14,11 +14,22 @@ import static java.util.Collections.list;
  */
 public class Users {
 
-            private int id;
-           private String password,code,email,username;
-           private String Specialité ;
+    private int id;
+    private String password, code, email, username;
+    private String Specialité;
+    private String about;
+   // private String encyptedpasswd=getPassword();
+   // private String decyptedpasswd=getDecryptedPassword();
 
     public Users() {
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 
     public String getCode() {
@@ -29,9 +40,11 @@ public class Users {
         this.code = code;
     }
 
-    public Users(String username, String password) {
+    public Users(String username, String password, String about) {
         this.password = password;
         this.username = username;
+        this.about = about;
+
     }
 
     public Users(int id, String password, String email, String username, String Specialité) {
@@ -42,20 +55,26 @@ public class Users {
         this.username = username;
         this.Specialité = Specialité;
     }
-           
 
-   
+    public Users(String password, String username) {
+        this.password = password;
+        this.username = username;
+    }
 
-    public Users(String password, String email, String username) {
+    public Users(String password, String email, String username,String about) {
         this.password = password;
         this.email = email;
         this.username = username;
-      
+        this.about = about;
+
     }
 
     public String getPassword() {
-return Base64.getEncoder().encodeToString(password.getBytes());    }
-
+        return Base64.getEncoder().encodeToString(password.getBytes());
+    }
+/*public String getDecryptedPassword() {
+        return new String (Base64.getMimeDecoder().decode(encyptedpasswd));
+    }*/
     public void setPassword(String password) {
         this.password = password;
     }
@@ -68,7 +87,6 @@ return Base64.getEncoder().encodeToString(password.getBytes());    }
         this.id = id;
     }
 
-
     public String getEmail() {
         return email;
     }
@@ -78,19 +96,15 @@ return Base64.getEncoder().encodeToString(password.getBytes());    }
     }
 
     public String getUsername() {
-      
-    return (username);}
-    
+
+        return (username);
+    }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-    
-
-   
-
-    public String  getSpecialité() {
+    public String getSpecialité() {
         return Specialité;
     }
 
@@ -100,22 +114,9 @@ return Base64.getEncoder().encodeToString(password.getBytes());    }
 
     @Override
     public String toString() {
-        return "Users{" + "id=" + id + ", password=" + password + ", email=" + email + ", username=" + username + ", Specialit\u00e9=" + Specialité + '}';
+        return "Users{" + "id=" + id + ", password=" + password + ", code=" + code + ", email=" + email + ", username=" + username + ", Specialit\u00e9=" + Specialité + ", about=" + about + '}';
     }
 
-    
-
    
-    
- 
-           
-    
+
 }
-     
-       
-    
-
-
-
-  
-

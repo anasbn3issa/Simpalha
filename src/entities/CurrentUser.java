@@ -20,7 +20,7 @@ public class CurrentUser {
 
      private CurrentUser(){
          
-         id=0;
+         //id=0;
          
          email="";
          targetId=0;
