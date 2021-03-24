@@ -28,7 +28,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import services.ServiceNotification;
@@ -220,8 +219,8 @@ public class FXMLQuizzEvalController implements Initializable {
                 notif.setContent("The Student "+userId+" has received a mark of "+average+"/20 in the Quizz \""+addedQuizzId+".");
                 notif.setRead(false);
                 notif.setSent(false);
-                System.out.println(notif);
-                System.out.println(userId);
+//                System.out.println(notif);
+//                System.out.println(userId);
                 
                 serviceNotif.createNotification(notif);
                 

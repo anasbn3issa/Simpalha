@@ -12,6 +12,7 @@ import services.ServiceQuestion;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +24,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -156,17 +159,27 @@ public class FXMLQuestionEditController implements Initializable {
     @FXML
     private void supprimerReponse(ActionEvent event) {
     
-        ServiceAnswer sa2 = new ServiceAnswer();
-        
-        ObservableList<Answer> answersSelected;
-        answersSelected = tableAnswers.getSelectionModel().getSelectedItems();
-        
-        answersSelected.forEach(e -> {
-            sa2.Delete(e);
-        });
-        
-        
-        reloadAnswersList();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Look, a Confirmation Dialog");
+        alert.setContentText("Are you ok with this?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            ServiceAnswer sa2 = new ServiceAnswer();
+
+            ObservableList<Answer> answersSelected;
+            answersSelected = tableAnswers.getSelectionModel().getSelectedItems();
+
+            answersSelected.forEach(e -> {
+                sa2.Delete(e);
+            });
+
+
+            reloadAnswersList();
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }
         
     }
 

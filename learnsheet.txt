@@ -198,6 +198,25 @@ Stopping time: 16/03/2021 22h01
 
 
 
+Day 10: 18h13 24/03/2021
+
+    STEP 10:
+        -Add Notifications Button
+        -Add Confirmation before Deleting smth.
+        -Set QuizzResults relations to ON DELETE = CASCADE
+
+    Notes:
+        *
+
+    References:
+        *
+
+WORKTIME: 1H00M
+
+Stopping time: 24/03/2021
+
+
+
 
 
 /// TODO:
@@ -299,6 +318,20 @@ Stopping time: 16/03/2021 22h01
             DONE 16/03/2021
 
         -Implement a progression calculating algorythm to the Quizzes
+
+            DONE 16/03/2021
+
+        -Add Notifications Button
+
+            DONE 24/03/2021
+
+        -Add Confirmation before Deleting smth.
+        
+            DONE 24/03/2021
+
+        -Set QuizzResults relations to ON DELETE = CASCADE
+        
+            DONE 24/03/2021
 
 
 

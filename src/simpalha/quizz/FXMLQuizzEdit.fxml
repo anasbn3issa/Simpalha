@@ -36,7 +36,6 @@
                    <HBox alignment="CENTER" />
                    <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                       <children>
-                         <FontAwesomeIcon iconName="BELL_O" size="1.3em" styleClass="cursor_hand" />
                          <ImageView fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="cursor_hand">
                             <image>
                                <Image url="@../../assets/bilel.jpg" />

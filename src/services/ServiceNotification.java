@@ -194,11 +194,11 @@ public class ServiceNotification implements IServiceNotification {
     }
 
     @Override
-    public ObservableList<Notification> ObservableListNotSentNotifications(int userId) throws SQLException {
+    public ObservableList<Notification> ObservableListNotifications(int userId) throws SQLException {
         
             
             Statement stm = cnx.createStatement();
-            String query="SELECT * FROM `notification` WHERE `is_sent`=0 AND `user_id`='"+userId+"'";
+            String query="SELECT * FROM `notification` WHERE `user_id`='"+userId+"'";
             ResultSet rst = stm.executeQuery(query);
             
             List<Notification> notifications = new ArrayList<>();
@@ -295,7 +295,8 @@ public class ServiceNotification implements IServiceNotification {
                             Parent root = null;
                             try{
                                 root = modal.load();
-                            }catch(IOException io){};
+                            }
+                            catch(IOException io){};
 
                             FXMLNotificationController editModal = modal.getController();
 

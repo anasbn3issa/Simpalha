@@ -5,11 +5,13 @@
  */
 package simpalha.quizz;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import entities.Quizz;
 import java.io.IOException;
 import services.ServiceQuizz;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +23,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -29,6 +33,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import simpalha.FXMLDocumentController;
+import simpalha.notification.FXMLNotificationController;
 
 /**
  * FXML Controller class
@@ -49,6 +54,8 @@ public class FXMLQuizzTableController implements Initializable {
     private Button btShowGraph;
     
     private int userId;
+    @FXML
+    private FontAwesomeIcon btNotificationShow;
 
     /**
      * Initializes the controller class.
@@ -129,18 +136,28 @@ public class FXMLQuizzTableController implements Initializable {
 //    deletes a quizz by its ID
     @FXML
     private void deleteQuizz(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Look, a Confirmation Dialog");
+        alert.setContentText("Are you ok with this?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            ServiceQuizz sq2 = new ServiceQuizz();
+            ObservableList<Quizz> quizzesSelected;
+            quizzesSelected = LAffiche.getSelectionModel().getSelectedItems();
+
+            quizzesSelected.forEach(e -> {
+                sq2.Delete(e);
+            });
+
+
+            reloadQuizzesList();
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }
     
-        ServiceQuizz sq2 = new ServiceQuizz();
         
-        ObservableList<Quizz> quizzesSelected;
-        quizzesSelected = LAffiche.getSelectionModel().getSelectedItems();
-        
-        quizzesSelected.forEach(e -> {
-            sq2.Delete(e);
-        });
-        
-        
-        reloadQuizzesList();
     }
 
     @FXML
@@ -207,6 +224,27 @@ public class FXMLQuizzTableController implements Initializable {
         catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void notificationsShow(MouseEvent event) {
+        FXMLLoader modal = new FXMLLoader(getClass().getResource("/simpalha/notification/FXMLNotification.fxml"));
+        Parent root = null;
+        try{
+            root = modal.load();
+        }
+        catch(IOException io){};
+
+        FXMLNotificationController editModal = modal.getController();
+
+
+        editModal.reloadAllNotificationsList(userId);
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Notifications");
+        stage.showAndWait();
     }
     
 }

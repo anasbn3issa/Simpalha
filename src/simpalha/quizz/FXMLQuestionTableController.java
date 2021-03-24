@@ -10,6 +10,7 @@ import java.io.IOException;
 import services.ServiceQuestion;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +22,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
@@ -119,17 +122,26 @@ public class FXMLQuestionTableController implements Initializable {
 //    Deleting selected items and reloading the table
     @FXML
     private void deleteQuestion(ActionEvent event) throws Exception {
-    
-        ServiceQuestion sq2 = new ServiceQuestion();
-        
-        ObservableList<Question> questionsSelected;
-        questionsSelected = LAffiche.getSelectionModel().getSelectedItems();
-        
-        questionsSelected.forEach(e -> {
-            sq2.Delete(e);
-        });
-        
-        reloadQuestionsList(addedQuizzId);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Look, a Confirmation Dialog");
+        alert.setContentText("Are you ok with this?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            ServiceQuestion sq2 = new ServiceQuestion();
+
+            ObservableList<Question> questionsSelected;
+            questionsSelected = LAffiche.getSelectionModel().getSelectedItems();
+
+            questionsSelected.forEach(e -> {
+                sq2.Delete(e);
+            });
+
+            reloadQuestionsList(addedQuizzId);
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }
         
     }
 

@@ -34,7 +34,7 @@ public interface IServiceNotification extends Runnable {
     public ObservableList<Notification> ObservableListAllNotSentNotificationsAndUpdate() throws SQLException ;
     
 //    show all quizzes in an observablelist
-    public ObservableList<Notification> ObservableListNotSentNotifications(int userId) throws SQLException ;
+    public ObservableList<Notification> ObservableListNotifications(int userId) throws SQLException ;
     
 //    show all quizzes in an observablelist
     public ObservableList<Notification> ObservableListNotSentNotificationsAndUpdate(int userId) throws SQLException ;

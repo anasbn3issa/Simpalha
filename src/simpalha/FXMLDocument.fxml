@@ -4,7 +4,6 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -43,7 +42,7 @@
                      </children></HBox>
                   <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                      <children>
-                        <FontAwesomeIcon iconName="BELL_O" size="1.3em" styleClass="cursor_hand" />
+                        <FontAwesomeIcon fx:id="btNotificationShow" iconName="BELL_O" onMouseClicked="#notificationsShow" size="1.3em" styleClass="cursor_hand" />
                         <ImageView fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="cursor_hand">
                            <image>
                               <Image url="@../assets/male.png" />
@@ -235,11 +234,7 @@
                               <FontAwesomeIcon fill="#485460" iconName="SEARCH" size="1.5em" styleClass="cursor_hand" />
                            </children>
                         </HBox>
-                        <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Create new Project">
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Create new Project" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

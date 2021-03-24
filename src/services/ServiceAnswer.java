@@ -198,6 +198,20 @@ public class ServiceAnswer implements IServiceAnswer {
             return answers;
     }
     
+    public boolean userExists(int userId) throws SQLException{
     
+                Statement stm = cnx.createStatement();
+            
+            String query="SELECT COUNT(*) FROM `user` WHERE `user_id`='"+userId+"'";
+
+            ResultSet rst = stm.executeQuery(query);
+            
+            rst.next();
+            int userCount = rst.getInt(1);
+            
+            boolean userExists = (userCount == 1);
+            
+            return userExists;
+    }
     
 }

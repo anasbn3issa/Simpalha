@@ -6,6 +6,7 @@
 package simpalha.quizz;
 
 import com.mysql.jdbc.Util;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import entities.Quizz;
 import entities.QuizzResult;
 import java.io.IOException;
@@ -39,6 +40,7 @@ import javafx.stage.Stage;
 import services.ServiceQuizz;
 import services.ServiceQuizzResult;
 import simpalha.FXMLDocumentController;
+import simpalha.notification.FXMLNotificationController;
 
 /**
  * FXML Controller class
@@ -65,6 +67,8 @@ public class FXMLQuizzResultGraphController implements Initializable {
     private Label lbAverage;
     @FXML
     private Label lbAnnotation;
+    @FXML
+    private FontAwesomeIcon btNotificationShow;
     
     /**
      * Initializes the controller class.
@@ -264,6 +268,26 @@ public class FXMLQuizzResultGraphController implements Initializable {
         catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void notificationsShow(MouseEvent event) {
+        FXMLLoader modal = new FXMLLoader(getClass().getResource("/simpalha/notification/FXMLNotification.fxml"));
+        Parent root = null;
+        try{
+            root = modal.load();
+        }
+        catch(IOException io){};
+
+        FXMLNotificationController editModal = modal.getController();
+
+        editModal.reloadAllNotificationsList(userId);
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Notifications");
+        stage.showAndWait();
     }
     
 }

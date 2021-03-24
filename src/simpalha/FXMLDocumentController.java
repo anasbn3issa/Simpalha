@@ -5,6 +5,7 @@
  */
 package simpalha;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.ServiceNotification;
+import simpalha.notification.FXMLNotificationController;
 import simpalha.quizz.FXMLQuizzController;
 
 
@@ -33,6 +35,8 @@ public class FXMLDocumentController implements Initializable {
     private Label label;
     
     private int userId;
+    @FXML
+    private FontAwesomeIcon btNotificationShow;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -50,6 +54,27 @@ public class FXMLDocumentController implements Initializable {
         Thread t = new Thread(sn);
         t.setDaemon(true);
         t.start();
+    }
+
+    @FXML
+    private void notificationsShow(MouseEvent event) {
+        FXMLLoader modal = new FXMLLoader(getClass().getResource("/simpalha/notification/FXMLNotification.fxml"));
+        Parent root = null;
+        try{
+            root = modal.load();
+        }
+        catch(IOException io){};
+
+        FXMLNotificationController editModal = modal.getController();
+
+
+        editModal.reloadAllNotificationsList(userId);
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Notifications");
+        stage.showAndWait();
     }
 
 //    Opens P2P

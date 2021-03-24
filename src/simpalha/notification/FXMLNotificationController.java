@@ -58,4 +58,15 @@ public class FXMLNotificationController implements Initializable {
         }
     }
     
+//    Reusable function to reload the table
+    public void reloadAllNotificationsList(int userId){
+        ServiceNotification sn = new ServiceNotification();
+        
+        try {
+            LAffiche.setItems(sn.ObservableListNotifications(userId));
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLNotificationController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }

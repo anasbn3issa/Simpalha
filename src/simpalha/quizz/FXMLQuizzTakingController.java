@@ -5,6 +5,7 @@
  */
 package simpalha.quizz;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import entities.Quizz;
 import java.io.IOException;
 import java.net.URL;
@@ -27,6 +28,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.ServiceQuizz;
 import simpalha.FXMLDocumentController;
+import simpalha.notification.FXMLNotificationController;
 
 /**
  * FXML Controller class
@@ -48,6 +50,8 @@ public class FXMLQuizzTakingController implements Initializable {
     
     
     private int userId;
+    @FXML
+    private FontAwesomeIcon btNotificationShow;
 
     
     /**
@@ -94,6 +98,27 @@ public class FXMLQuizzTakingController implements Initializable {
         stage.setScene(scene);
         stage.setTitle("Quizz");
         stage.show();
+    }
+
+    @FXML
+    private void notificationsShow(MouseEvent event) {
+        FXMLLoader modal = new FXMLLoader(getClass().getResource("/simpalha/notification/FXMLNotification.fxml"));
+        Parent root = null;
+        try{
+            root = modal.load();
+        }
+        catch(IOException io){};
+
+        FXMLNotificationController editModal = modal.getController();
+
+
+        editModal.reloadAllNotificationsList(userId);
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Notifications");
+        stage.showAndWait();
     }
 
     @FXML
