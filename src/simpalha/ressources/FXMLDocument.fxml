@@ -265,7 +265,7 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Text>
-                  <Button mnemonicParsing="false" onAction="#formulaireajout" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Add here!">
+                  <Button mnemonicParsing="false" onAction="#formulaireajout" prefHeight="32.0" prefWidth="245.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Click to add new resource!">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -301,16 +301,6 @@
             <Line endX="966.2929077148438" endY="1.3810396194458008E-4" startX="-135.92396545410156" startY="-6.467103958129883E-5" stroke="#0b79ee" />
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
               <buttons>
-                  <Text fill="#ff5a07" strokeType="OUTSIDE" strokeWidth="0.0" text="Update a resource" textAlignment="CENTER" wrappingWidth="153.4775390625">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Text>
-                  <Button mnemonicParsing="false" onAction="#formulairemodif" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Update here!">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
                   <Text fill="#ff5a07" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete Selected Resource" textAlignment="CENTER" wrappingWidth="162.4775390625">
                      <font>
                         <Font name="System Bold" size="15.0" />
