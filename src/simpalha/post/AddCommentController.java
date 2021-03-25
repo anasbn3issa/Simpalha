@@ -5,6 +5,7 @@
  */
 package simpalha.post;
 
+//commentaire
 import com.darkprograms.speech.translator.GoogleTranslate;
 import static com.darkprograms.speech.translator.GoogleTranslate.detectLanguage;
 import entities.Comment;
@@ -13,7 +14,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
+import java.util.List; 
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -422,6 +423,7 @@ public class AddCommentController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             VBox vboxCommentOwner = new VBox();
 
             vboxCommentOwner.getChildren().addAll(commentOwnerName); // 3maltelha HBox wa7adha psk mbaad newi nzid des infos okhrin bjanb el name kima specialite main mte3ou

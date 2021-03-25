@@ -18,7 +18,7 @@ public class Maconnexion {
     private Connection cnx;
 
     private Maconnexion() {
-        try {
+        try { 
             cnx = DriverManager.getConnection(URL, LOGIN, PASS);
             System.out.println("cnx done");
         } catch (SQLException ex) {

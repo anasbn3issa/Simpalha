@@ -213,7 +213,26 @@ Day 10: 18h13 24/03/2021
 
 WORKTIME: 1H00M
 
-Stopping time: 24/03/2021
+Stopping time: 24/03/2021 19h20
+
+
+
+Day 11: 11h00 25/03/2021
+
+    STEP 11:
+        -GIT Merge
+        -Dashboard in FXML => Anas's Posts
+        -DataSource into Maconnexion in the .util AND the services.
+
+    Notes:
+        *
+
+    References:
+        *
+
+WORKTIME:
+
+Stopping time: 25/03/2021
 
 
 
@@ -332,6 +351,12 @@ Stopping time: 24/03/2021
         -Set QuizzResults relations to ON DELETE = CASCADE
         
             DONE 24/03/2021
+
+        -GIT Merge
+
+        -Dashboard in FXML => Anas's Posts
+
+        -DataSource into Maconnexion in the .util AND the services.
 
 
 

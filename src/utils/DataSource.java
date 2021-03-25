@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class DataSource {
     
-    private String url="jdbc:mysql://127.0.0.1:3306/spirit";
+    private String url="jdbc:mysql://127.0.0.1:3306/simpalha";
     private String login="root";
     private String pwd="";
     
