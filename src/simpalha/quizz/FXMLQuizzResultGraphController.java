@@ -5,7 +5,6 @@
  */
 package simpalha.quizz;
 
-import com.mysql.jdbc.Util;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import entities.Quizz;
 import entities.QuizzResult;
