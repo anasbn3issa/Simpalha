@@ -13,8 +13,6 @@ import entities.Users;
  */
 public interface IserviceUsers extends IService<Users> {
 
-    public Users finfById(int id);
-
     public Boolean usernameExist(String username);
 
     public Boolean emailExist(String email);

@@ -5,7 +5,6 @@
  */
 package services;
 
-
 import entities.CurrentUser;
 import entities.Users;
 import interfaces.IserviceUsers;
@@ -47,7 +46,7 @@ public class ServiceUsers implements IserviceUsers {
                     + variable.getEmail()
                     + "','" + variable.getPassword()
                     + "','" + variable.getUsername()
-                    + "','"+ variable.getAbout()
+                    + "','" + variable.getAbout()
                     + "')";
             st.execute(query);
             System.out.println("Ajout abouti");
@@ -114,27 +113,8 @@ public class ServiceUsers implements IserviceUsers {
     }
 
     @Override
-    public Users finfById(int id) {
-        String query = "select * from users where id=?";
-        Users student = null;
-        try {
-            pstmt = cnx.prepareStatement(query);
-            pstmt.setInt(1, id);
-            rs = pstmt.executeQuery();
-            while (rs.next()) {
-                student = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceUsers.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return student;
-
-    }
-
-    @Override
     public Boolean usernameExist(String username) {
 
-        
         try {
             String request = "SELECT username FROM users where username='" + username + "'";
             Statement s = cnx.createStatement();
@@ -148,10 +128,10 @@ public class ServiceUsers implements IserviceUsers {
         }
         return false;
     }
+
     @Override
     public Boolean emailExist(String email) {
 
-        
         try {
             String request = "SELECT email FROM users where email='" + email + "'";
             Statement s = cnx.createStatement();
@@ -191,18 +171,18 @@ public class ServiceUsers implements IserviceUsers {
 
         return sb.toString();
     }
-    public void updateAbout (String about)
-     {
-         UserSession cu = UserSession.getInstace(0);
-             String requete="UPDATE users SET about='"+about+"' WHERE id="+cu.userid;
-         try{
-             st = cnx.createStatement();
+
+    public void updateAbout(String about) {
+        UserSession cu = UserSession.getInstace(0);
+        String requete = "UPDATE users SET about='" + about + "' WHERE id=" + cu.userid;
+        try {
+            st = cnx.createStatement();
             st.executeUpdate(requete);
             System.out.println("Description modifié");
         } catch (SQLException ex) {
             Logger.getLogger(Maconnexion.class.getName()).log(Level.SEVERE, null, ex);
         }
-     } 
+    }
 
     public int geIdbyUsername(String username) throws SQLException {
 
@@ -288,8 +268,19 @@ public class ServiceUsers implements IserviceUsers {
 
     @Override
     public Users findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "select * from users where id=?";
+        Users student = null;
+        try {
+            pstmt = cnx.prepareStatement(query);
+            pstmt.setInt(1, id);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                student = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceUsers.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return student;
     }
-  
-    
+
 }

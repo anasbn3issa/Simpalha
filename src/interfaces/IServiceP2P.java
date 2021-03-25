@@ -6,6 +6,7 @@
 package interfaces;
 
 import entities.Meet;
+import java.util.List;
 
 /**
  *
@@ -13,6 +14,8 @@ import entities.Meet;
  */
 public interface IServiceP2P extends IService<Meet> {
         public Meet findById(String id);
+        public List<Meet> ReadById(int id);
+
 
     
 }

@@ -52,10 +52,10 @@ public class ListHelpersFXMLController implements Initializable {
         service = new ServiceUsers();
 
         TableColumn<Users, String> nameCol = new TableColumn<>("Name");
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("fname"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
 
         TableColumn<Users, String> specialiteCol = new TableColumn<>("Specialite");
-        specialiteCol.setCellValueFactory(new PropertyValueFactory<>("specialites"));
+        specialiteCol.setCellValueFactory(new PropertyValueFactory<>("Specialité"));
 
         helpersList.getColumns().add(nameCol);
         helpersList.getColumns().add(specialiteCol);
@@ -101,6 +101,7 @@ public class ListHelpersFXMLController implements Initializable {
     }
     
     private void fillData() {
+        System.out.println(service.Read());
         helpersList.getItems().addAll(service.Read());
     }
 

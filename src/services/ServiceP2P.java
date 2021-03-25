@@ -20,13 +20,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.Maconnexion;
+import utils.UserSession;
 
 /**
  *
  * @author α Ω
  */
-public class ServiceP2P implements IServiceP2P{
-    
+public class ServiceP2P implements IServiceP2P {
+
     private Connection cnx;
     private Statement ste;
     private PreparedStatement pst;
@@ -41,8 +42,6 @@ public class ServiceP2P implements IServiceP2P{
         serviceUser = new ServiceUsers();
         serviceFeedback = new ServiceFeedback();
     }
-    
-    
 
     @Override
     public void Create(Meet variable) {
@@ -68,9 +67,9 @@ public class ServiceP2P implements IServiceP2P{
             pst.setInt(1, Integer.valueOf(variable.getTime()));
             pst.setInt(2, variable.getFeedback_id());
             pst.setString(3, variable.getId());
-            
+
             pst.executeUpdate();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(ServiceDisponibilite.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -83,30 +82,30 @@ public class ServiceP2P implements IServiceP2P{
         try {
             ste = cnx.createStatement();
             rs = ste.executeQuery(req);
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Meet meet = new Meet(rs.getString(1), rs.getInt(3), rs.getInt(4), rs.getInt(6), rs.getString(2), rs.getString(5));
-                
+
                 Disponibilite disponibilite = serviceDisp.findOneByEtat(Integer.valueOf(meet.getTime()), 1);
-                meet.setTime(disponibilite.getDatedeb()+"->"+disponibilite.getDateFin());
-                
+                meet.setTime(disponibilite.getDatedeb() + "->" + disponibilite.getDateFin());
+
                 Users helper = serviceUser.findById(meet.getId_helper());
                 meet.setHelperDisplay(helper.getUsername());
-                
+
                 Users student = serviceUser.findById(meet.getId_student());
                 meet.setStudentDisplay(student.getUsername());
-                
+
                 Feedback feedback = serviceFeedback.findById(meet.getFeedback_id());
                 System.out.println(feedback);
                 meet.setFeedbackDisplay(feedback.getFeedback());
-                
+
                 list.add(meet);
             }
-            
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-    return list;
+        return list;
     }
 
     @Override
@@ -115,9 +114,9 @@ public class ServiceP2P implements IServiceP2P{
         try {
             pst = cnx.prepareStatement(query);
             pst.setString(1, variable.getId());
-            
+
             pst.executeUpdate();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(ServiceDisponibilite.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -141,16 +140,47 @@ public class ServiceP2P implements IServiceP2P{
             pst = cnx.prepareStatement(query);
             pst.setString(1, id);
             rs = pst.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 meet = new Meet(rs.getString(1), rs.getInt(3), rs.getInt(4), rs.getInt(6), rs.getString(2), rs.getString(5));
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServiceDisponibilite.class.getName()).log(Level.SEVERE, null, ex);
         }
         return meet;
     }
-    
-    
-    
+
+    @Override
+    public List<Meet> ReadById(int id) {
+        List<Meet> list = new ArrayList<>();
+        String req = "select * from meet where id_student="+id;
+        try {
+            ste = cnx.createStatement();
+            rs = ste.executeQuery(req);
+
+            while (rs.next()) {
+                Meet meet = new Meet(rs.getString(1), rs.getInt(3), rs.getInt(4), rs.getInt(6), rs.getString(2), rs.getString(5));
+
+                Disponibilite disponibilite = serviceDisp.findOneByEtat(Integer.valueOf(meet.getTime()), 1);
+                meet.setTime(disponibilite.getDatedeb() + "->" + disponibilite.getDateFin());
+
+                Users helper = serviceUser.findById(meet.getId_helper());
+                meet.setHelperDisplay(helper.getUsername());
+
+                Users student = serviceUser.findById(meet.getId_student());
+                meet.setStudentDisplay(student.getUsername());
+
+                Feedback feedback = serviceFeedback.findById(meet.getFeedback_id());
+                System.out.println(feedback);
+                meet.setFeedbackDisplay(feedback.getFeedback());
+
+                list.add(meet);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
 }

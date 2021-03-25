@@ -57,7 +57,7 @@ private ServiceUsers service;
          Platform.runLater(() -> {
             service = new ServiceUsers();
             
-            Users user = service.finfById(userId);
+            Users user = service.findById(userId);
             
             nom.setText(user.getUsername());
             spécialité.setText(user.getSpecialité());
@@ -82,7 +82,7 @@ private ServiceUsers service;
     }
 
     @FXML
-    private void update(ActionEvent event) {Users user = service.finfById(userId);
+    private void update(ActionEvent event) {Users user = service.findById(userId);
         user.setUsername(nom.getText());
         
         user.setEmail(email.getText());
