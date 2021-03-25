@@ -73,7 +73,7 @@
     <left>
        <VBox prefWidth="150.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
           <children>
-             <HBox alignment="CENTER_LEFT" onMouseClicked="#showDashboard" styleClass="hover_border">
+             <HBox alignment="CENTER_LEFT" onMouseClicked="#showPost" styleClass="hover_border">
                 <padding>
                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </padding>
@@ -82,7 +82,7 @@
                 </VBox.margin>
                 <children>
                    <FontAwesomeIcon fill="#485460" iconName="CIRCLE_ALT_NOTCH" size="1.5em" />
-                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Dashboard">
+                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Posts">
                       <HBox.margin>
                          <Insets left="10.0" />
                       </HBox.margin>

@@ -8,7 +8,9 @@ package simpalha.quizz;
 import entities.Notification;
 import entities.QuizzResult;
 import entities.QuizzStats;
+import entities.Quizz;
 import entities.QuizzWrapper;
+import entities.Users;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -33,6 +35,8 @@ import javafx.stage.Stage;
 import services.ServiceNotification;
 import services.ServiceQuizzResult;
 import services.ServiceQuizzStats;
+import services.ServiceQuizz;
+import services.ServiceUsers;
 import services.ServiceWrapper;
 import simpalha.FXMLDocumentController;
 
@@ -213,10 +217,18 @@ public class FXMLQuizzEvalController implements Initializable {
 
                 qr.Create(quizzResultsObject);
                 
+                ServiceQuizz sq = new ServiceQuizz();
+                ServiceUsers su = new ServiceUsers();
+                Users u = new Users();
+                Quizz quizz = new Quizz();
+                
+                u = su.finfById(userId);
+                quizz = sq.findById(addedQuizzId);
+                
                 isResultShown = true;
                 
                 notif.setTitle("Quizz Result");
-                notif.setContent("The Student "+userId+" has received a mark of "+average+"/20 in the Quizz \""+addedQuizzId+".");
+                notif.setContent("The Student "+u.getUsername()+" has received a mark of "+average+"/20 in the Quizz \""+quizz.getTitle()+".");
                 notif.setRead(false);
                 notif.setSent(false);
 //                System.out.println(notif);
