@@ -94,7 +94,7 @@
                </padding>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="CALENDAR_ALT" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="P2P">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Projects">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -215,6 +215,17 @@
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="Posts List" />
                   <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                      <children>
+                        <Button mnemonicParsing="false" onAction="#ExportExcelButtonPushed" text="Button" />
+                        <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-background-radius: 0px;">
+                           <graphic>
+                              <FontAwesomeIcon fill="#485460" iconName="TH_LARGE" size="1.3em" />
+                           </graphic>
+                        </Button>
+                        <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-background-radius: 0px;">
+                           <graphic>
+                              <FontAwesomeIcon fill="#485460" iconName="TH_LIST" size="1.3em" text="" />
+                           </graphic>
+                        </Button>
                         <HBox alignment="CENTER">
                            <children>
                               <ComboBox fx:id="comboSearch" prefWidth="150.0" />
@@ -268,7 +279,15 @@
                   </VBox>
                </children>
             </HBox>
-            <VBox fx:id="PostsContainer" prefHeight="200.0" prefWidth="100.0" />
+            <VBox fx:id="PostsContainer1" prefHeight="376.0" prefWidth="1090.0">
+               <children>
+                  <HBox prefHeight="149.0" prefWidth="1090.0">
+                     <children>
+                        <HBox prefHeight="149.0" prefWidth="28.0" />
+                        <VBox fx:id="PostsContainer" prefHeight="149.0" prefWidth="920.0" />
+                     </children>
+                  </HBox>
+               </children></VBox>
          </children>
       </VBox>
    </center>
