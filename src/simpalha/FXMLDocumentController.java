@@ -64,7 +64,7 @@ public class FXMLDocumentController implements Initializable {
     private void goToViewPosts(MouseEvent event) {
         Parent loader;
         try {
-            loader = FXMLLoader.load(getClass().getResource("/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+            loader = FXMLLoader.load(getClass().getResource("post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
 
             Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
 
@@ -154,7 +154,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void notificationsShow(MouseEvent event) {
-        FXMLLoader modal = new FXMLLoader(getClass().getResource("/simpalha/notification/FXMLNotification.fxml"));
+        FXMLLoader modal = new FXMLLoader(getClass().getResource("simpalha/notification/FXMLNotification.fxml"));
         Parent root = null;
         try{
             root = modal.load();
@@ -179,7 +179,7 @@ public class FXMLDocumentController implements Initializable {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
 //                            "/simpalha/quizz/FXMLQuizzTaking.fxml"
-                            "/simpalha/quizz/FXMLQuizz.fxml"
+                            "simpalha/quizz/FXMLQuizz.fxml"
                     )
             );
             
