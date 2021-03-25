@@ -222,7 +222,7 @@ public class FXMLQuizzEvalController implements Initializable {
                 Users u = new Users();
                 Quizz quizz = new Quizz();
                 
-                u = su.finfById(userId);
+                u = su.findById(userId);
                 quizz = sq.findById(addedQuizzId);
                 
                 isResultShown = true;
