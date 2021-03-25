@@ -112,4 +112,26 @@ public class ServiceComment implements IServiceComment {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public Boolean MarkAsSolution(int id_post, int id_comment) {
+        
+        String query = "update post set solution_id=? where id=?";
+        
+        try {
+            
+            PreparedStatement pst= cnx.prepareStatement(query);
+            pst.setInt(1,id_comment);
+            pst.setInt(2,id_post);
+            pst.executeUpdate();
+            
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        
+        return false;
+    }
+
 }

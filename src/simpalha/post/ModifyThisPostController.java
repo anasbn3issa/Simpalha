@@ -33,6 +33,7 @@ import services.ServicePost;
 public class ModifyThisPostController implements Initializable {
 
     private int idPost;
+    
     private ServicePost myService;
     @FXML
     private ComboBox<String> comboStatus;
