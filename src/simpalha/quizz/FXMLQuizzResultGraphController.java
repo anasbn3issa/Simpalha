@@ -249,7 +249,6 @@ public class FXMLQuizzResultGraphController implements Initializable {
         }
     }
 
-    @FXML
     private void showDashboard(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -287,6 +286,23 @@ public class FXMLQuizzResultGraphController implements Initializable {
         stage.setScene(scene);
         stage.setTitle("Notifications");
         stage.showAndWait();
+    }
+
+    @FXML
+    private void showPost(MouseEvent event) {
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
     }
     
 }

@@ -5,7 +5,6 @@
  */
 package services;
 
-import entities.Question;
 import entities.QuizzWrapper;
 import interfaces.IServiceWrapper;
 import java.sql.Connection;
@@ -14,7 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import utils.DataSource;
+import utils.Maconnexion;
 
 /**
  *
@@ -25,7 +24,7 @@ public class ServiceWrapper implements IServiceWrapper {
     Connection cnx;
     
     public ServiceWrapper(){
-        cnx = DataSource.getInstance().getConnection();
+        cnx = Maconnexion.getInstance().getConnection();
     }
     
     @Override

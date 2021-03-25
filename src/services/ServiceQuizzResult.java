@@ -5,21 +5,19 @@
  */
 package services;
 
-import entities.Quizz;
 import entities.QuizzResult;
 import interfaces.IServiceQuizzResult;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import utils.DataSource;
+import utils.Maconnexion;
 
 /**
  *
@@ -30,7 +28,7 @@ public class ServiceQuizzResult implements IServiceQuizzResult{
     Connection cnx;
     
     public ServiceQuizzResult(){
-        cnx = DataSource.getInstance().getConnection();
+        cnx = Maconnexion.getInstance().getConnection();
     }
 
     @Override

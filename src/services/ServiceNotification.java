@@ -18,21 +18,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.beans.property.IntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import simpalha.FXMLDocumentController;
 import simpalha.notification.FXMLNotificationController;
-import simpalha.quizz.FXMLQuizzEvalAnswerController;
-import static simpalha.quizz.FXMLQuizzEvalController.quizzStats;
-import utils.DataSource;
+import utils.Maconnexion;
 
 /**
  *
@@ -49,11 +42,11 @@ public class ServiceNotification implements IServiceNotification {
     }
     
     public ServiceNotification(){
-        cnx = DataSource.getInstance().getConnection();
+        cnx = Maconnexion.getInstance().getConnection();
     }
     
     public ServiceNotification(int uId){
-        cnx = DataSource.getInstance().getConnection();
+        cnx = Maconnexion.getInstance().getConnection();
         userId = uId;
     }
 

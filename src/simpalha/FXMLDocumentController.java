@@ -64,7 +64,7 @@ public class FXMLDocumentController implements Initializable {
     private void goToViewPosts(MouseEvent event) {
         Parent loader;
         try {
-            loader = FXMLLoader.load(getClass().getResource("/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
 
             Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
 
@@ -82,7 +82,7 @@ public class FXMLDocumentController implements Initializable {
         
         Parent loader;
         try {
-            loader = FXMLLoader.load(getClass().getResource("post/AddNewPost.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/post/AddNewPost.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
 
             Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
 
@@ -100,7 +100,7 @@ public class FXMLDocumentController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-                            "P2P/P2PFXML.fxml"
+                            "/simpalha/P2P/P2PFXML.fxml"
                     )
             );
 
@@ -119,7 +119,7 @@ public class FXMLDocumentController implements Initializable {
          try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-                            "users/CandidatureUser.fxml"
+                            "/simpalha/users/CandidatureUser.fxml"
                     )
             );
 
@@ -138,7 +138,7 @@ public class FXMLDocumentController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-                            "users/Profile.fxml"
+                            "/simpalha/users/Profile.fxml"
                     )
             );
 
