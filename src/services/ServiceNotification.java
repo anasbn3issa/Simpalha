@@ -32,7 +32,7 @@ import simpalha.FXMLDocumentController;
 import simpalha.notification.FXMLNotificationController;
 import simpalha.quizz.FXMLQuizzEvalAnswerController;
 import static simpalha.quizz.FXMLQuizzEvalController.quizzStats;
-import utils.DataSource;
+import utils.Maconnexion;
 
 /**
  *
@@ -49,11 +49,11 @@ public class ServiceNotification implements IServiceNotification {
     }
     
     public ServiceNotification(){
-        cnx = DataSource.getInstance().getConnection();
+        cnx = Maconnexion.getInstance().getConnection();
     }
     
     public ServiceNotification(int uId){
-        cnx = DataSource.getInstance().getConnection();
+        cnx = Maconnexion.getInstance().getConnection();
         userId = uId;
     }
 

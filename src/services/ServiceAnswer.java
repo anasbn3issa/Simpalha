@@ -18,7 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import utils.DataSource;
+import utils.Maconnexion;
 
 /**
  * @author Parsath
@@ -28,7 +28,7 @@ public class ServiceAnswer implements IServiceAnswer {
     Connection cnx;
     
     public ServiceAnswer(){
-        cnx = DataSource.getInstance().getConnection();
+        cnx = Maconnexion.getInstance().getConnection();
     }
 
     @Override
