@@ -18,7 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import utils.DataSource;
+import utils.Maconnexion;
 
 /**
  *
@@ -29,7 +29,7 @@ public class ServiceQuestion implements IServiceQuestion{
     Connection cnx;
     
     public ServiceQuestion(){
-        cnx = DataSource.getInstance().getConnection();
+        cnx = Maconnexion.getInstance().getConnection();
     }
 
     @Override

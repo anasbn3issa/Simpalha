@@ -71,7 +71,7 @@ public class LoginController implements Initializable {
             ServiceUsers us = new ServiceUsers();
            
             Users u = new Users(tfpassword.getText(), tfusername.getText());
-            
+            System.out.println(u);
             if (us.check(u))
             {
                 System.out.println(u.getId()); 

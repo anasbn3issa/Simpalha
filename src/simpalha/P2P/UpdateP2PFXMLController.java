@@ -66,8 +66,8 @@ public class UpdateP2PFXMLController implements Initializable {
             service = new ServiceP2P();
             serviceDisp = new ServiceDisponibilite();
             serviceUser = new ServiceUsers();
-
             List<Disponibilite> dispoList = serviceDisp.findAllById(idHelper);
+            System.out.println(dispoList);
             times.getItems().addAll(dispoList.stream().map(d -> d.getDatedeb() + " -> " + d.getDateFin()).toArray(String[]::new));
             Users student = serviceUser.findById(idHelper);
             helper.setText(student.getUsername());
