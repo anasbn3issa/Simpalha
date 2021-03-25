@@ -5,6 +5,7 @@
  */
 package simpalha.post;
 
+//commentaire
 import com.darkprograms.speech.translator.GoogleTranslate;
 import static com.darkprograms.speech.translator.GoogleTranslate.detectLanguage;
 import entities.Comment;
@@ -13,7 +14,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
+import java.util.List; 
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
