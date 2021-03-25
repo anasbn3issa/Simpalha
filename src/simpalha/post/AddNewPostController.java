@@ -26,6 +26,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
@@ -33,8 +34,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import services.ServicePost;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 
 /**
@@ -44,10 +45,6 @@ import javafx.stage.FileChooser;
  */
 public class AddNewPostController implements Initializable {
 
-    
-    
-    
-    
     private File selectedFile;
     @FXML
     private ComboBox<String> comboModule;
@@ -57,8 +54,6 @@ public class AddNewPostController implements Initializable {
     private Hyperlink buttonFile1;
     @FXML
     private Button submit;
-    
-    
 
     /**
      * Initializes the controller class.
@@ -67,16 +62,13 @@ public class AddNewPostController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
 
-            
             // first Label in page 
-            
             // the combobox to Set module
-            
             comboModule.getItems().removeAll(comboModule.getItems());
             comboModule.getItems().addAll("IP Essentials", "Mathématique de base 1", "Mathématique de base 2", "Génie Logiciel"); // mba3d nrodou marbout b classe specialité .
-            comboModule.getSelectionModel().select("Math,java .."); // shnowa maktoub par défaut . 
+           // comboModule.getSelectionModel().select("Math,java .."); // shnowa maktoub par défaut . 
             Text moduleLabel = new Text("Module");
-            
+
             buttonFile1.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -131,7 +123,6 @@ public class AddNewPostController implements Initializable {
 //                    }
 //                }
 //            });
-
         });
 
     }
@@ -160,13 +151,12 @@ public class AddNewPostController implements Initializable {
     private void AddNewPost(ActionEvent event) {
     }
 
-    
-      private void copy(File from) {
+    private void copy(File from) {
         String dir = System.getProperty("user.dir");//get project source path
-        File dest = new File(dir + "\\ressources\\"+from.getName());//add the full path /ressources + file name
-        
+        File dest = new File(dir + "\\ressources\\" + from.getName());//add the full path /ressources + file name
+
 //check if folder ressources is created, sinon create it
-        File file = new File(dir+"\\ressources");
+        File file = new File(dir + "\\ressources");
         file.mkdirs();
         /////
         //COPY FILE OPERATION
@@ -190,47 +180,57 @@ public class AddNewPostController implements Initializable {
             try {
                 is.close();
                 os.close();
-            }catch (IOException ex) {
+            } catch (IOException ex) {
                 Logger.getLogger(AddNewPostController.class.getName()).log(Level.SEVERE, null, ex);
             }
             /////////////////
         }
 
-
     }
 
     @FXML
     private void buttonSubmitPushed(ActionEvent event) {
-        
-        
- // Partie 1 : Add this post to Database , only need to set 
-                    String s1 = textProblem.getText();
-                    String s2 = comboModule.getValue();
-                    String s3= selectedFile.getName();
-                    Post p = new Post(s1, s2,s3);
-                    System.out.println("s1" + s1 + "s2" + s2+"s3"+s3);
-                    ServicePost s = new ServicePost();
-                    s.Create(p);                   
-                    copy(selectedFile);
 
-                    
-                    
-                    //Partie 2 : go to view Posts
-                    try {
-                        FXMLLoader loader = new FXMLLoader(
-                                getClass().getResource(
-                                        "ViewPosts.fxml"
-                                )
-                        );
+        Post p;
+        // Partie 1 : Add this post to Database , only need to set 
+        String s1 = textProblem.getText();
+        String s2 = comboModule.getValue();
 
-                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
-                        stage.setScene(
-                                new Scene(loader.load())
-                        );
-                        stage.show();
-                    } catch (IOException ex) {
-                        Logger.getLogger(AddNewPostController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+        //System.out.println("this is s3 empty normalement "+s3);
+        if (s2.equals("") || s1.equals("Math,java ..")) {
+            Alert a = new Alert(Alert.AlertType.ERROR, "you need to fill all fields", ButtonType.OK);
+        } else {
+            if (selectedFile != null) {
+                String s3 = selectedFile.getName();
+                p = new Post(s1, s2, s3);
+                System.out.println("s1" + s1 + "s2" + s2 + "s3" + s3);
+                ServicePost s = new ServicePost();
+                s.Create(p);
+                copy(selectedFile);
+            } else {
+                p = new Post(s1, s2);
+                ServicePost s = new ServicePost();
+                s.Create(p);
+            }
+
+            //Partie 2 : go to view Posts
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource(
+                                "ViewPosts.fxml"
+                        )
+                );
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+                stage.setScene(
+                        new Scene(loader.load())
+                );
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(AddNewPostController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 
 }

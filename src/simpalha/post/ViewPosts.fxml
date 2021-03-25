@@ -279,7 +279,15 @@
                   </VBox>
                </children>
             </HBox>
-            <VBox fx:id="PostsContainer" prefHeight="200.0" prefWidth="100.0" />
+            <VBox fx:id="PostsContainer1" prefHeight="376.0" prefWidth="1090.0">
+               <children>
+                  <HBox prefHeight="149.0" prefWidth="1090.0">
+                     <children>
+                        <HBox prefHeight="149.0" prefWidth="28.0" />
+                        <VBox fx:id="PostsContainer" prefHeight="149.0" prefWidth="920.0" />
+                     </children>
+                  </HBox>
+               </children></VBox>
          </children>
       </VBox>
    </center>

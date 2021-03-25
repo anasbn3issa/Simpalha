@@ -84,8 +84,6 @@ public class AddCommentController implements Initializable {
     private HBox hboxPost;
     @FXML
     private VBox vboxPost2;
-    @FXML
-    private HBox emptyhbox;
 
     /**
      * Initializes the controller class.
@@ -153,6 +151,7 @@ public class AddCommentController implements Initializable {
         }
     }
 
+    @FXML
     private void AddNewPost(ActionEvent event) { // BUTTON PUSHED
         Parent loader;
         try {

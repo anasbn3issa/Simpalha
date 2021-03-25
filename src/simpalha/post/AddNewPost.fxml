@@ -256,13 +256,16 @@
                                           <Font name="System Bold" size="19.0" />
                                        </font>
                                     </Text>
-                                    <HBox prefHeight="34.0" prefWidth="213.0" />
+                                    <HBox prefHeight="15.0" prefWidth="213.0" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Problem" wrappingWidth="142.845703125">
                                        <font>
                                           <Font name="System Bold" size="19.0" />
                                        </font>
                                     </Text>
-                                    <HBox prefHeight="91.0" prefWidth="213.0" />
+                                    <HBox prefHeight="91.0" prefWidth="213.0">
+                                       <children>
+                                          <VBox prefHeight="91.0" prefWidth="208.0" />
+                                       </children></HBox>
                                  </children>
                               </VBox>
                               <VBox prefHeight="310.0" prefWidth="559.0">
@@ -272,7 +275,7 @@
                                     <HBox prefHeight="23.0" prefWidth="559.0" />
                                     <TextArea fx:id="textProblem" prefHeight="114.0" prefWidth="559.0" />
                                     <HBox prefHeight="12.0" prefWidth="559.0" />
-                                    <Hyperlink fx:id="buttonFile1" text="import image" />
+                                    <Hyperlink fx:id="buttonFile1" text="import image to help us help you ! " />
                                  </children>
                               </VBox>
                               <VBox prefHeight="310.0" prefWidth="233.0">
