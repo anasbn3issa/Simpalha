@@ -422,6 +422,7 @@ public class AddCommentController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             VBox vboxCommentOwner = new VBox();
 
             vboxCommentOwner.getChildren().addAll(commentOwnerName); // 3maltelha HBox wa7adha psk mbaad newi nzid des infos okhrin bjanb el name kima specialite main mte3ou

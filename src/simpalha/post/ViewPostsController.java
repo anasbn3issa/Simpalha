@@ -120,6 +120,7 @@ public class ViewPostsController implements Initializable {
 
     private String translateProblemToEnglish(Post p) throws IOException {
         System.out.println("p.get : "+p.getProblem()+" ---p.set: ");
+        
         String s=GoogleTranslate.translate("en", p.getProblem());
         p.setProblem(s);
         
@@ -129,6 +130,7 @@ public class ViewPostsController implements Initializable {
 
     private String translateProblemToFrench(Post p) throws IOException {
         System.out.println("p.get : "+p.getProblem()+" ---p.set: ");
+        
         String s=GoogleTranslate.translate("fr", p.getProblem());
         p.setProblem(s);
         
@@ -276,7 +278,7 @@ public class ViewPostsController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            
             
             
             btnDelete.setOnAction(new EventHandler<ActionEvent>() {
