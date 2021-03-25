@@ -16,7 +16,7 @@ import java.util.List;
 public class ServiceInvitation implements IserviceUsers{
 
     @Override
-    public Users finfById(int id) {
+    public Users findById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -49,12 +49,7 @@ public class ServiceInvitation implements IserviceUsers{
     public List<Users> findAllById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public Users findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public Boolean emailExist(String email) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

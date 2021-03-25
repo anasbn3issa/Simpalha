@@ -84,23 +84,7 @@ public class Meet {
     public void setSpecialite(String specialite) {
         this.specialite = specialite;
     }
-
-    public String getStudentDisplay() {
-        return studentDisplay;
-    }
-
-    public void setStudentDisplay(String studentDisplay) {
-        this.studentDisplay = studentDisplay;
-    }
-
-    public String getHelperDisplay() {
-        return helperDisplay;
-    }
-
-    public void setHelperDisplay(String helperDisplay) {
-        this.helperDisplay = helperDisplay;
-    }
-
+    
     public String getFeedbackDisplay() {
         return feedbackDisplay;
     }

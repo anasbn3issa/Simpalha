@@ -38,6 +38,7 @@ import javafx.util.Callback;
 import services.ServiceDisponibilite;
 import services.ServiceP2P;
 import simpalha.FXMLDocumentController;
+import utils.UserSession;
 
 /**
  * FXML Controller class
@@ -55,6 +56,8 @@ public class P2PFXMLController implements Initializable {
     private ServiceDisponibilite serviceDisp;
     @FXML
     private TextField tfsearch;
+    
+    private int userId;
 
     //observalble list to store data
     private ObservableList<Meet> dataList = FXCollections.observableArrayList();
@@ -65,6 +68,9 @@ public class P2PFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+        userId= UserSession.getInstace(0).getUserid();
+        
         service = new ServiceP2P();
         serviceDisp = new ServiceDisponibilite();
 
@@ -243,7 +249,7 @@ public class P2PFXMLController implements Initializable {
         meets.getColumns().add(modCol);
         meets.getColumns().add(delCol);
         meets.getColumns().add(joinCol);
-        dataList.addAll(service.Read());
+        dataList.addAll(service.ReadById(userId));
         meets.getItems().addAll(dataList);
 
         // Wrap the ObservableList in a FilteredList (initially display all data).
