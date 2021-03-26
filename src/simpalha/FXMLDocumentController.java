@@ -59,7 +59,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     
-    // f hethy lezm n3awd nredefini l bouton eli bsh yhezni lel page ViewPosts (contact wajdi)
+
     @FXML
     private void goToViewPosts(MouseEvent event) {
         Parent loader;

@@ -35,10 +35,10 @@ public class ServiceComment implements IServiceComment {
     public void Create(Comment variable) {
         try {
             Statement st = cnx.createStatement();
-            String query = "INSERT INTO comment(owner,id_Post,solution) VALUES ('" + variable.getOwner() + "','" + variable.getId_Post() + "','" + variable.getSolution() + "')";
+            String query = "INSERT INTO comment(owner_id,id_Post,solution) VALUES ('" + variable.getOwnerId() + "','" + variable.getId_Post() + "','" + variable.getSolution() + "')";
             st.executeUpdate(query);
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("enregistré");
+            alert.setTitle("saved");
             alert.show();
         } catch (SQLException ex) {
             Logger.getLogger(ServicePost.class.getName()).log(Level.SEVERE, null, ex);
@@ -68,8 +68,8 @@ public class ServiceComment implements IServiceComment {
                 p.setId(rst.getInt("id"));
                 p.setTimestamp(rst.getTimestamp("timestamp"));
                 p.setSolution(rst.getString("solution"));
-                p.setRating(rst.getInt("rating"));
                 p.setId_Post(rst.getInt("id_Post"));
+                p.setOwnerId(rst.getInt("owner_id"));
                 p.setUpvotes(rst.getInt("upvotes"));
                 p.setDownvotes(rst.getInt("downvotes"));
                 comments.add(p);
@@ -113,25 +113,27 @@ public class ServiceComment implements IServiceComment {
     }
 
     @Override
-    public Boolean MarkAsSolution(int id_post, int id_comment) {
+    public void MarkAsSolution(int id_post, int id_comment) {
         
-        String query = "update post set solution_id=? where id=?";
+        String query = "update post set solution_id=?, status=? where id=?";
         
         try {
             
             PreparedStatement pst= cnx.prepareStatement(query);
             pst.setInt(1,id_comment);
-            pst.setInt(2,id_post);
+            pst.setString(2,"SOLVED");
+            pst.setInt(3,id_post);
             pst.executeUpdate();
             
-            return true;
+           
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         
         
-        return false;
+        
+        
     }
 
 }

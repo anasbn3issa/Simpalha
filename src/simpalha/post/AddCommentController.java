@@ -9,15 +9,11 @@ import com.darkprograms.speech.translator.GoogleTranslate;
 import static com.darkprograms.speech.translator.GoogleTranslate.detectLanguage;
 import entities.Comment;
 import entities.Post;
+import entities.Users;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -51,25 +47,20 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import services.ServiceComment;
 import services.ServicePost;
-import utils.Maconnexion;
+import services.ServiceUsers;
+import utils.UserSession;
 
 public class AddCommentController implements Initializable {
 
     private int idPost;
-    //private HBox postContainer;
-    private ServicePost servicePost;
-    private ServiceComment serviceComment;
 
     private Text solutionText;
 
     ImageView upvoteImage, downvoteImage;
 
-    Text commentOwnerName, commentText, commentLabel, ratingText, ratingLabel, TimestampText;
+    Text commentOwnerName, commentText, commentLabel, TimestampText;
 
     Post p;
     Comment c;
@@ -85,6 +76,18 @@ public class AddCommentController implements Initializable {
     @FXML
     private VBox vboxPost2;
 
+    int userId;
+    ServicePost servicePost;
+    ServiceUsers serviceUsers;
+    ServiceComment serviceComment;
+    UserSession userSession;
+    Users currentUser;
+    @FXML
+    private Text currentUserNameLabel;
+    @FXML
+    private HBox emptyhbox;
+    String dir;
+
     /**
      * Initializes the controller class.
      */
@@ -94,27 +97,33 @@ public class AddCommentController implements Initializable {
 
         Platform.runLater(() -> {
 
+            dir = System.getProperty("user.dir");//get project source path
             c = new Comment();
             serviceComment = new ServiceComment();
             servicePost = new ServicePost();
-
+            //serviceUsers = new ServiceUsers();
+            //currentUser= serviceUser.finfById(userId);
+            userSession = UserSession.getInstace(0);
+            userId = userSession.getUserid();
             // we need to add a textfield for user to type a proposed solution to the post 
             commentsForThisPost = servicePost.findAllCommentsForThisPost(idPost);
             displayThisList(commentsForThisPost, serviceComment);
 
-            animatePost(hboxPost);
+            //animatePost(hboxPost);
+            vboxPost2.getChildren().addAll(hboxPost);
+
+            HBox hboxUserSolution = new HBox();
+
             Text proposeASolutionLabel = new Text("Propose a solution ? ");
             TextArea proposedSolution = new TextArea();
             Button submitButton = new Button("Submit");
 
-            HBox hboxUserSolution = new HBox();
             hboxUserSolution.getChildren().addAll(proposeASolutionLabel, proposedSolution, submitButton);
-
+            vboxPost2.getChildren().addAll(hboxUserSolution);
             submitButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     c.setSolution(proposedSolution.getText());
-                    c.setOwner("Alolou");
                     c.setId_Post(idPost);
                     serviceComment.Create(c);
                     problemInfoContainer.getChildren().clear();
@@ -123,8 +132,7 @@ public class AddCommentController implements Initializable {
                 }
             });
 
-            simpleTransition(vboxPost2);
-            vboxPost2.getChildren().addAll(hboxPost, hboxUserSolution);
+            //simpleTransition(vboxPost2);
             vboxPost2.setPadding(new Insets(5, 10, 10, 5));
             vboxPost2.setStyle("-fx-padding: 15; "
                     + "    -fx-spacing: 10; " + "-fx-border-style: solid inside;"
@@ -151,7 +159,6 @@ public class AddCommentController implements Initializable {
         }
     }
 
-    @FXML
     private void AddNewPost(ActionEvent event) { // BUTTON PUSHED
         Parent loader;
         try {
@@ -189,7 +196,6 @@ public class AddCommentController implements Initializable {
 
         // Partie 1 : Add this comment to Database , only need to set 
         c.setSolution(solutionText.getText());
-        c.setOwner("Alolou"); // hethy nzidoha mba3d ki ywali 3ana owner berasmi
         c.setId_Post(idPost);
         serviceComment.Create(c);
 
@@ -198,21 +204,17 @@ public class AddCommentController implements Initializable {
 
         commentOwnerName = new Text("LM3allem"); // hethy mbaad nrodha berasmi esm li 3mal l comment w na3ml findById w kol
         commentLabel = new Text("Proposed Solution : ");
-        ratingLabel = new Text("rating");
 
         commentText = new Text(c.getSolution());
-        ratingText = new Text(String.valueOf(c.getRating()));
         TimestampText = new Text(String.valueOf(c.getTimestamp()));
 
         HBox hboxCommentOwner = new HBox();
         hboxCommentOwner.getChildren().addAll(commentOwnerName);
-        HBox hboxRating = new HBox();
-        hboxRating.getChildren().addAll(ratingLabel, ratingText);
         HBox hboxComment = new HBox();
         hboxComment.getChildren().addAll(commentLabel, commentText);
 
         //HBox hboxButtons = new HBox();
-        commentContainer.getChildren().addAll(hboxCommentOwner, hboxRating, hboxComment);
+        commentContainer.getChildren().addAll(hboxCommentOwner, hboxComment);
         problemInfoContainer.getChildren().addAll(commentContainer);
 
     }
@@ -235,18 +237,15 @@ public class AddCommentController implements Initializable {
         for (Comment parcours : commentsForThisPost) {
             System.out.println(parcours);
             b = new Hyperlink();
+            //Users commentOwnerEnPersonne = serviceUser.finfById(parcours.getOwnerId());
             HBox commentContainer = new HBox();
 
-            // Partie 1 : we get comment owner info 
-            commentOwnerName = new Text("Steve Jobs"); // hethy mbaad nrodha berasmi esm li 3mal l comment w na3ml findById w kol
-            commentOwnerName.setStyle("-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%);\n"
-                    + "    -fx-stroke: black;\n"
-                    + "    -fx-stroke-width: 1;");
-            // Partie 2 : we get comment info 
+            commentOwnerName = new Text("Steve Jobs");
+            //commentOwnerName.seTtext(commentOwnerEnPersonne.getUsername());
+            commentOwnerName.setStyle("-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%);\n" + " -fx-stroke: black;\n" + " -fx-stroke-width: 1;");
+
             commentLabel = new Text("Proposed Solution : ");
-            ratingLabel = new Text("rating");
             commentText = new Text(parcours.getSolution());
-            ratingText = new Text(String.valueOf(parcours.getRating()));
             TimestampText = new Text(String.valueOf(parcours.getTimestamp()));
 
             // Partie 3.1 : initialize upvote AND downvote buttons 
@@ -255,7 +254,7 @@ public class AddCommentController implements Initializable {
             try {
                 //upvote Button 
 
-                inputUpvoteImage = new FileInputStream("C:\\Users\\anaso\\OneDrive\\Desktop\\Simpalha\\src\\simpalha\\post\\img\\upvote_black.png");
+                inputUpvoteImage = new FileInputStream(dir+"\\src\\simpalha\\post\\img\\upvote_black.png");
                 Image imageUp = new Image(inputUpvoteImage);
                 upvoteImage = new ImageView(imageUp);
                 upvoteButton = new Button();
@@ -264,7 +263,7 @@ public class AddCommentController implements Initializable {
                 upvoteButton.setPrefHeight(50);
 
                 //downvote Button 
-                inputDownvoteImage = new FileInputStream("C:\\Users\\anaso\\OneDrive\\Desktop\\Simpalha\\src\\simpalha\\post\\img\\downvote_black.png");
+                inputDownvoteImage = new FileInputStream(dir+"\\src\\simpalha\\post\\img\\downvote_black.png");
                 Image imageDown = new Image(inputDownvoteImage);
                 downvoteImage = new ImageView(imageDown);
                 downvoteButton = new Button();
@@ -299,7 +298,7 @@ public class AddCommentController implements Initializable {
 
                     FileInputStream inputDownvoteImage = null;
                     try {
-                        inputDownvoteImage = new FileInputStream("C:\\Users\\anaso\\OneDrive\\Desktop\\Simpalha\\src\\simpalha\\post\\img\\downvote_red.png");
+                        inputDownvoteImage = new FileInputStream(dir+"\\simpalha\\post\\img\\downvote_red.png");
                         Image imageDown = new Image(inputDownvoteImage);
                         downvoteImage = new ImageView(imageDown);
                         downVoteVbox.getChildren().clear();
@@ -322,7 +321,7 @@ public class AddCommentController implements Initializable {
 
                         System.out.println("upvote button pushed");
 
-                        inputUpvoteImage = new FileInputStream("C:\\Users\\anaso\\OneDrive\\Desktop\\Simpalha\\src\\simpalha\\post\\img\\upvote_green.png");
+                        inputUpvoteImage = new FileInputStream(dir+"\\src\\simpalha\\post\\img\\upvote_green.png");
                         Image imageUp = new Image(inputUpvoteImage);
                         upvoteImage = new ImageView(imageUp);
                         upVoteVbox.getChildren().clear();
@@ -377,8 +376,6 @@ public class AddCommentController implements Initializable {
             VBox vboxCommentOwner = new VBox();
 
             vboxCommentOwner.getChildren().addAll(commentOwnerName); // 3maltelha HBox wa7adha psk mbaad newi nzid des infos okhrin bjanb el name kima specialite main mte3ou
-            HBox hboxRating = new HBox();
-            hboxRating.getChildren().addAll(ratingLabel, ratingText);
             VBox vboxComment = new VBox();
             vboxComment.getChildren().addAll(commentText);
             vboxComment.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
@@ -390,30 +387,30 @@ public class AddCommentController implements Initializable {
             vboxCommentAndTranslate.getChildren().addAll(vboxComment, b);
 
             HBox hboxButtons = new HBox();
-            Button markAsSolutionButton = new Button("Mark as solution");
+            Button markAsSolutionButton = null;
+            // if (userId == p.getOwnerId())   mbaad nwali n'affichi l bouton hetha ken lel PostOwner.
+            markAsSolutionButton = new Button("Mark as solution");
             hboxButtons.getChildren().add(markAsSolutionButton);
 
             markAsSolutionButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    Alert confirmationSetAsSolution= new Alert(Alert.AlertType.CONFIRMATION);
-                        confirmationSetAsSolution.setContentText("Are you sure you want to pass this command?");
+                    Alert confirmationSetAsSolution = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirmationSetAsSolution.setContentText("Are you sure you want to pass this command?");
                     confirmationSetAsSolution.showAndWait().ifPresent(response -> {
                         if (response == ButtonType.OK) {
-                            System.out.println(c.getId()+"----"+c.getId_Post());
+                            System.out.println(c.getId() + "----" + c.getId_Post());
                             serviceComment.MarkAsSolution(idPost, parcours.getId());
-                            System.out.println("cbn");
-                           
+
                         } else {
                             System.out.println("command aborted.");
                         }
                     });
-                    
 
                 }
             });
 
-            commentContainer.getChildren().addAll(vboxCommentOwner, hboxRating, vboxCommentAndTranslate, hboxButtons, upVotedownVoteHbox);
+            commentContainer.getChildren().addAll(vboxCommentOwner, vboxCommentAndTranslate, hboxButtons, upVotedownVoteHbox);
             commentContainer.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
                     + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
                     + "-fx-border-radius: 5;" + "-fx-border-color: black;");

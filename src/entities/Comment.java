@@ -12,11 +12,9 @@ import java.sql.Timestamp;
  */
 public class Comment {
     
-     private int id,id_Post,upvotes,downvotes;
-    private String owner="Ali Ben la9ab";
+     private int id,id_Post,upvotes,downvotes,OwnerId;
     private Timestamp timestamp;
-    private String solution="no solution yet lol";
-    private int rating;
+    private String solution;
 
     public Comment() {
     }
@@ -37,9 +35,6 @@ public class Comment {
         return id;
     }
 
-    public String getOwner() {
-        return owner;
-    }
 
     
     public Timestamp getTimestamp() {
@@ -50,17 +45,11 @@ public class Comment {
         return solution;
     }
 
-    public int getRating() {
-        return rating;
-    }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
 
     
     public void setTimestamp(Timestamp timestamp) {
@@ -69,10 +58,6 @@ public class Comment {
 
     public void setSolution(String solution) {
         this.solution = solution;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
     }
 
     public int getUpvotes() {
@@ -91,12 +76,23 @@ public class Comment {
         this.downvotes = downvotes;
     }
 
-    
-    
+    public int getOwnerId() {
+        return OwnerId;
+    }
+
+    public void setOwnerId(int OwnerId) {
+        this.OwnerId = OwnerId;
+    }
+
     @Override
     public String toString() {
-        return "Comment{" + "id=" + id + ", timestamp=" + timestamp + ", solution=" + solution + ", rating=" + rating + '}';
+        return "Comment{" + "id=" + id + ", id_Post=" + id_Post + ", upvotes=" + upvotes + ", downvotes=" + downvotes + ", OwnerId=" + OwnerId + ", timestamp=" + timestamp + ", solution=" + solution + '}';
     }
+
+    
+    
+    
+ 
     
     
 }
