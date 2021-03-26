@@ -46,7 +46,7 @@ public class ServicePost implements IServicePost {
     public void Create(Post variable) {
         try {
             Statement st = cnx.createStatement();
-            String query = "INSERT INTO post(module, problem,image_name) VALUES ('" + variable.getModule() + "','" + variable.getProblem() + "','" + variable.getImageName() + "')";
+            String query = "INSERT INTO post(module,owner_id, problem,image_name) VALUES ('" + variable.getModule() + "','" + variable.getOwnerId()+ "','" + variable.getProblem() + "','" + variable.getImageName() + "')";
             st.executeUpdate(query);
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("enregistré");
@@ -58,14 +58,13 @@ public class ServicePost implements IServicePost {
 
     @Override
     public void Update(Post variable) {
-        String query = "update post set module=?,status=?,problem=? where id=?";
+        String query = "update post set module=?,problem=? where id=?";
         System.out.println(variable.toString());
         try {
             pst = cnx.prepareStatement(query);
             pst.setString(1, variable.getModule());
-            pst.setString(2, variable.getStatus());
-            pst.setString(3, variable.getProblem());
-            pst.setInt(4, variable.getId());
+            pst.setString(2, variable.getProblem());
+            pst.setInt(3, variable.getId());
             pst.executeUpdate();
 
         } catch (SQLException ex) {
@@ -84,6 +83,8 @@ public class ServicePost implements IServicePost {
             while (rs.next()) {
                 Post p = new Post();
                 p.setId(rs.getInt("id"));
+                p.setOwnerId(rs.getInt("owner_id"));
+                p.setSolution_id(rs.getInt("solution_id"));
                 p.setProblem(rs.getString("problem"));
                 p.setModule(rs.getString("module"));
                 p.setTimestamp(rs.getTimestamp("timestamp"));
@@ -126,11 +127,14 @@ public class ServicePost implements IServicePost {
             pst.setInt(1, id);
             rs = pst.executeQuery();
             while (rs.next()) {
-                p.setId(rs.getInt("id"));
+                 p.setId(rs.getInt("id"));
                 p.setTimestamp(rs.getTimestamp("timestamp"));
+                p.setSolution_id(rs.getInt("solution_id"));
                 p.setStatus(rs.getString("status"));
                 p.setProblem(rs.getString("problem"));
                 p.setModule(rs.getString("module"));
+                p.setOwnerId(rs.getInt("owner_id"));
+                p.setImageName(rs.getString("image_name"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServicePost.class.getName()).log(Level.SEVERE, null, ex);
@@ -154,8 +158,7 @@ public class ServicePost implements IServicePost {
                 c.setTimestamp(rs.getTimestamp("timestamp"));
                 c.setId_Post(rs.getInt("id_Post"));
                 c.setSolution(rs.getString("solution"));
-                c.setOwner(rs.getString("owner"));
-                c.setRating(rs.getInt("rating"));
+                c.setOwnerId(rs.getInt("owner_id"));
                 comments.add(c);
             }
         } catch (SQLException ex) {
@@ -165,31 +168,7 @@ public class ServicePost implements IServicePost {
         return comments;
     }
 
-    @Override
-    public List<Comment> findAllCommentsForThisPostSortedBy(String condition,int postId) {
-        List<Comment> comments = new ArrayList<>();
-        String query = "select * from comment where id_Post=? "+"ORDER BY "+condition;
-
-        try {
-            pst = cnx.prepareStatement(query);
-            pst.setInt(1, postId);
-            rs = pst.executeQuery();
-            while (rs.next()) {
-                Comment c = new Comment();
-                c.setId(rs.getInt("id"));
-                c.setTimestamp(rs.getTimestamp("timestamp"));
-                c.setId_Post(rs.getInt("id_Post"));
-                c.setSolution(rs.getString("solution"));
-                c.setOwner(rs.getString("owner"));
-                c.setRating(rs.getInt("rating"));
-                comments.add(c);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ServicePost.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return comments;
-    }
+   
 
     @Override
     public List<Post> findPostsByModule(String module) {
@@ -249,41 +228,22 @@ public class ServicePost implements IServicePost {
             rowhead.createCell((short) 1).setCellValue("timestamp");//Row Name1  
             rowhead.createCell((short) 2).setCellValue("status");//Row Name2  
             rowhead.createCell((short) 3).setCellValue("module");//Row Name3  
-            rowhead.createCell((short) 5).setCellValue("problem");//Row Name4
+            rowhead.createCell((short) 4).setCellValue("problem");//Row Name4
+            rowhead.createCell((short) 5).setCellValue("owner_id");//Row Name4
+            
             
 
             
             while (rs.next()) {
                 //Insertion in corresponding row  
                 HSSFRow row = sheet.createRow((int) counter);
-               
-//                CellStyle dateCellStyle = hwb.createCellStyle();
-//                CellStyle dateCellStyle1 = hwb.createCellStyle();
-//                CreationHelper createHelper = hwb.getCreationHelper();
-                //Cell dateOfBirthCell = row.createCell(2);
-//            dateOfBirthCell.setCellValue(employee.getDateOfBirth());
-//            dateOfBirthCell.setCellStyle(dateCellStyle);
-//                dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
-//                dateCellStyle1.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
-
+        
                 row.createCell((short) 1).setCellValue(rs.getInt("timestamp"));
                 row.createCell((short) 2).setCellValue(rs.getString("status"));
                 row.createCell((short) 3).setCellValue(rs.getString("module"));
-                row.createCell((short) 5).setCellValue(rs.getString("problem"));
-                
-
-//                row.createCell((short) 3).setCellStyle(dateCellStyle);
-//                row.createCell((short) 3).setCellValue(rs.getDate("date"));
-            
-//                Cell dateS = row.createCell((short) 4);
-//                dateS.setCellValue(rs.getDate("dates"));
-//                dateS.setCellStyle(dateCellStyle);
-//
-//
-//                Cell dateE = row.createCell((short) 5);
-//                dateE.setCellValue(rs.getDate("datee"));
-//                dateE.setCellStyle(dateCellStyle1);
-
+                row.createCell((short) 4).setCellValue(rs.getString("problem"));
+                row.createCell((short) 5).setCellValue(rs.getString("owner_id"));
+               
                 sheet.autoSizeColumn(1);
                 sheet.autoSizeColumn(2);
                 sheet.setColumnWidth(3, 256 * 25);
@@ -298,7 +258,7 @@ public class ServicePost implements IServicePost {
                 counter++;
                 try {
                     //For performing write to Excel file  
-                    fileOut = new FileOutputStream("Users.xls");
+                    fileOut = new FileOutputStream("Posts.xls");
                     hwb.write(fileOut);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -309,7 +269,7 @@ public class ServicePost implements IServicePost {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("INFORMATION DIALOG");
             alert.setHeaderText(null);
-            alert.setContentText("All courses Has Been Exported in Excel Sheet");
+            alert.setContentText("All Posts Has Been Exported in Excel Sheet");
             alert.showAndWait();
             rs.close();
             

@@ -54,7 +54,7 @@
                               <Insets left="20.0" right="20.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder;" text="Wajdi">
+                        <Text fx:id="currentUserNameLabel" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder;" text="Wajdi">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
@@ -217,26 +217,7 @@
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="Posts List" />
                   <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-background-radius: 0px;">
-                           <graphic>
-                              <FontAwesomeIcon fill="#485460" iconName="TH_LARGE" size="1.3em" />
-                           </graphic>
-                        </Button>
-                        <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-background-radius: 0px;">
-                           <graphic>
-                              <FontAwesomeIcon fill="#485460" iconName="TH_LIST" size="1.3em" />
-                           </graphic>
-                        </Button>
-                        <HBox alignment="CENTER">
-                           <children>
-                              <TextField promptText="Search post" style="-fx-background-color: transparent; -fx-prompt-text-fill: #485460;">
-                                 <HBox.margin>
-                                    <Insets left="5.0" right="10.0" />
-                                 </HBox.margin>
-                              </TextField>
-                              <FontAwesomeIcon fill="#485460" iconName="SEARCH" size="1.5em" styleClass="cursor_hand" text="" />
-                           </children>
-                        </HBox>
+                        <HBox alignment="CENTER" />
                         <Button mnemonicParsing="false" onAction="#AddNewPost" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Create new Post">
                            <HBox.margin>
                               <Insets left="20.0" />
@@ -273,14 +254,6 @@
                                     <ComboBox fx:id="comboModule" prefWidth="150.0" promptText="choose .. " />
                                  </children>
                               </HBox>
-                              <HBox prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label text="Status   " />
-                                    <VBox prefHeight="200.0" prefWidth="100.0" />
-                                    <ComboBox fx:id="comboStatus" prefWidth="150.0" promptText="choose .. " />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="100.0" prefWidth="200.0" />
                               <HBox layoutX="10.0" layoutY="29.0" prefHeight="100.0" prefWidth="200.0">
                                  <children>
                                     <Label text="Problem" />
