@@ -39,7 +39,6 @@ import services.ServiceUsers;
  */
 public class CompteAdminController implements Initializable {
 
-    @FXML
     private TableView<Users> table;
     
     private ServiceUsers service;
