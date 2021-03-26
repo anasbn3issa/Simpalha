@@ -102,7 +102,7 @@ public class ListHelpersFXMLController implements Initializable {
     
     private void fillData() {
         System.out.println(service.Read());
-        helpersList.getItems().addAll(service.Read());
+        helpersList.getItems().addAll(service.fetchHelpers());
     }
 
     @FXML

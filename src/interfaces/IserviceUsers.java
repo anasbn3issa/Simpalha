@@ -6,6 +6,7 @@
 package interfaces;
 
 import entities.Users;
+import java.util.List;
 
 /**
  *
@@ -14,6 +15,8 @@ import entities.Users;
 public interface IserviceUsers extends IService<Users> {
 
     public Boolean usernameExist(String username);
+    
+    public List<Users> fetchHelpers();
 
     public Boolean emailExist(String email);
 

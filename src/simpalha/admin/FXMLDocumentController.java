@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simpalha;
+package simpalha.admin;
 
+import simpalha.*;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.io.IOException;
 import java.net.URL;
@@ -100,7 +101,7 @@ public class FXMLDocumentController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-                            "/simpalha/P2P/P2PFXML.fxml"
+                            "/simpalha/admin/P2P/P2PFXML.fxml"
                     )
             );
 
