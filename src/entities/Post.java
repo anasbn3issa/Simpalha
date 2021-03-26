@@ -11,9 +11,7 @@ import java.sql.Timestamp;
  *
  * @author anaso
  */
-enum Status {
-    OPEN, SOLVED, PENDING
-}
+
 
 enum Module {
     MATHEMATIQUE_DE_BASE_1, MATHEMATIQUE_DE_BASE_2, IP_ESSENTIALS, TECHNIQUE_DESTIMATION_POUR_LINGENIEUR
@@ -21,13 +19,12 @@ enum Module {
 
 public class Post {
 
-    private int id;
+    private int id,ownerId,solution_id;
     private String problem;
     private Timestamp timestamp;
-    private Status status = Status.PENDING;
+    private String status;
     private String module;
     private String imageName;
-    //private List<String> filePaths
 
     public Post() {
     }
@@ -79,15 +76,7 @@ public class Post {
         return timestamp;
     }
 
-    public String getStatus() {
-       if (this.status == Status.OPEN) {
-            return "OPEN";
-        } else if (this.status == Status.SOLVED) {
-            return "SOLVED";
-        } else {
-            return "PENDING";
-        }
-    }
+
 
     public String getModule() {
         return module;
@@ -105,26 +94,45 @@ public class Post {
         this.timestamp = timestamp;
     }
 
-    public void setStatus(String status) {
-        if (status.equals("OPEN")) {
-            this.status = Status.OPEN;
-        } else if (status.equals("SOLVED")) {
-            this.status = Status.SOLVED;
-        } else if (status.equals("PENDING"))
-        {
-            this.status = Status.PENDING;
-        }
+    public String getStatus() {
+        return status;
     }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    
 
     public void setModule(String module) {
         this.module = module;
     }
 
-    @Override
-    public String toString() {
-        return "Post{" + "id=" + id + ", problem=" + problem + ", timestamp=" + timestamp + ", status=" + status + ", module=" + module + ", imageName=" + imageName + '}';
+    public int getOwnerId() {
+        return ownerId;
     }
 
+    public int getSolution_id() {
+        return solution_id;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public void setSolution_id(int solution_id) {
+        this.solution_id = solution_id;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" + "id=" + id + ", ownerId=" + ownerId + ", solution_id=" + solution_id + ", problem=" + problem + ", timestamp=" + timestamp + ", status=" + status + ", module=" + module + ", imageName=" + imageName + '}';
+    }
+
+
+    
+    
+    
     
 
 }
