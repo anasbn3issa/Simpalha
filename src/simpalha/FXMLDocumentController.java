@@ -5,6 +5,7 @@
  */
 package simpalha;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,6 +21,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import services.ServiceNotification;
+import simpalha.notification.FXMLNotificationController;
+import simpalha.quizz.FXMLQuizzController;
 import utils.UserSession;
 
 /**
@@ -30,6 +34,8 @@ public class FXMLDocumentController implements Initializable {
     
     private Label label;
     private UserSession usr;
+    @FXML
+    private FontAwesomeIcon btNotificationShow;
     
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
@@ -41,15 +47,24 @@ public class FXMLDocumentController implements Initializable {
         // TODO
         usr=UserSession.getInstace(0);
         System.out.println(usr);
+        launchServiceNotification();
     }    
+    
+    public void launchServiceNotification(){
+        ServiceNotification sn = new ServiceNotification(usr.getUserid());
+        
+        Thread t = new Thread(sn);
+        t.setDaemon(true);
+        t.start();
+    }
 
     
-    // f hethy lezm n3awd nredefini l bouton eli bsh yhezni lel page ViewPosts (contact wajdi)
+
     @FXML
     private void goToViewPosts(MouseEvent event) {
         Parent loader;
         try {
-            loader = FXMLLoader.load(getClass().getResource("/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
 
             Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
 
@@ -67,7 +82,7 @@ public class FXMLDocumentController implements Initializable {
         
         Parent loader;
         try {
-            loader = FXMLLoader.load(getClass().getResource("post/AddNewPost.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/post/AddNewPost.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
 
             Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
 
@@ -85,7 +100,7 @@ public class FXMLDocumentController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-                            "P2P/P2PFXML.fxml"
+                            "/simpalha/P2P/P2PFXML.fxml"
                     )
             );
 
@@ -104,7 +119,7 @@ public class FXMLDocumentController implements Initializable {
          try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-                            "users/CandidatureUser.fxml"
+                            "/simpalha/users/CandidatureUser.fxml"
                     )
             );
 
@@ -123,7 +138,7 @@ public class FXMLDocumentController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-                            "users/Profile.fxml"
+                            "/simpalha/users/Profile.fxml"
                     )
             );
 
@@ -133,6 +148,55 @@ public class FXMLDocumentController implements Initializable {
             );
             stage.show();
         } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void notificationsShow(MouseEvent event) {
+        FXMLLoader modal = new FXMLLoader(getClass().getResource("simpalha/notification/FXMLNotification.fxml"));
+        Parent root = null;
+        try{
+            root = modal.load();
+        }
+        catch(IOException io){};
+
+        FXMLNotificationController editModal = modal.getController();
+
+
+        editModal.reloadAllNotificationsList(usr.getUserid());
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Notifications");
+        stage.showAndWait();
+    }
+
+    @FXML
+    private void showQuizz(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+//                            "/simpalha/quizz/FXMLQuizzTaking.fxml"
+                            "/simpalha/quizz/FXMLQuizz.fxml"
+                    )
+            );
+            
+            Parent root = loader.load();
+            
+            FXMLQuizzController tableController = loader.getController();
+            
+            tableController.initializeUserId(usr.getUserid());
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(root)
+            );
+            stage.setTitle("Quiz Section");
+            stage.show();
+        } 
+        catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

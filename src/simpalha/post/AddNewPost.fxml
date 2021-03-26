@@ -4,7 +4,11 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,6 +16,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="1280.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.post.AddNewPostController">
@@ -51,7 +56,7 @@
                               <Insets left="20.0" right="20.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder;" text="Wajdi">
+                        <Text fx:id="currentUserNameLabel" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder;" text="Wajdi">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
@@ -206,7 +211,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
          <children>
-            <HBox alignment="CENTER_LEFT">
+            <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="847.0">
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
@@ -224,16 +229,7 @@
                               <FontAwesomeIcon fill="#485460" iconName="TH_LIST" size="1.3em" />
                            </graphic>
                         </Button>
-                        <HBox alignment="CENTER">
-                           <children>
-                              <TextField promptText="Search post" style="-fx-background-color: transparent; -fx-prompt-text-fill: #485460;">
-                                 <HBox.margin>
-                                    <Insets left="5.0" right="10.0" />
-                                 </HBox.margin>
-                              </TextField>
-                              <FontAwesomeIcon fill="#485460" iconName="SEARCH" size="1.5em" styleClass="cursor_hand" text="" />
-                           </children>
-                        </HBox>
+                        <HBox alignment="CENTER" />
                         <Button mnemonicParsing="false" onAction="#AddNewPost" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Create new Post">
                            <HBox.margin>
                               <Insets left="20.0" />
@@ -246,11 +242,59 @@
                   </HBox>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="593.0" prefWidth="1090.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="239.0" prefWidth="1050.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
+                  <VBox alignment="CENTER" prefHeight="493.0" prefWidth="1050.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
                      <children>
-                        <VBox fx:id="addProblemContainer" prefHeight="200.0" prefWidth="100.0" />
+                        <HBox prefHeight="310.0" prefWidth="1030.0">
+                           <children>
+                              <VBox prefHeight="188.0" prefWidth="213.0">
+                                 <children>
+                                    <HBox prefHeight="48.0" prefWidth="213.0" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Module" wrappingWidth="136.845703125">
+                                       <font>
+                                          <Font name="System Bold" size="19.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox prefHeight="15.0" prefWidth="213.0" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Problem" wrappingWidth="142.845703125">
+                                       <font>
+                                          <Font name="System Bold" size="19.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox prefHeight="91.0" prefWidth="213.0">
+                                       <children>
+                                          <VBox prefHeight="91.0" prefWidth="208.0" />
+                                       </children></HBox>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="310.0" prefWidth="559.0">
+                                 <children>
+                                    <HBox prefHeight="50.0" prefWidth="559.0" />
+                                    <ComboBox fx:id="comboModule" prefWidth="150.0" />
+                                    <HBox prefHeight="23.0" prefWidth="559.0" />
+                                    <TextArea fx:id="textProblem" prefHeight="114.0" prefWidth="559.0" />
+                                    <HBox prefHeight="12.0" prefWidth="559.0" />
+                                    <Hyperlink fx:id="buttonFile1" text="import image to help us help you ! " />
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="310.0" prefWidth="233.0">
+                                 <children>
+                                    <HBox prefHeight="246.0" prefWidth="233.0" />
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <HBox prefHeight="100.0" prefWidth="149.0" />
+                                          <Button fx:id="submit" contentDisplay="TOP" mnemonicParsing="false" onAction="#buttonSubmitPushed" prefHeight="54.0" prefWidth="84.0" text="Publish">
+                                             <effect>
+                                                <Blend mode="ADD" />
+                                             </effect>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
                      </children>
                      <HBox.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -272,7 +316,6 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox prefHeight="122.0" prefWidth="1090.0" />
          </children>
       </VBox>
    </center>

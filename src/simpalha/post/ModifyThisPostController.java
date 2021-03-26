@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import services.ServicePost;
 
@@ -33,15 +34,17 @@ import services.ServicePost;
 public class ModifyThisPostController implements Initializable {
 
     private int idPost;
+    
     private ServicePost myService;
-    @FXML
-    private ComboBox<String> comboStatus;
+    
     @FXML
     private ComboBox<String> comboModule;
     
     Post p ;
     @FXML
     private TextArea problemText;
+    @FXML
+    private Text currentUserNameLabel;
     
     
     
@@ -58,14 +61,13 @@ public class ModifyThisPostController implements Initializable {
 
             p = myService.findById(idPost);
 
+            problemText.setText(p.getProblem());
  
         comboModule.getItems().removeAll(comboModule.getItems());
         comboModule.getItems().addAll("IP Essentials", "Mathématique de base 1","Mathématique de base 2", "Génie Logiciel"); // mba3d nrodou marbout b classe specialité .  
         comboModule.getSelectionModel().select(p.getModule()); // shnowa maktoub par défaut . 
 
-        comboStatus.getItems().removeAll(comboStatus.getItems());
-        comboStatus.getItems().addAll("PENDING","SOLVED","OPEN"); 
-        comboStatus.getSelectionModel().select(p.getStatus()); // shnowa maktoub par défaut . 
+        
         System.out.println(p.getStatus());
         
         problemText.setText(p.getProblem());
@@ -108,7 +110,6 @@ public class ModifyThisPostController implements Initializable {
     private void SaveChangesButtonPushed(ActionEvent event) {
         
         p.setModule(comboModule.getValue());
-        p.setStatus(comboStatus.getValue());
         p.setProblem(problemText.getText());
         
         myService.Update(p);

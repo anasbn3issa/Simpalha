@@ -12,5 +12,6 @@ import entities.Comment;
  * @author anaso
  */
 public interface IServiceComment extends IService<Comment>  {
+    public void MarkAsSolution(int id_post, int id_comment);
     
 }
