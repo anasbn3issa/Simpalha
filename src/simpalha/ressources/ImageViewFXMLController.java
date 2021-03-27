@@ -204,7 +204,7 @@ public class ImageViewFXMLController implements Initializable {
             document.add(imageheader);
             
 
-//           document.add(Image.getInstance(dir + "\\ressources\\" + R1.getTitle()));
+         //  document.add(Image.getInstance(dir + "\\ressources\\" + R1.getTitle()));
            
  
             

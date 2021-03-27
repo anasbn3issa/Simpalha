@@ -169,6 +169,8 @@ public class AddRESOURCEFXMLController implements Initializable {
           
 //         if (test == true) {
 //         copy(browse(event));}
+
+//
           
         }}
        
