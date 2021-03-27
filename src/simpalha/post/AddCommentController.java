@@ -48,10 +48,13 @@ import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import services.ServiceComment;
+import services.ServiceDownvoteComment;
 import services.ServicePost;
+import services.ServiceUpvoteComment;
 import services.ServiceUsers;
 import utils.UserSession;
-
+import entities.UpvoteComment;
+import entities.DownvoteComment;
 public class AddCommentController implements Initializable {
 
     private int idPost;
@@ -80,6 +83,8 @@ public class AddCommentController implements Initializable {
     ServicePost servicePost;
     ServiceUsers serviceUsers;
     ServiceComment serviceComment;
+    ServiceUpvoteComment serviceUpvoteComment;
+    ServiceDownvoteComment serviceDownvoteComment;
     UserSession userSession;
     Users currentUser;
     @FXML
@@ -101,6 +106,8 @@ public class AddCommentController implements Initializable {
             c = new Comment();
             serviceComment = new ServiceComment();
             servicePost = new ServicePost();
+            serviceUpvoteComment = new ServiceUpvoteComment();
+            serviceDownvoteComment = new ServiceDownvoteComment();
             //serviceUsers = new ServiceUsers();
             //currentUser= serviceUser.finfById(userId);
             userSession = UserSession.getInstace(0);
@@ -126,6 +133,7 @@ public class AddCommentController implements Initializable {
                     c.setSolution(proposedSolution.getText());
                     c.setId_Post(idPost);
                     serviceComment.Create(c);
+                    proposedSolution.setText("");
                     problemInfoContainer.getChildren().clear();
                     commentsForThisPost = servicePost.findAllCommentsForThisPost(idPost);
                     displayThisList(commentsForThisPost, serviceComment);
@@ -252,18 +260,26 @@ public class AddCommentController implements Initializable {
             FileInputStream inputUpvoteImage = null;
             FileInputStream inputDownvoteImage = null;
             try {
-                //upvote Button 
 
-                inputUpvoteImage = new FileInputStream(dir+"\\src\\simpalha\\post\\img\\upvote_black.png");
+                if (serviceUpvoteComment.upvoteExists(userId, parcours.getId())) {
+                    inputUpvoteImage = new FileInputStream(dir + "\\src\\simpalha\\post\\img\\upvoteOn.png");
+                    inputDownvoteImage = new FileInputStream(dir + "\\src\\simpalha\\post\\img\\downvoteOff.png");
+                } else if (serviceDownvoteComment.downvoteExists(userId, parcours.getId())) {
+                    inputUpvoteImage = new FileInputStream(dir + "\\src\\simpalha\\post\\img\\upvoteOff.png");
+                    inputDownvoteImage = new FileInputStream(dir + "\\src\\simpalha\\post\\img\\downvoteOn.png");
+                } else {
+                    inputUpvoteImage = new FileInputStream(dir + "\\src\\simpalha\\post\\img\\upvoteOff.png");
+                    inputDownvoteImage = new FileInputStream(dir + "\\src\\simpalha\\post\\img\\downvoteOff.png");
+                }
+
+                //upvote Button 
                 Image imageUp = new Image(inputUpvoteImage);
                 upvoteImage = new ImageView(imageUp);
                 upvoteButton = new Button();
                 upvoteButton.setGraphic(upvoteImage);
                 upvoteButton.setPrefWidth(50);
                 upvoteButton.setPrefHeight(50);
-
-                //downvote Button 
-                inputDownvoteImage = new FileInputStream(dir+"\\src\\simpalha\\post\\img\\downvote_black.png");
+                //downvote Button  
                 Image imageDown = new Image(inputDownvoteImage);
                 downvoteImage = new ImageView(imageDown);
                 downvoteButton = new Button();
@@ -279,61 +295,60 @@ public class AddCommentController implements Initializable {
             upVotedownVoteHbox = new HBox();
             VBox upVoteVbox = new VBox();
             VBox downVoteVbox = new VBox();
-            Text upvoteLabel = new Text("upvote");
-            Text upvoteCounter = new Text("32");
-            Text downvoteLabel = new Text("downvote");
-            Text downvoteCounter = new Text("69");
-            //upVoteVbox.setPrefHeight(50);
+            Text upvoteLabel = new Text("upvotes");
+            Text upvoteCounter = new Text();
+            upvoteCounter.setText(String.valueOf(parcours.getUpvotes()));
+            Text downvoteLabel = new Text("downvotes");
+            Text downvoteCounter = new Text();
+            downvoteCounter.setText(String.valueOf(parcours.getDownvotes()));
             upVoteVbox.getChildren().addAll(upvoteLabel, upvoteButton, upvoteCounter);
-            //downVoteVbox.setPrefWidth(50);
             downVoteVbox.getChildren().addAll(downvoteLabel, downvoteButton, downvoteCounter);
             upVotedownVoteHbox.getChildren().addAll(upVoteVbox, downVoteVbox);
 
             //Partie 3.3 : downvote button on action 
-            downvoteButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
+            if (!serviceDownvoteComment.downvoteExists(userId, parcours.getId())) {
+                downvoteButton.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
 
-                    System.out.println("downvote button pushed");
-
-                    FileInputStream inputDownvoteImage = null;
-                    try {
-                        inputDownvoteImage = new FileInputStream(dir+"\\simpalha\\post\\img\\downvote_red.png");
-                        Image imageDown = new Image(inputDownvoteImage);
-                        downvoteImage = new ImageView(imageDown);
-                        downVoteVbox.getChildren().clear();
-                        downvoteButton.setGraphic(downvoteImage);
-                        downVoteVbox.getChildren().addAll(downvoteLabel, downvoteButton);
+                        System.out.println("downvote button pushed");
+                        if(serviceUpvoteComment.upvoteExists(userId, parcours.getId())){
+                            serviceUpvoteComment.RemoveUpvote(userId, parcours.getId());
+                            parcours.setUpvotes(parcours.getDownvotes()-1);
+                            
+                        }
+                        DownvoteComment d=new DownvoteComment(parcours.getId(),userId);
+                        serviceDownvoteComment.Create(d);
+                        parcours.setDownvotes(parcours.getDownvotes()+1);
                         problemInfoContainer.getChildren().clear();
                         displayThisList(commentsForThisPost, serviceComment);
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
 
-                }
-            });
+                    }
+                });
+            }
+
             //Partie 3.4 : upvote button on action 
-            upvoteButton.setOnAction(new EventHandler<ActionEvent>() {
+            if(!serviceUpvoteComment.upvoteExists(userId, parcours.getId())){
+                upvoteButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    FileInputStream inputUpvoteImage = null;
-                    try {
-
                         System.out.println("upvote button pushed");
-
-                        inputUpvoteImage = new FileInputStream(dir+"\\src\\simpalha\\post\\img\\upvote_green.png");
-                        Image imageUp = new Image(inputUpvoteImage);
-                        upvoteImage = new ImageView(imageUp);
-                        upVoteVbox.getChildren().clear();
-                        upVoteVbox.getChildren().addAll(upvoteLabel, upvoteButton);
-                        upvoteButton.setGraphic(upvoteImage); // écraser l'anciene valeur par une nouvelle image 
+                        if(serviceDownvoteComment.downvoteExists(userId, parcours.getId()))
+                        {
+                            serviceDownvoteComment.RemoveDownvote(userId,  parcours.getId());
+                            parcours.setDownvotes(parcours.getDownvotes()-1);
+                        }
+                        UpvoteComment u=new UpvoteComment(parcours.getId(), userId);
+                        serviceUpvoteComment.Create(u);
+                        parcours.setUpvotes(parcours.getUpvotes()+1);
+                        serviceDownvoteComment.RemoveDownvote(userId, parcours.getId());
                         problemInfoContainer.getChildren().clear();
                         displayThisList(commentsForThisPost, serviceComment);
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    
                 }
             });
+            }
+            
 
             // Partie 3.5 Hypertex Translation Solution text
             try {
