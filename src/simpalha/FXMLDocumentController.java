@@ -19,6 +19,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.ServiceNotification;
@@ -134,11 +136,11 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void profile(MouseEvent event) {
+    private void showRESOURCES(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-                            "/simpalha/users/Profile.fxml"
+                            "ressources/FXMLDocument.fxml"
                     )
             );
 
