@@ -8,8 +8,15 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Siimpalha.jar" size="153088" download="eager" />
+    <jar href="Siimpalha.jar" size="161761" download="eager" />
+    <jar href="lib\AnimateFX-1.2.0.jar" size="85823" download="eager" />
+    <jar href="lib\convertapi-1.7.jar" size="767561" download="eager" />
+    <jar href="lib\dropbox-core-sdk-3.2.0-sources.jar" size="3848704" download="eager" />
+    <jar href="lib\dropbox-core-sdk-3.2.0.jar" size="7356779" download="eager" />
     <jar href="lib\fontawesomefx-8.1.jar" size="179086" download="eager" />
+    <jar href="lib\itextpdf-5.1.0.jar" size="1614453" download="eager" />
+    <jar href="lib\jackson-core-2.7.4.jar" size="253001" download="eager" />
+    <jar href="lib\javax.mail.jar" size="659033" download="eager" />
     <jar href="lib\mysql-connector-java-5.1.23-bin.jar" size="834126" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Siimpalha" >

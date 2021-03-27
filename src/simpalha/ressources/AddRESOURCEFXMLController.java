@@ -6,7 +6,12 @@
  */
 package simpalha.ressources;
 
+import com.convertapi.Config;
+import com.convertapi.ConversionResult;
+import com.convertapi.ConvertApi;
+import com.convertapi.Param;
 import entities.Ressources;
+import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -26,6 +31,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -33,6 +39,19 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.ServiceRessources;
+
+import java.io.File;
+
+import java.io.FileOutputStream;
+
+import java.io.OutputStream;
+import java.nio.file.Paths;
+
+import java.util.Date;
+import java.util.concurrent.CompletableFuture;
+
+
+
 
 /**
  * FXML Controller class
@@ -49,6 +68,12 @@ public class AddRESOURCEFXMLController implements Initializable {
     private TextField tfdescription;
     
        boolean test = false;
+    @FXML
+    private Label title;
+    @FXML
+    private Label path;
+    @FXML
+    private Label description;
     
     
     /**
@@ -109,7 +134,24 @@ public class AddRESOURCEFXMLController implements Initializable {
         Alert fail= new Alert(Alert.AlertType.INFORMATION);
         fail.setHeaderText("FAILURE! ");
         fail.setContentText("Please fill all textfields");
-        fail.showAndWait();}
+        fail.showAndWait();
+             if  (tftitle.getText().trim().isEmpty())
+                 { title.setStyle("-fx-text-fill:RED; -fx-font-weight: bold");
+                 tftitle.setStyle("-fx-border-color:RED; -fx-border-width: 2px");
+                 new animatefx.animation.Shake(title).play();
+                 new animatefx.animation.Shake(tftitle).play();}
+             if  (tfdescription.getText().trim().isEmpty())
+                 {description.setStyle("-fx-text-fill:RED; -fx-font-weight: bold");
+                 new animatefx.animation.Shake(description).play();
+                 tfdescription.setStyle("-fx-border-color:RED; -fx-border-width: 2px");
+                 new animatefx.animation.Shake(tfdescription).play();}
+             if  (tfpath.getText().trim().isEmpty())
+                 {path.setStyle("-fx-text-fill:RED; -fx-font-weight: bold");
+                 new animatefx.animation.Shake(path).play();
+                 tfpath.setStyle("-fx-border-color:RED; -fx-border-width: 2px");
+                 new animatefx.animation.Shake(tfpath).play();}
+ 
+            }
             else {
           ServiceRessources sr = new ServiceRessources();
           Ressources R1= new Ressources();
@@ -118,7 +160,7 @@ public class AddRESOURCEFXMLController implements Initializable {
           R1.setDescription(tfdescription.getText());
           sr.Create(R1);
           
-          //afficher promt ajouté avec succés
+          //afficher prompt ajouté avec succés
           Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Adding resource..");
             alert.setHeaderText(null);
@@ -144,14 +186,38 @@ public class AddRESOURCEFXMLController implements Initializable {
             Logger.getLogger(UpdateRESOURCESFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+//
+//    private void convertAPI(File file) throws IOException
+//    {       
+//           Config.setDefaultSecret("bBmruLPE5tSddzRa");
+//           CompletableFuture<ConversionResult> result = ConvertApi.convert("docx", "pdf", new Param("file", Paths.get(file.getAbsolutePath())));
+//
+//// save to file
+//result.get().saveFile(Paths.get("my_file.pdf")).get();
+//    }
+    
     @FXML
     private void browse(ActionEvent event) {
      
          FileChooser fc = new FileChooser();
+                 fc.setTitle("Choose image for resource..");
 
-        File selectedFile = fc.showOpenDialog(null);
-        tfpath.setText(selectedFile.getAbsolutePath());
+         //determination du type de data (image)
+         FileChooser.ExtensionFilter extFilterJPG = 
+                 new FileChooser.ExtensionFilter("JPG files (*.JPG)", "*.JPG");
+         FileChooser.ExtensionFilter extFilterjpg = 
+                 new FileChooser.ExtensionFilter("jpg files (*.jpg)", "*.jpg");
+         FileChooser.ExtensionFilter extFilterPNG = 
+                 new FileChooser.ExtensionFilter("PNG files (*.PNG)", "*.PNG");
+         FileChooser.ExtensionFilter extFilterpng = 
+                 new FileChooser.ExtensionFilter("png files (*.png)", "*.png");
+         fc.getExtensionFilters().addAll(extFilterJPG,extFilterpng,extFilterPNG,extFilterjpg);
+        
+         //affichage de la fenetre
+         File selectedFile = fc.showOpenDialog(null);
+         tfpath.setText(selectedFile.getName());
+
+
         
         
 

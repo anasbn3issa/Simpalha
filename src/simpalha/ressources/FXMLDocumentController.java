@@ -8,6 +8,7 @@ package simpalha.ressources;
 import entities.Ressources;
 import java.io.IOException;
 import java.net.URL;
+import static java.sql.JDBCType.NULL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -36,7 +37,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.ServiceRessources;
-
 
 /**
  *
@@ -75,12 +75,11 @@ public class FXMLDocumentController implements Initializable {
 
 //            TableColumn<Ressources, String> modifyCol = new TableColumn<>("Modify");
 //            pathCol.setCellValueFactory(new PropertyValueFactory<>("buttonModify"));
-
             //preparation de la structure
             resourceslist.getColumns().add(titleCol);
             resourceslist.getColumns().add(descriptionCol);
             resourceslist.getColumns().add(pathCol);
-           // resourceslist.getColumns().add(modifyCol);
+            // resourceslist.getColumns().add(modifyCol);
 
             //affichage
             resourceslist.getItems().addAll(sr.Read());
@@ -208,7 +207,6 @@ public class FXMLDocumentController implements Initializable {
     }
 
     //Redirection vers le formulaire de modification d'une ressource
-    @FXML
     private void formulairemodif(ActionEvent event) {
         try {
             Parent page2 = FXMLLoader.load(getClass().getResource("UpdateRESOURCESFXML.fxml"));
@@ -235,20 +233,20 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
-    @FXML
-    private void Tri_id(ActionEvent event) throws SQLException {
-//        resourceslist.getItems().clear();
-        resourceslist.getItems().addAll(sr.Tri_id());
-
-    }
-
+//    @FXML
+//    private void Tri_id(ActionEvent event) throws SQLException {
+////        resourceslist.getItems().clear();
+//        resourceslist.getItems().addAll(sr.Tri_id());
+//
+//    }
     @FXML
     private void Tri_title(ActionEvent event) throws SQLException {
-        resourceslist.getItems().clear();
+//        resourceslist.getItems().clear();
         resourceslist.getItems().addAll(sr.Tri_title());
 
     }
 
+    //DELETE L IMAGE ASSOCIATED LL RESOURCE
     @FXML
     private void DeleteSelected(ActionEvent event) throws SQLException {
         Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -262,20 +260,20 @@ public class FXMLDocumentController implements Initializable {
             Ressources R = new Ressources(resourceslist.getSelectionModel().getSelectedItem().getIdR());
             ServiceRessources sr = new ServiceRessources();
             sr.Delete(resourceslist.getSelectionModel().getSelectedItem());
-          //  resourceslist.getItems().removeAll(resourceslist.getSelectionModel().getSelectedItem());
+            //  resourceslist.getItems().removeAll(resourceslist.getSelectionModel().getSelectedItem());
             sr.Delete(R); //suppression de la base
-            Alert alert2 = new Alert(AlertType.INFORMATION);
+            Alert alert2 = new Alert(AlertType.WARNING);
             alert2.setHeaderText("Success");
             alert2.setContentText("Resource deleted!");
             alert2.showAndWait();
             //this.AfficherRessource(event); // mise à jour de la page
             //resourceslist.getItems().addAll(sr.Read());
             sr = new ServiceRessources();
-            
+
             //affichage ( mise a jour)
-            resourceslist.getItems().clear();
+//            resourceslist.getItems().clear();
+//cleari el list mouch el tableview
             resourceslist.getItems().addAll(sr.Read());
-            
 
         } else // sinon annuler
         {
@@ -286,50 +284,81 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void UpdateSelected(ActionEvent event) throws SQLException{
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Upddating a resource ..");
-        alert.setHeaderText("Are you sure you would like to update this resource?");
-        alert.setContentText("Type OK to confirm, CANCEL to cancel.");
-        Optional<ButtonType> result = alert.showAndWait();
-        //verifier si l utilisateur veut reellement supprimer cette ressource.
-        if (result.get() == ButtonType.OK) // si confirmé,
-        {
-            int id = resourceslist.getSelectionModel().getSelectedItem().getIdR();
+    private void UpdateSelected(ActionEvent event) throws SQLException {
+
+        if (resourceslist.getSelectionModel().getSelectedItem().getIdR() == 0) {
+            Alert alert2 = new Alert(AlertType.WARNING);
+            alert2.setHeaderText("WARNING");
+            alert2.setContentText("Select a resource to Update!");
+            alert2.showAndWait();
+
+        } else {
+
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Upddating a resource ..");
+            alert.setHeaderText("Are you sure you would like to update this resource?");
+            alert.setContentText("Type OK to confirm, CANCEL to cancel.");
+            Optional<ButtonType> result = alert.showAndWait();
+            //verifier si l utilisateur veut reellement supprimer cette ressource.
+            if (result.get() == ButtonType.OK) // si confirmé,
+            {
+                int id = resourceslist.getSelectionModel().getSelectedItem().getIdR();
 //            Ressources R2 = new Ressources(resourceslist.getSelectionModel().getSelectedItem().getIdR(),resourceslist.getSelectionModel().getSelectedItem().getPath()
 //            ,resourceslist.getSelectionModel().getSelectedItem().getDescription(),resourceslist.getSelectionModel().getSelectedItem().getTitle());
 //            FXMLLoader loader = new FXMLLoader();
 //             System.out.println(R2);
-            System.out.println(id);
-             
+//            System.out.println(id);
+
 //            UpdateRESOURCESFXMLController ctrl = loader.getController();
 //            ctrl.initRess(id);
 //            ctrl.R = R2;
-            
-             try {
-            FXMLLoader loader2 = new FXMLLoader(getClass().getResource("UpdateRESOURCESFXML.fxml"));
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdateRESOURCESFXML.fxml"));
+
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+                    stage.setScene(
+                            new Scene(loader.load())
+                    );
+
+                    //FXMLLoader loader = new FXMLLoader();
+                    UpdateRESOURCESFXMLController ctrl = loader.getController();
+                    ctrl.initRess(id);
+
+                    stage.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else // sinon annuler
+            {
+                // ... user chose CANCEL or closed the dialog
+            }
+
+        }
+    }
+
+    @FXML
+    private void ToResourceImage(ActionEvent event) {
+        int id = resourceslist.getSelectionModel().getSelectedItem().getIdR();
+        System.out.println(id);
+        try {
+            //Charger la page (destination)
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ImageViewFXML.fxml"));
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
             stage.setScene(
-                    new Scene(loader2.load())
+                    new Scene(loader.load())
             );
             
-            //FXMLLoader loader = new FXMLLoader();
-            UpdateRESOURCESFXMLController ctrl = loader2.getController();
-            ctrl.initRess(id);
+            //transport infos
+            ImageViewFXMLController ctrl = loader.getController();
+            ctrl.R1=sr.Search(id);
+          
             
+//affichage
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-            
-            
-           
-        } else // sinon annuler
-        {
-            // ... user chose CANCEL or closed the dialog
-        }
-        
     }
 }

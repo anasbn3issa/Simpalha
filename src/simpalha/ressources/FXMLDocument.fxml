@@ -254,22 +254,10 @@
                </font>
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="On this page, you can find the resources already available ,posted by simpalha's members." textAlignment="CENTER" wrappingWidth="1102.0390625" />
+            <ButtonBar prefHeight="43.0" prefWidth="1107.0" />
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
                <buttons>
                   <Line endX="966.2929077148438" endY="1.3810396194458008E-4" startX="-135.92396545410156" startY="-6.467103958129883E-5" stroke="#0b79ee" />
-               </buttons></ButtonBar>
-            <ButtonBar prefHeight="43.0" prefWidth="1107.0">
-               <buttons>
-                  <Text fill="#ff610c" strokeType="OUTSIDE" strokeWidth="0.0" text="       Add a resource    " wrappingWidth="166.26611328125">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Text>
-                  <Button mnemonicParsing="false" onAction="#formulaireajout" prefHeight="32.0" prefWidth="245.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Click to add new resource!">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
                </buttons></ButtonBar>
             <ButtonBar prefHeight="43.0" prefWidth="1107.0">
                <buttons>
@@ -277,17 +265,12 @@
                      <buttons>
                         <ButtonBar prefHeight="43.0" prefWidth="1107.0">
                            <buttons>
-                              <Text fill="#ff610c" strokeType="OUTSIDE" strokeWidth="0.0" text="Order by:" textAlignment="CENTER" wrappingWidth="50.26611328125">
+                              <Text fill="#f84605" strokeType="OUTSIDE" strokeWidth="0.0" text="View Resource:" textAlignment="CENTER" wrappingWidth="152.255859375">
                                  <font>
-                                    <Font name="System Bold" size="15.0" />
+                                    <Font name="System Bold" size="18.0" />
                                  </font>
                               </Text>
-                              <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#Tri_id" prefHeight="23.0" prefWidth="88.0" text="ID" textFill="#0565ff">
-                                 <font>
-                                    <Font name="System Bold" size="10.0" />
-                                 </font>
-                              </Button>
-                              <Button alignment="TOP_CENTER" minWidth="60.0" mnemonicParsing="false" onAction="#Tri_title" prefHeight="23.0" prefWidth="88.0" text=" Title" textFill="#0565ff">
+                              <Button alignment="TOP_CENTER" minWidth="37.0" mnemonicParsing="false" onAction="#ToResourceImage" prefHeight="23.0" prefWidth="152.255859375" text="Click here" textFill="#0565ff">
                                  <font>
                                     <Font name="System Bold" size="10.0" />
                                  </font>
@@ -297,34 +280,37 @@
                      </buttons></ButtonBar>
                </buttons>
             </ButtonBar>
-            <TableView fx:id="resourceslist" prefHeight="148.0" prefWidth="1107.0" />
-            <Line endX="966.2929077148438" endY="1.3810396194458008E-4" startX="-135.92396545410156" startY="-6.467103958129883E-5" stroke="#0b79ee" />
+            <TableView fx:id="resourceslist" prefHeight="504.0" prefWidth="1114.0" />
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
               <buttons>
-                  <Text fill="#ff5a07" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete Selected Resource" textAlignment="CENTER" wrappingWidth="162.4775390625">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Text>
-                  <Button mnemonicParsing="false" onAction="#DeleteSelected" prefHeight="30.0" prefWidth="161.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Click here to Delete!">
+                  <Button minWidth="0.0" mnemonicParsing="false" onAction="#DeleteSelected" prefHeight="30.0" prefWidth="163.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text=" Delete!">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Text fill="#ff5a07" strokeType="OUTSIDE" strokeWidth="0.0" text="Update Selected Resource" textAlignment="CENTER" wrappingWidth="162.4775390625">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Text>
-                  <Button mnemonicParsing="false" onAction="#UpdateSelected" prefHeight="30.0" prefWidth="161.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Click here to Update!">
+                  <Button minWidth="55.0" mnemonicParsing="false" onAction="#UpdateSelected" prefHeight="30.0" prefWidth="190.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Update!">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
               </buttons>
             </ButtonBar>
-            <Label prefHeight="77.0" prefWidth="1092.0" />
-            <Line endX="966.2929077148438" endY="1.3810396194458008E-4" startX="-135.92396545410156" startY="-6.467103958129883E-5" stroke="#0b79ee" />
+            <ButtonBar prefHeight="40.0" prefWidth="200.0">
+               <buttons>
+                  <Line endX="966.2929077148438" endY="1.3810396194458008E-4" startX="-135.92396545410156" startY="-6.467103958129883E-5" stroke="#0b79ee" />
+               </buttons>
+            </ButtonBar>
+            <Text fill="#ff610c" strokeType="OUTSIDE" strokeWidth="0.0" text="Want to add a new resource?" textAlignment="CENTER" wrappingWidth="125.26611328125">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+            <Button mnemonicParsing="false" onAction="#formulaireajout" prefHeight="30.0" prefWidth="119.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Click here">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Label prefHeight="77.0" prefWidth="1115.0" />
          </children>
       </VBox>
    </center>

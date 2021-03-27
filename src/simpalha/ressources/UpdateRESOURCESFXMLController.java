@@ -27,6 +27,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
@@ -54,6 +55,12 @@ public class UpdateRESOURCESFXMLController implements Initializable {
      */
     public Ressources R;
     private int idR;
+    @FXML
+    private Label title;
+    @FXML
+    private Label path;
+    @FXML
+    private Label description;
 
     public UpdateRESOURCESFXMLController() {
         this.R = new Ressources();
@@ -73,7 +80,8 @@ public class UpdateRESOURCESFXMLController implements Initializable {
             tfmdescription.setText(R.getDescription());
             tfmpath.setText(R.getPath());
 
-        });
+        }
+        );
 
     }
 ////     @Override
@@ -91,7 +99,7 @@ public class UpdateRESOURCESFXMLController implements Initializable {
     public void showRess(Ressources R) {
         tfmtitle.setText(R.getTitle());
         tfmdescription.setText(R.getDescription());
-        tfmpath.setText(R.getPath());
+        tfmpath.setText("ressources\\"+R.getPath());
     }
 
     @FXML
@@ -139,12 +147,28 @@ public class UpdateRESOURCESFXMLController implements Initializable {
                 || (tfmpath.getText().trim().isEmpty())
                 || (tfmdescription.getText().trim().isEmpty())
                 || (tfmtitle.getText().trim().isEmpty())) {
-            Alert fail = new Alert(Alert.AlertType.INFORMATION);
+            Alert fail = new Alert(Alert.AlertType.ERROR);
             fail.setHeaderText("FAILURE! ");
             fail.setContentText("Please fill all the TEXTFIELDS ! ");
             fail.showAndWait();
+              if  (tfmtitle.getText().trim().isEmpty())
+                 { title.setStyle("-fx-text-fill:RED; -fx-font-weight: bold");
+                 new animatefx.animation.Shake(title).play();
+                 tfmtitle.setStyle("-fx-border-color:RED; -fx-border-width: 2px");
+                 new animatefx.animation.Shake(tfmtitle).play();}
+             if  (tfmdescription.getText().trim().isEmpty())
+                 {description.setStyle("-fx-text-fill:RED; -fx-font-weight: bold");
+                 new animatefx.animation.Shake(description).play();
+                 tfmdescription.setStyle("-fx-border-color:RED; -fx-border-width: 2px");
+                 new animatefx.animation.Shake(tfmdescription).play();}
+             if  (tfmpath.getText().trim().isEmpty())
+                 {path.setStyle("-fx-text-fill:RED; -fx-font-weight: bold");
+                 new animatefx.animation.Shake(path).play();
+                 tfmpath.setStyle("-fx-border-color:RED; -fx-border-width: 2px");
+                 new animatefx.animation.Shake(tfmpath).play();}
+ 
         } else {
-
+           
             ServiceRessources sr = new ServiceRessources();
 //       Ressources R= sr.Search(Integer.valueOf(tfmodif.getText()));
 
@@ -157,8 +181,8 @@ public class UpdateRESOURCESFXMLController implements Initializable {
             R.setTitle(tfmtitle.getText());
 
             sr.Update(R);
-            //afficher prompt ajouté avec succés
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+             //afficher prompt ajouté avec succés
+            Alert alert = new Alert(Alert.AlertType.NONE);
             alert.setTitle("Updating resource..");
             alert.setHeaderText(null);
             alert.setContentText("Update done with success!");
@@ -198,9 +222,22 @@ public class UpdateRESOURCESFXMLController implements Initializable {
     private void browse(ActionEvent event) {
 
         FileChooser fc = new FileChooser();
-
+        fc.setTitle("Choose image for resource..");
         File selectedFile = fc.showOpenDialog(null);
-        tfmpath.setText(selectedFile.getAbsolutePath());
+        
+         FileChooser.ExtensionFilter extFilterJPG = 
+                 new FileChooser.ExtensionFilter("JPG files (*.JPG)", "*.JPG");
+         FileChooser.ExtensionFilter extFilterjpg = 
+                 new FileChooser.ExtensionFilter("jpg files (*.jpg)", "*.jpg");
+         FileChooser.ExtensionFilter extFilterPNG = 
+                 new FileChooser.ExtensionFilter("PNG files (*.PNG)", "*.PNG");
+         FileChooser.ExtensionFilter extFilterpng = 
+                 new FileChooser.ExtensionFilter("png files (*.png)", "*.png");
+         fc.getExtensionFilters().addAll(extFilterJPG,extFilterpng,extFilterPNG,extFilterjpg);
+        
+        
+        tfmpath.setText(selectedFile.getName());
+
 
         if (selectedFile != null) {
 

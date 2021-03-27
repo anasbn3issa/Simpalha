@@ -62,7 +62,7 @@ public class ServiceRessources implements IServiceRessources{
             Ressources R1 = new Ressources();
             R1.setIdR(resultat.getInt("idR"));
             R1.setDescription(resultat.getString("description"));
-            R1.setPath(resultat.getString("path"));
+            R1.setPath("ressources\\"+resultat.getString("path"));
             R1.setTitle(resultat.getString("title"));
 //            //button 
 //            Button buttonModify = null;
