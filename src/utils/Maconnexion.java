@@ -3,8 +3,7 @@ package utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -19,7 +18,7 @@ public class Maconnexion {
     private Connection cnx;
 
     private Maconnexion() {
-        try {
+        try { 
             cnx = DriverManager.getConnection(URL, LOGIN, PASS);
             System.out.println("cnx done");
         } catch (SQLException ex) {

@@ -24,7 +24,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import services.ServiceUser;
+import services.ServiceUsers;
+import simpalha.FXMLDocumentController;
 
 /**
  * FXML Controller class
@@ -37,7 +38,7 @@ public class ListHelpersFXMLController implements Initializable {
     private Button back;
     
     //var
-    private ServiceUser service;
+    private ServiceUsers service;
     @FXML
     private TableView<Users> helpersList;
 
@@ -48,13 +49,13 @@ public class ListHelpersFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         // TODO
-        service = new ServiceUser();
+        service = new ServiceUsers();
 
         TableColumn<Users, String> nameCol = new TableColumn<>("Name");
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("fname"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
 
         TableColumn<Users, String> specialiteCol = new TableColumn<>("Specialite");
-        specialiteCol.setCellValueFactory(new PropertyValueFactory<>("specialites"));
+        specialiteCol.setCellValueFactory(new PropertyValueFactory<>("Specialité"));
 
         helpersList.getColumns().add(nameCol);
         helpersList.getColumns().add(specialiteCol);
@@ -64,6 +65,21 @@ public class ListHelpersFXMLController implements Initializable {
 
     @FXML
     private void showP2P(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "P2PFXML.fxml"
+                    )
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -85,6 +101,7 @@ public class ListHelpersFXMLController implements Initializable {
     }
     
     private void fillData() {
+        System.out.println(service.Read());
         helpersList.getItems().addAll(service.Read());
     }
 

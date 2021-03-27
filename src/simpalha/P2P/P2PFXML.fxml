@@ -217,7 +217,7 @@
                      <children>
                         <HBox alignment="CENTER">
                            <children>
-                              <TextField promptText="Search project" style="-fx-background-color: transparent; -fx-prompt-text-fill: #485460;">
+                              <TextField fx:id="tfsearch" promptText="Search meet" style="-fx-background-color: transparent; -fx-prompt-text-fill: #485460;">
                                  <HBox.margin>
                                     <Insets left="5.0" right="10.0" />
                                  </HBox.margin>

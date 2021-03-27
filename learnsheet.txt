@@ -1,0 +1,376 @@
+Day 1: 8h00 04/03/2021
+
+    STEP 1:
+        -Completing the "Question" Class CRUD
+
+    Notes:
+        *Followed the coachs' workshop and completed the "Add & Read", now I'm following a GUI tutorial on JavaFX to try and understand how this works.
+
+    References:
+        *How to use an HTML Template:
+            -https://www.youtube.com/playlist?list=PL6gx4Cwl9DGBzfXLWLSYVy8EbTdpGbUIG
+
+WORKTIME: 3H11M
+
+Stopping time: 04/03/2021 21h00
+
+
+
+Day 2: 11h25 06/03/2021
+
+    STEP 1 Completed at 11h45
+
+    STEP 2:
+        -Complete the "Question" class CRUD scenario
+
+    STEP 2 Completed at 23h57
+
+    Notes:
+        *Following the GUI tutorial to make the interface a bit richer and more fluid. This is going to be complicated.
+        *Added a few tweaks to make changing scenes independent from controllers. Meaning you can change scenes from different controllers not only ONE controller like the example I'm referencing below.
+
+    References:
+        *Changing scenes with FXML:
+            -https://gist.github.com/pethaniakshay/302072fda98098a24ce382a361bdf477
+        *JavaFX Documentation:
+            -https://docs.oracle.com/javase/8/javafx/api/index.html
+
+WORKTIME: 5H50M
+
+Stopping time: 07/03/2021 00h11
+
+
+
+Day 3: 11h45 07/03/2021
+
+    STEP 3:
+        -Create the "Answer" class CRUD
+        -Create the "Answer" and "Question" classes database relations
+        -Complete the "Question" class CRUD scenarion w/out "Quizz" Class
+
+    STEP 3 Completed at 16h12
+
+    Notes:
+        *
+
+    References:
+        *
+
+WORKTIME: 3H54M
+
+Stopping time: 07/03/2021 16h00
+
+
+
+Day 4: 16h44 08/03/2021
+
+    STEP 4:
+        -Create the "Quizz" class CRUD
+        -Create the "Quizz" and "Question" classes database relations
+        -Complete the FULL "Question" class CRUD scenario
+
+    Step 4 Completed at 23h01
+
+    Notes:
+        *SH*T WAS HAAARDDDDDD
+
+    References:
+        *
+
+WORKTIME: 5H12M
+
+Stopping time: 08/03/2021 23h01
+
+
+
+Day 5: 12h25 09/03/2021
+
+    STEP 5:
+        -Correct the imperfections
+        -Create the student side of the Quizz
+        -Integrate the template to my works
+
+    Notes:
+        *I still need to find a way to communicate between the "answer a question" window and "quizz" window. Hope I'll find smth tomorow. 
+
+    References:
+        *
+
+WORKTIME: 7H50M
+
+Stopping time: 10/03/2021 02h19
+
+
+
+Day 6: 9h10 10/03/2021
+
+    STEP 5 in Progress
+
+    STEP 5 Completed at 17h23 10/03/2021
+
+    Notes:
+        *
+
+    References:
+        *
+
+WORKTIME: 7H15M
+
+Stopping time: 10/03/2021 21h48
+
+
+
+Day 7: 10h47 12/03/2021
+
+    STEP 6:
+        -Comment all the code
+        -Make the other tabs accessible from all my controllers
+        -Integrate IService to my work
+        -Make my interface coherent with the templates' design (button style, etc.)
+
+    STEP 6  Completed at 15H26
+
+    STEP 7:
+        -Create a "QuizzResults" Class and create its CRUD
+        -Make the relations between the "QuizzResults" Class and the "Quizz" Class
+        -Make a Show Progression function on the Helper side of the Quizz functionnality that shows track of the results of a certain "Quizz". 
+
+    STEP 7 Completed at 21h37
+
+    Notes:
+        *
+
+    References:
+        *
+
+WORKTIME: 7H10M
+
+Stopping time: 12/03/2021 21h37
+
+
+
+Day 8: 17h30 15/03/2021
+
+    STEP 8:
+        -Create Notification API Class and its service
+        -Implement and test the Class
+
+    STEP 8 Completed at 12h30
+
+    STEP 9:
+        -Implement userId fetching in QuizzTable
+        -Implement userId fetching in QuizzTaking
+        -Implement userId fetching in Notification
+
+    Notes:
+        *NOTIFICATION IS HELL
+
+    References:
+        *
+
+WORKTIME: 5H37M
+
+Stopping time: 16/03/2021 00h35
+
+
+
+Day 9: 10h10 16/03/2021
+
+    STEP 8 in Progress
+
+    STEP 8 Completed at 18h55
+
+    STEP 9:
+        -Implement a progression calculating algorythm to the Quizzes
+        -Last Checks
+
+    STEP 9 Completed at 22h01
+
+    Notes:
+        *Hamdoullah
+
+    References:
+        *
+
+WORKTIME: 5H06M
+
+Stopping time: 16/03/2021 22h01
+
+
+
+Day 10: 18h13 24/03/2021
+
+    STEP 10:
+        -Add Notifications Button
+        -Add Confirmation before Deleting smth.
+        -Set QuizzResults relations to ON DELETE = CASCADE
+
+    Notes:
+        *
+
+    References:
+        *
+
+WORKTIME: 1H00M
+
+Stopping time: 24/03/2021 19h20
+
+
+
+Day 11: 11h00 25/03/2021
+
+    STEP 11:
+        -GIT Merge
+        -Dashboard in FXML => Anas's Posts
+        -DataSource into Maconnexion in the .util AND the services.
+
+    Notes:
+        *
+
+    References:
+        *
+
+WORKTIME:
+
+Stopping time: 25/03/2021
+
+
+
+
+
+/// TODO:
+
+        -Do the "Add & Read" Workshop 
+
+            DONE 04/03/2021
+
+        -Complete the "Question" class CRUD 
+
+            DONE 06/03/2021
+
+        -Complete the "Question" class CRUD scenario w/out "Answers" & "Quizz" Classes
+
+            DONE 06/03/2021
+
+        -Create the "Answer" class CRUD
+
+            DONE 07/03/2021
+
+        -Create the "Answer" and "Question" classes database relations
+
+            DONE 07/03/2021
+
+        -Complete the "Question" class CRUD scenarion w/out "Quizz" Class
+
+            DONE 07/03/2021
+
+        -Create the "Quizz" class CRUD
+
+            DONE 08/03/2021
+
+        -Create the "Quizz" and "Question" classes database relations
+
+            DONE 08/03/2021
+
+        -Complete the FULL "Question" class CRUD scenario
+
+            DONE 08/03/2021
+
+        -Correct the imperfections
+
+            DONE 09/03/2021
+
+        -Integrate the template to my works
+
+            DONE 09/03/2021
+
+        -Create the student side of the Quizz
+
+            DONE 10/03/2021
+
+        -Comment all the code
+
+            DONE 12/03/2021
+
+        -Make the other tabs accessible from all my controllers
+
+            DONE 12/03/2021
+
+        -Integrate IService to my work
+
+            DONE 12/03/2021
+
+        -Make my interface coherent with the templates' design (button style, etc.)
+
+            DONE 12/03/2021
+
+        -Create a "QuizzResultsTracker" Class and create its CRUD
+
+            DONE 12/03/2021
+
+        -Make the relations between the "QuizzResultsTracker" Class and the "Quizz" Class
+
+            DONE 12/03/2021
+
+        -Make a Show Progression function on the Helper side of the Quizz functionnality that shows track of the result of a certain "Student" depending on the "QuizzeResultsTracker" Table
+
+            DONE 12/03/2021
+
+        -Create Notification API Class and its service
+
+            DONE 16/03/2021
+
+        -Implement and test the Class
+
+            DONE 16/03/2021
+
+        -Implement userId fetching in QuizzTable
+
+            DONE 16/03/2021
+
+        -Implement userId fetching in QuizzTaking
+
+            DONE 16/03/2021
+
+        -Implement userId fetching in Notification
+
+            DONE 16/03/2021
+
+        -Implement a progression calculating algorythm to the Quizzes
+
+            DONE 16/03/2021
+
+        -Add Notifications Button
+
+            DONE 24/03/2021
+
+        -Add Confirmation before Deleting smth.
+        
+            DONE 24/03/2021
+
+        -Set QuizzResults relations to ON DELETE = CASCADE
+        
+            DONE 24/03/2021
+
+        -GIT Merge
+
+        -Dashboard in FXML => Anas's Posts
+
+        -DataSource into Maconnexion in the .util AND the services.
+
+
+
+///
+
+
+
+
+
+
+REFERENCES:
+    *JavaFX GUI Tutorial :
+        -https://www.youtube.com/playlist?list=PL6gx4Cwl9DGBzfXLWLSYVy8EbTdpGbUIG
+    *Changing scenes with FXML:
+        -https://gist.github.com/pethaniakshay/302072fda98098a24ce382a361bdf477
+    *JavaFX Documentation:
+        -https://docs.oracle.com/javase/8/javafx/api/index.html

@@ -14,7 +14,7 @@ import java.util.UUID;
 public class Meet {
     
     private int id_student,id_helper, feedback_id;
-    private String id, specialite, time, studentDisplay, helperDisplay;
+    private String id, specialite, time, studentDisplay, helperDisplay, feedbackDisplay;
     
     public Meet(){
         
@@ -84,28 +84,40 @@ public class Meet {
     public void setSpecialite(String specialite) {
         this.specialite = specialite;
     }
-
-    public String getStudentDisplay() {
-        return studentDisplay;
+    
+    
+    
+    public String getFeedbackDisplay() {
+        return feedbackDisplay;
     }
 
-    public void setStudentDisplay(String studentDisplay) {
-        this.studentDisplay = studentDisplay;
+    public void setFeedbackDisplay(String feedbackDisplay) {
+        this.feedbackDisplay = feedbackDisplay;
     }
-
-    public String getHelperDisplay() {
-        return helperDisplay;
-    }
-
-    public void setHelperDisplay(String helperDisplay) {
-        this.helperDisplay = helperDisplay;
-    }
+    
+    
     
     
 
     @Override
     public String toString() {
         return "Meet{" + "id_student=" + id_student + ", id_helper=" + id_helper + ", feedback_id=" + feedback_id + ", id=" + id + ", specialite=" + specialite + ", time=" + time + '}';
+    }
+
+    public void setHelperDisplay(String username) {
+        this.helperDisplay = username;
+    }
+
+    public void setStudentDisplay(String username) {
+        this.studentDisplay = username;
+    }
+
+    public String getHelperDisplay() {
+        return this.helperDisplay;
+    }
+
+    public String getStudentDisplay() {
+        return this.studentDisplay;
     }
 
     

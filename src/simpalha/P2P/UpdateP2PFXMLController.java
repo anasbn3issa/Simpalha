@@ -29,7 +29,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.ServiceDisponibilite;
 import services.ServiceP2P;
-import services.ServiceUser;
+import services.ServiceUsers;
+import simpalha.FXMLDocumentController;
 
 /**
  * FXML Controller class
@@ -43,7 +44,7 @@ public class UpdateP2PFXMLController implements Initializable {
     private int idHelper;
     private ServiceP2P service;
     private ServiceDisponibilite serviceDisp;
-    private ServiceUser serviceUser;
+    private ServiceUsers serviceUser;
     
     @FXML
     private Button back;
@@ -64,13 +65,13 @@ public class UpdateP2PFXMLController implements Initializable {
         Platform.runLater(() -> {
             service = new ServiceP2P();
             serviceDisp = new ServiceDisponibilite();
-            serviceUser = new ServiceUser();
-
+            serviceUser = new ServiceUsers();
             List<Disponibilite> dispoList = serviceDisp.findAllById(idHelper);
+            System.out.println(dispoList);
             times.getItems().addAll(dispoList.stream().map(d -> d.getDatedeb() + " -> " + d.getDateFin()).toArray(String[]::new));
             Users student = serviceUser.findById(idHelper);
-            helper.setText(student.getFname() + " " + student.getLname());
-            specialite.setText(student.getSpecialites());
+            helper.setText(student.getUsername());
+            specialite.setText(student.getSpecialité());
 
         });
     }   
@@ -82,6 +83,21 @@ public class UpdateP2PFXMLController implements Initializable {
 
     @FXML
     private void showP2P(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "P2PFXML.fxml"
+                    )
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML

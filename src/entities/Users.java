@@ -5,49 +5,86 @@
  */
 package entities;
 
-import java.sql.Timestamp;
+import java.util.Base64;
+import static java.util.Collections.list;
 
 /**
  *
- * @author α Ω
+ * @author win10
  */
 public class Users {
+
     private int id;
-    private String email,password, fname, lname,specialites;
-    private Timestamp created_at;
+    private String password, code, email, username;
+    private String Specialité;
+    private String about;
+   // private String encyptedpasswd=getPassword();
+   // private String decyptedpasswd=getDecryptedPassword();
 
     public Users() {
     }
 
-    public Users(String email, String password, String fname, String lname, String specialites) {
-        this.email = email;
-        this.password = password;
-        this.fname = fname;
-        this.lname = lname;
-        this.specialites = specialites;
+    public String getAbout() {
+        return about;
     }
 
-    public Users(int id, String email, String password, String fname, String lname, String specialites, Timestamp created_at) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.fname = fname;
-        this.lname = lname;
-        this.specialites = specialites;
-        this.created_at = created_at;
+    public void setAbout(String about) {
+        this.about = about;
     }
-    
-    public Users(int id, String email, String fname, String lname, String specialites, Timestamp created_at) {
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Users(String username, String password, String about) {
+        this.password = password;
+        this.username = username;
+        this.about = about;
+
+    }
+
+    public Users(int id, String password, String email, String username, String Specialité) {
         this.id = id;
+        this.password = password;
         this.email = email;
-        this.fname = fname;
-        this.lname = lname;
-        this.specialites = specialites;
-        this.created_at = created_at;
+
+        this.username = username;
+        this.Specialité = Specialité;
+    }
+
+    public Users(String password, String username) {
+        this.password = password;
+        this.username = username;
+    }
+
+    public Users(String password, String email, String username,String about) {
+        this.password = password;
+        this.email = email;
+        this.username = username;
+        this.about = about;
+
+    }
+
+    public String getPassword() {
+        return Base64.getEncoder().encodeToString(password.getBytes());
+    }
+/*public String getDecryptedPassword() {
+        return new String (Base64.getMimeDecoder().decode(encyptedpasswd));
+    }*/
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -58,50 +95,28 @@ public class Users {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUsername() {
+
+        return (username);
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getFname() {
-        return fname;
+    public String getSpecialité() {
+        return Specialité;
     }
 
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
-
-    public String getLname() {
-        return lname;
-    }
-
-    public void setLname(String lname) {
-        this.lname = lname;
-    }
-
-    public String getSpecialites() {
-        return specialites;
-    }
-
-    public void setSpecialites(String specialites) {
-        this.specialites = specialites;
-    }
-
-    public Timestamp getCreated_at() {
-        return created_at;
+    public void setSpecialité(String Specialité) {
+        this.Specialité = Specialité;
     }
 
     @Override
     public String toString() {
-        return "Users{" + "id=" + id + ", email=" + email + ", password=" + password + ", fname=" + fname + ", lname=" + lname + ", specialites=" + specialites + ", created_at=" + created_at + '}';
+        return "Users{" + "id=" + id + ", password=" + password + ", code=" + code + ", email=" + email + ", username=" + username + ", Specialit\u00e9=" + Specialité + ", about=" + about + '}';
     }
 
-    
-    
-    
-    
-    
+   
+
 }

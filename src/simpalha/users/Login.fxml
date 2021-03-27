@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to left, #b4d7de, #b4d7de);" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.users.LoginController">
+   <children>
+      <Label layoutX="71.0" layoutY="118.0" prefHeight="27.0" prefWidth="101.0" text="Username">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="71.0" layoutY="179.0" prefHeight="27.0" prefWidth="134.0" text="Mot de passe">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfusername" layoutX="218.0" layoutY="119.0" />
+      <TextField fx:id="tfpassword" layoutX="218.0" layoutY="180.0" />
+      <Button layoutX="35.0" layoutY="33.0" mnemonicParsing="false" onAction="#register" text="Inscription" />
+      <Button layoutX="250.0" layoutY="297.0" mnemonicParsing="false" onAction="#authentifier" text="Se connecter" />
+      <ImageView fitHeight="88.0" fitWidth="157.0" layoutX="417.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/Simpalha.png" />
+                     </image>
+                  </ImageView>
+      <Hyperlink layoutX="230.0" layoutY="212.0" onAction="#forgot" prefHeight="23.0" prefWidth="140.0" text="Mot de passe oublié" />
+   </children>
+</AnchorPane>
