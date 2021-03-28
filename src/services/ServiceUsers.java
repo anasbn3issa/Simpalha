@@ -85,7 +85,7 @@ public class ServiceUsers implements IserviceUsers {
             String query = "SELECT * FROM users";
             rs = st.executeQuery(query);
             while (rs.next()) {
-                Users user = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5));
+                Users user = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getInt(8));
                 Utilisateurs.add(user);
             }
 
@@ -275,12 +275,32 @@ public class ServiceUsers implements IserviceUsers {
             pstmt.setInt(1, id);
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                student = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5));
+                student = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getInt(8));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServiceUsers.class.getName()).log(Level.SEVERE, null, ex);
         }
         return student;
+    }
+
+    @Override
+    public List<Users> fetchHelpers() {
+        List<Users> Utilisateurs = new ArrayList<>();
+
+        try {
+
+            st = cnx.createStatement();
+            String query = "SELECT * FROM users where role=0 AND Spécialité IS NOT NULL";
+            rs = st.executeQuery(query);
+            while (rs.next()) {
+                Users user = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getInt(8));
+                Utilisateurs.add(user);
+            }
+
+        } catch (SQLException ex) {
+        }
+
+        return Utilisateurs;
     }
 
 }

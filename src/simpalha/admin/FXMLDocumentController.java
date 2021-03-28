@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simpalha;
+package simpalha.admin;
 
+import simpalha.*;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.io.IOException;
 import java.net.URL;
@@ -19,8 +20,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.ServiceNotification;
@@ -60,6 +59,8 @@ public class FXMLDocumentController implements Initializable {
         t.start();
     }
 
+    
+    // f hethy lezm n3awd nredefini l bouton eli bsh yhezni lel page ViewPosts (contact wajdi)
     @FXML
     private void goToViewPosts(MouseEvent event) {
         Parent loader;
@@ -100,7 +101,7 @@ public class FXMLDocumentController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-                            "/simpalha/P2P/P2PFXML.fxml"
+                            "/simpalha/admin/P2P/P2PFXML.fxml"
                     )
             );
 
@@ -133,26 +134,6 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
-    @FXML
-    private void showRESOURCES(MouseEvent event) {
-        System.out.println("tests");
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(
-                            "ressources/FXMLDocument.fxml"
-                    )
-            );
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
-            stage.setScene(
-                    new Scene(loader.load())
-            );
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
     @FXML
     private void profile(MouseEvent event) {
         try {
@@ -219,6 +200,10 @@ public class FXMLDocumentController implements Initializable {
         catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void showRESOURCES(MouseEvent event) {
     }
     
 }

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simpalha.P2P;
+package simpalha.admin.P2P;
 
+import simpalha.P2P.*;
 import com.teamdev.jxbrowser.browser.Browser;
 import com.teamdev.jxbrowser.engine.Engine;
 import com.teamdev.jxbrowser.engine.EngineOptions;
@@ -77,8 +78,6 @@ public class P2PFXMLController implements Initializable {
 
     @FXML
     private TableView<Meet> meets;
-    @FXML
-    private Button ajouter;
 
     private ServiceP2P service;
     private ServiceDisponibilite serviceDisp;
@@ -107,6 +106,9 @@ public class P2PFXMLController implements Initializable {
         TableColumn<Meet, String> idHlpCol = new TableColumn<>("Helper");
         idHlpCol.setCellValueFactory(new PropertyValueFactory<>("helperDisplay"));
 
+        TableColumn<Meet, String> idStdCol = new TableColumn<>("Student");
+        idStdCol.setCellValueFactory(new PropertyValueFactory<>("studentDisplay"));
+
         TableColumn<Meet, String> idFdbCol = new TableColumn<>("Feedback");
         idFdbCol.setCellValueFactory(new PropertyValueFactory<>("feedbackDisplay"));
 
@@ -117,7 +119,7 @@ public class P2PFXMLController implements Initializable {
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
 
         TableColumn modCol = new TableColumn("Action");
-        modCol.setCellValueFactory(new PropertyValueFactory<>("modify"));
+        modCol.setCellValueFactory(new PropertyValueFactory<>(""));
 
         Callback<TableColumn<Meet, String>, TableCell<Meet, String>> cellFactoryModify
                 = //
@@ -126,7 +128,7 @@ public class P2PFXMLController implements Initializable {
             public TableCell call(final TableColumn<Meet, String> param) {
                 final TableCell<Meet, String> cell = new TableCell<Meet, String>() {
 
-                    final Button modify = new Button("Modify");
+                    final Button modify = new Button("Details");
 
                     @Override
                     public void updateItem(String item, boolean empty) {
@@ -153,9 +155,8 @@ public class P2PFXMLController implements Initializable {
                                             new Scene(loader.load())
                                     );
 
-                                    UpdateP2PFXMLController controller = loader.getController();
-                                    controller.initData(meet.getId(), meet.getId_helper());
-
+                                    //UpdateP2PFXMLController controller = loader.getController();
+                                    //controller.initData(meet.getId(), meet.getId_helper());
                                     stage.show();
                                 } catch (IOException ex) {
                                     Logger.getLogger(P2PFXMLController.class.getName()).log(Level.SEVERE, null, ex);
@@ -196,6 +197,7 @@ public class P2PFXMLController implements Initializable {
                                 alert.showAndWait();
 
                                 if (alert.getResult() == ButtonType.YES) {
+                                    //do stuff
                                     Meet meet = getTableView().getItems().get(getIndex());
                                     Disponibilite dispo = serviceDisp.findByTime(meet.getTime());
                                     dispo.setEtat(0);
@@ -204,7 +206,6 @@ public class P2PFXMLController implements Initializable {
                                     dataList.clear();
                                     dataList.addAll(service.Read());
                                 }
-
                             });
 
                             setGraphic(delete);
@@ -218,155 +219,14 @@ public class P2PFXMLController implements Initializable {
 
         delCol.setCellFactory(cellFactoryDelete);
 
-        TableColumn joinCol = new TableColumn();
-        joinCol.setCellValueFactory(new PropertyValueFactory<>("join"));
-        Callback<TableColumn<Meet, String>, TableCell<Meet, String>> cellFactoryJoin
-                = //
-                new Callback<TableColumn<Meet, String>, TableCell<Meet, String>>() {
-            @Override
-            public TableCell call(final TableColumn<Meet, String> param) {
-                final TableCell<Meet, String> cell = new TableCell<Meet, String>() {
-
-                    final Button join = new Button("Join");
-
-                    @Override
-                    public void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                            setText(null);
-                        } else {
-                            join.setDisable(true);
-                            Meet meet = getTableView().getItems().get(getIndex());
-                            if (meet.getFeedback_id() == 0) {
-                                join.setDisable(false);
-                            }
-                            join.setOnAction(event -> {
-                                EngineOptions options
-                                        = EngineOptions.newBuilder(HARDWARE_ACCELERATED).licenseKey("1BNDHFSC1FYI13WP1OWJBWGL2PRX6OPN2B11ZN74PR1U2CEHZHKZW0QF3PBNZ08JNDZ6J3")
-                                                .build();
-                                Engine engine = Engine.newInstance(options);
-
-                                MediaDevices mediaDevices = engine.mediaDevices();
-
-                                // Get all available video devices, e.g. web camera.
-                                List<MediaDevice> videoDevices = mediaDevices.list(MediaDeviceType.VIDEO_DEVICE);
-                                /*System.out.println("video");
-                                for (MediaDevice v : videoDevices) {
-                                    System.out.println(v);
-                                }
-
-                                System.out.println("audio");
-                                // Get all available audio devices, e.g. microphone.
-                                List<MediaDevice> audioDevices = mediaDevices.list(MediaDeviceType.AUDIO_DEVICE);
-                                for (MediaDevice v : audioDevices) {
-                                    System.out.println(v);
-                                }*/
-
-                                engine.permissions().set(RequestPermissionCallback.class, (params, tell) -> {
-                                    PermissionType type = params.permissionType();
-                                    if (type == PermissionType.VIDEO_CAPTURE || type == PermissionType.AUDIO_CAPTURE) {
-                                        tell.grant();
-                                    } else {
-                                        tell.grant();
-                                    }
-                                });
-
-                                Browser browser = engine.newBrowser();
-
-                                SwingUtilities.invokeLater(() -> {
-                                    // Creating Swing component for rendering web content
-                                    // loaded in the given Browser instance.
-                                    BrowserView view = BrowserView.newInstance(browser);
-                                    Users h = serviceUser.findById(meet.getId_helper());
-                                    meet.setHelperDisplay(h.getUsername());
-
-                                    String title = "Meeting with " + meet.getHelperDisplay() + " - " + meet.getSpecialite();
-                                    // Creating and displaying Swing app frame.
-                                    JFrame frame = new JFrame(title);
-                                    // Close Engine and onClose app window
-                                    frame.addWindowListener(new WindowAdapter() {
-                                        @Override
-                                        public void windowClosing(WindowEvent e) {
-                                            engine.close();
-                                        }
-
-                                        @Override
-                                        public void windowClosed(WindowEvent we) {
-                                            super.windowClosed(we); //To change body of generated methods, choose Tools | Templates.
-                                            Platform.runLater(() -> {
-
-                                                try {
-                                                    FXMLLoader loader = new FXMLLoader(
-                                                            getClass().getResource(
-                                                                    "NewFeedbackFXML.fxml"
-                                                            )
-                                                    );
-                                                    Scene scene = new Scene(loader.load()); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
-                                                    //Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
-                                                    Stage app_stage = new Stage();//this accesses the window.
-                                                    app_stage.initModality(Modality.WINDOW_MODAL);
-                                                    app_stage.initOwner(((Node) event.getTarget()).getScene().getWindow());
-                                                    app_stage.setScene(scene);
-
-                                                    NewFeedbackFXMLController controller = loader.getController();
-                                                    controller.initData(meet.getId());
-
-                                                    app_stage.show();
-
-                                                } catch (IOException ex) {
-                                                }
-                                            }
-                                            );
-                                        }
-
-                                    });
-
-                                    frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                                    String path = "http://localhost:8000/" + meet.getId();
-                                    System.out.println(path);
-                                    JTextField addressBar = new JTextField(path);
-                                    addressBar.addActionListener(e
-                                            -> browser.navigation().loadUrl(addressBar.getText()));
-                                    //frame.add(addressBar, BorderLayout.NORTH);
-                                    JButton end = new JButton("test");
-                                    end.addActionListener(new ActionListener() {
-                                        @Override
-                                        public void actionPerformed(java.awt.event.ActionEvent ae) {
-
-                                            engine.close();
-                                            frame.dispose();
-                                        }
-                                    });
-                                    frame.add(view, BorderLayout.CENTER);
-                                    frame.add(end, BorderLayout.NORTH);
-                                    frame.setSize(800, 500);
-                                    frame.setLocationRelativeTo(null);
-                                    frame.setVisible(true);
-
-                                    browser.navigation().loadUrl(addressBar.getText());
-                                });
-                            });
-
-                            setGraphic(join);
-                            setText(null);
-                        }
-                    }
-                };
-                return cell;
-            }
-        };
-
-        joinCol.setCellFactory(cellFactoryJoin);
-
         meets.getColumns().add(idHlpCol);
+        meets.getColumns().add(idStdCol);
         meets.getColumns().add(idFdbCol);
         meets.getColumns().add(spcCol);
         meets.getColumns().add(timeCol);
         meets.getColumns().add(modCol);
         meets.getColumns().add(delCol);
-        meets.getColumns().add(joinCol);
-        dataList.addAll(service.ReadById(userId));
+        dataList.addAll(service.Read());
         meets.getItems().addAll(dataList);
 
         // Wrap the ObservableList in a FilteredList (initially display all data).
@@ -424,25 +284,6 @@ public class P2PFXMLController implements Initializable {
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @FXML
-    private void Ajouter(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(
-                            "ListHelpersFXML.fxml"
-                    )
-            );
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
-            stage.setScene(
-                    new Scene(loader.load())
-            );
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(P2PFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
