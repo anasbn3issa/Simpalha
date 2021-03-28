@@ -6,19 +6,11 @@
  */
 package simpalha.ressources;
 
-import com.convertapi.Config;
-import com.convertapi.ConversionResult;
-import com.convertapi.ConvertApi;
-import com.convertapi.Param;
 import entities.Ressources;
-import java.awt.Color;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -34,8 +26,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.ServiceRessources;
@@ -45,10 +35,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 import java.io.OutputStream;
-import java.nio.file.Paths;
-
-import java.util.Date;
-import java.util.concurrent.CompletableFuture;
 
 
 

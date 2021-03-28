@@ -77,7 +77,6 @@ public class LoginController implements Initializable {
              UserSession usr=
                 UserSession.getInstace(id);
                 u = us.findById(id);
-                System.out.println(usr);
                 System.out.println(u);
                 String path = "simpalha/FXMLDocument.fxml";
                 if(u.getRole()==1) path = "simpalha/admin/FXMLDocument.fxml";

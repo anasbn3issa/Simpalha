@@ -120,13 +120,15 @@ public class Users {
     public void setRole(int role) {
         this.role = role;
     }
-    
-    
 
     @Override
     public String toString() {
-        return "Users{" + "id=" + id + ", password=" + password + ", code=" + code + ", email=" + email + ", username=" + username + ", Specialit\u00e9=" + Specialité + ", about=" + about + '}';
+        return "Users{" + "id=" + id + ", role=" + role + ", password=" + password + ", code=" + code + ", email=" + email + ", username=" + username + ", Specialite" + Specialité + ", about=" + about + '}';
     }
+    
+    
+
+    
 
    
 
