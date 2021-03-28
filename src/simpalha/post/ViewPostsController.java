@@ -83,6 +83,10 @@ public class ViewPostsController implements Initializable {
     private HBox firstHboxInPage;
     @FXML
     private Text currentUserNameLabel;
+    @FXML
+    private VBox adVbox;
+    @FXML
+    private Hyperlink exportExcelHyperlink;
 
     /**
      * Initializes the controller class.
@@ -99,6 +103,9 @@ public class ViewPostsController implements Initializable {
             //currentUserNameLabel.setText(currentUser.getUsername());
             List<Post> lc = servicePost.Read();
 
+            
+            // if user.role is simple user exportExcelHyperlink.setVisible(false); 
+            //else if admin setVisible(true)
             comboSearch.getItems().removeAll(comboSearch.getItems());
             comboSearch.getItems().addAll("IP Essentials", "Mathématique de base 1", "Mathématique de base 2", "Génie Logiciel", "All"); // mba3d nrodou marbout b classe specialité .
             comboSearch.getSelectionModel().select("Search by module"); // shnowa maktoub par défaut . 
@@ -346,8 +353,9 @@ public class ViewPostsController implements Initializable {
                         stage.setScene(
                                 new Scene(loader.load())
                         );
-                        hboxButtons.getChildren().remove(btnAddComment);
+                        hboxButtons.getChildren().removeAll(btnAddComment);
                         vboxProblemAndName.getChildren().remove(b);
+                        
                         AddCommentController controller = loader.getController();
                         controller.initData(p.getId(), postContainer);
 
@@ -440,7 +448,7 @@ public class ViewPostsController implements Initializable {
                 counter++;
                 try {
                     //For performing write to Excel file  
-                    fileOut = new FileOutputStream("posts.xls");
+                    fileOut = new FileOutputStream("posts.xls"+timestampLabel.getText().toString());
                     hwb.write(fileOut);
                 } catch (IOException e) {
                     e.printStackTrace();

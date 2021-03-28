@@ -157,6 +157,8 @@ public class ServicePost implements IServicePost {
                 c.setId(rs.getInt("id"));
                 c.setTimestamp(rs.getTimestamp("timestamp"));
                 c.setId_Post(rs.getInt("id_Post"));
+                c.setUpvotes(rs.getInt("upvotes"));
+                c.setDownvotes(rs.getInt("downvotes"));
                 c.setSolution(rs.getString("solution"));
                 c.setOwnerId(rs.getInt("owner_id"));
                 comments.add(c);

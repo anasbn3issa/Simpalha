@@ -26,6 +26,9 @@ import utils.Maconnexion;
 public class ServiceComment implements IServiceComment {
 
     Connection cnx;
+    private PreparedStatement pst;
+    private Statement ste;
+    private ResultSet rs;
 
     public ServiceComment() {
         cnx = Maconnexion.getInstance().getConnection();
@@ -47,38 +50,26 @@ public class ServiceComment implements IServiceComment {
 
     @Override
     public List<Comment> Read() {
-        Statement st = null;
+        List<Comment> list = new ArrayList<>();
+        String req = "select * from comment";
         try {
-            st = cnx.createStatement();
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceComment.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String query = "select * from comment ";
-        ResultSet rst = null;
-        try {
-            rst = st.executeQuery(query);
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceComment.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        List<Comment> comments = new ArrayList<>();
-
-        try {
-            while (rst.next()) {
+            ste = cnx.createStatement();
+            rs = ste.executeQuery(req);
+            while (rs.next()) {
                 Comment p = new Comment();
-                p.setId(rst.getInt("id"));
-                p.setTimestamp(rst.getTimestamp("timestamp"));
-                p.setSolution(rst.getString("solution"));
-                p.setId_Post(rst.getInt("id_Post"));
-                p.setOwnerId(rst.getInt("owner_id"));
-                p.setUpvotes(rst.getInt("upvotes"));
-                p.setDownvotes(rst.getInt("downvotes"));
-                comments.add(p);
+                p.setId(rs.getInt("id"));
+                p.setOwnerId(rs.getInt("owner_id"));
+                p.setUpvotes(rs.getInt("upvotes"));
+                p.setSolution(rs.getString("solution"));
+                p.setDownvotes(rs.getInt("downvotes"));
+                p.setTimestamp(rs.getTimestamp("timestamp"));
+                list.add(p);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceComment.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
-        return comments;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
     }
 
     @Override
@@ -134,6 +125,36 @@ public class ServiceComment implements IServiceComment {
         
         
         
+    }
+
+    @Override
+    public void updateUpvotes(Comment variable) {
+        String query = "update comment set upvotes=? where id=?";
+        System.out.println(variable.toString());
+        try {
+            pst = cnx.prepareStatement(query);
+            pst.setInt(1, variable.getUpvotes());
+            pst.setInt(2, variable.getId());
+            pst.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    @Override
+    public void updateDownvotes(Comment variable) {
+        String query = "update comment set downvotes=? where id=?";
+        System.out.println(variable.toString());
+        try {
+            pst = cnx.prepareStatement(query);
+            pst.setInt(1, variable.getDownvotes());
+            pst.setInt(2, variable.getId());
+            pst.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
 }
