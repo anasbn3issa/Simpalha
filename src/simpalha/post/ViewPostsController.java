@@ -97,13 +97,13 @@ public class ViewPostsController implements Initializable {
 
             userSession = UserSession.getInstace(0);
             userId = userSession.getUserid();
-            //currentUser = serviceUsers.findById(userId);
-            servicePost = new ServicePost();
-
-            //currentUserNameLabel.setText(currentUser.getUsername());
-            List<Post> lc = servicePost.Read();
-
             
+            servicePost = new ServicePost();
+            serviceUsers= new ServiceUsers();
+            
+            List<Post> lc = servicePost.Read();
+            currentUser = serviceUsers.findById(userId);
+            currentUserNameLabel.setText(currentUser.getUsername());
             // if user.role is simple user exportExcelHyperlink.setVisible(false); 
             //else if admin setVisible(true)
             comboSearch.getItems().removeAll(comboSearch.getItems());
@@ -177,8 +177,8 @@ public class ViewPostsController implements Initializable {
             System.out.println(p);
             b = new Hyperlink();
 
-            //Users postOwnerEnPersonne = new Users();
-            //postOwnerEnPersonne = serviceUsers.findById(p.getOwnerId());
+            Users postOwnerEnPersonne = new Users();
+            postOwnerEnPersonne = serviceUsers.findById(p.getOwnerId());
             HBox postContainer = new HBox();
 
             moduleLabel = new Text("module");
@@ -189,7 +189,7 @@ public class ViewPostsController implements Initializable {
 
             timestampText = new Text(String.valueOf(p.getTimestamp()));
             postOwnerName = new Text("post owner name");
-            //postOwnerName.setText(postOwnerEnPersonne.getUsername());
+            postOwnerName.setText(postOwnerEnPersonne.getUsername());
             postOwnerName.setStyle("-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%);\n"
                     + "    -fx-stroke: black;\n"
                     + "    -fx-stroke-width: 1;");
@@ -448,7 +448,7 @@ public class ViewPostsController implements Initializable {
                 counter++;
                 try {
                     //For performing write to Excel file  
-                    fileOut = new FileOutputStream("posts.xls"+timestampLabel.getText().toString());
+                    fileOut = new FileOutputStream("posts.xls");
                     hwb.write(fileOut);
                 } catch (IOException e) {
                     e.printStackTrace();

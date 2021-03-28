@@ -7,6 +7,7 @@ package simpalha.post;
 
 import com.darkprograms.speech.translator.GoogleTranslate;
 import static com.darkprograms.speech.translator.GoogleTranslate.detectLanguage;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import entities.Comment;
 import entities.Post;
 import entities.Users;
@@ -108,12 +109,12 @@ public class AddCommentController implements Initializable {
             c = new Comment();
             serviceComment = new ServiceComment();
             servicePost = new ServicePost();
+            serviceUsers=new ServiceUsers();
             serviceUpvoteComment = new ServiceUpvoteComment();
             serviceDownvoteComment = new ServiceDownvoteComment();
-            //serviceUsers = new ServiceUsers();
-            //currentUser= serviceUser.finfById(userId);
             userSession = UserSession.getInstace(0);
             userId = userSession.getUserid();
+            currentUser= serviceUsers.findById(userId);
             thisPost = servicePost.findById(idPost);
             // we need to add a textfield for user to type a proposed solution to the post 
             commentsForThisPost = servicePost.findAllCommentsForThisPost(idPost);
@@ -256,11 +257,11 @@ public class AddCommentController implements Initializable {
 
         for (Comment parcours : commentsForThisPost) {
             b = new Hyperlink();
-            //Users commentOwnerEnPersonne = serviceUser.finfById(parcours.getOwnerId());
+            Users commentOwnerEnPersonne = serviceUsers.findById(parcours.getOwnerId());
             HBox commentContainer = new HBox();
 
-            commentOwnerName = new Text("Steve Jobs");
-            //commentOwnerName.seTtext(commentOwnerEnPersonne.getUsername());
+            commentOwnerName = new Text();
+            commentOwnerName.setText(commentOwnerEnPersonne.getUsername());
             commentOwnerName.setStyle("-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%);\n" + " -fx-stroke: black;\n" + " -fx-stroke-width: 1;");
 
             commentLabel = new Text("Proposed Solution : ");
@@ -268,6 +269,7 @@ public class AddCommentController implements Initializable {
             TimestampText = new Text(String.valueOf(parcours.getTimestamp()));
 
             // Partie 3.1 : initialize upvote AND downvote buttons 
+            
             FileInputStream inputUpvoteImage = null;
             FileInputStream inputDownvoteImage = null;
             try {
@@ -490,14 +492,14 @@ public class AddCommentController implements Initializable {
                     }
                 });
             }
-            
-            if(thisPost.getSolution_id()==parcours.getId()){
-                HBox animationSolved= new HBox();
+
+            if (thisPost.getSolution_id() == parcours.getId()) {
+                HBox animationSolved = new HBox();
                 animationSolved.setPrefHeight(40);
                 animationSolved.setPrefWidth(40);
                 animationSolved.getChildren().add(problemIsSolvedAnimation());
                 hboxButtons.getChildren().add(animationSolved);
-                
+
             }
             commentContainer.getChildren().addAll(vboxCommentOwner, vboxCommentAndTranslate, hboxButtons, upVotedownVoteHbox);
             commentContainer.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
@@ -561,7 +563,7 @@ public class AddCommentController implements Initializable {
 
     public Node createCard() throws FileNotFoundException {
         String dir = System.getProperty("user.dir");//get project source path
-        FileInputStream inputPhoto = new FileInputStream(dir+"\\src\\simpalha\\post\\img\\solved.png");
+        FileInputStream inputPhoto = new FileInputStream(dir + "\\src\\simpalha\\post\\img\\solved.png");
         Image u = new Image(inputPhoto);
         ImageView i = new ImageView(u);
 
