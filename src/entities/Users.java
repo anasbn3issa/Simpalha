@@ -14,7 +14,7 @@ import static java.util.Collections.list;
  */
 public class Users {
 
-    private int id;
+    private int id, role;
     private String password, code, email, username;
     private String Specialité;
     private String about;
@@ -47,11 +47,11 @@ public class Users {
 
     }
 
-    public Users(int id, String password, String email, String username, String Specialité) {
+    public Users(int id, String password, String email, String username, String Specialité, int role) {
         this.id = id;
+        this.role = role;
         this.password = password;
         this.email = email;
-
         this.username = username;
         this.Specialité = Specialité;
     }
@@ -61,11 +61,12 @@ public class Users {
         this.username = username;
     }
 
-    public Users(String password, String email, String username,String about) {
+    public Users(String password, String email, String username,String about, int role) {
         this.password = password;
         this.email = email;
         this.username = username;
         this.about = about;
+        this.role = role;
 
     }
 
@@ -112,10 +113,22 @@ public class Users {
         this.Specialité = Specialité;
     }
 
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
-        return "Users{" + "id=" + id + ", password=" + password + ", code=" + code + ", email=" + email + ", username=" + username + ", Specialit\u00e9=" + Specialité + ", about=" + about + '}';
+        return "Users{" + "id=" + id + ", role=" + role + ", password=" + password + ", code=" + code + ", email=" + email + ", username=" + username + ", Specialite" + Specialité + ", about=" + about + '}';
     }
+    
+    
+
+    
 
    
 
