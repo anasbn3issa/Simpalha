@@ -60,8 +60,6 @@ public class FXMLDocumentController implements Initializable {
         t.start();
     }
 
-    
-
     @FXML
     private void goToViewPosts(MouseEvent event) {
         Parent loader;
@@ -137,10 +135,30 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void showRESOURCES(MouseEvent event) {
+        System.out.println("tests");
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
                             "ressources/FXMLDocument.fxml"
+                    )
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @FXML
+    private void profile(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/simpalha/users/Profile.fxml"
                     )
             );
 

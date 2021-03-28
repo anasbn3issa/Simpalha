@@ -201,5 +201,9 @@ public class FXMLDocumentController implements Initializable {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @FXML
+    private void showRESOURCES(MouseEvent event) {
+    }
     
 }
