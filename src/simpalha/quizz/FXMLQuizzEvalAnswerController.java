@@ -5,6 +5,7 @@
  */
 package simpalha.quizz;
 
+import simpalha.quizz.FXMLQuestionEditController;
 import entities.Answer;
 import entities.Notification;
 import entities.QuizzStats;

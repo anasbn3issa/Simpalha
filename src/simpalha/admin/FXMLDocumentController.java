@@ -23,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.ServiceNotification;
+import simpalha.admin.quizz.FXMLAdminQuizzTableController;
 import simpalha.notification.FXMLNotificationController;
 import simpalha.quizz.FXMLQuizzController;
 import utils.UserSession;
@@ -179,14 +180,13 @@ public class FXMLDocumentController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-//                            "/simpalha/quizz/FXMLQuizzTaking.fxml"
-                            "/simpalha/quizz/FXMLQuizz.fxml"
+                            "/simpalha/admin/quizz/FXMLQuizzTable.fxml"
                     )
             );
             
             Parent root = loader.load();
             
-            FXMLQuizzController tableController = loader.getController();
+            FXMLAdminQuizzTableController tableController = loader.getController();
             
             tableController.initializeUserId(usr.getUserid());
 

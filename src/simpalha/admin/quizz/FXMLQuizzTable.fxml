@@ -15,18 +15,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="1280.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.quizz.FXMLQuizzTakingController">
+<BorderPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="1280.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.admin.quizz.FXMLAdminQuizzTableController">
        <top>
        <HBox style="-fx-background-color: white;" BorderPane.alignment="CENTER">
           <children>
-             <HBox alignment="CENTER" maxWidth="-Infinity" prefWidth="150.0" style="-fx-background-color: #0fbcf9;" styleClass="cursor_hand">
+             <HBox alignment="CENTER" maxWidth="-Infinity" prefWidth="150.0" style="-fx-background-color: #f94c0f;" styleClass="cursor_hand">
                 <padding>
                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                 </padding>
                 <children>
                    <ImageView fitHeight="120.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                       <image>
-                         <Image url="@../../assets/Simpalha.png" />
+                         <Image url="@../../../assets/Simpalha.png" />
                       </image>
                    </ImageView>
                 </children></HBox>
@@ -46,7 +46,7 @@
                         <FontAwesomeIcon fx:id="btNotificationShow" iconName="BELL_O" onMouseClicked="#notificationsShow" size="1.3em" styleClass="cursor_hand" />
                          <ImageView fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="cursor_hand">
                             <image>
-                               <Image url="@../../assets/bilel.jpg" />
+                               <Image url="@../../../assets/bilel.jpg" />
                             </image>
                             <HBox.margin>
                                <Insets left="20.0" right="20.0" />
@@ -72,7 +72,7 @@
     <left>
        <VBox prefWidth="150.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
           <children>
-             <HBox alignment="CENTER_LEFT" onMouseClicked="#showPost" styleClass="hover_border">
+             <HBox alignment="CENTER_LEFT" onMouseClicked="#showPosts" styleClass="hover_border">
                 <padding>
                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </padding>
@@ -204,30 +204,39 @@
     <center>
         <AnchorPane prefHeight="539.0" prefWidth="1130.0">
            <children>
-              <TableView fx:id="LAffiche" layoutX="75.0" layoutY="71.0" prefHeight="502.0" prefWidth="998.0">
+              <TableView fx:id="LAffiche" layoutX="38.0" layoutY="32.0" prefHeight="502.0" prefWidth="870.0">
                  <columns>
-                    <TableColumn fx:id="userNameColumn" prefWidth="50.0" text="Creator">
+                    <TableColumn fx:id="idColumn" prefWidth="40.0" text="ID">
                        <cellValueFactory>
-                          <PropertyValueFactory property="name" />
+                          <PropertyValueFactory property="id" />
                        </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="quizzColumn" prefWidth="728.0" text="Quizz">
+                    <TableColumn fx:id="quizzColumn" prefWidth="463.0" text="Quizz">
                        <cellValueFactory>
                           <PropertyValueFactory property="title" />
                        </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="subjectColumn" prefWidth="219.0" text="Subject">
+                    <TableColumn fx:id="subjectColumn" prefWidth="81.0" text="Subject">
                        <cellValueFactory>
                           <PropertyValueFactory property="subject" />
                        </cellValueFactory>
                     </TableColumn>
+                    <TableColumn fx:id="helperIdColumn" prefWidth="75.0" text="Helper ID">
+                       <cellValueFactory>
+                          <PropertyValueFactory property="helper" />
+                       </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="helperNameColumn" prefWidth="210.0" text="Helper Name">
+                       <cellValueFactory>
+                          <PropertyValueFactory property="name" />
+                       </cellValueFactory>
+                    </TableColumn>
                  </columns>
               </TableView>
-              <Button fx:id="btTakeQuizz" layoutX="408.0" layoutY="584.0" mnemonicParsing="false" onAction="#takeQuizz" prefHeight="25.0" prefWidth="315.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Take Quizz" />
-            <TextField fx:id="tfSearchQuizz" layoutX="74.0" layoutY="29.0" prefHeight="25.0" prefWidth="316.0" promptText="Search Quizz Title" />
-            <FontAwesomeIcon fx:id="btSearchQuizzBody" fill="#485460" iconName="SEARCH" layoutX="408.0" layoutY="47.0" onMouseClicked="#searchQuizzTitle" size="1.5em" styleClass="cursor_hand" />
-            <Button fx:id="btReloadQuizzes" layoutX="952.0" layoutY="28.0" mnemonicParsing="false" onAction="#reloadQuizzes" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Reload Quizzes" />
+              <Button layoutX="926.0" layoutY="168.0" mnemonicParsing="false" onAction="#addQuizz" prefHeight="25.0" prefWidth="168.0" style="-fx-background-color: #06BA63; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Add" />
+              <Button layoutX="926.0" layoutY="300.0" mnemonicParsing="false" onAction="#editQuizz" prefHeight="25.0" prefWidth="168.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Edit" />
+              <Button layoutX="926.0" layoutY="431.0" mnemonicParsing="false" onAction="#deleteQuizz" prefHeight="25.0" prefWidth="168.0" style="-fx-background-color: #E84855; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Delete" />
            </children>
         </AnchorPane>
-    </center>
+   </center>
 </BorderPane>

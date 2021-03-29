@@ -3,17 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simpalha.quizz;
+package simpalha.admin.quizz;
 
-import simpalha.quizz.FXMLQuestionEditController;
-import simpalha.quizz.FXMLQuestionAddController;
-import simpalha.quizz.FXMLQuestionTableController;
 import entities.Question;
-import entities.Quizz;
+import java.io.IOException;
 import services.ServiceQuestion;
-import services.ServiceQuizz;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,21 +19,25 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import simpalha.FXMLDocumentController;
 
 /**
  * FXML Controller class
  *
  * @author Parsath
  */
-public class FXMLQuizzEditController implements Initializable {
+public class FXMLAdminQuestionTableController implements Initializable {
 
     @FXML
     private TableView<Question> LAffiche;
@@ -47,14 +48,9 @@ public class FXMLQuizzEditController implements Initializable {
     @FXML
     private TableColumn<Question, Integer> idColumn;
     @FXML
-    private TextField tfTitle;
-    @FXML
-    private TextField tfSubject;
+    private Button addQuizzButton;
     
     private int addedQuizzId;
-    private Quizz q1;
-    @FXML
-    private Button addQuizzButton;
 
     /**
      * Initializes the controller class by loading the "Question" objects from the DB
@@ -66,53 +62,50 @@ public class FXMLQuizzEditController implements Initializable {
     
 //    Reusable function to reload the table
     public void reloadQuestionsList(int id){
-    
+        
         ServiceQuestion sq = new ServiceQuestion();
         
         try {
             LAffiche.setItems(sq.ObservableListQuestions(id));
         } catch (SQLException ex) {
-            Logger.getLogger(FXMLQuestionTableController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLAdminQuestionTableController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-//    Popup Modal for adding a question then reloads table
+//    Popup Modal for adding a question then reloads table (transmits informations to FXMLQuestionAdd through addInformation())
     @FXML
     private void addQuestion(ActionEvent event) throws Exception {
         
         Stage stage = new Stage();
         Parent root;
         
-        FXMLLoader addQuestionModal = new FXMLLoader(getClass().getResource("FXMLQuestionAdd.fxml"));
+        FXMLLoader addQuestionModal = new FXMLLoader(getClass().getResource("/simpalha/admin/quizz/FXMLQuestionAdd.fxml"));
         root = addQuestionModal.load();
         
         stage = (Stage) addQuizzButton.getScene().getWindow();
         
-        FXMLQuestionAddController addQuestionControllerModal = addQuestionModal.getController();
+        FXMLAdminQuestionAddController addQuestionControllerModal = addQuestionModal.getController();
         
         addQuestionControllerModal.addInformation(addedQuizzId);
 
         stage.setTitle("Add Question");
-            
         
-//        stage.initModality(Modality.WINDOW_MODAL);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.showAndWait();
         
-//        reloadQuestionsList(3);
         reloadQuestionsList(addedQuizzId);
     }
 
-//    Popup Modal for modifying a Question (reloads the table right after)
+//    Popup Modal for modifying a question (reloads the table right after) (transmits informations to FXMLQuestionAdd through showInformation())
     @FXML
     private void editQuestion(ActionEvent event) throws Exception {
         Question editable = LAffiche.getSelectionModel().getSelectedItem();
         
-        FXMLLoader modal = new FXMLLoader(getClass().getResource("FXMLQuestionEdit.fxml"));
+        FXMLLoader modal = new FXMLLoader(getClass().getResource("/simpalha/admin/quizz/FXMLQuestionEdit.fxml"));
         Parent root = modal.load();
         
-        FXMLQuestionEditController editModal = modal.getController();
+        FXMLAdminQuestionEditController editModal = modal.getController();
         
         editModal.showInformation(editable, addedQuizzId);
         
@@ -123,67 +116,51 @@ public class FXMLQuizzEditController implements Initializable {
         stage.setTitle("Edit Question");
         stage.showAndWait();
         
-//        reloadQuestionsList(3);
         reloadQuestionsList(addedQuizzId);
     }
 
-//    Deleting selected Questions and reloading the table
+//    Deleting selected items and reloading the table
     @FXML
     private void deleteQuestion(ActionEvent event) throws Exception {
-    
-        ServiceQuestion sq2 = new ServiceQuestion();
-        
-        ObservableList<Question> questionsSelected;
-        questionsSelected = LAffiche.getSelectionModel().getSelectedItems();
-        
-        questionsSelected.forEach(e -> {
-            sq2.Delete(e);
-        });
-        
-        
-        reloadQuestionsList(addedQuizzId);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Look, a Confirmation Dialog");
+        alert.setContentText("Are you ok with this?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            ServiceQuestion sq2 = new ServiceQuestion();
+
+            ObservableList<Question> questionsSelected;
+            questionsSelected = LAffiche.getSelectionModel().getSelectedItems();
+
+            questionsSelected.forEach(e -> {
+                sq2.Delete(e);
+            });
+
+            reloadQuestionsList(addedQuizzId);
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }
         
     }
 
-//    Updates the Quizz and closes the Modal
+//    Confirms and closes the windows
     @FXML
     private void addQuizz(ActionEvent event) {
-    
-        ServiceQuizz sq = new ServiceQuizz();
-        Quizz q = new Quizz();
-        
-        q.setSubject(tfSubject.getText());
-        q.setTitle(tfTitle.getText());
-        q.setId(q1.getId());
-        
-        sq.Update(q);
         
         Stage stage;
         Parent root;
         
         stage = (Stage) addQuizzButton.getScene().getWindow();
         stage.close();
-    }
-    
-//    Initializes "addedQuizzId"
-    public void addInformation(int id){
-        addedQuizzId = id;
-    }
-    
-//    Affiche les informations de l'objet transmit par "FXMLTableQuizzController" et enregistre l'Objet dans la variable q1
-    public void showInformation(Quizz q){
-        q1 = new Quizz();
-        q1.setTitle(q.getTitle());
-        q1.setId(q.getId());
-        q1.setSubject(q.getSubject());
-        q1.setHelper(q.getHelper());
         
-        addInformation(q1.getId());
-        
-        tfTitle.setText(q.getTitle());
-        tfSubject.setText(q.getSubject());
-        
-        reloadQuestionsList(addedQuizzId);
     }
 
+//    Initializes "addedQuizzId" and reloads the Questions table
+    public void addInformation(int id){
+        addedQuizzId = id;
+        reloadQuestionsList(addedQuizzId);
+    }
+    
 }
