@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simpalha.quizz;
+package simpalha.admin.quizz;
 
-import simpalha.quizz.FXMLQuestionTableController;
 import entities.Question;
 import java.io.IOException;
 import services.ServiceQuestion;
@@ -32,7 +31,7 @@ import simpalha.FXMLDocumentController;
  *
  * @author Parsath
  */
-public class FXMLQuestionAddController implements Initializable {
+public class FXMLAdminQuestionAddController implements Initializable {
     
     @FXML
     private TextField tfQuestion;
@@ -67,9 +66,9 @@ public class FXMLQuestionAddController implements Initializable {
         
         Parent root;
         
-        FXMLLoader addModal = new FXMLLoader(getClass().getResource("FXMLQuestionTable.fxml"));
+        FXMLLoader addModal = new FXMLLoader(getClass().getResource("/simpalha/admin/quizz/FXMLQuestionTable.fxml"));
         root = addModal.load();
-        FXMLQuestionTableController addQuizzModal = addModal.getController();
+        FXMLAdminQuestionTableController addQuizzModal = addModal.getController();
         addQuizzModal.addInformation(addedQuizzId);
         
         Scene scene = new Scene(root);

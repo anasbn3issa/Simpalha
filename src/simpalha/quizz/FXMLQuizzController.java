@@ -5,6 +5,7 @@
  */
 package simpalha.quizz;
 
+import simpalha.quizz.FXMLQuizzTableController;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.io.IOException;
 import java.net.URL;
