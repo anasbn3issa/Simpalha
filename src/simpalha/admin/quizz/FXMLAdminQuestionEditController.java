@@ -3,10 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simpalha.quizz;
+package simpalha.admin.quizz;
 
-import simpalha.quizz.FXMLQuestionEditController;
-import simpalha.quizz.FXMLAnswerEditController;
 import entities.Answer;
 import entities.Question;
 import services.ServiceAnswer;
@@ -43,7 +41,7 @@ import simpalha.FXMLDocumentController;
  *
  * @author Parsath
  */
-public class FXMLQuestionEditController implements Initializable {
+public class FXMLAdminQuestionEditController implements Initializable {
 
     private Button scene1;
     @FXML
@@ -79,7 +77,7 @@ public class FXMLQuestionEditController implements Initializable {
             tableAnswers.setItems(sa.ObservableListAnswers(this.q1));
             setChoiceBox(q1.getId());
         } catch (SQLException ex) {
-            Logger.getLogger(FXMLQuestionEditController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLAdminQuestionEditController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -190,10 +188,10 @@ public class FXMLQuestionEditController implements Initializable {
     private void modifierReponse(ActionEvent event) throws IOException {
         Answer editable = tableAnswers.getSelectionModel().getSelectedItem();
         
-        FXMLLoader modal = new FXMLLoader(getClass().getResource("FXMLAnswerEdit.fxml"));
+        FXMLLoader modal = new FXMLLoader(getClass().getResource("/simpalha/admin/quizz/FXMLAnswerEdit.fxml"));
         Parent root = modal.load();
         
-        FXMLAnswerEditController editModal = modal.getController();
+        FXMLAdminAnswerEditController editModal = modal.getController();
         
         editModal.showAnswer(editable,q1);
         

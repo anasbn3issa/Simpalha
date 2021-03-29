@@ -3,11 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simpalha.quizz;
+package simpalha.admin.quizz;
 
-import simpalha.quizz.FXMLQuizzEditController;
-import simpalha.quizz.FXMLQuizzTableController;
-import simpalha.quizz.FXMLQuizzAddController;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import entities.Quizz;
 import java.io.IOException;
@@ -43,7 +40,7 @@ import simpalha.notification.FXMLNotificationController;
  *
  * @author Parsath
  */
-public class FXMLQuizzTableController implements Initializable {
+public class FXMLAdminQuizzTableController implements Initializable {
 
     @FXML
     private TableView<Quizz> LAffiche;
@@ -54,7 +51,9 @@ public class FXMLQuizzTableController implements Initializable {
     @FXML
     private TableColumn<Quizz, String> subjectColumn;
     @FXML
-    private Button btShowGraph;
+    private TableColumn<Quizz, Integer> helperIdColumn;
+    @FXML
+    private TableColumn<Quizz, String> helperNameColumn;
     
     private int userId;
     @FXML
@@ -79,24 +78,24 @@ public class FXMLQuizzTableController implements Initializable {
         ServiceQuizz sq = new ServiceQuizz();
         
         try {
-            LAffiche.setItems(sq.ObservableListQuizzes(userId));
+            LAffiche.setItems(sq.ObservableListAllQuizzesWithUserName());
         } catch (SQLException ex) {
-            Logger.getLogger(FXMLQuizzTableController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLAdminQuizzTableController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-//    Opens the Quizz addition Modal (FXMLQuizzAddController)
+//    Opens the Quizz addition Modal (FXMLAdminQuizzAddController)
     @FXML
     private void addQuizz(ActionEvent event) throws Exception {
         
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
-                        "/simpalha/quizz/FXMLQuizzAdd.fxml"
+                        "/simpalha/admin/quizz/FXMLQuizzAdd.fxml"
                 )
         );
         Parent modal = loader.load();
         
-        FXMLQuizzAddController addController = loader.getController();
+        FXMLAdminQuizzAddController addController = loader.getController();
         
         addController.initializeUser(userId);
         
@@ -111,18 +110,17 @@ public class FXMLQuizzTableController implements Initializable {
         reloadQuizzesList();
     }
 
-//    Opens the Quizz editing Modal and transmits the id of the Quizz to FXMLQuizzEditController
+//    Opens the Quizz editing Modal and transmits the id of the Quizz to FXMLAdminQuizzEditController
     @FXML
     private void editQuizz(ActionEvent event) throws Exception {
         Quizz editable = LAffiche.getSelectionModel().getSelectedItem();
         
-//        à effacer une fois on intégre la Classe Helper
         editable.setHelper(userId);
         
-        FXMLLoader modal = new FXMLLoader(getClass().getResource("FXMLQuizzEdit.fxml"));
+        FXMLLoader modal = new FXMLLoader(getClass().getResource("/simpalha/admin/quizz/FXMLQuizzEdit.fxml"));
         Parent root = modal.load();
         
-        FXMLQuizzEditController editModal = modal.getController();
+        FXMLAdminQuizzEditController editModal = modal.getController();
         
         editModal.showInformation(editable);
         
@@ -164,33 +162,11 @@ public class FXMLQuizzTableController implements Initializable {
     }
 
     @FXML
-    private void showGraph(ActionEvent event) throws Exception {
-        Quizz editable = LAffiche.getSelectionModel().getSelectedItem();
-        int quizzId;
-        
-        quizzId = editable.getId();
-        
-        FXMLLoader modal = new FXMLLoader(getClass().getResource("FXMLQuizzResultGraph.fxml"));
-        Parent root = modal.load();
-        
-        FXMLQuizzResultGraphController editModal = modal.getController();
-        
-        editModal.showResults(quizzId, userId);
-        
-        Stage stage;
-        stage = (Stage) btShowGraph.getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Quizz");
-        stage.show();
-    }
-
-    @FXML
     private void showP2P(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-                            "/simpalha/P2P/P2PFXML.fxml"
+                            "/simpalha/admin/P2P/P2PFXML.fxml"
                     )
             );
 
@@ -201,31 +177,12 @@ public class FXMLQuizzTableController implements Initializable {
             stage.show();
         } 
         catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLAdminQuizzTableController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @FXML
     private void showQuizz(MouseEvent event) {
-    }
-
-    private void showDashboard(MouseEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(
-                            "/simpalha/FXMLDocument.fxml"
-                    )
-            );
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
-            stage.setScene(
-                    new Scene(loader.load())
-            );
-            stage.show();
-        } 
-        catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     @FXML
@@ -253,7 +210,7 @@ public class FXMLQuizzTableController implements Initializable {
     private void showPosts(MouseEvent event) {
         Parent loader;
         try {
-            loader = FXMLLoader.load(getClass().getResource("/simpalha/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/admin/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
 
             Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
 

@@ -3,11 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simpalha.quizz;
+package simpalha.admin.quizz;
 
-import simpalha.quizz.FXMLQuestionEditController;
-import simpalha.quizz.FXMLQuestionAddController;
-import simpalha.quizz.FXMLQuestionTableController;
 import entities.Question;
 import entities.Quizz;
 import services.ServiceQuestion;
@@ -36,7 +33,7 @@ import javafx.stage.Stage;
  *
  * @author Parsath
  */
-public class FXMLQuizzEditController implements Initializable {
+public class FXMLAdminQuizzEditController implements Initializable {
 
     @FXML
     private TableView<Question> LAffiche;
@@ -72,7 +69,7 @@ public class FXMLQuizzEditController implements Initializable {
         try {
             LAffiche.setItems(sq.ObservableListQuestions(id));
         } catch (SQLException ex) {
-            Logger.getLogger(FXMLQuestionTableController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLAdminQuestionTableController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -83,12 +80,12 @@ public class FXMLQuizzEditController implements Initializable {
         Stage stage = new Stage();
         Parent root;
         
-        FXMLLoader addQuestionModal = new FXMLLoader(getClass().getResource("FXMLQuestionAdd.fxml"));
+        FXMLLoader addQuestionModal = new FXMLLoader(getClass().getResource("/simpalha/admin/quizz/FXMLQuestionAdd.fxml"));
         root = addQuestionModal.load();
         
         stage = (Stage) addQuizzButton.getScene().getWindow();
         
-        FXMLQuestionAddController addQuestionControllerModal = addQuestionModal.getController();
+        FXMLAdminQuestionAddController addQuestionControllerModal = addQuestionModal.getController();
         
         addQuestionControllerModal.addInformation(addedQuizzId);
 
@@ -109,10 +106,10 @@ public class FXMLQuizzEditController implements Initializable {
     private void editQuestion(ActionEvent event) throws Exception {
         Question editable = LAffiche.getSelectionModel().getSelectedItem();
         
-        FXMLLoader modal = new FXMLLoader(getClass().getResource("FXMLQuestionEdit.fxml"));
+        FXMLLoader modal = new FXMLLoader(getClass().getResource("/simpalha/admin/quizz/FXMLQuestionEdit.fxml"));
         Parent root = modal.load();
         
-        FXMLQuestionEditController editModal = modal.getController();
+        FXMLAdminQuestionEditController editModal = modal.getController();
         
         editModal.showInformation(editable, addedQuizzId);
         

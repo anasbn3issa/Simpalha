@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simpalha.quizz;
+package simpalha.admin.quizz;
 
-import simpalha.quizz.FXMLQuestionTableController;
 import entities.Quizz;
 import services.ServiceQuizz;
 import java.net.URL;
@@ -25,7 +24,7 @@ import javafx.stage.Stage;
  *
  * @author Parsath
  */
-public class FXMLQuizzAddController implements Initializable {
+public class FXMLAdminQuizzAddController implements Initializable {
 
     @FXML
     private TextField tfTitle;
@@ -47,7 +46,7 @@ public class FXMLQuizzAddController implements Initializable {
         userId = uId;
     }
 
-//    Creates a "Quizz" object, adds it to the DB and transmits its' id to the FXMLQuestionTableController so the user can create Questions to the newly created Quizz
+//    Creates a "Quizz" object, adds it to the DB and transmits its' id to the FXMLAdminQuestionTableController so the user can create Questions to the newly created Quizz
     @FXML
     private void addQuizz(ActionEvent event) throws Exception {
     
@@ -65,9 +64,9 @@ public class FXMLQuizzAddController implements Initializable {
         
         Parent root;
         
-        FXMLLoader addModal = new FXMLLoader(getClass().getResource("FXMLQuestionTable.fxml"));
+        FXMLLoader addModal = new FXMLLoader(getClass().getResource("/simpalha/admin/quizz/FXMLQuestionTable.fxml"));
         root = addModal.load();
-        FXMLQuestionTableController addQuizzModal = addModal.getController();
+        FXMLAdminQuestionTableController addQuizzModal = addModal.getController();
         addQuizzModal.addInformation(sq.LastAddedQuizzId());
         
         Scene scene = new Scene(root);
