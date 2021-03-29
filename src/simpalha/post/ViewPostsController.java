@@ -68,7 +68,7 @@ public class ViewPostsController implements Initializable {
     Text postOwnerName;
     Text problemText, moduleText, timestampText;
     Text timestampLabel, problemLabel, moduleLabel;
-    Hyperlink b;
+    Hyperlink b,viewPhotoHyperlink;
     private int userId;
     ServiceUsers serviceUsers;
     ServicePost servicePost;
@@ -87,6 +87,8 @@ public class ViewPostsController implements Initializable {
     private VBox adVbox;
     @FXML
     private Hyperlink exportExcelHyperlink;
+    
+    String dir;
 
     /**
      * Initializes the controller class.
@@ -95,6 +97,7 @@ public class ViewPostsController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
 
+            dir = System.getProperty("user.dir");//get project source path
             userSession = UserSession.getInstace(0);
             userId = userSession.getUserid();
             
@@ -217,8 +220,8 @@ public class ViewPostsController implements Initializable {
             Button btnDelete = null;
             Button btnModify = null;
             if (p.getOwnerId() == userId) {
-                btnDelete = new Button("Delete");
-                btnModify = new Button("Modify");
+                btnDelete = createGraphicButton(dir + "\\src\\simpalha\\post\\img\\deleteImg.png");
+                btnModify = createGraphicButton(dir + "\\src\\simpalha\\post\\img\\modifyImg.png");
                 hboxButtons.getChildren().addAll(btnDelete, btnModify);
 
                 btnDelete.setOnAction(new EventHandler<ActionEvent>() {
@@ -264,7 +267,7 @@ public class ViewPostsController implements Initializable {
                 });
 
             }
-            Button btnAddComment = new Button("View Post");
+            Button btnAddComment = createGraphicButton(dir + "\\src\\simpalha\\post\\img\\showImg.png");
             hboxButtons.getChildren().add(btnAddComment);
 
             // if problem is solved : 
@@ -380,12 +383,27 @@ public class ViewPostsController implements Initializable {
         return h;
     }
 
+    public Node c(String path) throws FileNotFoundException{
+        FileInputStream post= new FileInputStream(path);
+        Image u = new Image(post);
+        ImageView i = new ImageView(u);
+        return i;
+    }
+    
+    public Button createGraphicButton(String path) throws FileNotFoundException{
+        FileInputStream fi= new FileInputStream(path);
+        Button b= new Button();
+       Image u = new Image(fi);
+        ImageView i = new ImageView(u);
+        b.setGraphic(i);
+        return b;
+    }
+    
     public Node createCard() throws FileNotFoundException {
         String dir = System.getProperty("user.dir");//get project source path
         FileInputStream inputPhoto = new FileInputStream(dir+"\\src\\simpalha\\post\\img\\solved.png");
         Image u = new Image(inputPhoto);
         ImageView i = new ImageView(u);
-
         return i;
     }
 
@@ -396,7 +414,6 @@ public class ViewPostsController implements Initializable {
         rotator.setToAngle(360);
         rotator.setInterpolator(Interpolator.LINEAR);
         rotator.setCycleCount(10);
-
         return rotator;
     }
 
@@ -405,12 +422,14 @@ public class ViewPostsController implements Initializable {
         try {
 
             Connection cnx = Maconnexion.getInstance().getConnection();
-            PreparedStatement pst;
+            PreparedStatement pst ;
             ResultSet rs;
 
             String query = "Select * from post";
             pst = cnx.prepareStatement(query);
             rs = pst.executeQuery();
+            
+            
             //Variable counter for keeping track of number of rows inserted.  
             int counter = 1;
             FileOutputStream fileOut = null;
@@ -427,6 +446,8 @@ public class ViewPostsController implements Initializable {
 
             while (rs.next()) {
                 //Insertion in corresponding row  
+               
+            
                 HSSFRow row = sheet.createRow((int) counter);
 
                 row.createCell((short) 1).setCellValue(rs.getInt("timestamp"));

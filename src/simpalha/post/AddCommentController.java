@@ -7,7 +7,6 @@ package simpalha.post;
 
 import com.darkprograms.speech.translator.GoogleTranslate;
 import static com.darkprograms.speech.translator.GoogleTranslate.detectLanguage;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import entities.Comment;
 import entities.Post;
 import entities.Users;
@@ -56,6 +55,10 @@ import services.ServiceUsers;
 import utils.UserSession;
 import entities.UpvoteComment;
 import entities.DownvoteComment;
+import java.io.FileOutputStream;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 public class AddCommentController implements Initializable {
 
@@ -90,11 +93,19 @@ public class AddCommentController implements Initializable {
     UserSession userSession;
     Users currentUser;
     Post thisPost;
+    Comment solutionForThisPost;
     @FXML
     private Text currentUserNameLabel;
-    @FXML
-    private HBox emptyhbox;
     String dir;
+    //private ImageView postImageView;
+    @FXML
+    private ImageView imagePost;
+    @FXML
+    private Hyperlink exportToExcel;
+    @FXML
+    private HBox imageHbox;
+    
+    
 
     /**
      * Initializes the controller class.
@@ -109,15 +120,90 @@ public class AddCommentController implements Initializable {
             c = new Comment();
             serviceComment = new ServiceComment();
             servicePost = new ServicePost();
-            serviceUsers=new ServiceUsers();
+            serviceUsers = new ServiceUsers();
             serviceUpvoteComment = new ServiceUpvoteComment();
             serviceDownvoteComment = new ServiceDownvoteComment();
             userSession = UserSession.getInstace(0);
             userId = userSession.getUserid();
-            currentUser= serviceUsers.findById(userId);
+            currentUser = serviceUsers.findById(userId);
             thisPost = servicePost.findById(idPost);
-            // we need to add a textfield for user to type a proposed solution to the post 
+            solutionForThisPost = serviceComment.findById(thisPost.getSolution_id());
+
             commentsForThisPost = servicePost.findAllCommentsForThisPost(idPost);
+            String postImagePath = dir + "\\ressources\\" + thisPost.getImageName();
+            System.out.println(postImagePath);
+            try {
+                createImageView(postImagePath);
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if (thisPost.getSolution_id() != -1 && thisPost.getSolution_id() != 0) {
+                exportToExcel.setVisible(true);
+                exportToExcel.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        int counter = 1;
+                        FileOutputStream fileOut = null;
+
+                        //Creation of New Work Book in Excel and sheet.  
+                        HSSFWorkbook hwb = new HSSFWorkbook();
+                        HSSFSheet sheet = hwb.createSheet("new sheet");
+                        //Creating Headings in Excel sheet.  
+                        HSSFRow rowhead = sheet.createRow((short) 0);
+                        rowhead.createCell((short) 1).setCellValue("problem");//Row Name1  
+                        rowhead.createCell((short) 2).setCellValue("module");//Row Name3  
+                        rowhead.createCell((short) 3).setCellValue("solution");//Row Name4
+                        rowhead.createCell((short) 4).setCellValue("upvotes");//Row Name5
+
+                        HSSFRow row = sheet.createRow((int) counter);
+                        System.out.println(thisPost.getSolution_id() + "<--sol id");
+                        
+                        System.out.println("solution :" + solutionForThisPost.toString());
+
+                        row.createCell((short) 1).setCellValue(thisPost.getProblem());
+                        row.createCell((short) 2).setCellValue(thisPost.getModule());
+                        row.createCell((short) 3).setCellValue(solutionForThisPost.getSolution());
+                        row.createCell((short) 4).setCellValue(solutionForThisPost.getUpvotes());
+
+                        sheet.autoSizeColumn(1);
+                        sheet.autoSizeColumn(2);
+                        sheet.setColumnWidth(3, 256 * 25);
+
+                        sheet.setZoom(150);
+                        sheet.autoSizeColumn(1);
+                        sheet.autoSizeColumn(2);
+                        sheet.setColumnWidth(3, 256 * 25);
+
+                        sheet.setZoom(150);
+
+                        counter++;
+                        try {
+                            //For performing write to Excel file  
+                            fileOut = new FileOutputStream("SolvedProblem.xls");
+                            hwb.write(fileOut);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            fileOut.close();
+                        } catch (IOException ex) {
+                            Logger.getLogger(AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("file created");
+                        alert.setHeaderText(null);
+                        alert.setContentText("problem solved have been exported in Excel Sheet.");
+                        alert.showAndWait();
+
+                    }
+                });
+
+            } else {
+                exportToExcel.setVisible(false);
+            }
 
             try {
                 displayThisList(commentsForThisPost, serviceComment);
@@ -140,6 +226,7 @@ public class AddCommentController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     c.setSolution(proposedSolution.getText());
+                    c.setOwnerId(userId);
                     c.setId_Post(idPost);
                     serviceComment.Create(c);
                     proposedSolution.setText("");
@@ -180,6 +267,7 @@ public class AddCommentController implements Initializable {
         }
     }
 
+    @FXML
     private void AddNewPost(ActionEvent event) { // BUTTON PUSHED
         Parent loader;
         try {
@@ -196,6 +284,7 @@ public class AddCommentController implements Initializable {
         }
     }
 
+    @FXML
     private void CancelButtonPushed(ActionEvent event) {
         Parent loader;
         try {
@@ -257,11 +346,15 @@ public class AddCommentController implements Initializable {
 
         for (Comment parcours : commentsForThisPost) {
             b = new Hyperlink();
-            Users commentOwnerEnPersonne = serviceUsers.findById(parcours.getOwnerId());
+            Users commentOwnerEnPersonne = new Users();
+            commentOwnerEnPersonne = serviceUsers.findById(parcours.getOwnerId());
+
+            //System.out.println("comment Owner ---"+commentOwnerEnPersonne.toString());
             HBox commentContainer = new HBox();
 
-            commentOwnerName = new Text();
-            commentOwnerName.setText(commentOwnerEnPersonne.getUsername());
+            commentOwnerName = new Text(commentOwnerEnPersonne.getUsername());
+            //System.out.println("ownername : ---"+commentOwnerEnPersonne.getUsername());
+            //commentOwnerName.setText(commentOwnerEnPersonne.getUsername());
             commentOwnerName.setStyle("-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%);\n" + " -fx-stroke: black;\n" + " -fx-stroke-width: 1;");
 
             commentLabel = new Text("Proposed Solution : ");
@@ -269,7 +362,6 @@ public class AddCommentController implements Initializable {
             TimestampText = new Text(String.valueOf(parcours.getTimestamp()));
 
             // Partie 3.1 : initialize upvote AND downvote buttons 
-            
             FileInputStream inputUpvoteImage = null;
             FileInputStream inputDownvoteImage = null;
             try {
@@ -458,9 +550,11 @@ public class AddCommentController implements Initializable {
 
             HBox hboxButtons = new HBox();
             Button markAsSolutionButton = null;
+            Button deleteComment = null;
             // if (userId == p.getOwnerId())   mbaad nwali n'affichi l bouton hetha ken lel PostOwner.
             if (userId == thisPost.getOwnerId() && thisPost.getSolution_id() == -1) {
-                markAsSolutionButton = new Button("Mark as solution");
+                // markAsSolutionButton = new Button("Mark as solution");
+                markAsSolutionButton = createGraphicButton(dir + "\\src\\simpalha\\post\\img\\greenTick.png");
                 hboxButtons.getChildren().add(markAsSolutionButton);
 
                 markAsSolutionButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -493,6 +587,28 @@ public class AddCommentController implements Initializable {
                 });
             }
 
+            Alert alertDeletepushed = new Alert(Alert.AlertType.CONFIRMATION);
+            if (parcours.getOwnerId() == userId) {
+                deleteComment = createGraphicButton(dir + "\\src\\simpalha\\post\\img\\deleteImg.png");
+                hboxButtons.getChildren().add(deleteComment);
+                deleteComment.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        alertDeletepushed.setContentText("Are you sure you want to delete this Post?");
+                        alertDeletepushed.showAndWait().ifPresent(response -> {
+                            if (response == ButtonType.OK) {
+                                serviceComment.Delete(parcours);
+                                problemInfoContainer.getChildren().remove(commentContainer);
+
+                            } else {
+                                System.out.println("delete aborted.");
+                            }
+                        });
+                    }
+                });
+
+            }
+
             if (thisPost.getSolution_id() == parcours.getId()) {
                 HBox animationSolved = new HBox();
                 animationSolved.setPrefHeight(40);
@@ -509,6 +625,7 @@ public class AddCommentController implements Initializable {
             commentContainer.setStyle("-fx-border-color: black;");
             problemInfoContainer.getChildren().addAll(commentContainer);
             problemInfoContainer.setMargin(commentContainer, new Insets(6, 6, 6, 6));
+
             commentContainer.setSpacing(15);
             commentContainer.setStyle("-fx-background-color: white;"); // mela bsh nkhaliwha maghir style ?? 
             commentContainer.setStyle("-fx-border-color: black;");
@@ -559,6 +676,21 @@ public class AddCommentController implements Initializable {
         RotateTransition rotator = createRotator(h);
         rotator.play();
         return h;
+    }
+
+    public void createImageView(String path) throws FileNotFoundException {
+        FileInputStream post = new FileInputStream(path);
+        Image u = new Image(post);
+        imagePost.setImage(u);
+    }
+
+    public Button createGraphicButton(String path) throws FileNotFoundException {
+        FileInputStream fi = new FileInputStream(path);
+        Button b = new Button();
+        Image u = new Image(fi);
+        ImageView i = new ImageView(u);
+        b.setGraphic(i);
+        return b;
     }
 
     public Node createCard() throws FileNotFoundException {

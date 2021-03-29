@@ -6,6 +6,7 @@
 package services;
 
 import entities.Comment;
+import entities.Post;
 import interfaces.IServiceComment;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -100,7 +101,30 @@ public class ServiceComment implements IServiceComment {
 
     @Override
     public Comment findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("you just entered Service Comment findbyId");
+        System.out.println("your id : "+id);
+        String query = "select * from comment where id=?";
+        Comment p = null;
+        try {
+            pst = cnx.prepareStatement(query);
+            pst.setInt(1, id);
+            rs = pst.executeQuery();
+            System.out.println("entering while rs.next");
+            while (rs.next()) {
+                 p = new Comment();
+                 System.out.println("---"+rs.getInt("id")+rs.getInt("owner_id")+rs.getString("solution")+"---");
+                 p.setId(rs.getInt("id"));
+                p.setTimestamp(rs.getTimestamp("timestamp"));
+                p.setOwnerId(rs.getInt("owner_id"));
+                p.setUpvotes(rs.getInt("upvotes"));
+                p.setDownvotes(rs.getInt("downvotes"));
+                p.setSolution(rs.getString("solution"));
+                p.setId_Post(rs.getInt("id_Post"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServicePost.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return p;
     }
 
     @Override

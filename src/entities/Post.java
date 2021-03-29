@@ -27,6 +27,8 @@ public class Post {
     private String imageName;
 
     public Post() {
+        if (status==null)
+            status="OPEN";
     }
 
     public Post(String problem, String module) {
