@@ -5,6 +5,7 @@
  */
 package simpalha.quizz;
 
+import simpalha.quizz.FXMLQuestionTableController;
 import entities.Notification;
 import entities.QuizzResult;
 import entities.QuizzStats;
@@ -219,8 +220,8 @@ public class FXMLQuizzEvalController implements Initializable {
                 
                 ServiceQuizz sq = new ServiceQuizz();
                 ServiceUsers su = new ServiceUsers();
-                Users u = new Users();
-                Quizz quizz = new Quizz();
+                Users u;
+                Quizz quizz;
                 
                 u = su.findById(userId);
                 quizz = sq.findById(addedQuizzId);
@@ -228,11 +229,9 @@ public class FXMLQuizzEvalController implements Initializable {
                 isResultShown = true;
                 
                 notif.setTitle("Quizz Result");
-                notif.setContent("The Student "+u.getUsername()+" has received a mark of "+average+"/20 in the Quizz \""+quizz.getTitle()+".");
+                notif.setContent("The Student "+u.getUsername()+" has received a mark of "+average+"/20 in the Quizz \" "+quizz.getTitle()+" \".");
                 notif.setRead(false);
                 notif.setSent(false);
-//                System.out.println(notif);
-//                System.out.println(userId);
                 
                 serviceNotif.createNotification(notif);
                 

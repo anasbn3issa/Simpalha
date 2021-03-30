@@ -5,6 +5,9 @@
  */
 package simpalha.quizz;
 
+import simpalha.quizz.FXMLQuestionEditController;
+import simpalha.quizz.FXMLQuestionAddController;
+import simpalha.quizz.FXMLQuestionTableController;
 import entities.Question;
 import entities.Quizz;
 import services.ServiceQuestion;

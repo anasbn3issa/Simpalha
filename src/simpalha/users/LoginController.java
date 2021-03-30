@@ -71,16 +71,18 @@ public class LoginController implements Initializable {
             ServiceUsers us = new ServiceUsers();
            
             Users u = new Users(tfpassword.getText(), tfusername.getText());
-            System.out.println(u);
             if (us.check(u))
             {
-                System.out.println(u.getId()); 
+                int id = us.geIdbyUsername(u.getUsername());
              UserSession usr=
-                UserSession.getInstace(us.geIdbyUsername(u.getUsername()));
-                System.out.println(usr);
+                UserSession.getInstace(id);
+                u = us.findById(id);
+                System.out.println(u);
+                String path = "simpalha/FXMLDocument.fxml";
+                if(u.getRole()==1) path = "simpalha/admin/FXMLDocument.fxml";
                  try {
             Parent loader;
-               loader = FXMLLoader.load(getClass().getClassLoader().getResource("simpalha/FXMLDocument.fxml"));
+               loader = FXMLLoader.load(getClass().getClassLoader().getResource(path));
                      //Creates a Parent called loader and assign it as ScReen2.FXML
 
             Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"

@@ -46,7 +46,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -189,13 +191,20 @@ public class P2PFXMLController implements Initializable {
                             setText(null);
                         } else {
                             delete.setOnAction(event -> {
-                                Meet meet = getTableView().getItems().get(getIndex());
-                                Disponibilite dispo = serviceDisp.findByTime(meet.getTime());
-                                dispo.setEtat(0);
-                                serviceDisp.Update(dispo);
-                                service.Delete(meet);
-                                dataList.clear();
-                                dataList.addAll(service.Read());
+                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", 
+                                        ButtonType.YES, ButtonType.NO);
+                                alert.showAndWait();
+
+                                if (alert.getResult() == ButtonType.YES) {
+                                    Meet meet = getTableView().getItems().get(getIndex());
+                                    Disponibilite dispo = serviceDisp.findByTime(meet.getTime());
+                                    dispo.setEtat(0);
+                                    serviceDisp.Update(dispo);
+                                    service.Delete(meet);
+                                    dataList.clear();
+                                    dataList.addAll(service.Read());
+                                }
+
                             });
 
                             setGraphic(delete);
@@ -324,7 +333,7 @@ public class P2PFXMLController implements Initializable {
                                     end.addActionListener(new ActionListener() {
                                         @Override
                                         public void actionPerformed(java.awt.event.ActionEvent ae) {
-                                            
+
                                             engine.close();
                                             frame.dispose();
                                         }

@@ -5,6 +5,7 @@
  */
 package simpalha.quizz;
 
+import simpalha.quizz.FXMLQuestionTableController;
 import entities.Quizz;
 import services.ServiceQuizz;
 import java.net.URL;

@@ -22,9 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.ServiceNotification;
@@ -42,24 +40,6 @@ public class FXMLDocumentController implements Initializable {
     private UserSession usr;
     @FXML
     private FontAwesomeIcon btNotificationShow;
-    @FXML
-    private Button confirmer;
-    @FXML
-    private TextField Idreportee;
-    @FXML
-    private TextField Idreported;
-    @FXML
-    private DatePicker dateRec;
-    @FXML
-    private DatePicker dateResolution;
-    @FXML
-    private TextArea des;
-    @FXML
-    private Button upload;
-    @FXML
-    private ToggleButton Record;
-    @FXML
-    private Button annuler;
     
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
@@ -81,8 +61,6 @@ public class FXMLDocumentController implements Initializable {
         t.setDaemon(true);
         t.start();
     }
-
-    
 
     @FXML
     private void goToViewPosts(MouseEvent event) {
@@ -156,6 +134,26 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    @FXML
+    private void showRESOURCES(MouseEvent event) {
+        System.out.println("tests");
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "ressources/FXMLDocument.fxml"
+                    )
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     @FXML
     private void profile(MouseEvent event) {
         try {
