@@ -4,7 +4,6 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
@@ -14,9 +13,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="920.0" prefWidth="1280.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.post.ViewPostsController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="920.0" prefWidth="1280.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.admin.post.AddCommentController">
    <top>
       <HBox style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
@@ -82,7 +82,7 @@
                </VBox.margin>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="CIRCLE_ALT_NOTCH" size="1.5em" />
-                  <Text onDragDetected="#goToViewPosts" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Posts">
+                  <Text onMouseClicked="#goToViewPosts" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Posts">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -213,17 +213,21 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
                <children>
-                  <HBox prefHeight="68.0" prefWidth="52.0" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="Posts List" />
+                  <Button mnemonicParsing="false" onAction="#CancelButtonPushed" prefHeight="30.0" prefWidth="104.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="&lt;- Go Back">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="Post Details" textAlignment="CENTER" wrappingWidth="171.1498031616211">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
                   <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                      <children>
-                        <Hyperlink fx:id="exportExcelHyperlink" onAction="#ExportExcelButtonPushed" text="Export posts list" />
-                        <HBox alignment="CENTER">
-                           <children>
-                              <ComboBox fx:id="comboSearch" prefWidth="150.0" />
-                           </children>
-                        </HBox>
-                        <Button mnemonicParsing="false" onAction="#AddNewPost" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Create new Post">
+                        <Hyperlink fx:id="exportToExcel" text="Export Problem and Solution" />
+                        <HBox alignment="CENTER" />
+                        <Button mnemonicParsing="false" onAction="#AddNewPost" prefHeight="32.0" prefWidth="169.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Create new Post">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -235,21 +239,26 @@
                   </HBox>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="504.0" prefWidth="1090.0">
                <children>
-                  <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                  <VBox alignment="CENTER" prefHeight="487.0" prefWidth="1050.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
                      <children>
-                        <HBox fx:id="firstHboxInPage" alignment="CENTER" layoutX="20.0" layoutY="20.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
+                        <VBox fx:id="vboxPost2" prefHeight="200.0" prefWidth="100.0" />
+                        <HBox alignment="CENTER" prefHeight="378.0" prefWidth="1030.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="22 Febuary 2020" />
-                           </children>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </HBox>
+                              <HBox prefHeight="311.0" prefWidth="569.0">
+                                 <children>
+                                    <VBox fx:id="problemInfoContainer" prefHeight="100.0" prefWidth="860.0" />
+                                 </children>
+                              </HBox>
+                              <VBox prefHeight="311.0" prefWidth="341.0">
+                                 <children>
+                                    <HBox prefHeight="86.0" prefWidth="100.0" />
+                                    <ImageView fx:id="imagePost" fitHeight="225.0" fitWidth="329.0" pickOnBounds="true" preserveRatio="true" />
+                                    <HBox fx:id="imageHbox" prefHeight="120.0" prefWidth="256.0" />
+                                 </children>
+                              </VBox>
+                           </children></HBox>
                      </children>
                      <HBox.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -271,18 +280,6 @@
                   </VBox>
                </children>
             </HBox>
-            <VBox fx:id="PostsContainer1" prefHeight="376.0" prefWidth="1090.0">
-               <children>
-                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="149.0" prefWidth="1090.0">
-                     <children>
-                        <HBox prefHeight="206.0" prefWidth="172.0">
-                           <children>
-                              <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="63.0" />
-                           </children></HBox>
-                        <VBox fx:id="PostsContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="149.0" prefWidth="920.0" />
-                     </children>
-                  </HBox>
-               </children></VBox>
          </children>
       </VBox>
    </center>

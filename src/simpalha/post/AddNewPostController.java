@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import javafx.application.Platform;
@@ -26,6 +28,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
@@ -40,7 +43,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.stage.FileChooser;
 import utils.UserSession;
 import services.ServiceUsers;
-
+import simpalha.post.BadWordsDetector;
 /**
  * FXML Controller class
  *
@@ -64,7 +67,8 @@ public class AddNewPostController implements Initializable {
     ServicePost servicePost;
     ServiceUsers serviceUsers;
     Users currentUser;
-    
+    List<String> modules;
+    BadWordsDetector xx;
 
     /**
      * Initializes the controller class.
@@ -77,11 +81,13 @@ public class AddNewPostController implements Initializable {
             userSession=UserSession.getInstace(0);
             userId=userSession.getUserid();
             currentUser=serviceUsers.findById(userId);
-            
+            modules=servicePost.ReadModules();            
             currentUserNameLabel.setText(currentUser.getUsername());
+            xx= new BadWordsDetector();
             
+            xx.loadConfigs();
             comboModule.getItems().removeAll(comboModule.getItems());
-            comboModule.getItems().addAll("IP Essentials", "Mathématique de base 1", "Mathématique de base 2", "Génie Logiciel"); // mba3d nrodou marbout b classe specialité .
+            comboModule.getItems().addAll(modules);
             Text moduleLabel = new Text("Module");
 
             buttonFile1.setOnAction(new EventHandler<ActionEvent>() {
@@ -108,28 +114,22 @@ public class AddNewPostController implements Initializable {
 
     }
 
-    @FXML
-    private void goToViewPosts(MouseEvent event) {
-
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(
-                            "ViewPosts.fxml"
-                    )
-            );
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
-            stage.setScene(
-                    new Scene(loader.load())
-            );
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(AddNewPostController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 
     @FXML
     private void AddNewPost(ActionEvent event) {
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("AddNewPost.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
     }
 
     private void copy(File from) {
@@ -177,10 +177,28 @@ public class AddNewPostController implements Initializable {
         String s1 = textProblem.getText();
         String s2 = comboModule.getValue();
 
+//        if(s1.contains("3asba"))
+//            System.out.println("feha 3asba --------");
+        ArrayList<String> badwordsInProblem =new ArrayList<>();
+        badwordsInProblem=xx.badWordsFound(s1);
+        System.out.println("-------------bad words : "+badwordsInProblem.toString()+"-------------");
+
+        if(badwordsInProblem.isEmpty())
+            System.out.println("no bad words found");
+        else System.out.println("bad words found--");
+
+        
         //System.out.println("this is s3 empty normalement "+s3);
         if (s1.trim().equals("") || s2.isEmpty()) {
             Alert a = new Alert(Alert.AlertType.ERROR, "you need to fill all fields", ButtonType.OK);
-        } else {
+            a.show();
+        } else if (!badwordsInProblem.isEmpty()) 
+        {
+            Alert a = new Alert(Alert.AlertType.ERROR, "watch your language young man!", ButtonType.OK);
+            a.show();
+        }
+
+        else {
             if (selectedFile != null) {
                 String s3 = selectedFile.getName();
                 p = new Post(s1, s2, s3);
@@ -215,6 +233,22 @@ public class AddNewPostController implements Initializable {
 
     @FXML
     private void goToViewPosts(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "ViewPosts.fxml"
+                    )
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(AddNewPostController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
+    
 }

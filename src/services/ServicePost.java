@@ -99,6 +99,22 @@ public class ServicePost implements IServicePost {
 
     }
 
+    public List<String> ReadModules(){
+        List<String> list = new ArrayList<>();
+        String req = "select * from module";
+        try {
+            ste = cnx.createStatement();
+            rs = ste.executeQuery(req);
+            while (rs.next()) {
+                list.add(rs.getString("name"));
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+    
     @Override
     public void Delete(Post variable) {
         try {
@@ -107,7 +123,7 @@ public class ServicePost implements IServicePost {
             PreparedStatement pst = cnx.prepareStatement(requete);
             pst.setInt(1, variable.getId());
             pst.executeUpdate();
-            int ss = pst.executeUpdate(); 
+            pst.executeUpdate(); 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -189,7 +205,7 @@ public class ServicePost implements IServicePost {
                 c.setStatus(rs.getString("status"));
                 c.setModule(rs.getString("module"));
                 c.setImageName(rs.getString("image_name"));
-                System.out.println("b"+c.toString());
+                c.setOwnerId(rs.getInt("owner_id"));
                 posts.add(c);
             }
         } catch (SQLException ex) {

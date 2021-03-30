@@ -52,7 +52,7 @@ public class ServiceComment implements IServiceComment {
     @Override
     public List<Comment> Read() {
         List<Comment> list = new ArrayList<>();
-        String req = "select * from comment";
+        String req = "select * from comment ORDER BY upvotes ASC";
         try {
             ste = cnx.createStatement();
             rs = ste.executeQuery(req);

@@ -13,9 +13,7 @@ import java.sql.Timestamp;
  */
 
 
-enum Module {
-    MATHEMATIQUE_DE_BASE_1, MATHEMATIQUE_DE_BASE_2, IP_ESSENTIALS, TECHNIQUE_DESTIMATION_POUR_LINGENIEUR
-}
+
 
 public class Post {
 

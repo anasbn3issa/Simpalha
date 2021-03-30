@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simpalha.post;
+package simpalha.admin.post;
 
 import com.darkprograms.speech.translator.GoogleTranslate;
 import static com.darkprograms.speech.translator.GoogleTranslate.detectLanguage;
 import entities.Post;
+import entities.Users;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -23,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -30,7 +32,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -42,20 +43,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import services.ServicePost;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import services.ServicePost;
+import services.ServiceUsers;
+import simpalha.admin.post.AddCommentController;
 import utils.Maconnexion;
 import utils.UserSession;
-import services.ServiceUsers;
-import entities.Users;
-import javafx.application.Platform;
-import javafx.scene.control.TextArea;
 
 /**
  * FXML Controller class
@@ -65,61 +64,59 @@ import javafx.scene.control.TextArea;
 public class ViewPostsController implements Initializable {
 
     @FXML
+    private Text currentUserNameLabel;
+    @FXML
+    private Hyperlink exportExcelHyperlink;
+    @FXML
+    private ComboBox<String> comboSearch;
+    @FXML
+    private HBox firstHboxInPage;
+    @FXML
+    private VBox PostsContainer1;
+    @FXML
     private VBox PostsContainer;
+    @FXML
+    private VBox adVbox;
+    
     Text postOwnerName;
-    Text  moduleText, timestampText;
-    Text problemText;
+    Text problemText, moduleText, timestampText;
     Text timestampLabel, problemLabel, moduleLabel;
-    Hyperlink b, viewPhotoHyperlink;
+    Hyperlink b,viewPhotoHyperlink;
     private int userId;
     ServiceUsers serviceUsers;
     ServicePost servicePost;
     UserSession userSession;
     Users currentUser;
-    @FXML
-    private ComboBox<String> comboSearch;
-
-    @FXML
-    private VBox PostsContainer1;
-    @FXML
-    private HBox firstHboxInPage;
-    @FXML
-    private Text currentUserNameLabel;
-    @FXML
-    private Hyperlink exportExcelHyperlink;
-    List<String> modules;
     String dir;
-    List<Post> listSearchedByModule ;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // TODO
         Platform.runLater(() -> {
 
             dir = System.getProperty("user.dir");//get project source path
             userSession = UserSession.getInstace(0);
             userId = userSession.getUserid();
-
+            
             servicePost = new ServicePost();
-            serviceUsers = new ServiceUsers();
-
+            serviceUsers= new ServiceUsers();
+            
             List<Post> lc = servicePost.Read();
             currentUser = serviceUsers.findById(userId);
             currentUserNameLabel.setText(currentUser.getUsername());
-            modules=servicePost.ReadModules();
-            
+            // if user.role is simple user exportExcelHyperlink.setVisible(false); 
+            //else if admin setVisible(true)
             comboSearch.getItems().removeAll(comboSearch.getItems());
-            comboSearch.getItems().add("All");
-            comboSearch.getItems().addAll(modules); 
-            //comboSearch.getSelectionModel().select("Search by module"); // shnowa maktoub par défaut . 
+            comboSearch.getItems().addAll("IP Essentials", "Mathématique de base 1", "Mathématique de base 2", "Génie Logiciel", "All"); // mba3d nrodou marbout b classe specialité .
+            comboSearch.getSelectionModel().select("Search by module"); // shnowa maktoub par défaut . 
 
             // search combobox on Action
             comboSearch.setOnAction(e -> {
-                String s1 = comboSearch.getValue().trim();
+                String s1 = comboSearch.getValue();
                 PostsContainer.getChildren().clear();
-                System.out.println("-*-*-*-*-*-*" + comboSearch.getValue() + "*--*-*-*-*-*");
 
                 if (s1.equals("All")) {
                     try {
@@ -127,8 +124,8 @@ public class ViewPostsController implements Initializable {
                     } catch (FileNotFoundException ex) {
                         Logger.getLogger(ViewPostsController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } else if (!s1.isEmpty()){
-                    listSearchedByModule = servicePost.findPostsByModule(s1);
+                } else {
+                    List<Post> listSearchedByModule = servicePost.findPostsByModule(s1);
 
                     System.out.println("All posts searched by Module : " + listSearchedByModule.toString());
 
@@ -149,33 +146,92 @@ public class ViewPostsController implements Initializable {
             }
 
         });
-    }
+    }    
 
     @FXML
     private void goToViewPosts(MouseEvent event) {
+    }
 
-        // ya besh na3mlelha copier coller 3ali 3maltou f FXMLDocumentController wala nfarkselha 3la fonction refresh page b java ..
+    @FXML
+    private void ExportExcelButtonPushed(ActionEvent event) {
+        try {
+
+            Connection cnx = Maconnexion.getInstance().getConnection();
+            PreparedStatement pst ;
+            ResultSet rs;
+
+            String query = "Select * from post";
+            pst = cnx.prepareStatement(query);
+            rs = pst.executeQuery();
+            
+            
+            //Variable counter for keeping track of number of rows inserted.  
+            int counter = 1;
+            FileOutputStream fileOut = null;
+
+            //Creation of New Work Book in Excel and sheet.  
+            HSSFWorkbook hwb = new HSSFWorkbook();
+            HSSFSheet sheet = hwb.createSheet("new sheet");
+            //Creating Headings in Excel sheet.  
+            HSSFRow rowhead = sheet.createRow((short) 0);
+            rowhead.createCell((short) 1).setCellValue("timestamp");//Row Name1  
+            rowhead.createCell((short) 2).setCellValue("status");//Row Name2  
+            rowhead.createCell((short) 3).setCellValue("module");//Row Name3  
+            rowhead.createCell((short) 4).setCellValue("problem");//Row Name4
+
+            while (rs.next()) {
+                //Insertion in corresponding row  
+               
+            
+                HSSFRow row = sheet.createRow((int) counter);
+
+                row.createCell((short) 1).setCellValue(rs.getInt("timestamp"));
+                row.createCell((short) 2).setCellValue(rs.getString("status"));
+                row.createCell((short) 3).setCellValue(rs.getString("module"));
+                row.createCell((short) 4).setCellValue(rs.getString("problem"));
+
+                sheet.autoSizeColumn(1);
+                sheet.autoSizeColumn(2);
+                sheet.setColumnWidth(3, 256 * 25);
+
+                sheet.setZoom(150);
+                sheet.autoSizeColumn(1);
+                sheet.autoSizeColumn(2);
+                sheet.setColumnWidth(3, 256 * 25);
+
+                sheet.setZoom(150);
+
+                counter++;
+                try {
+                    //For performing write to Excel file  
+                    fileOut = new FileOutputStream("posts.xls");
+                    hwb.write(fileOut);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            //Close all the parameters once writing to excel is compelte.  
+            fileOut.close();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("file created");
+            alert.setHeaderText(null);
+            alert.setContentText("All posts have been exported in Excel Sheet.");
+            alert.showAndWait();
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
     }
 
     @FXML
     private void AddNewPost(ActionEvent event) {
-        Parent loader;
-        try {
-            loader = FXMLLoader.load(getClass().getResource("AddNewPost.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
-
-            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
-
-            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
-
-            app_stage.setScene(scene); //This sets the scene as scene
-
-            app_stage.show(); // this shows the scene
-        } catch (IOException ex) {
-
-        }
-
     }
-
+    
+    
     private void displayThisList(List<Post> lp, ServicePost cs) throws FileNotFoundException {
         for (Post p : lp) {
 
@@ -190,7 +246,6 @@ public class ViewPostsController implements Initializable {
             timestampLabel = new Text("timestamp");
 
             problemText = new Text(p.getProblem());
-
             moduleText = new Text(p.getModule());
 
             timestampText = new Text(String.valueOf(p.getTimestamp()));
@@ -199,6 +254,8 @@ public class ViewPostsController implements Initializable {
             postOwnerName.setStyle("-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%);\n"
                     + "    -fx-stroke: black;\n"
                     + "    -fx-stroke-width: 1;");
+
+            //postOwnerPhoto= new ImageView(getClass().getClassLoader().getResourceAsStream(("..\img\einstein.jpg"),true));
             Alert alertDeletepushed = new Alert(Alert.AlertType.CONFIRMATION);
 
             VBox vboxProblem = new VBox();
@@ -219,11 +276,11 @@ public class ViewPostsController implements Initializable {
 
             HBox hboxButtons = new HBox();
             Button btnDelete = null;
-            Button btnModify = null;
+            
             if (p.getOwnerId() == userId) {
                 btnDelete = createGraphicButton(dir + "\\src\\simpalha\\post\\img\\deleteImg.png");
-                btnModify = createGraphicButton(dir + "\\src\\simpalha\\post\\img\\modifyImg.png");
-                hboxButtons.getChildren().addAll(btnDelete, btnModify);
+                
+                hboxButtons.getChildren().addAll(btnDelete);
 
                 btnDelete.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -233,43 +290,19 @@ public class ViewPostsController implements Initializable {
                             if (response == ButtonType.OK) {
                                 cs.Delete(p);
                                 PostsContainer.getChildren().remove(postContainer);
+
                             } else {
                                 System.out.println("delete aborted.");
                             }
                         });
                     }
                 });
-                btnModify.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-
-                        try {
-                            FXMLLoader loader = new FXMLLoader(
-                                    getClass().getResource(
-                                            "ModifyThisPost.fxml"
-                                    )
-                            );
-
-                            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
-                            stage.setScene(
-                                    new Scene(loader.load())
-                            );
-
-                            ModifyThisPostController controller = loader.getController();
-                            controller.initData(p.getId());
-
-                            stage.show();
-                        } catch (IOException ex) {
-                            Logger.getLogger(ViewPostsController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-
-                    }
-                });
-
+                
             }
             Button btnAddComment = createGraphicButton(dir + "\\src\\simpalha\\post\\img\\showImg.png");
             hboxButtons.getChildren().add(btnAddComment);
 
+            // if problem is solved : 
             if (p.getSolution_id() != -1 && p.getSolution_id() != 0) {
                 HBox problemIsSolvedAnimationHbox = new HBox();
                 problemIsSolvedAnimationHbox.setPrefHeight(40);
@@ -312,7 +345,7 @@ public class ViewPostsController implements Initializable {
                                 displayThisList(lp, cs);
 
                             } catch (IOException ex) {
-                                Logger.getLogger(ViewPostsController.class.getName()).log(Level.SEVERE, null, ex);
+                                Logger.getLogger(simpalha.post.ViewPostsController.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
                     });
@@ -330,7 +363,7 @@ public class ViewPostsController implements Initializable {
                                 PostsContainer.getChildren().clear();
                                 displayThisList(lp, cs);
                             } catch (IOException ex) {
-                                Logger.getLogger(ViewPostsController.class.getName()).log(Level.SEVERE, null, ex);
+                                Logger.getLogger(simpalha.post.ViewPostsController.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
                     });
@@ -356,15 +389,14 @@ public class ViewPostsController implements Initializable {
                                 new Scene(loader.load())
                         );
                         hboxButtons.getChildren().removeAll(btnAddComment);
-
                         vboxProblemAndName.getChildren().remove(b);
-
+                        
                         AddCommentController controller = loader.getController();
                         controller.initData(p.getId(), postContainer);
 
                         stage.show();
                     } catch (IOException ex) {
-                        Logger.getLogger(ViewPostsController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(simpalha.post.ViewPostsController.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
                 }
@@ -373,8 +405,18 @@ public class ViewPostsController implements Initializable {
         }
 
     }
-
-    public HBox problemIsSolvedAnimation() throws FileNotFoundException {
+    
+    
+    
+     public Button createGraphicButton(String path) throws FileNotFoundException{
+        FileInputStream fi= new FileInputStream(path);
+        Button b= new Button();
+       Image u = new Image(fi);
+        ImageView i = new ImageView(u);
+        b.setGraphic(i);
+        return b;
+    }
+     public HBox problemIsSolvedAnimation() throws FileNotFoundException {
         Node card = createCard();
         HBox h = new HBox();
         h.getChildren().add(card);
@@ -382,26 +424,10 @@ public class ViewPostsController implements Initializable {
         rotator.play();
         return h;
     }
-
-    public Node c(String path) throws FileNotFoundException {
-        FileInputStream post = new FileInputStream(path);
-        Image u = new Image(post);
-        ImageView i = new ImageView(u);
-        return i;
-    }
-
-    public Button createGraphicButton(String path) throws FileNotFoundException {
-        FileInputStream fi = new FileInputStream(path);
-        Button b = new Button();
-        Image u = new Image(fi);
-        ImageView i = new ImageView(u);
-        b.setGraphic(i);
-        return b;
-    }
-
+     
     public Node createCard() throws FileNotFoundException {
         String dir = System.getProperty("user.dir");//get project source path
-        FileInputStream inputPhoto = new FileInputStream(dir + "\\src\\simpalha\\post\\img\\solved.png");
+        FileInputStream inputPhoto = new FileInputStream(dir+"\\src\\simpalha\\post\\img\\solved.png");
         Image u = new Image(inputPhoto);
         ImageView i = new ImageView(u);
         return i;
@@ -416,77 +442,4 @@ public class ViewPostsController implements Initializable {
         rotator.setCycleCount(10);
         return rotator;
     }
-
-    @FXML
-    private void ExportExcelButtonPushed(ActionEvent event) {
-        try {
-
-            Connection cnx = Maconnexion.getInstance().getConnection();
-            PreparedStatement pst;
-            ResultSet rs;
-
-            String query = "Select * from post";
-            pst = cnx.prepareStatement(query);
-            rs = pst.executeQuery();
-
-            //Variable counter for keeping track of number of rows inserted.  
-            int counter = 1;
-            FileOutputStream fileOut = null;
-
-            //Creation of New Work Book in Excel and sheet.  
-            HSSFWorkbook hwb = new HSSFWorkbook();
-            HSSFSheet sheet = hwb.createSheet("new sheet");
-            //Creating Headings in Excel sheet.  
-            HSSFRow rowhead = sheet.createRow((short) 0);
-            rowhead.createCell((short) 1).setCellValue("timestamp");//Row Name1  
-            rowhead.createCell((short) 2).setCellValue("status");//Row Name2  
-            rowhead.createCell((short) 3).setCellValue("module");//Row Name3  
-            rowhead.createCell((short) 4).setCellValue("problem");//Row Name4
-
-            while (rs.next()) {
-                //Insertion in corresponding row  
-
-                HSSFRow row = sheet.createRow((int) counter);
-
-                row.createCell((short) 1).setCellValue(rs.getInt("timestamp"));
-                row.createCell((short) 2).setCellValue(rs.getString("status"));
-                row.createCell((short) 3).setCellValue(rs.getString("module"));
-                row.createCell((short) 4).setCellValue(rs.getString("problem"));
-
-                sheet.autoSizeColumn(1);
-                sheet.autoSizeColumn(2);
-                sheet.setColumnWidth(3, 256 * 25);
-
-                sheet.setZoom(150);
-                sheet.autoSizeColumn(1);
-                sheet.autoSizeColumn(2);
-                sheet.setColumnWidth(3, 256 * 25);
-
-                sheet.setZoom(150);
-
-                counter++;
-                try {
-                    //For performing write to Excel file  
-                    fileOut = new FileOutputStream("posts.xls");
-                    hwb.write(fileOut);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            //Close all the parameters once writing to excel is compelte.  
-            fileOut.close();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("file created");
-            alert.setHeaderText(null);
-            alert.setContentText("All posts have been exported in Excel Sheet.");
-            alert.showAndWait();
-            rs.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

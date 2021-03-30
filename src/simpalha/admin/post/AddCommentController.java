@@ -3,15 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simpalha.post;
+package simpalha.admin.post;
 
 import com.darkprograms.speech.translator.GoogleTranslate;
 import static com.darkprograms.speech.translator.GoogleTranslate.detectLanguage;
 import entities.Comment;
+import entities.DownvoteComment;
 import entities.Post;
+import entities.UpvoteComment;
 import entities.Users;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -20,7 +23,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
-import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -41,48 +43,46 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import services.ServiceComment;
 import services.ServiceDownvoteComment;
 import services.ServicePost;
 import services.ServiceUpvoteComment;
 import services.ServiceUsers;
 import utils.UserSession;
-import entities.UpvoteComment;
-import entities.DownvoteComment;
-import java.io.FileOutputStream;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+/**
+ * FXML Controller class
+ *
+ * @author anaso
+ */
 public class AddCommentController implements Initializable {
 
+    @FXML
+    private Text currentUserNameLabel;
+    @FXML
+    private Hyperlink exportToExcel;
+    @FXML
+    private VBox vboxPost2;
+    @FXML
+    private VBox problemInfoContainer;
+    @FXML
+    private ImageView imagePost;
+    @FXML
+    private HBox imageHbox;
+
     private int idPost;
-
-    private Text solutionText;
-
-    ImageView upvoteImage, downvoteImage;
-
     Text commentOwnerName, commentText, commentLabel, TimestampText;
-
     Post p;
     Comment c;
     List<Comment> commentsForThisPost;
-
-    HBox upVotedownVoteHbox;
-    Button upvoteButton, downvoteButton;
-    Hyperlink b;
-
-    @FXML
-    private VBox problemInfoContainer;
     private HBox hboxPost;
-    @FXML
-    private VBox vboxPost2;
 
     int userId;
     ServicePost servicePost;
@@ -94,26 +94,16 @@ public class AddCommentController implements Initializable {
     Users currentUser;
     Post thisPost;
     Comment solutionForThisPost;
-    @FXML
-    private Text currentUserNameLabel;
+    Hyperlink b;
     String dir;
-
-    @FXML
-    private ImageView imagePost;
-    @FXML
-    private Hyperlink exportToExcel;
-    @FXML
-    private HBox imageHbox;
     
-    
-
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
+        
         Platform.runLater(() -> {
 
             dir = System.getProperty("user.dir");//get project source path
@@ -136,7 +126,7 @@ public class AddCommentController implements Initializable {
                 createImageView(postImagePath);
 
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(simpalha.post.AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             if (thisPost.getSolution_id() != -1 && thisPost.getSolution_id() != 0) {
@@ -190,7 +180,7 @@ public class AddCommentController implements Initializable {
                         try {
                             fileOut.close();
                         } catch (IOException ex) {
-                            Logger.getLogger(AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(simpalha.post.AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("file created");
@@ -208,7 +198,7 @@ public class AddCommentController implements Initializable {
             try {
                 displayThisList(commentsForThisPost, serviceComment);
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(simpalha.post.AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             //animatePost(hboxPost);
@@ -235,7 +225,7 @@ public class AddCommentController implements Initializable {
                     try {
                         displayThisList(commentsForThisPost, serviceComment);
                     } catch (FileNotFoundException ex) {
-                        Logger.getLogger(AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(simpalha.post.AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             });
@@ -248,91 +238,22 @@ public class AddCommentController implements Initializable {
                     + "-fx-border-radius: 5;" + "-fx-border-color: black;");
 
         });
-    }
+    }    
 
     @FXML
     private void goToViewPosts(MouseEvent event) {
-        Parent loader;
-        try {
-            loader = FXMLLoader.load(getClass().getResource("ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
-
-            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
-
-            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
-
-            app_stage.setScene(scene); //This sets the scene as scene
-
-            app_stage.show(); // this shows the scene
-        } catch (IOException ex) {
-        }
-    }
-
-    @FXML
-    private void AddNewPost(ActionEvent event) { // BUTTON PUSHED
-        Parent loader;
-        try {
-            loader = FXMLLoader.load(getClass().getResource("AddNewPost.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
-
-            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
-
-            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
-
-            app_stage.setScene(scene); //This sets the scene as scene
-
-            app_stage.show(); // this shows the scene
-        } catch (IOException ex) {
-        }
     }
 
     @FXML
     private void CancelButtonPushed(ActionEvent event) {
-        Parent loader;
-        try {
-            loader = FXMLLoader.load(getClass().getResource("ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
-
-            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
-
-            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
-
-            app_stage.setScene(scene); //This sets the scene as scene
-
-            app_stage.show(); // this shows the scene
-        } catch (IOException ex) {
-            ex.getMessage();
-        }
     }
 
-    private void SubmitButtonPushed(ActionEvent event) {
-
-        // Partie 1 : Add this comment to Database , only need to set 
-        c.setSolution(solutionText.getText());
-        c.setId_Post(idPost);
-        serviceComment.Create(c);
-
-        // Partie 2 : Add the new Comment to get Displayed . 
-        HBox commentContainer = new HBox();
-
-        commentOwnerName = new Text("LM3allem"); // hethy mbaad nrodha berasmi esm li 3mal l comment w na3ml findById w kol
-        commentLabel = new Text("Proposed Solution : ");
-
-        commentText = new Text(c.getSolution());
-        TimestampText = new Text(String.valueOf(c.getTimestamp()));
-
-        HBox hboxCommentOwner = new HBox();
-        hboxCommentOwner.getChildren().addAll(commentOwnerName);
-        HBox hboxComment = new HBox();
-        hboxComment.getChildren().addAll(commentLabel, commentText);
-
-        //HBox hboxButtons = new HBox();
-        commentContainer.getChildren().addAll(hboxCommentOwner, hboxComment);
-        problemInfoContainer.getChildren().addAll(commentContainer);
-
+    @FXML
+    private void AddNewPost(ActionEvent event) {
     }
-
     void initData(int id) {
         idPost = id;
     }
-
     void initData(int id, HBox postContainer) {
         idPost = id;
 
@@ -341,161 +262,27 @@ public class AddCommentController implements Initializable {
         vboxPost2.setLayoutY(postContainer.getLayoutY());
 
     }
-
-    void displayThisList(List<Comment> commentsForThisPost, ServiceComment sc) throws FileNotFoundException {
+    public void createImageView(String path) throws FileNotFoundException {
+        FileInputStream post = new FileInputStream(path);
+        Image u = new Image(post);
+        imagePost.setImage(u);
+    }
+     void displayThisList(List<Comment> commentsForThisPost, ServiceComment sc) throws FileNotFoundException {
 
         for (Comment parcours : commentsForThisPost) {
             b = new Hyperlink();
             Users commentOwnerEnPersonne = new Users();
             commentOwnerEnPersonne = serviceUsers.findById(parcours.getOwnerId());
-
-            //System.out.println("comment Owner ---"+commentOwnerEnPersonne.toString());
             HBox commentContainer = new HBox();
-
             commentOwnerName = new Text(commentOwnerEnPersonne.getUsername());
-            //System.out.println("ownername : ---"+commentOwnerEnPersonne.getUsername());
-            //commentOwnerName.setText(commentOwnerEnPersonne.getUsername());
             commentOwnerName.setStyle("-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%);\n" + " -fx-stroke: black;\n" + " -fx-stroke-width: 1;");
 
             commentLabel = new Text("Proposed Solution : ");
             commentText = new Text(parcours.getSolution());
             TimestampText = new Text(String.valueOf(parcours.getTimestamp()));
+ 
 
-            // Partie 3.1 : initialize upvote AND downvote buttons 
-            FileInputStream inputUpvoteImage = null;
-            FileInputStream inputDownvoteImage = null;
-            try {
-
-                if (serviceUpvoteComment.upvoteExists(userId, parcours.getId())) {
-                    inputUpvoteImage = new FileInputStream(dir + "\\src\\simpalha\\post\\img\\upvoteOn.png");
-                    inputDownvoteImage = new FileInputStream(dir + "\\src\\simpalha\\post\\img\\downvoteOff.png");
-                } else if (serviceDownvoteComment.downvoteExists(userId, parcours.getId())) {
-                    inputUpvoteImage = new FileInputStream(dir + "\\src\\simpalha\\post\\img\\upvoteOff.png");
-                    inputDownvoteImage = new FileInputStream(dir + "\\src\\simpalha\\post\\img\\downvoteOn.png");
-                } else {
-                    inputUpvoteImage = new FileInputStream(dir + "\\src\\simpalha\\post\\img\\upvoteOff.png");
-                    inputDownvoteImage = new FileInputStream(dir + "\\src\\simpalha\\post\\img\\downvoteOff.png");
-                }
-
-                //upvote Button 
-                Image imageUp = new Image(inputUpvoteImage);
-                upvoteImage = new ImageView(imageUp);
-                upvoteButton = new Button();
-                upvoteButton.setGraphic(upvoteImage);
-                upvoteButton.setPrefWidth(50);
-                upvoteButton.setPrefHeight(50);
-                //downvote Button  
-                Image imageDown = new Image(inputDownvoteImage);
-                downvoteImage = new ImageView(imageDown);
-                downvoteButton = new Button();
-                downvoteButton.setGraphic(downvoteImage);
-                downvoteButton.setPrefWidth(50);
-                downvoteButton.setPrefHeight(50);
-
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            //Partie 3.2: put upvote AND downvote buttons in Containers 
-            upVotedownVoteHbox = new HBox();
-            VBox upVoteVbox = new VBox();
-            VBox downVoteVbox = new VBox();
-            Text upvoteLabel = new Text("upvotes");
-            Text upvoteCounter = new Text();
-            upvoteCounter.setText(String.valueOf(parcours.getUpvotes()));
-            Text downvoteLabel = new Text("downvotes");
-            Text downvoteCounter = new Text();
-            downvoteCounter.setText(String.valueOf(parcours.getDownvotes()));
-            upVoteVbox.getChildren().addAll(upvoteLabel, upvoteButton, upvoteCounter);
-            downVoteVbox.getChildren().addAll(downvoteLabel, downvoteButton, downvoteCounter);
-            upVotedownVoteHbox.getChildren().addAll(upVoteVbox, downVoteVbox);
-
-            //Partie 3.3 : downvote button on action 
-            if (!serviceDownvoteComment.downvoteExists(userId, parcours.getId())) {
-                downvoteButton.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-
-                        System.out.println("downvote button pushed");
-                        if (serviceUpvoteComment.upvoteExists(userId, parcours.getId())) {
-                            serviceUpvoteComment.RemoveUpvote(userId, parcours.getId());
-                            parcours.setUpvotes(parcours.getUpvotes() - 1);
-                            serviceComment.updateUpvotes(parcours);
-
-                        }
-                        DownvoteComment d = new DownvoteComment(parcours.getId(), userId);
-                        serviceDownvoteComment.Create(d);
-                        parcours.setDownvotes(parcours.getDownvotes() + 1);
-                        serviceComment.updateDownvotes(parcours);
-                        problemInfoContainer.getChildren().clear();
-                        try {
-                            displayThisList(commentsForThisPost, serviceComment);
-                        } catch (FileNotFoundException ex) {
-                            Logger.getLogger(AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-
-                    }
-                });
-            } else {
-                downvoteButton.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        System.out.println("removing downvote");
-                        serviceDownvoteComment.RemoveDownvote(userId, parcours.getId());
-                        parcours.setDownvotes(parcours.getDownvotes() - 1);
-                        serviceComment.updateDownvotes(parcours);
-                        problemInfoContainer.getChildren().clear();
-                        try {
-                            displayThisList(commentsForThisPost, serviceComment);
-                        } catch (FileNotFoundException ex) {
-                            Logger.getLogger(AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                });
-            }
-
-            //Partie 3.4 : upvote button on action 
-            if (!serviceUpvoteComment.upvoteExists(userId, parcours.getId())) {
-                upvoteButton.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        System.out.println("upvote button pushed");
-                        if (serviceDownvoteComment.downvoteExists(userId, parcours.getId())) {
-                            serviceDownvoteComment.RemoveDownvote(userId, parcours.getId());
-                            parcours.setDownvotes(parcours.getDownvotes() - 1);
-                            serviceComment.updateDownvotes(parcours);
-                        }
-                        UpvoteComment u = new UpvoteComment(parcours.getId(), userId);
-                        serviceUpvoteComment.Create(u);
-                        parcours.setUpvotes(parcours.getUpvotes() + 1);
-                        serviceComment.updateUpvotes(parcours);
-                        serviceDownvoteComment.RemoveDownvote(userId, parcours.getId());
-                        problemInfoContainer.getChildren().clear();
-                        try {
-                            displayThisList(commentsForThisPost, serviceComment);
-                        } catch (FileNotFoundException ex) {
-                            Logger.getLogger(AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-
-                    }
-                });
-            } else {
-                upvoteButton.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        System.out.println("removing upvote");
-                        serviceUpvoteComment.RemoveUpvote(userId, parcours.getId());
-                        parcours.setUpvotes(parcours.getUpvotes() - 1);
-                        serviceComment.updateUpvotes(parcours);
-                        problemInfoContainer.getChildren().clear();
-                        try {
-                            displayThisList(commentsForThisPost, serviceComment);
-                        } catch (FileNotFoundException ex) {
-                            Logger.getLogger(AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                });
-            }
+             
 
             // Partie 3.5 Hypertex Translation Solution text
             try {
@@ -511,7 +298,7 @@ public class AddCommentController implements Initializable {
                                 problemInfoContainer.getChildren().clear();
                                 displayThisList(commentsForThisPost, serviceComment);
                             } catch (IOException ex) {
-                                Logger.getLogger(ViewPostsController.class.getName()).log(Level.SEVERE, null, ex);
+                                Logger.getLogger(simpalha.admin.post.ViewPostsController.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
                     });
@@ -527,7 +314,7 @@ public class AddCommentController implements Initializable {
                             problemInfoContainer.getChildren().clear();
                             displayThisList(commentsForThisPost, serviceComment);
                         } catch (IOException ex) {
-                            Logger.getLogger(ViewPostsController.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(simpalha.admin.post.ViewPostsController.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     });
                 }
@@ -552,7 +339,7 @@ public class AddCommentController implements Initializable {
             Button markAsSolutionButton = null;
             Button deleteComment = null;
             // if (userId == p.getOwnerId())   mbaad nwali n'affichi l bouton hetha ken lel PostOwner.
-            if (userId == thisPost.getOwnerId() && thisPost.getSolution_id() == -1) {
+            if (thisPost.getSolution_id() == -1) {
                 // markAsSolutionButton = new Button("Mark as solution");
                 markAsSolutionButton = createGraphicButton(dir + "\\src\\simpalha\\post\\img\\greenTick.png");
                 hboxButtons.getChildren().add(markAsSolutionButton);
@@ -599,15 +386,11 @@ public class AddCommentController implements Initializable {
                             if (response == ButtonType.OK) {
                                 serviceComment.Delete(parcours);
                                 problemInfoContainer.getChildren().remove(commentContainer);
-                                
 
                             } else {
                                 System.out.println("delete aborted.");
                             }
                         });
-                    
-                    
-                    
                     }
                 });
 
@@ -621,7 +404,7 @@ public class AddCommentController implements Initializable {
                 hboxButtons.getChildren().add(animationSolved);
 
             }
-            commentContainer.getChildren().addAll(vboxCommentOwner, vboxCommentAndTranslate, hboxButtons, upVotedownVoteHbox);
+            commentContainer.getChildren().addAll(vboxCommentOwner, vboxCommentAndTranslate, hboxButtons);
             commentContainer.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
                     + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
                     + "-fx-border-radius: 5;" + "-fx-border-color: black;");
@@ -635,45 +418,17 @@ public class AddCommentController implements Initializable {
             commentContainer.setStyle("-fx-border-color: black;");
         }
     }
-
-    void animatePost(HBox v) {
-
-        System.out.println(v.getLayoutY() + "------");
-        TranslateTransition transition = new TranslateTransition();
-        System.out.println("postContainer.getLayoutX()  " + v.getLayoutX() + "---postContainer.getLayoutY()  " + v.getLayoutX());
-        //v.setLayoutX(hboxPost.getLayoutX());
-
-        System.out.println(v.getLayoutY() + "------");
-
-        transition.setDuration(Duration.seconds(3));
-        //transition.setToX(hboxPost.getLayoutX());
-        transition.setToY(10);
-
-        //transition.setByY(-40);
-        System.out.println(v.getLayoutX() + ".." + v.getLayoutY());
-        transition.setNode(v);
-        transition.play();
-
+     
+     
+     public Button createGraphicButton(String path) throws FileNotFoundException {
+        FileInputStream fi = new FileInputStream(path);
+        Button b = new Button();
+        Image u = new Image(fi);
+        ImageView i = new ImageView(u);
+        b.setGraphic(i);
+        return b;
     }
-
-    void simpleTransition(VBox v) {
-        Circle cir = new Circle();
-        cir.setFill(Color.AZURE);
-
-        cir.setRadius(50);
-        cir.relocate(50, 50);
-        v.getChildren().add(cir);
-        TranslateTransition transition = new TranslateTransition();
-        transition.setDuration(Duration.seconds(3));
-        transition.setCycleCount(TranslateTransition.INDEFINITE);
-        transition.setToX(500);
-        transition.setToY(500);
-        transition.setNode(cir);
-        transition.play();
-
-    }
-
-    public HBox problemIsSolvedAnimation() throws FileNotFoundException {
+     public HBox problemIsSolvedAnimation() throws FileNotFoundException {
         Node card = createCard();
         HBox h = new HBox();
         h.getChildren().add(card);
@@ -682,22 +437,8 @@ public class AddCommentController implements Initializable {
         return h;
     }
 
-    public void createImageView(String path) throws FileNotFoundException {
-        FileInputStream post = new FileInputStream(path);
-        Image u = new Image(post);
-        imagePost.setImage(u);
-    }
-
-    public Button createGraphicButton(String path) throws FileNotFoundException {
-        FileInputStream fi = new FileInputStream(path);
-        Button b = new Button();
-        Image u = new Image(fi);
-        ImageView i = new ImageView(u);
-        b.setGraphic(i);
-        return b;
-    }
-
-    public Node createCard() throws FileNotFoundException {
+     
+     public Node createCard() throws FileNotFoundException {
         String dir = System.getProperty("user.dir");//get project source path
         FileInputStream inputPhoto = new FileInputStream(dir + "\\src\\simpalha\\post\\img\\solved.png");
         Image u = new Image(inputPhoto);
@@ -716,5 +457,4 @@ public class AddCommentController implements Initializable {
 
         return rotator;
     }
-
 }
