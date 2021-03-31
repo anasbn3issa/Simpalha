@@ -17,6 +17,7 @@ public class Quizz {
     private String title;
     private String subject;
     private int helperId;
+    private String helperName;
     private ArrayList<Question> questions;
 
     public Quizz() {
@@ -53,6 +54,23 @@ public class Quizz {
     public void setSubject(String subject) {
         this.subject = subject;
     }
+
+    public String getName() {
+        return helperName;
+    }
+
+    public void setName(String helperName) {
+        this.helperName = helperName;
+    }
+
+    @Override
+    public String toString() {
+        return "Quizz{" + "id=" + id + ", title=" + title + ", subject=" + subject + ", helperId=" + helperId + ", helperName=" + helperName + ", questions=" + questions + '}';
+    }
+    
+    
+    
+    
     
     
 }
