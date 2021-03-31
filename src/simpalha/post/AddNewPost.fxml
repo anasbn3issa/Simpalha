@@ -8,7 +8,6 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -114,7 +113,7 @@
                </padding>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="LIST_UL" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Tasks">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Quizz">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -216,19 +215,17 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="Posts List" />
+                  <Button mnemonicParsing="false" onAction="#goToViewPosts" prefHeight="30.0" prefWidth="104.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="&lt;- Go Back">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="Posts List" textAlignment="CENTER" wrappingWidth="111.56230926513672">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Text>
                   <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-background-radius: 0px;">
-                           <graphic>
-                              <FontAwesomeIcon fill="#485460" iconName="TH_LARGE" size="1.3em" />
-                           </graphic>
-                        </Button>
-                        <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-background-radius: 0px;">
-                           <graphic>
-                              <FontAwesomeIcon fill="#485460" iconName="TH_LIST" size="1.3em" />
-                           </graphic>
-                        </Button>
                         <HBox alignment="CENTER" />
                         <Button mnemonicParsing="false" onAction="#AddNewPost" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Create new Post">
                            <HBox.margin>
@@ -246,7 +243,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="493.0" prefWidth="1050.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
                      <children>
-                        <HBox prefHeight="310.0" prefWidth="1030.0">
+                        <HBox prefHeight="390.0" prefWidth="1030.0">
                            <children>
                               <VBox prefHeight="188.0" prefWidth="213.0">
                                  <children>
@@ -276,6 +273,11 @@
                                     <TextArea fx:id="textProblem" prefHeight="114.0" prefWidth="559.0" />
                                     <HBox prefHeight="12.0" prefWidth="559.0" />
                                     <Hyperlink fx:id="buttonFile1" text="import image to help us help you ! " />
+                                    <HBox prefHeight="109.0" prefWidth="559.0">
+                                       <children>
+                                          <HBox prefHeight="110.0" prefWidth="54.0" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </VBox>
                               <VBox prefHeight="310.0" prefWidth="233.0">
@@ -284,10 +286,10 @@
                                     <HBox prefHeight="100.0" prefWidth="200.0">
                                        <children>
                                           <HBox prefHeight="100.0" prefWidth="149.0" />
-                                          <Button fx:id="submit" contentDisplay="TOP" mnemonicParsing="false" onAction="#buttonSubmitPushed" prefHeight="54.0" prefWidth="84.0" text="Publish">
-                                             <effect>
-                                                <Blend mode="ADD" />
-                                             </effect>
+                                          <Button fx:id="submit" mnemonicParsing="false" onAction="#buttonSubmitPushed" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Publish">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
                                           </Button>
                                        </children>
                                     </HBox>

@@ -8,6 +8,7 @@ package simpalha.post;
 import entities.Post;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,6 +46,7 @@ public class ModifyThisPostController implements Initializable {
     private TextArea problemText;
     @FXML
     private Text currentUserNameLabel;
+    List<String> modules;
     
     
     
@@ -62,9 +64,9 @@ public class ModifyThisPostController implements Initializable {
             p = myService.findById(idPost);
 
             problemText.setText(p.getProblem());
- 
+ modules=myService.ReadModules();
         comboModule.getItems().removeAll(comboModule.getItems());
-        comboModule.getItems().addAll("IP Essentials", "Mathématique de base 1","Mathématique de base 2", "Génie Logiciel"); // mba3d nrodou marbout b classe specialité .  
+        comboModule.getItems().addAll(modules); 
         comboModule.getSelectionModel().select(p.getModule()); // shnowa maktoub par défaut . 
 
         
@@ -152,6 +154,34 @@ public class ModifyThisPostController implements Initializable {
         } catch (IOException ex) {
         }
         
+    }
+
+    @FXML
+    private void goToP2P(MouseEvent event) {
+    }
+
+    @FXML
+    private void goToQuizz(MouseEvent event) {
+    }
+
+    @FXML
+    private void goToRessources(MouseEvent event) {
+    }
+
+    @FXML
+    private void goToCandidature(MouseEvent event) {
+    }
+
+    @FXML
+    private void goToReclamation(MouseEvent event) {
+    }
+
+    @FXML
+    private void goToProfile(MouseEvent event) {
+    }
+
+    @FXML
+    private void LogoutPushed(MouseEvent event) {
     }
     
 }
