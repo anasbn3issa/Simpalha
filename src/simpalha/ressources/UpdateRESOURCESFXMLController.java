@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +28,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -61,6 +63,12 @@ public class UpdateRESOURCESFXMLController implements Initializable {
     private Label path;
     @FXML
     private Label description;
+    @FXML
+    private Label labelmodule;
+    @FXML
+    private ComboBox<String> module;
+    
+    ServiceRessources sr= new ServiceRessources();
 
     public UpdateRESOURCESFXMLController() {
         this.R = new Ressources();
@@ -71,7 +79,16 @@ public class UpdateRESOURCESFXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        try {
+            // TODO
+            List<String> list= sr.ReadModule(); 
+            for(int i=0; i<list.size(); i++)
+            module.getItems().add(list.get(i));
+        } catch (SQLException ex) {
+            Logger.getLogger(UpdateRESOURCESFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+          
+        
         Platform.runLater(() -> {
             ServiceRessources sr = new ServiceRessources();
             Ressources R = sr.Search(idR);
@@ -146,7 +163,9 @@ public class UpdateRESOURCESFXMLController implements Initializable {
         if ((tfmidr.getText().trim().isEmpty())
                 || (tfmpath.getText().trim().isEmpty())
                 || (tfmdescription.getText().trim().isEmpty())
-                || (tfmtitle.getText().trim().isEmpty())) {
+                || (tfmtitle.getText().trim().isEmpty())
+                || (module.getSelectionModel().isEmpty()))
+        {
             Alert fail = new Alert(Alert.AlertType.ERROR);
             fail.setHeaderText("FAILURE! ");
             fail.setContentText("Please fill all the TEXTFIELDS ! ");
@@ -156,16 +175,22 @@ public class UpdateRESOURCESFXMLController implements Initializable {
                  new animatefx.animation.Shake(title).play();
                  tfmtitle.setStyle("-fx-border-color:RED; -fx-border-width: 2px");
                  new animatefx.animation.Shake(tfmtitle).play();}
+              
              if  (tfmdescription.getText().trim().isEmpty())
                  {description.setStyle("-fx-text-fill:RED; -fx-font-weight: bold");
                  new animatefx.animation.Shake(description).play();
                  tfmdescription.setStyle("-fx-border-color:RED; -fx-border-width: 2px");
                  new animatefx.animation.Shake(tfmdescription).play();}
+             
              if  (tfmpath.getText().trim().isEmpty())
                  {path.setStyle("-fx-text-fill:RED; -fx-font-weight: bold");
                  new animatefx.animation.Shake(path).play();
                  tfmpath.setStyle("-fx-border-color:RED; -fx-border-width: 2px");
                  new animatefx.animation.Shake(tfmpath).play();}
+             
+             if (module.getSelectionModel().isEmpty())
+                 {labelmodule.setStyle("-fx-text-fill:RED; -fx-font-weight: bold");
+                 new animatefx.animation.Shake(labelmodule).play();}
  
         } else {
            

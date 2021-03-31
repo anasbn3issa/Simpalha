@@ -6,11 +6,20 @@
  */
 package simpalha.ressources;
 
+import com.convertapi.Config;
+import com.convertapi.ConversionResult;
+import com.convertapi.ConvertApi;
+import com.convertapi.Param;
+//import module
 import entities.Ressources;
+import java.awt.Color;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -26,6 +35,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.ServiceRessources;
@@ -35,6 +46,19 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 import java.io.OutputStream;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
+import javax.swing.JComboBox;
 
 
 
@@ -60,15 +84,26 @@ public class AddRESOURCEFXMLController implements Initializable {
     private Label path;
     @FXML
     private Label description;
+    @FXML
+    private ComboBox<String> module;
+    @FXML
+    private Label labelmodule;
     
-    
+    ServiceRessources sr = new ServiceRessources();
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        try {
+            List<String> list= sr.ReadModule(); 
+            for(int i=0; i<list.size(); i++)
+                module.getItems().add(list.get(i));
+        } catch (Exception ex) {
+            Logger.getLogger(AddRESOURCEFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+}
+    
     
     //acces page wajdi
      @FXML
@@ -116,6 +151,7 @@ public class AddRESOURCEFXMLController implements Initializable {
             if ( (tfpath.getText().trim().isEmpty())
                     || (tftitle.getText().trim().isEmpty())
                     || (tfdescription.getText().trim().isEmpty())
+                   || (module.getSelectionModel().isEmpty())
                     ){
         Alert fail= new Alert(Alert.AlertType.INFORMATION);
         fail.setHeaderText("FAILURE! ");
@@ -125,17 +161,25 @@ public class AddRESOURCEFXMLController implements Initializable {
                  { title.setStyle("-fx-text-fill:RED; -fx-font-weight: bold");
                  tftitle.setStyle("-fx-border-color:RED; -fx-border-width: 2px");
                  new animatefx.animation.Shake(title).play();
-                 new animatefx.animation.Shake(tftitle).play();}
+                 new animatefx.animation.Shake(tftitle).play();
+                 
+}
              if  (tfdescription.getText().trim().isEmpty())
                  {description.setStyle("-fx-text-fill:RED; -fx-font-weight: bold");
                  new animatefx.animation.Shake(description).play();
                  tfdescription.setStyle("-fx-border-color:RED; -fx-border-width: 2px");
                  new animatefx.animation.Shake(tfdescription).play();}
+             
+             
              if  (tfpath.getText().trim().isEmpty())
                  {path.setStyle("-fx-text-fill:RED; -fx-font-weight: bold");
                  new animatefx.animation.Shake(path).play();
                  tfpath.setStyle("-fx-border-color:RED; -fx-border-width: 2px");
                  new animatefx.animation.Shake(tfpath).play();}
+             
+             if  (module.getSelectionModel().isEmpty())
+                 {labelmodule.setStyle("-fx-text-fill:RED; -fx-font-weight: bold");
+                 new animatefx.animation.Shake(labelmodule).play();  }
  
             }
             else {
@@ -144,6 +188,7 @@ public class AddRESOURCEFXMLController implements Initializable {
           R1.setPath(tfpath.getText());
           R1.setTitle(tftitle.getText());
           R1.setDescription(tfdescription.getText());
+          R1.setModule(module.getSelectionModel().getSelectedItem());
           sr.Create(R1);
           
           //afficher prompt ajouté avec succés
@@ -155,8 +200,6 @@ public class AddRESOURCEFXMLController implements Initializable {
           
 //         if (test == true) {
 //         copy(browse(event));}
-
-//
           
         }}
        
