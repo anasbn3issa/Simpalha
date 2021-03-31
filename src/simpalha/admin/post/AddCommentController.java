@@ -246,6 +246,20 @@ public class AddCommentController implements Initializable {
 
     @FXML
     private void CancelButtonPushed(ActionEvent event) {
+         Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
     }
 
     @FXML
@@ -338,7 +352,6 @@ public class AddCommentController implements Initializable {
             HBox hboxButtons = new HBox();
             Button markAsSolutionButton = null;
             Button deleteComment = null;
-            // if (userId == p.getOwnerId())   mbaad nwali n'affichi l bouton hetha ken lel PostOwner.
             if (thisPost.getSolution_id() == -1) {
                 // markAsSolutionButton = new Button("Mark as solution");
                 markAsSolutionButton = createGraphicButton(dir + "\\src\\simpalha\\post\\img\\greenTick.png");

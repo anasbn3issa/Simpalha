@@ -155,5 +155,33 @@ public class ModifyThisPostController implements Initializable {
         }
         
     }
+
+    @FXML
+    private void goToP2P(MouseEvent event) {
+    }
+
+    @FXML
+    private void goToQuizz(MouseEvent event) {
+    }
+
+    @FXML
+    private void goToRessources(MouseEvent event) {
+    }
+
+    @FXML
+    private void goToCandidature(MouseEvent event) {
+    }
+
+    @FXML
+    private void goToReclamation(MouseEvent event) {
+    }
+
+    @FXML
+    private void goToProfile(MouseEvent event) {
+    }
+
+    @FXML
+    private void LogoutPushed(MouseEvent event) {
+    }
     
 }

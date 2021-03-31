@@ -250,5 +250,9 @@ public class AddNewPostController implements Initializable {
         }
     }
 
+    @FXML
+    private void goToViewPosts(MouseEvent event) {
+    }
+
     
 }

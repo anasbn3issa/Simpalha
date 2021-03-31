@@ -241,9 +241,9 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="593.0" prefWidth="1090.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="493.0" prefWidth="1050.0" style="-fx-background-color: yellow;" HBox.hgrow="ALWAYS">
+                  <VBox alignment="CENTER" prefHeight="493.0" prefWidth="1050.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
                      <children>
-                        <HBox prefHeight="310.0" prefWidth="1030.0">
+                        <HBox prefHeight="390.0" prefWidth="1030.0">
                            <children>
                               <VBox prefHeight="188.0" prefWidth="213.0">
                                  <children>
@@ -273,6 +273,11 @@
                                     <TextArea fx:id="textProblem" prefHeight="114.0" prefWidth="559.0" />
                                     <HBox prefHeight="12.0" prefWidth="559.0" />
                                     <Hyperlink fx:id="buttonFile1" text="import image to help us help you ! " />
+                                    <HBox prefHeight="109.0" prefWidth="559.0">
+                                       <children>
+                                          <HBox prefHeight="110.0" prefWidth="54.0" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </VBox>
                               <VBox prefHeight="310.0" prefWidth="233.0">

@@ -76,7 +76,7 @@ public class ServicePost implements IServicePost {
     public List<Post> Read() {
 
         List<Post> list = new ArrayList<>();
-        String req = "select * from post";
+        String req = "select * from post ORDER BY timestamp DESC";
         try {
             ste = cnx.createStatement();
             rs = ste.executeQuery(req);
@@ -101,7 +101,7 @@ public class ServicePost implements IServicePost {
 
     public List<String> ReadModules(){
         List<String> list = new ArrayList<>();
-        String req = "select * from module";
+        String req = "select * from module ORDER BY name ASC";
         try {
             ste = cnx.createStatement();
             rs = ste.executeQuery(req);
@@ -162,7 +162,7 @@ public class ServicePost implements IServicePost {
     @Override
     public List<Comment> findAllCommentsForThisPost(int postId) {
         List<Comment> comments = new ArrayList<>();
-        String query = "select * from comment where id_Post=?";
+        String query = "select * from comment where id_Post=? ORDER BY timestamp DESC";
 
         try {
             pst = cnx.prepareStatement(query);
@@ -191,7 +191,7 @@ public class ServicePost implements IServicePost {
     @Override
     public List<Post> findPostsByModule(String module) {
         List<Post> posts = new ArrayList<>();
-        String query = "select * from post where module=?";
+        String query = "select * from post where module=? ORDER BY timestamp DESC";
 
         try {
             pst = cnx.prepareStatement(query);

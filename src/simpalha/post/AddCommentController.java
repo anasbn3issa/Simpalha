@@ -59,6 +59,7 @@ import java.io.FileOutputStream;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import simpalha.FXMLDocumentController;
 
 public class AddCommentController implements Initializable {
 
@@ -715,6 +716,89 @@ public class AddCommentController implements Initializable {
         rotator.setCycleCount(10);
 
         return rotator;
+    }
+
+    @FXML
+    private void goToP2P(MouseEvent event) {
+         try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/simpalha/P2P/P2PFXML.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void goToQuizz(MouseEvent event) {
+         try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/simpalha/quizz/FXMLQuizz.fxml"
+                    )
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void goToRessources(MouseEvent event) {
+         try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "ressources/FXMLDocument.fxml"
+                    )
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void goToCandidature(MouseEvent event) {
+         try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/simpalha/users/CandidatureUser.fxml"
+                    )
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(AddCommentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void goToReclamation(MouseEvent event) {
+    }
+
+    @FXML
+    private void profilePushed(MouseEvent event) {
+    }
+
+    @FXML
+    private void LogoutPushed(MouseEvent event) {
     }
 
 }

@@ -77,7 +77,8 @@ public class ViewPostsController implements Initializable {
     private VBox PostsContainer;
     @FXML
     private VBox adVbox;
-    
+    List<String> modules;
+    List<Post> listSearchedByModule ;
     Text postOwnerName;
     Text problemText, moduleText, timestampText;
     Text timestampLabel, problemLabel, moduleLabel;
@@ -100,6 +101,7 @@ public class ViewPostsController implements Initializable {
             dir = System.getProperty("user.dir");//get project source path
             userSession = UserSession.getInstace(0);
             userId = userSession.getUserid();
+            modules=servicePost.ReadModules();
             
             servicePost = new ServicePost();
             serviceUsers= new ServiceUsers();
@@ -110,13 +112,14 @@ public class ViewPostsController implements Initializable {
             // if user.role is simple user exportExcelHyperlink.setVisible(false); 
             //else if admin setVisible(true)
             comboSearch.getItems().removeAll(comboSearch.getItems());
-            comboSearch.getItems().addAll("IP Essentials", "Mathématique de base 1", "Mathématique de base 2", "Génie Logiciel", "All"); // mba3d nrodou marbout b classe specialité .
-            comboSearch.getSelectionModel().select("Search by module"); // shnowa maktoub par défaut . 
+            comboSearch.getItems().add("All");
+            comboSearch.getItems().addAll(modules); 
 
             // search combobox on Action
             comboSearch.setOnAction(e -> {
-                String s1 = comboSearch.getValue();
+                String s1 = comboSearch.getValue().trim();
                 PostsContainer.getChildren().clear();
+                System.out.println("-*-*-*-*-*-*" + comboSearch.getValue() + "*--*-*-*-*-*");
 
                 if (s1.equals("All")) {
                     try {
@@ -124,8 +127,8 @@ public class ViewPostsController implements Initializable {
                     } catch (FileNotFoundException ex) {
                         Logger.getLogger(ViewPostsController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } else {
-                    List<Post> listSearchedByModule = servicePost.findPostsByModule(s1);
+                } else if (!s1.isEmpty()){
+                    listSearchedByModule = servicePost.findPostsByModule(s1);
 
                     System.out.println("All posts searched by Module : " + listSearchedByModule.toString());
 

@@ -61,12 +61,11 @@ public class FXMLDocumentController implements Initializable {
     }
 
     
-    // f hethy lezm n3awd nredefini l bouton eli bsh yhezni lel page ViewPosts (contact wajdi)
     @FXML
     private void goToViewPosts(MouseEvent event) {
         Parent loader;
         try {
-            loader = FXMLLoader.load(getClass().getResource("/simpalha/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/admin/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
 
             Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
 
