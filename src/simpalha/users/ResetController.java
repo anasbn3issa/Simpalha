@@ -6,8 +6,10 @@
 package simpalha.users;
 
 import entities.CurrentUser;
+import entities.Users;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Base64;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.ServiceUsers;
+import utils.UserSession;
 
 /**
  * FXML Controller class
@@ -50,15 +53,20 @@ public class ResetController implements Initializable {
         
      
        
-        CurrentUser cu = CurrentUser.CurrentUser();
-        if(!password.getText().isEmpty()&& !passwordconf.getText().isEmpty())
+           CurrentUser cu = CurrentUser.CurrentUser();
+if(!password.getText().isEmpty()&& !passwordconf.getText().isEmpty())
         {
          
             if (password.getText().equals(passwordconf.getText()))
             {
                 ServiceUsers us = new ServiceUsers();
                 
-                us.updatePassword(password.getText(), cu.targetId );
+                Users u = us.findById(cu.targetId);
+                System.out.println(u);
+                String pass = Base64.getEncoder().encodeToString(password.getText().getBytes());
+                System.out.println(pass);
+                u.setPassword(pass);
+                us.updatePassword(u); 
                 
                 Parent loader;
             try {

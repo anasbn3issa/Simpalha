@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.Alert;
 import utils.Maconnexion;
 
 /**
@@ -35,7 +36,19 @@ public class ServiceDisponibilite implements IServiceDisponibilite {
 
     @Override
     public void Create(Disponibilite variable) {
+        
+         try {
+            Statement st = cnx.createStatement();
+            String query = "INSERT INTO disponibilite (helperId,dateDeb,dateFin) VALUES ('" + variable.getHelperid()+ "','" + variable.getDatedeb()+ "','" + variable.getDateFin()+  "')";
+            st.executeUpdate(query);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("enregistré");
+            alert.show();
+        } catch (SQLException ex) {
+            Logger.getLogger(ServicePost.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+    
 
     @Override
     public void Update(Disponibilite variable) {

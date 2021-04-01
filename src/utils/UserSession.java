@@ -30,7 +30,8 @@ public class UserSession {
         return userid;
     }
     public void cleanUserSession() {
-        userid = 0;// or null
+        userid = 0;
+        instance=null;
     }
 
     @Override

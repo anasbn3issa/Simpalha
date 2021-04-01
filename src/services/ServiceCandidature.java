@@ -41,7 +41,7 @@ public class ServiceCandidature implements IServiceCandidature {
         System.out.println(variable.getFichier());
         try {
 
-            String query = "INSERT INTO candidatures (specialite,fichier, idu) VALUES (?,?,?)";
+            String query = "INSERT INTO candidatures (specialty,Document, idu) VALUES (?,?,?)";
             pst = cnx.prepareStatement(query);
             
            pst.setString(1, variable.getSpécialité());
@@ -74,7 +74,7 @@ public class ServiceCandidature implements IServiceCandidature {
         
     }
 
-  public ArrayList<Candidature> getAllCandidatures(){
+  /*public ArrayList<Candidature> getAllCandidatures(){
         ArrayList<Candidature> candidatures=new ArrayList<>();
         try{
             String request="SELECT * FROM candidatures ";
@@ -83,7 +83,10 @@ public class ServiceCandidature implements IServiceCandidature {
             while(result.next()){
                 Candidature c=new Candidature();
                 c.setIdc(result.getInt(1));
-               /* c.setId(result.getInt("c.idu"));*/
+             c.getStatusToString();
+              c.getId();
+               c.getUserrname();
+               c.getSpécialité();
                 c.setDate(result.getTimestamp(6).toLocalDateTime());
                             
                 candidatures.add(c);
@@ -92,7 +95,7 @@ public class ServiceCandidature implements IServiceCandidature {
             System.out.println(ex);
         }
         return candidatures;
-    }
+    }*/
 
     @Override
     public void Delete(Candidature variable) {
@@ -121,7 +124,7 @@ public class ServiceCandidature implements IServiceCandidature {
             pst.setInt(1, id);
            rs= pst.executeQuery();
           while(rs.next()){
-              cdr = new Candidature(rs.getString("specialite"),rs.getString("fichier"), rs.getInt("idu"));
+              cdr = new Candidature(rs.getString("specialty"),rs.getString("Document"), rs.getInt("idu"));
           }  
         } catch (SQLException ex) {
             Logger.getLogger(ServiceCandidature.class.getName()).log(Level.SEVERE, null, ex);
@@ -131,7 +134,7 @@ public class ServiceCandidature implements IServiceCandidature {
     }
 
     @Override
-    public List<Candidature> Read() {
+    public ArrayList<Candidature> Read() {
         
 List<Candidature> cdr = new ArrayList<>();
 
@@ -145,7 +148,7 @@ List<Candidature> cdr = new ArrayList<>();
                         rs.getString(3), rs.getInt(5),
                         rs.getInt(1),rs.getString(4), 
                         rs.getTimestamp(6).toLocalDateTime(),
-                        rs.getInt(7)
+                        rs.getInt(2)
                 );
                 cdr.add(cand);
             }
@@ -154,7 +157,7 @@ List<Candidature> cdr = new ArrayList<>();
             System.out.println(ex.getMessage());
         }
 
-        return cdr ;
+        return (ArrayList<Candidature>) cdr ;
     }
  public void modifierEtatCandidature(Candidature c, int status) {
         try {
@@ -167,7 +170,45 @@ List<Candidature> cdr = new ArrayList<>();
             System.out.println(ex);
         }
     }
-
+  
+    public ArrayList<Candidature> trierCandidature(String student, boolean attente, boolean passee, boolean refusee) {
+        ArrayList<Candidature> liste=new ArrayList<>();
+        String request="SELECT c.idc, c.idu, c.datec, c.status FROM candidatures c JOIN users u ON u.Id = c.idu WHERE";
+        if (attente || passee || refusee) {
+            request+=" ( ";
+            if (attente)
+                request+="status = 1";
+            if (passee && attente)
+                request+=" OR status = 2";
+            else if (passee)
+                request+="status = 2";
+            if (refusee && (attente || passee))
+                request+=" OR status = 3";
+            else if (refusee)
+                request+="status = 3";
+            request+=" ) ";
+        } else
+            request+="status <> 0";
+     
+        try {
+            PreparedStatement pre=cnx.prepareStatement(request);
+            if (!student.isEmpty())
+                pre.setString(1, "%"+student+"%");
+            ResultSet result=pre.executeQuery();
+            while(result.next()){
+                Candidature c=new Candidature();
+                c.setId(result.getInt("c.idc"));
+                c.setId(result.getInt("c.idu"));
+                c.setDate(result.getTimestamp(3).toLocalDateTime());
+                c.setStatus(result.getInt("c.status"));
+             
+                liste.add(c);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return liste;
+    }
     @Override
     public void Update(Candidature variable) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

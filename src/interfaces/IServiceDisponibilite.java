@@ -6,6 +6,7 @@
 package interfaces;
 
 import entities.Disponibilite;
+import java.util.List;
 
 /**
  *

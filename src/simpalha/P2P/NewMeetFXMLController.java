@@ -76,7 +76,7 @@ public class NewMeetFXMLController implements Initializable {
             times.getItems().addAll(dispoList.stream().map(d-> d.getDatedeb()+" -> "+d.getDateFin()).toArray(String[]::new));
             Users student = serviceUser.findById(helperId);
             helper.setText(student.getUsername());
-            specialite.setText(student.getSpecialité());
+            specialite.setText(student.getSpecialty());
         });
     }    
     

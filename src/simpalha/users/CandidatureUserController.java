@@ -35,6 +35,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
 import services.ServiceCandidature;
+import services.ServicePost;
+import services.ServiceUsers;
 import utils.UserSession;
 
 /**
@@ -69,7 +71,6 @@ public class CandidatureUserController implements Initializable {
         userid = UserSession.getInstace(0).getUserid();
         System.out.println(userid);
         srv = new ServiceCandidature();
-
         ObservableList<String> List = FXCollections.observableArrayList("Java", "UML", "math");
         comb.setItems(List);
 

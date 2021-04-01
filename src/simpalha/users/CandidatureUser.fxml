@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="1280.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.users.CandidatureUserController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="1280.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.users.CandidatureUserController">
    <top>
       <HBox style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
@@ -209,12 +209,12 @@
                <children>
                   <AnchorPane id="AnchorPane" prefHeight="620.0" prefWidth="743.0">
                      <children>
-                        <TextField alignment="CENTER" layoutX="248.0" layoutY="330.0" prefHeight="36.0" prefWidth="257.0" text="Choisissez les certificats/relevé de notes" />
+                        <TextField alignment="CENTER" layoutX="248.0" layoutY="330.0" prefHeight="36.0" prefWidth="257.0" text="Choose certificates/degrees/report card" />
                         <Button fx:id="upload" layoutX="356.0" layoutY="427.0" mnemonicParsing="false" onAction="#UploadFichier" text="Upload" />
-                        <Button fx:id="confirm" layoutX="349.0" layoutY="522.0" mnemonicParsing="false" onAction="#Confirmer" text="Confirmer" />
+                        <Button fx:id="confirm" layoutX="349.0" layoutY="522.0" mnemonicParsing="false" onAction="#Confirmer" text="Confirm" />
                         <TextField fx:id="screen" layoutX="309.0" layoutY="172.0" />
                         <ImageView fx:id="tfimg" fitHeight="125.0" fitWidth="152.0" layoutX="186.0" layoutY="452.0" pickOnBounds="true" preserveRatio="true" />
-                        <ComboBox fx:id="comb" layoutX="308.0" layoutY="82.0" onAction="#selectspec" prefWidth="150.0" promptText="Spécialité" />
+                        <ComboBox fx:id="comb" layoutX="308.0" layoutY="82.0" onAction="#selectspec" prefWidth="150.0" promptText="Specialty" />
                      </children>
                   </AnchorPane>
                </children>

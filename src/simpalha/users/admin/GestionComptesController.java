@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simpalha.users;
+package simpalha.users.admin;
 
 import entities.Users;
 import java.io.IOException;
@@ -18,9 +18,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
@@ -31,15 +31,19 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import services.ServiceUsers;
+import simpalha.users.admin.ModifierProfileController;
 
 /**
  * FXML Controller class
  *
  * @author win10
  */
-public class CompteAdminController implements Initializable {
+public class GestionComptesController implements Initializable {
+    
 
-    private TableView<Users> table;
+    @FXML
+   
+     private TableView<Users> table;
     
     private ServiceUsers service;
 
@@ -49,7 +53,6 @@ public class CompteAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
         service = new ServiceUsers();
         TableColumn<Users, String> idCol = new TableColumn<>("Id");
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -62,18 +65,18 @@ public class CompteAdminController implements Initializable {
         
 
         TableColumn<Users, String> idSpecCol = new TableColumn<>("Spécialité");
-        idSpecCol.setCellValueFactory(new PropertyValueFactory<>("Specialité"));
+        idSpecCol.setCellValueFactory(new PropertyValueFactory<>("Specialty"));
 
         //@FXML
         //private void read(ActionEvent event) {
         TableColumn modCol = new TableColumn("Action");
-        modCol.setCellValueFactory(new PropertyValueFactory<>("modify"));
+        modCol.setCellValueFactory(new PropertyValueFactory<>("Update"));
         Callback<TableColumn<Users, String>, TableCell<Users, String>> cellFactoryModify
                 =                 //
         (final TableColumn<Users, String> param) -> {
             final TableCell<Users, String> cell = new TableCell<Users, String>() {
                 
-                final Button modify = new Button("Modify");
+                final Button modify = new Button("Update");
                 
                 @Override
                 public void updateItem(String item, boolean empty) {
@@ -88,7 +91,7 @@ public class CompteAdminController implements Initializable {
                             try {
                                 FXMLLoader loader = new FXMLLoader(
                                         getClass().getResource(
-                                                "modifierProfile.fxml"
+                                                "ModifierProfile.fxml"
                                         )
                                 );
                                 
@@ -102,7 +105,7 @@ public class CompteAdminController implements Initializable {
                                 
                                 stage.show();
                             } catch (IOException ex) {
-                                Logger.getLogger(CompteAdminController.class.getName()).log(Level.SEVERE, null, ex);
+                                Logger.getLogger(GestionComptesController.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         });
                         
@@ -132,7 +135,7 @@ public class CompteAdminController implements Initializable {
                         setText(null);
                     } else {
                         delete.setOnAction(event -> {
-                            Alert alert=new Alert(AlertType.CONFIRMATION);
+                            Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
                             alert.setTitle("confirmation dialog");
                             alert.setHeaderText(null);
                             alert.setContentText("Are you sure you want to delete?");
@@ -179,14 +182,41 @@ public class CompteAdminController implements Initializable {
 
     @FXML
     private void goToViewPosts(MouseEvent event) {
+         
     }
 
     @FXML
     private void showP2P(MouseEvent event) {
+         Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("simpalha/P2P/P2PFXML.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
     }
 
     @FXML
     private void AddNewPost(ActionEvent event) {
+         Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("simpalha/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
     }
     
 }

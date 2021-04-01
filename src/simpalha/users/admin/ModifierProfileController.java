@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simpalha.users;
+package simpalha.users.admin;
 
 import entities.Users;
 import java.io.IOException;
@@ -37,30 +37,31 @@ public class ModifierProfileController implements Initializable {
     @FXML
     private TextField nom;
     @FXML
-    private TextField prenom;
-    @FXML
     private TextField email;
     @FXML
     private Button modif;
     @FXML
-    private Label spécialité;
+    private TextField spécialité;
     @FXML
     private ImageView img;
-    private int userId;
+    
+       private int userId;
 private ServiceUsers service;
+    /**
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-         Platform.runLater(() -> {
+        Platform.runLater(() -> {
             service = new ServiceUsers();
             
             Users user = service.findById(userId);
             
             nom.setText(user.getUsername());
-            spécialité.setText(user.getSpecialité());
+            spécialité.setText(user.getSpecialty());
             email.setText(user.getEmail());
         });
     }    
@@ -82,7 +83,8 @@ private ServiceUsers service;
     }
 
     @FXML
-    private void update(ActionEvent event) {Users user = service.findById(userId);
+    private void update(ActionEvent event) {
+        Users user = service.findById(userId);
         user.setUsername(nom.getText());
         
         user.setEmail(email.getText());
@@ -101,23 +103,24 @@ private ServiceUsers service;
             );
             stage.show();
         } catch (IOException ex) {
-            Logger.getLogger(ModifierProfileController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(simpalha.users.admin.ModifierProfileController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
 
     @FXML
     private void DésactiverCompte(ActionEvent event) {
     }
-     void initData(int id) {
+    public void initData(int id) {
         userId = id;
     }
 
     @FXML
     private void back(ActionEvent event) {
-         //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
+          //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
             Parent loader;
             try {
-                loader = FXMLLoader.load(getClass().getResource("CompteAdmin.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+                loader = FXMLLoader.load(getClass().getResource("GestionComptes.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
 
                 Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
 

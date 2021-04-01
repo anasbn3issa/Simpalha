@@ -20,7 +20,7 @@ public class Simpalha extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         
-        Parent root = FXMLLoader.load(getClass().getResource("users/Login.fxml"));        
+        Parent root = FXMLLoader.load(getClass().getResource("users/admin/GestionCandidatures.fxml"));        
         Scene scene = new Scene(root);
         
         stage.setScene(scene);

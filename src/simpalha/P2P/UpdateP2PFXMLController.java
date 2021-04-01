@@ -71,7 +71,7 @@ public class UpdateP2PFXMLController implements Initializable {
             times.getItems().addAll(dispoList.stream().map(d -> d.getDatedeb() + " -> " + d.getDateFin()).toArray(String[]::new));
             Users student = serviceUser.findById(idHelper);
             helper.setText(student.getUsername());
-            specialite.setText(student.getSpecialité());
+            specialite.setText(student.getSpecialty());
 
         });
     }   
