@@ -13,7 +13,7 @@ import java.util.UUID;
  */
 public class Meet {
     
-    private int id_student,id_helper, feedback_id;
+    private int id_student,id_helper, feedback_id, etat;
     private String id, specialite, time, studentDisplay, helperDisplay, feedbackDisplay;
     
     public Meet(){
@@ -28,13 +28,14 @@ public class Meet {
         this.id = UUID.randomUUID().toString();
     }
 
-    public Meet(String id, int id_student, int id_helper, int feedback_id, String specialite, String disponibilite_id) {
+    public Meet(String id, int id_student, int id_helper, int feedback_id, String specialite, String disponibilite_id, int etat) {
         this.id_student = id_student;
         this.id_helper = id_helper;
         this.time = disponibilite_id;
         this.feedback_id = feedback_id;
         this.id = id;
         this.specialite = specialite;
+        this.etat = etat;
     }
     
     
@@ -94,14 +95,10 @@ public class Meet {
     public void setFeedbackDisplay(String feedbackDisplay) {
         this.feedbackDisplay = feedbackDisplay;
     }
-    
-    
-    
-    
 
     @Override
     public String toString() {
-        return "Meet{" + "id_student=" + id_student + ", id_helper=" + id_helper + ", feedback_id=" + feedback_id + ", id=" + id + ", specialite=" + specialite + ", time=" + time + '}';
+        return "Meet{" + "id_student=" + id_student + ", id_helper=" + id_helper + ", feedback_id=" + feedback_id + ", etat=" + etat + ", id=" + id + ", specialite=" + specialite + ", time=" + time + ", studentDisplay=" + studentDisplay + ", helperDisplay=" + helperDisplay + ", feedbackDisplay=" + feedbackDisplay + '}';
     }
 
     public void setHelperDisplay(String username) {
@@ -120,10 +117,15 @@ public class Meet {
         return this.studentDisplay;
     }
 
-    
+    public int getEtat() {
+        return etat;
+    }
 
+    public void setEtat(int etat) {
+        this.etat = etat;
+    }
     
-    
+        
     
     
 }

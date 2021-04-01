@@ -15,7 +15,10 @@ import java.util.List;
 public interface IServiceP2P extends IService<Meet> {
         public Meet findById(String id);
         public List<Meet> ReadById(int id);
-
+        public List<Meet> ReadStudentsById(int id);
+        public int finishedCount();
+        public int ScheduledCount();
+        public void setFinished(String id);
 
     
 }

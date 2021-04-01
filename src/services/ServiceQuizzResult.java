@@ -224,5 +224,10 @@ public class ServiceQuizzResult implements IServiceQuizzResult{
 
         return quizzResultsObservable;
     }
+
+    @Override
+    public int count() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
