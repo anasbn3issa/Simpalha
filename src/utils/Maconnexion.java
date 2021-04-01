@@ -11,9 +11,9 @@ import java.sql.SQLException;
  */
 public class Maconnexion {
     
-    private String URL="jdbc:mysql://127.0.0.1/simpalha";
-    private String LOGIN="root";
-    private String PASS="";
+    private String URL=Constants.DB_URL;
+    private String LOGIN=Constants.DB_USERNAME;
+    private String PASS=Constants.DB_PASSWORD;
     static Maconnexion instance = null;
     private Connection cnx;
 

@@ -165,4 +165,9 @@ public class ServiceDisponibilite implements IServiceDisponibilite {
         return disponibilite;
     }
 
+    @Override
+    public int count() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

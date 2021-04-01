@@ -101,6 +101,10 @@ public class ServiceUpvoteComment implements IServiceUpvoteComment {
     }
 
     @Override
+    public int count() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void RemoveUpvote(int id_user, int id_comment) {
         // remove from upvotecomment table 
          try {
@@ -116,7 +120,4 @@ public class ServiceUpvoteComment implements IServiceUpvoteComment {
         }
          
     }
-
-    
-
 }

@@ -19,6 +19,7 @@ public interface IService<T> {
     public void Delete(T variable);
     public List<T> findAllById(int id);
     public T findById(int id);
+    public int count();
 
     
 }

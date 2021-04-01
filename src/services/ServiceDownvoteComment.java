@@ -106,6 +106,10 @@ public class ServiceDownvoteComment implements IServiceDownvoteComment{
     }
 
     @Override
+    public int count() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void RemoveDownvote(int id_user, int id_comment) {
         try {
             String requete;
@@ -118,10 +122,6 @@ public class ServiceDownvoteComment implements IServiceDownvoteComment{
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-    }
-
-   
-
-    
+    }    
     
 }
