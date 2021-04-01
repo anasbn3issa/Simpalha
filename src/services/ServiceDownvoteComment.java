@@ -5,6 +5,7 @@
  */
 package services;
 
+import entities.Comment;
 import entities.DownvoteComment;
 import interfaces.IService;
 import java.sql.Connection;
@@ -40,9 +41,6 @@ public class ServiceDownvoteComment implements IServiceDownvoteComment{
             Statement st=cnx.createStatement();
             String query="INSERT INTO downvote_comment(id_comment,id_user) VALUES ('"+variable.getId_comment()+"','"+variable.getId_user()+"')";
             st.executeUpdate(query);
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("enregistré");
-            alert.show();
         } catch (SQLException ex) {
             Logger.getLogger(ServicePost.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -91,14 +89,14 @@ public class ServiceDownvoteComment implements IServiceDownvoteComment{
     */
     @Override
     public Boolean downvoteExists(int id_user, int id_comment) {
-        String query = "select * from downvote_comment where (id_user=? AND id_comment)";
+        String query = "select * from downvote_comment where (id_user=? AND id_comment=?)";
         
         try {
             pst = cnx.prepareStatement(query);
             pst.setInt(1, id_user);
             pst.setInt(2, id_comment);
             rs = pst.executeQuery();
-            return !rs.next();
+            return rs.next();
             
         } catch (SQLException ex) {
             Logger.getLogger(ServiceDownvoteComment.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,6 +110,18 @@ public class ServiceDownvoteComment implements IServiceDownvoteComment{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
+    public void RemoveDownvote(int id_user, int id_comment) {
+        try {
+            String requete;
+            requete = "delete from downvote_comment where (id_user = ? AND id_comment=?)";
+            PreparedStatement pst = cnx.prepareStatement(requete);
+            pst.setInt(1, id_user);
+            pst.setInt(2, id_comment);
+            pst.executeUpdate();
+            int ss = pst.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }    
     
 }

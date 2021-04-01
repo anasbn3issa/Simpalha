@@ -4,7 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
@@ -205,11 +204,11 @@
     <center>
         <AnchorPane prefHeight="539.0" prefWidth="1130.0">
            <children>
-              <TableView fx:id="LAffiche" layoutX="75.0" layoutY="28.0" prefHeight="502.0" prefWidth="998.0">
+              <TableView fx:id="LAffiche" layoutX="75.0" layoutY="71.0" prefHeight="502.0" prefWidth="998.0">
                  <columns>
-                    <TableColumn fx:id="idColumn" prefWidth="50.0" text="ID">
+                    <TableColumn fx:id="userNameColumn" prefWidth="50.0" text="Creator">
                        <cellValueFactory>
-                          <PropertyValueFactory property="id" />
+                          <PropertyValueFactory property="name" />
                        </cellValueFactory>
                     </TableColumn>
                     <TableColumn fx:id="quizzColumn" prefWidth="728.0" text="Quizz">
@@ -224,7 +223,10 @@
                     </TableColumn>
                  </columns>
               </TableView>
-              <Button fx:id="btTakeQuizz" layoutX="358.0" layoutY="549.0" mnemonicParsing="false" onAction="#takeQuizz" prefHeight="25.0" prefWidth="315.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Take Quizz" />
+              <Button fx:id="btTakeQuizz" layoutX="408.0" layoutY="584.0" mnemonicParsing="false" onAction="#takeQuizz" prefHeight="25.0" prefWidth="315.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Take Quizz" />
+            <TextField fx:id="tfSearchQuizz" layoutX="74.0" layoutY="29.0" prefHeight="25.0" prefWidth="316.0" promptText="Search Quizz Title" />
+            <FontAwesomeIcon fx:id="btSearchQuizzBody" fill="#485460" iconName="SEARCH" layoutX="408.0" layoutY="47.0" onMouseClicked="#searchQuizzTitle" size="1.5em" styleClass="cursor_hand" />
+            <Button fx:id="btReloadQuizzes" layoutX="952.0" layoutY="28.0" mnemonicParsing="false" onAction="#reloadQuizzes" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Reload Quizzes" />
            </children>
         </AnchorPane>
     </center>

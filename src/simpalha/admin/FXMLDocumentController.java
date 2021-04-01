@@ -5,7 +5,6 @@
  */
 package simpalha.admin;
 
-import simpalha.*;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.io.IOException;
 import java.net.URL;
@@ -26,7 +25,6 @@ import javafx.stage.Stage;
 import services.ServiceNotification;
 import services.ServiceP2P;
 import simpalha.notification.FXMLNotificationController;
-import simpalha.quizz.FXMLQuizzController;
 import utils.UserSession;
 
 /**
@@ -78,12 +76,11 @@ public class FXMLDocumentController implements Initializable {
     }
 
     
-    // f hethy lezm n3awd nredefini l bouton eli bsh yhezni lel page ViewPosts (contact wajdi)
     @FXML
     private void goToViewPosts(MouseEvent event) {
         /*Parent loader;
         try {
-            loader = FXMLLoader.load(getClass().getResource("/simpalha/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/admin/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
 
             Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
 
@@ -197,14 +194,13 @@ public class FXMLDocumentController implements Initializable {
         /*try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-//                            "/simpalha/quizz/FXMLQuizzTaking.fxml"
-                            "/simpalha/quizz/FXMLQuizz.fxml"
+                            "/simpalha/admin/quizz/FXMLQuizzTable.fxml"
                     )
             );
             
             Parent root = loader.load();
             
-            FXMLQuizzController tableController = loader.getController();
+            FXMLAdminQuizzTableController tableController = loader.getController();
             
             tableController.initializeUserId(usr.getUserid());
 

@@ -59,4 +59,7 @@ public interface IServiceQuizz extends IService<Quizz> {
 //    find last added Quizz row and take its ID
     public int LastAddedQuizzId() throws SQLException;
     
+//    finds all quizzes and adds a username
+    public ObservableList<Quizz> ObservableListAllQuizzesWithUserName() throws SQLException;
+    
 }

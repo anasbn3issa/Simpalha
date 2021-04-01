@@ -17,7 +17,7 @@
    <top>
       <HBox style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" maxWidth="-Infinity" prefWidth="150.0" style="-fx-background-color: #0fbcf9;" styleClass="cursor_hand">
+            <HBox alignment="CENTER" maxWidth="-Infinity" prefWidth="150.0" style="-fx-background-color: #f94c0f;" styleClass="cursor_hand">
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>

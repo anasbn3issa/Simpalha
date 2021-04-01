@@ -5,6 +5,7 @@
  */
 package interfaces;
 
+import entities.Comment;
 import entities.DownvoteComment;
 
 /**
@@ -19,6 +20,6 @@ public interface IServiceDownvoteComment extends IService<DownvoteComment>{
     * sachant que rs.next() return false if the Rs is empty <=> our table downvote_comment does not contain any column with id_user and id_comment given
     */
     public Boolean downvoteExists(int id_user,int id_comment);
-    
+    public void RemoveDownvote(int id_user,int id_comment);
     
 }

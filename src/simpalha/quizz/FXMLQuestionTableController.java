@@ -5,6 +5,9 @@
  */
 package simpalha.quizz;
 
+import simpalha.quizz.FXMLQuestionEditController;
+import simpalha.quizz.FXMLQuestionAddController;
+import simpalha.quizz.FXMLQuestionTableController;
 import entities.Question;
 import java.io.IOException;
 import services.ServiceQuestion;

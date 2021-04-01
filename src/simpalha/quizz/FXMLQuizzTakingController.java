@@ -10,6 +10,7 @@ import entities.Quizz;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,14 +22,16 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.ServiceQuizz;
 import simpalha.FXMLDocumentController;
 import simpalha.notification.FXMLNotificationController;
+import java.util.stream.Collectors;
+import javafx.collections.FXCollections;
 
 /**
  * FXML Controller class
@@ -40,9 +43,9 @@ public class FXMLQuizzTakingController implements Initializable {
     @FXML
     private TableView<Quizz> LAffiche;
     @FXML
-    private TableColumn<Quizz, Integer> idColumn;
-    @FXML
     private TableColumn<Quizz, String> quizzColumn;
+    @FXML
+    private TableColumn<Quizz, String> userNameColumn;
     @FXML
     private TableColumn<Quizz, String> subjectColumn;
     @FXML
@@ -52,7 +55,12 @@ public class FXMLQuizzTakingController implements Initializable {
     private int userId;
     @FXML
     private FontAwesomeIcon btNotificationShow;
-
+    @FXML
+    private FontAwesomeIcon btSearchQuizzBody;
+    @FXML
+    private Button btReloadQuizzes;
+    @FXML
+    private TextField tfSearchQuizz;
     
     /**
      * Initializes the controller class and reloads the Quiz table
@@ -72,9 +80,9 @@ public class FXMLQuizzTakingController implements Initializable {
         ServiceQuizz sq = new ServiceQuizz();
         
         try {
-            LAffiche.setItems(sq.ObservableListAllQuizzes());
+            LAffiche.setItems(sq.ObservableListAllQuizzesWithUserName());
         } catch (SQLException ex) {
-            Logger.getLogger(FXMLQuestionTableController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLQuizzTakingController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -179,6 +187,22 @@ public class FXMLQuizzTakingController implements Initializable {
             app_stage.show(); // this shows the scene
         } catch (IOException ex) {
         }
+    }
+
+    @FXML
+    private void searchQuizzTitle(MouseEvent event) {
+        String quizzTitle = tfSearchQuizz.getText();
+        
+        List targetList = LAffiche.getItems().stream()
+                            .filter(item -> item.getTitle().equalsIgnoreCase(quizzTitle))
+                            .collect(Collectors.toList()); 
+        
+        LAffiche.setItems(FXCollections.observableArrayList(targetList));
+    }
+
+    @FXML
+    private void reloadQuizzes(ActionEvent event) {
+        reloadQuizzesList();
     }
     
 }

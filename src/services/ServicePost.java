@@ -76,7 +76,7 @@ public class ServicePost implements IServicePost {
     public List<Post> Read() {
 
         List<Post> list = new ArrayList<>();
-        String req = "select * from post";
+        String req = "select * from post ORDER BY timestamp DESC";
         try {
             ste = cnx.createStatement();
             rs = ste.executeQuery(req);
@@ -99,6 +99,22 @@ public class ServicePost implements IServicePost {
 
     }
 
+    public List<String> ReadModules(){
+        List<String> list = new ArrayList<>();
+        String req = "select * from module ORDER BY name ASC";
+        try {
+            ste = cnx.createStatement();
+            rs = ste.executeQuery(req);
+            while (rs.next()) {
+                list.add(rs.getString("name"));
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+    
     @Override
     public void Delete(Post variable) {
         try {
@@ -107,7 +123,7 @@ public class ServicePost implements IServicePost {
             PreparedStatement pst = cnx.prepareStatement(requete);
             pst.setInt(1, variable.getId());
             pst.executeUpdate();
-            int ss = pst.executeUpdate(); 
+            pst.executeUpdate(); 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -146,7 +162,7 @@ public class ServicePost implements IServicePost {
     @Override
     public List<Comment> findAllCommentsForThisPost(int postId) {
         List<Comment> comments = new ArrayList<>();
-        String query = "select * from comment where id_Post=?";
+        String query = "select * from comment where id_Post=? ORDER BY timestamp DESC";
 
         try {
             pst = cnx.prepareStatement(query);
@@ -157,6 +173,8 @@ public class ServicePost implements IServicePost {
                 c.setId(rs.getInt("id"));
                 c.setTimestamp(rs.getTimestamp("timestamp"));
                 c.setId_Post(rs.getInt("id_Post"));
+                c.setUpvotes(rs.getInt("upvotes"));
+                c.setDownvotes(rs.getInt("downvotes"));
                 c.setSolution(rs.getString("solution"));
                 c.setOwnerId(rs.getInt("owner_id"));
                 comments.add(c);
@@ -173,7 +191,7 @@ public class ServicePost implements IServicePost {
     @Override
     public List<Post> findPostsByModule(String module) {
         List<Post> posts = new ArrayList<>();
-        String query = "select * from post where module=?";
+        String query = "select * from post where module=? ORDER BY timestamp DESC";
 
         try {
             pst = cnx.prepareStatement(query);
@@ -187,7 +205,7 @@ public class ServicePost implements IServicePost {
                 c.setStatus(rs.getString("status"));
                 c.setModule(rs.getString("module"));
                 c.setImageName(rs.getString("image_name"));
-                System.out.println("b"+c.toString());
+                c.setOwnerId(rs.getInt("owner_id"));
                 posts.add(c);
             }
         } catch (SQLException ex) {
