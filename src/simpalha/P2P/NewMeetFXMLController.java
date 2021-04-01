@@ -7,6 +7,7 @@ package simpalha.P2P;
 
 import entities.Disponibilite;
 import entities.Meet;
+import entities.Notification;
 import entities.Users;
 import java.io.IOException;
 import java.net.URL;
@@ -30,6 +31,7 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.ServiceDisponibilite;
+import services.ServiceNotification;
 import services.ServiceP2P;
 import services.ServiceUsers;
 import simpalha.FXMLDocumentController;
@@ -46,7 +48,7 @@ public class NewMeetFXMLController implements Initializable {
     private ServiceDisponibilite serviceDisp;
     private ServiceUsers serviceUser;
     private ServiceP2P serviceP2P;
-
+    private ServiceNotification serviceNotif = new ServiceNotification();
     @FXML
     private Button back;
     @FXML
@@ -132,6 +134,15 @@ public class NewMeetFXMLController implements Initializable {
         serviceDisp.Update(disponibilite);
         Meet meet = new Meet(userId, helperId, specialite.getText(), String.valueOf(disponibilite.getId()));
         serviceP2P.Create(meet);
+        Users u = serviceUser.findById(userId);
+        Notification n = new Notification();
+        n.setTitle("New meet");
+        n.setContent("New meet notification:  " + u.getUsername() + " has scheduled a meet on the " + meet.getTime() + " for " + meet.getSpecialite());
+        n.setRead(false);
+        n.setSent(false);
+        n.setUser(helperId);
+        serviceNotif.createNotification(n);
+
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(

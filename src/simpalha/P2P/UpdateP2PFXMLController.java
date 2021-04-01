@@ -7,6 +7,7 @@ package simpalha.P2P;
 
 import entities.Disponibilite;
 import entities.Meet;
+import entities.Notification;
 import entities.Users;
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +30,7 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.ServiceDisponibilite;
+import services.ServiceNotification;
 import services.ServiceP2P;
 import services.ServiceUsers;
 import simpalha.FXMLDocumentController;
@@ -58,6 +60,10 @@ public class UpdateP2PFXMLController implements Initializable {
     private TextField specialite;
     @FXML
     private Button confirmer;
+    
+    private ServiceNotification serviceNotif = new ServiceNotification();
+    private int userId;
+
 
     /**
      * Initializes the controller class.
@@ -68,6 +74,7 @@ public class UpdateP2PFXMLController implements Initializable {
             service = new ServiceP2P();
             serviceDisp = new ServiceDisponibilite();
             serviceUser = new ServiceUsers();
+            userId = UserSession.getInstace(0).getUserid();
             List<Disponibilite> dispoList = serviceDisp.findAllById(idHelper);
             System.out.println(dispoList);
             times.getItems().addAll(dispoList.stream().map(d -> d.getDatedeb() + " -> " + d.getDateFin()).toArray(String[]::new));
@@ -136,6 +143,16 @@ public class UpdateP2PFXMLController implements Initializable {
         serviceDisp.Update(disponibilite);
         meet.setTime(String.valueOf(disponibilite.getId()));
         service.Update(meet);
+        
+        
+        Users u = serviceUser.findById(userId);
+        Notification n = new Notification();
+        n.setTitle("Meet update");
+        n.setContent("Meet Update:  " + u.getUsername() + " has updated a meet on the " + meet.getTime() + " for " + meet.getSpecialite());
+        n.setRead(false);
+        n.setSent(false);
+        n.setUser(idHelper);
+        serviceNotif.createNotification(n);
 
         try {
             FXMLLoader loader = new FXMLLoader(

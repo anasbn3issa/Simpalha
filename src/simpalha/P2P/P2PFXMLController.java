@@ -409,10 +409,7 @@ public class P2PFXMLController implements Initializable {
         meets.getColumns().add(delCol);
         meets.getColumns().add(joinCol);
         dataList.addAll(service.ReadById(userId));
-        meets.getItems().addAll(dataList);
-        
-        
-        
+        meets.getItems().addAll(dataList);        
 
         // Wrap the ObservableList in a FilteredList (initially display all data).
         FilteredList<Meet> filteredData = new FilteredList<>(dataList, b -> true);
@@ -604,7 +601,8 @@ public class P2PFXMLController implements Initializable {
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                             LocalDateTime dateTime = LocalDateTime.parse(split[1], formatter);
                             Boolean isbofore = dateTime.isBefore(now);
-                            if (meet.getEtat() == 1 | isbofore) {
+                            Boolean isequal = dateTime.isEqual(now);
+                            if (meet.getEtat() == 1 | isbofore |!isequal) {
                                 choix.setDisable(true);
                             }
 
