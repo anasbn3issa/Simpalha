@@ -4,8 +4,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simpalha.ressources;
+package simpalha.admin.ressources;
 
+import simpalha.ressources.*;
 import com.convertapi.Config;
 import com.convertapi.ConversionResult;
 import com.convertapi.ConvertApi;
