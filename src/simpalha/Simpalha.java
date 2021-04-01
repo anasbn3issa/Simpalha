@@ -22,7 +22,6 @@ public class Simpalha extends Application {
 
         
         Parent root = FXMLLoader.load(getClass().getResource("users/Login.fxml"));
-        //Parent root = FXMLLoader.load(getClass().getResource("admin/FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);
 
