@@ -90,7 +90,7 @@ public class UpdateP2PFXMLController implements Initializable {
             Users std = serviceUser.findById(meet.getId_student());
             student.setText(std.getUsername());
             
-            specialite.setText(hlp.getSpecialité());
+            specialite.setText(hlp.getSpecialty());
             
             Feedback fdb = serviceFeedback.findById(meet.getFeedback_id());
             feedback.setText(fdb.getFeedback());

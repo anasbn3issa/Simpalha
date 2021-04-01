@@ -14,9 +14,9 @@ import static java.util.Collections.list;
  */
 public class Users {
 
-    private int id, role;
+    private int id,role;
     private String password, code, email, username;
-    private String Specialité;
+    private String Specialty;
     private String about;
    // private String encyptedpasswd=getPassword();
    // private String decyptedpasswd=getDecryptedPassword();
@@ -30,6 +30,14 @@ public class Users {
 
     public void setAbout(String about) {
         this.about = about;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 
     public String getCode() {
@@ -47,13 +55,15 @@ public class Users {
 
     }
 
-    public Users(int id, String password, String email, String username, String Specialité, int role) {
+    public Users(int id, String password, String email, String username, String Specialty,String about,int role) {
         this.id = id;
         this.role = role;
         this.password = password;
         this.email = email;
+        this.about = about;
+        this.role = role;
         this.username = username;
-        this.Specialité = Specialité;
+        this.Specialty = Specialty;
     }
 
     public Users(String password, String username) {
@@ -69,6 +79,7 @@ public class Users {
         this.role = role;
 
     }
+    
 
     public String getPassword() {
         return Base64.getEncoder().encodeToString(password.getBytes());
@@ -105,30 +116,25 @@ public class Users {
         this.username = username;
     }
 
-    public String getSpecialité() {
-        return Specialité;
+    public String getSpecialty() {
+        return Specialty;
     }
 
-    public void setSpecialité(String Specialité) {
-        this.Specialité = Specialité;
+    public void setSpecialty(String Specialty) {
+        this.Specialty = Specialty;
     }
 
-    public int getRole() {
-        return role;
-    }
-
-    public void setRole(int role) {
-        this.role = role;
-    }
-
+    
     @Override
     public String toString() {
-        return "Users{" + "id=" + id + ", role=" + role + ", password=" + password + ", code=" + code + ", email=" + email + ", username=" + username + ", Specialite" + Specialité + ", about=" + about + '}';
+        return "Users{" + "id=" + id + ", role=" + role + ", password=" + password + ", code=" + code + ", email=" + email + ", username=" + username + ", Specialty=" + Specialty + ", about=" + about + '}';
     }
     
     
 
     
+
+   
 
    
 

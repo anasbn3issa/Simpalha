@@ -38,7 +38,7 @@ public class Candidature {
    
     
 
-    public Candidature(String spécialité, int status, int idc, String fichier, LocalDateTime datec, int idu) {
+        public Candidature(String spécialité, int status, int idc, String fichier, LocalDateTime datec, int idu) {
         this.spécialité = spécialité;
         this.status = status;
         this.idc = idc;
@@ -103,6 +103,17 @@ public class Candidature {
  public void setIdc(int idc) {
         this.idc = idc;
     }
+
+    public int getIdu() {
+        return idu;
+    }
+
+    public void setIdu(int idu) {
+        this.idu = idu;
+    }
+ 
+ 
+ 
    public LocalDateTime getDate() {
         return datec;
     }
@@ -126,10 +137,10 @@ public class Candidature {
     
  public String getStatusToString(){
         if (status==1)
-            return "En attente";
+            return "Refusée";
         if (status==2)
             return "Confirmée";
-        return "Refusée";
+        return "En attente";
     }
     @Override
     public String toString() {

@@ -236,7 +236,7 @@ public class ModifierReclamationController implements Initializable {
         int id = usr.getUserid();
         Users user = serviceUsers.findById(id);
         String usertype = "Student";
-        if (user.getSpecialité() != null) {
+        if (user.getSpecialty()!= null) {
             usertype = "Helper";
         }
         service.ValidateStatus(rec, usertype);

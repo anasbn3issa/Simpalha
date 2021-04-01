@@ -3,12 +3,11 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -19,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="1280.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.users.ProfileController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="1280.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.users.ProfileController">
    <top>
       <HBox style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
@@ -30,7 +29,7 @@
                <children>
                   <ImageView fitHeight="120.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assets/Simpalha.png" />
+                        <Image url="@../../assets/Simpalha.png" />
                      </image>
                   </ImageView>
                </children></HBox>
@@ -50,7 +49,7 @@
                         <FontAwesomeIcon iconName="BELL_O" size="1.3em" styleClass="cursor_hand" />
                         <ImageView fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="cursor_hand">
                            <image>
-                              <Image url="@../assets/male.png" />
+                              <Image url="@../../assets/male.png" />
                            </image>
                            <HBox.margin>
                               <Insets left="20.0" right="20.0" />
@@ -85,7 +84,7 @@
                </VBox.margin>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="CIRCLE_ALT_NOTCH" size="1.5em" />
-                  <Text onDragDetected="#goToViewPosts" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Posts">
+                  <Text onMouseClicked="#goToposts" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Posts">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -98,7 +97,7 @@
                </padding>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="CALENDAR_ALT" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="P2P">
+                  <Text onMouseClicked="#showP2P" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="P2P">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -114,7 +113,7 @@
                </padding>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="LIST_UL" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Tasks">
+                  <Text onMouseClicked="#quizz" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Quizz">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -130,23 +129,7 @@
                </padding>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="FILE_TEXT_ALT" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Invoice">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Text>
-               </children>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" styleClass="hover_border">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-               <children>
-                  <FontAwesomeIcon fill="#485460" iconName="ENVELOPE_ALT" size="1.5em" />
-                  <Text onMouseClicked="#candidatures" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Candidatures">
+                  <Text onMouseClicked="#ressources" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Ressources">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -162,7 +145,7 @@
                </padding>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="NEWSPAPER_ALT" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Reports">
+                  <Text onMouseClicked="#reclamtions" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Claims">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -179,8 +162,8 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                      <children>
-                        <FontAwesomeIcon fill="#485460" iconName="COG" size="1.5em" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Settings">
+                        <FontAwesomeIcon fill="#485460" iconName="USER" size="1.5em" />
+                        <Text onMouseClicked="#profile" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Profile">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -192,8 +175,8 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                      <children>
-                        <FontAwesomeIcon fill="#485460" iconName="USER" size="1.5em" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Contact Support">
+                        <FontAwesomeIcon fill="#485460" iconName="SIGN_OUT" size="1.5em" />
+                        <Text onMouseClicked="#logout" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Logout">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -213,42 +196,31 @@
          <children>
             <TabPane prefHeight="534.0" prefWidth="744.0" tabClosingPolicy="UNAVAILABLE">
                <tabs>
-                  <Tab text="Invitations">
-                     <content>
-                        <BorderPane prefHeight="200.0" prefWidth="200.0">
-                           <center>
-                              <TableView fx:id="tableinvitations" onMouseClicked="#selectionInvitations" prefHeight="292.0" prefWidth="593.0" BorderPane.alignment="CENTER">
-                                 <columns>
-                                    <TableColumn fx:id="names" prefWidth="560.0" text="Invitations " />
-                                    <TableColumn fx:id="hiddenid" prefWidth="102.0" text="hiddenid" visible="false" />
-                                 </columns>
-                              </TableView>
-                           </center>
-                           <bottom>
-                              <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                 <buttons>
-                                    <Button mnemonicParsing="false" onAction="#accepterAmi" prefHeight="32.0" prefWidth="461.0" text="accepter" />
-                                    <Button mnemonicParsing="false" onAction="#refuserAmi" prefHeight="32.0" prefWidth="292.0" text="refuser" />
-                                 </buttons>
-                              </ButtonBar>
-                           </bottom>
-                        </BorderPane>
-                     </content>
-                  </Tab>
-                  <Tab text="Paramètres">
+                  <Tab text="Settings">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="logout" layoutX="408.0" layoutY="273.0" mnemonicParsing="false" onAction="#logout" prefHeight="41.0" prefWidth="161.0" text="Se déconnecter" />
-                              <Label layoutX="38.0" layoutY="65.0" text="About me :" />
-                              <Label layoutX="36.0" layoutY="110.0" text="Nouveau mot de passe :" />
-                              <Label layoutX="35.0" layoutY="154.0" text="Repetez le mot de passe :" />
-                              <PasswordField fx:id="changepassword" layoutX="220.0" layoutY="93.0" />
-                              <PasswordField fx:id="confirmpassword" layoutX="220.0" layoutY="137.0" />
-                              <TextField fx:id="changeabout" layoutX="220.0" layoutY="52.0" />
-                              <Button layoutX="405.0" layoutY="58.0" mnemonicParsing="false" onAction="#aboutUpdate" prefHeight="32.0" prefWidth="167.0" text="modifier la description" />
-                              <Button layoutX="405.0" layoutY="103.0" mnemonicParsing="false" onAction="#passwordUpdate" prefHeight="32.0" prefWidth="167.0" text="Modifier le mot de passe" />
-                              <Label fx:id="erreur" layoutX="211.0" layoutY="200.0" prefHeight="18.0" prefWidth="181.0" textFill="#c90a0a" />
+                              <Label layoutX="221.0" layoutY="66.0" text="About me :" />
+                              <Label layoutX="222.0" layoutY="223.0" text="New password" />
+                              <Label layoutX="221.0" layoutY="267.0" text="Confirm password" />
+                              <PasswordField fx:id="changepassword" layoutX="410.0" layoutY="219.0" />
+                              <PasswordField fx:id="confirmpassword" layoutX="410.0" layoutY="263.0" />
+                              <TextField fx:id="changeabout" layoutX="400.0" layoutY="63.0" />
+                              <Button layoutX="588.0" layoutY="59.0" mnemonicParsing="false" onAction="#aboutUpdate" prefHeight="32.0" prefWidth="167.0" text="Modify Description" />
+                              <Button layoutX="603.0" layoutY="224.0" mnemonicParsing="false" onAction="#passwordUpdate" prefHeight="32.0" prefWidth="167.0" text="Modify password" />
+                              <Label fx:id="erreur" layoutX="239.0" layoutY="375.0" prefHeight="18.0" prefWidth="181.0" textFill="#c90a0a" />
+                              <Hyperlink layoutX="423.0" layoutY="310.0" onAction="#apply" prefHeight="23.0" prefWidth="123.0" text="Want to be a helper?" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Availibilty">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="erreur1" layoutX="211.0" layoutY="200.0" prefHeight="18.0" prefWidth="181.0" textFill="#c90a0a" />
+                              <TableView fx:id="dispo" layoutX="209.0" layoutY="74.0" prefHeight="389.0" prefWidth="454.0" />
+                              <Button fx:id="addav" layoutX="907.0" layoutY="42.0" mnemonicParsing="false" onAction="#Addavailability" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" styleClass="cursor_hand" stylesheets="@../../styles/style.css" text="New Availability" />
                            </children>
                         </AnchorPane>
                      </content>

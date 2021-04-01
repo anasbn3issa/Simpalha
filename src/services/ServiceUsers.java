@@ -59,12 +59,12 @@ public class ServiceUsers implements IserviceUsers {
 
     @Override
     public void Update(Users variable) {
-        String query = "update users set Username=?, Email=?"
+        String query = "update users set Specialty=? Username=?, Email=?"
                 + " where id=?";
         try {
             pstmt = cnx.prepareStatement(query);
             pstmt.setString(1, variable.getUsername());
-            ;
+             pstmt.setString(2, variable.getSpecialty());
             pstmt.setString(3, variable.getEmail());
             pstmt.setInt(4, variable.getId());
 
@@ -85,7 +85,7 @@ public class ServiceUsers implements IserviceUsers {
             String query = "SELECT * FROM users";
             rs = st.executeQuery(query);
             while (rs.next()) {
-                Users user = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getInt(8));
+                Users user = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(7), rs.getInt(8));
                 Utilisateurs.add(user);
             }
 
@@ -232,9 +232,8 @@ public class ServiceUsers implements IserviceUsers {
         }
     }
 
-    public void updatePassword(String password, int id) {
-        CurrentUser cu = CurrentUser.CurrentUser();
-        String requete = "UPDATE users SET password='" + password + "' WHERE id=" + id;
+    public void updatePassword(Users user) {
+        String requete = "UPDATE users SET password='" + user.getPassword() + "',code=NULL WHERE id=" + user.getId();
         try {
             st = cnx.createStatement();
             st.executeUpdate(requete);
@@ -275,7 +274,7 @@ public class ServiceUsers implements IserviceUsers {
             pstmt.setInt(1, id);
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                student = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getInt(8));
+                student = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(6), rs.getString(7), rs.getInt(8));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServiceUsers.class.getName()).log(Level.SEVERE, null, ex);
@@ -293,7 +292,7 @@ public class ServiceUsers implements IserviceUsers {
             String query = "SELECT * FROM users where role=0 AND Spécialité IS NOT NULL";
             rs = st.executeQuery(query);
             while (rs.next()) {
-                Users user = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getInt(8));
+                Users user = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(6), rs.getString(7), rs.getInt(8));
                 Utilisateurs.add(user);
             }
 

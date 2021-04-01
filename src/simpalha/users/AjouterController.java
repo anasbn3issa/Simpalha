@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import services.ServiceUsers;
 
@@ -38,7 +39,7 @@ public class AjouterController implements Initializable {
     private Button confirm;
 private ServiceUsers srv;
     @FXML
-    private TextField exists;
+    private Text exists;
     @FXML
     private TextField about;
     /**
@@ -55,7 +56,7 @@ private ServiceUsers srv;
     @FXML
     private void ajouter(ActionEvent event) {
        
-        Users user = new Users(username.getText(), passwd.getText(), about.getText());
+        Users user = new Users(passwd.getText(), email.getText(), username.getText(), about.getText(), 0);
         ServiceUsers us = new ServiceUsers();
        
  
@@ -76,7 +77,7 @@ private ServiceUsers srv;
     @FXML
     private void back(ActionEvent event) {
         
-        {
+        
         
          //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
         Parent loader;
@@ -94,7 +95,7 @@ private ServiceUsers srv;
         }
         
         
-    }}
+    }
     
 
     
