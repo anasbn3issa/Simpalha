@@ -23,11 +23,11 @@ public class SendMail {
         
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.port", "587"); 
+        properties.put("mail.smtp.host", Constants.SMTP_HOST);
+        properties.put("mail.smtp.port", Constants.SMTP_PORT); 
         
-        String MonEmail = "simaplha2021@gmail.com";
-        String password = "simpalha1234";
+        String MonEmail = Constants.EMAIL;
+        String password = Constants.EMAIL_PASS;
         
 
 

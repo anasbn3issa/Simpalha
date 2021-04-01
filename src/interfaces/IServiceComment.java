@@ -13,5 +13,7 @@ import entities.Comment;
  */
 public interface IServiceComment extends IService<Comment>  {
     public void MarkAsSolution(int id_post, int id_comment);
+    public void updateUpvotes(Comment variable);
+    public void updateDownvotes(Comment variable);
     
 }

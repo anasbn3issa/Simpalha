@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.Maconnexion;
-import utils.UserSession;
 
 /**
  *
@@ -71,7 +70,7 @@ public class ServiceP2P implements IServiceP2P {
             pst.executeUpdate();
 
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceDisponibilite.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceP2P.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -84,7 +83,7 @@ public class ServiceP2P implements IServiceP2P {
             rs = ste.executeQuery(req);
 
             while (rs.next()) {
-                Meet meet = new Meet(rs.getString(1), rs.getInt(3), rs.getInt(4), rs.getInt(6), rs.getString(2), rs.getString(5));
+                Meet meet = new Meet(rs.getString(1), rs.getInt(3), rs.getInt(4), rs.getInt(6), rs.getString(2), rs.getString(5), rs.getInt(7));
 
                 Disponibilite disponibilite = serviceDisp.findOneByEtat(Integer.valueOf(meet.getTime()), 1);
                 meet.setTime(disponibilite.getDatedeb() + "->" + disponibilite.getDateFin());
@@ -118,7 +117,7 @@ public class ServiceP2P implements IServiceP2P {
             pst.executeUpdate();
 
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceDisponibilite.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceP2P.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -141,11 +140,11 @@ public class ServiceP2P implements IServiceP2P {
             pst.setString(1, id);
             rs = pst.executeQuery();
             while (rs.next()) {
-                meet = new Meet(rs.getString(1), rs.getInt(3), rs.getInt(4), rs.getInt(6), rs.getString(2), rs.getString(5));
+                meet = new Meet(rs.getString(1), rs.getInt(3), rs.getInt(4), rs.getInt(6), rs.getString(2), rs.getString(5), rs.getInt(6));
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceDisponibilite.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceP2P.class.getName()).log(Level.SEVERE, null, ex);
         }
         return meet;
     }
@@ -153,13 +152,108 @@ public class ServiceP2P implements IServiceP2P {
     @Override
     public List<Meet> ReadById(int id) {
         List<Meet> list = new ArrayList<>();
-        String req = "select * from meet where id_student="+id;
+        String req = "select * from meet where id_student=" + id;
         try {
             ste = cnx.createStatement();
             rs = ste.executeQuery(req);
 
             while (rs.next()) {
-                Meet meet = new Meet(rs.getString(1), rs.getInt(3), rs.getInt(4), rs.getInt(6), rs.getString(2), rs.getString(5));
+                Meet meet = new Meet(rs.getString(1), rs.getInt(3), rs.getInt(4), rs.getInt(6), rs.getString(2), rs.getString(5), rs.getInt(7));
+
+                Disponibilite disponibilite = serviceDisp.findOneByEtat(Integer.valueOf(meet.getTime()), 1);
+                meet.setTime(disponibilite.getDatedeb() + "->" + disponibilite.getDateFin());
+
+                Users helper = serviceUser.findById(meet.getId_helper());
+                meet.setHelperDisplay(helper.getUsername());
+
+                Users student = serviceUser.findById(meet.getId_student());
+                meet.setStudentDisplay(student.getUsername());
+
+                Feedback feedback = serviceFeedback.findById(meet.getFeedback_id());
+                System.out.println(feedback);
+                meet.setFeedbackDisplay(feedback.getFeedback());
+
+                list.add(meet);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
+    @Override
+    public int count() {
+        String query = "select count(id) from meet";
+        int count = 0;
+        try {
+            pst = cnx.prepareStatement(query);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceP2P.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
+
+    @Override
+    public int finishedCount() {
+        String query = "select count(id) from meet where feedback_id IS NOT NULL";
+        int count = 0;
+        try {
+            pst = cnx.prepareStatement(query);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceP2P.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
+
+    @Override
+    public int ScheduledCount() {
+        String query = "select count(id) from meet where feedback_id IS NULL";
+        int count = 0;
+        try {
+            pst = cnx.prepareStatement(query);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceP2P.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
+
+    @Override
+    public void setFinished(String id) {
+        String query = "update meet set etat=1 where id=?";
+        try {
+            pst = cnx.prepareStatement(query);
+            pst.setString(1, id);
+
+            pst.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceP2P.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public List<Meet> ReadStudentsById(int id) {
+        List<Meet> list = new ArrayList<>();
+        String req = "select * from meet where id_helper=" + id;
+        try {
+            ste = cnx.createStatement();
+            rs = ste.executeQuery(req);
+
+            while (rs.next()) {
+                Meet meet = new Meet(rs.getString(1), rs.getInt(3), rs.getInt(4), rs.getInt(6), rs.getString(2), rs.getString(5), rs.getInt(7));
 
                 Disponibilite disponibilite = serviceDisp.findOneByEtat(Integer.valueOf(meet.getTime()), 1);
                 meet.setTime(disponibilite.getDatedeb() + "->" + disponibilite.getDateFin());

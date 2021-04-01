@@ -32,15 +32,6 @@
                </children></HBox>
             <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER">
-                     <children>
-                        <TextField promptText="Search" style="-fx-background-color: transparent; -fx-prompt-text-fill: #485460;">
-                           <HBox.margin>
-                              <Insets left="5.0" right="10.0" />
-                           </HBox.margin>
-                        </TextField>
-                        <FontAwesomeIcon fill="#485460" iconName="SEARCH" size="1.5em" styleClass="cursor_hand" />
-                     </children></HBox>
                   <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                      <children>
                         <FontAwesomeIcon iconName="BELL_O" size="1.3em" styleClass="cursor_hand" />
@@ -72,7 +63,7 @@
    <left>
       <VBox prefWidth="150.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_LEFT" styleClass="hover_border" stylesheets="@../../styles/style.css">
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#goToViewPosts" styleClass="hover_border" stylesheets="@../../styles/style.css">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -81,7 +72,7 @@
                </VBox.margin>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="CIRCLE_ALT_NOTCH" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Dashboard">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Posts">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -104,13 +95,13 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" styleClass="hover_border" stylesheets="@../../styles/style.css">
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#showQuizz" styleClass="hover_border" stylesheets="@../../styles/style.css">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="LIST_UL" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Tasks">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Quizz">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -120,13 +111,13 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" styleClass="hover_border" stylesheets="@../../styles/style.css">
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#showRESOURCES" styleClass="hover_border" stylesheets="@../../styles/style.css">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="FILE_TEXT_ALT" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Invoice">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Ressources">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -136,29 +127,13 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" styleClass="hover_border" stylesheets="@../../styles/style.css">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-               <children>
-                  <FontAwesomeIcon fill="#485460" iconName="ENVELOPE_ALT" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Messages">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Text>
-               </children>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" styleClass="hover_border" stylesheets="@../../styles/style.css">
+            <HBox alignment="CENTER_LEFT" onContextMenuRequested="#showRec" styleClass="hover_border" stylesheets="@../../styles/style.css">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="NEWSPAPER_ALT" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Reports">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Reclamation">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -170,26 +145,26 @@
             </HBox>
             <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER_LEFT" styleClass="hover_border" stylesheets="@../../styles/style.css">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#showProfile" styleClass="hover_border" stylesheets="@../../styles/style.css">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                      <children>
-                        <FontAwesomeIcon fill="#485460" iconName="COG" size="1.5em" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Settings">
+                        <FontAwesomeIcon fill="#485460" iconName="USER" size="1.5em" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Profile">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
                         </Text>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" styleClass="hover_border" stylesheets="@../../styles/style.css">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#logout" styleClass="hover_border" stylesheets="@../../styles/style.css">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                      <children>
-                        <FontAwesomeIcon fill="#485460" iconName="USER" size="1.5em" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Contact Support">
+                        <FontAwesomeIcon fill="#485460" iconName="SIGN_OUT" size="1.5em" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Logout">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -250,7 +225,7 @@
                         <HBox maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
                            <children>
                               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="101.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em;" text="Helper" textAlignment="CENTER" />
-                              <TextField fx:id="helper" alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="206.0" HBox.hgrow="ALWAYS">
+                              <TextField fx:id="helper" alignment="CENTER" editable="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="206.0" HBox.hgrow="ALWAYS">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
@@ -263,7 +238,7 @@
                         <HBox maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
                            <children>
                               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="101.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em;" text="Specialite" textAlignment="CENTER" />
-                              <TextField fx:id="specialite" alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="206.0" HBox.hgrow="ALWAYS">
+                              <TextField fx:id="specialite" alignment="CENTER" editable="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="206.0" HBox.hgrow="ALWAYS">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>

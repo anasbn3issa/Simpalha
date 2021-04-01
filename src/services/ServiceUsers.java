@@ -303,4 +303,9 @@ public class ServiceUsers implements IserviceUsers {
         return Utilisateurs;
     }
 
+    @Override
+    public int count() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

@@ -13,8 +13,8 @@ public class DownvoteComment {
     int id_comment;
     int id_user;
 
-    public DownvoteComment(int id_post, int id_user) {
-        this.id_comment = id_post;
+    public DownvoteComment(int id_comment, int id_user) {
+        this.id_comment = id_comment;
         this.id_user = id_user;
     }
 
@@ -39,8 +39,10 @@ public class DownvoteComment {
 
     @Override
     public String toString() {
-        return "Downvote{" + "id_post=" + id_comment + ", id_user=" + id_user + '}';
+        return "DownvoteComment{" + "id_comment=" + id_comment + ", id_user=" + id_user + '}';
     }
+
+   
     
     
 }
