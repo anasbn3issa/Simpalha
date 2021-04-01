@@ -6,11 +6,14 @@
 package simpalha.ressources;
 
 import entities.Ressources;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import static java.sql.JDBCType.NULL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -37,6 +40,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.ServiceRessources;
+import utils.UserSession;
 
 /**
  *
@@ -73,13 +77,15 @@ public class FXMLDocumentController implements Initializable {
             TableColumn<Ressources, String> pathCol = new TableColumn<>("Path");
             pathCol.setCellValueFactory(new PropertyValueFactory<>("path"));
 
-//            TableColumn<Ressources, String> modifyCol = new TableColumn<>("Modify");
-//            pathCol.setCellValueFactory(new PropertyValueFactory<>("buttonModify"));
+            TableColumn<Ressources, String> pathModule = new TableColumn<>("Module");
+            pathModule.setCellValueFactory(new PropertyValueFactory<>("module"));
+
+            //y'affichili fl module fl path !!!!!!!!!!!!!!!!!!
             //preparation de la structure
             resourceslist.getColumns().add(titleCol);
             resourceslist.getColumns().add(descriptionCol);
             resourceslist.getColumns().add(pathCol);
-            // resourceslist.getColumns().add(modifyCol);
+            resourceslist.getColumns().add(pathModule);
 
             //affichage
             resourceslist.getItems().addAll(sr.Read());
@@ -167,7 +173,8 @@ public class FXMLDocumentController implements Initializable {
 //        }
 //
 //    }
-    //Supprimer une ressource
+    /*
+    //Supprimer une ressource version bouton
     private void SupprimerRessource(ActionEvent event) throws SQLException {
         //Verifier si champ id vide, erreur suppression
         if (tfsupp.getText().trim().isEmpty()) {
@@ -205,7 +212,8 @@ public class FXMLDocumentController implements Initializable {
             }
         }
     }
-
+     */
+ /*version bouton
     //Redirection vers le formulaire de modification d'une ressource
     private void formulairemodif(ActionEvent event) {
         try {
@@ -218,7 +226,7 @@ public class FXMLDocumentController implements Initializable {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+     */
     // Redirection vers le formulaire d'ajout d'une ressource
     @FXML
     private void formulaireajout(ActionEvent event) {
@@ -239,7 +247,6 @@ public class FXMLDocumentController implements Initializable {
 //        resourceslist.getItems().addAll(sr.Tri_id());
 //
 //    }
-    @FXML
     private void Tri_title(ActionEvent event) throws SQLException {
 //        resourceslist.getItems().clear();
         resourceslist.getItems().addAll(sr.Tri_title());
@@ -261,20 +268,36 @@ public class FXMLDocumentController implements Initializable {
             ServiceRessources sr = new ServiceRessources();
             sr.Delete(resourceslist.getSelectionModel().getSelectedItem());
             //  resourceslist.getItems().removeAll(resourceslist.getSelectionModel().getSelectedItem());
+            File file = new File ("\\ressources\\"+resourceslist.getSelectionModel().getSelectedItem().getPath());
+            try {
+                Files.deleteIfExists(file.toPath());
+            } catch (IOException ex) {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             sr.Delete(R); //suppression de la base
-            Alert alert2 = new Alert(AlertType.WARNING);
+            
+         
+           // resourceslist.refresh();
+            
+            Alert alert2 = new Alert(AlertType.CONFIRMATION);
             alert2.setHeaderText("Success");
             alert2.setContentText("Resource deleted!");
-            alert2.showAndWait();
+            alert2.showAndWait(); 
+            
+            resourceslist.refresh();
+                   for (int i = 0; i < sr.Read().size(); i++) {
+                resourceslist.getItems().add(sr.Read().get(i));}
+            
             //this.AfficherRessource(event); // mise à jour de la page
             //resourceslist.getItems().addAll(sr.Read());
-            sr = new ServiceRessources();
-
+            
+//            resourceslist.refresh();
+//            resourceslist.getItems().addAll(sr.Read());
             //affichage ( mise a jour)
-//            resourceslist.getItems().clear();
-//cleari el list mouch el tableview
-            resourceslist.getItems().addAll(sr.Read());
-
+            //resourceslist.getItems().clear();
+            //cleari el list mouch el tableview
+            //resourceslist.getItems().addAll(sr.Read());
+      
         } else // sinon annuler
         {
             // ... user chose CANCEL or closed the dialog
@@ -349,16 +372,112 @@ public class FXMLDocumentController implements Initializable {
             stage.setScene(
                     new Scene(loader.load())
             );
-            
+
             //transport infos
             ImageViewFXMLController ctrl = loader.getController();
-            ctrl.R1=sr.Search(id);
-          
-            
+            ctrl.R1 = sr.Search(id);
+
 //affichage
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void showExams(ActionEvent event) {
+
+        try {
+            //Charger la page (destination)
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ExamsFXML.fxml"));
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void showPosts(MouseEvent event) {
+        
+         //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void showQuizz(MouseEvent event) {
+          //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/quizz/FXMLQuizz.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void showRec(MouseEvent event) {
+    }
+
+    @FXML
+    private void showProfile(MouseEvent event) {
+         //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/users/Profile.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void logout(MouseEvent event) {
+            
+        UserSession.getInstace(0).cleanUserSession();
+       //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/users/Login.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
         }
     }
 }

@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,12 +28,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.ServiceRessources;
+import utils.UserSession;
 
 /**
  * FXML Controller class
@@ -61,6 +64,12 @@ public class UpdateRESOURCESFXMLController implements Initializable {
     private Label path;
     @FXML
     private Label description;
+    @FXML
+    private Label labelmodule;
+    @FXML
+    private ComboBox<String> module;
+    
+    ServiceRessources sr= new ServiceRessources();
 
     public UpdateRESOURCESFXMLController() {
         this.R = new Ressources();
@@ -71,7 +80,17 @@ public class UpdateRESOURCESFXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+      //  tfmpath.setEditable(false);
+        try {
+            // TODO
+            List<String> list= sr.ReadModule(); 
+            for(int i=0; i<list.size(); i++)
+            module.getItems().add(list.get(i));
+        } catch (SQLException ex) {
+            Logger.getLogger(UpdateRESOURCESFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+          
+        
         Platform.runLater(() -> {
             ServiceRessources sr = new ServiceRessources();
             Ressources R = sr.Search(idR);
@@ -146,7 +165,9 @@ public class UpdateRESOURCESFXMLController implements Initializable {
         if ((tfmidr.getText().trim().isEmpty())
                 || (tfmpath.getText().trim().isEmpty())
                 || (tfmdescription.getText().trim().isEmpty())
-                || (tfmtitle.getText().trim().isEmpty())) {
+                || (tfmtitle.getText().trim().isEmpty())
+                || (module.getSelectionModel().isEmpty()))
+        {
             Alert fail = new Alert(Alert.AlertType.ERROR);
             fail.setHeaderText("FAILURE! ");
             fail.setContentText("Please fill all the TEXTFIELDS ! ");
@@ -156,16 +177,22 @@ public class UpdateRESOURCESFXMLController implements Initializable {
                  new animatefx.animation.Shake(title).play();
                  tfmtitle.setStyle("-fx-border-color:RED; -fx-border-width: 2px");
                  new animatefx.animation.Shake(tfmtitle).play();}
+              
              if  (tfmdescription.getText().trim().isEmpty())
                  {description.setStyle("-fx-text-fill:RED; -fx-font-weight: bold");
                  new animatefx.animation.Shake(description).play();
                  tfmdescription.setStyle("-fx-border-color:RED; -fx-border-width: 2px");
                  new animatefx.animation.Shake(tfmdescription).play();}
+             
              if  (tfmpath.getText().trim().isEmpty())
                  {path.setStyle("-fx-text-fill:RED; -fx-font-weight: bold");
                  new animatefx.animation.Shake(path).play();
                  tfmpath.setStyle("-fx-border-color:RED; -fx-border-width: 2px");
                  new animatefx.animation.Shake(tfmpath).play();}
+             
+             if (module.getSelectionModel().isEmpty())
+                 {labelmodule.setStyle("-fx-text-fill:RED; -fx-font-weight: bold");
+                 new animatefx.animation.Shake(labelmodule).play();}
  
         } else {
            
@@ -173,19 +200,41 @@ public class UpdateRESOURCESFXMLController implements Initializable {
 //       Ressources R= sr.Search(Integer.valueOf(tfmodif.getText()));
 
 //        sr.Update(R);
-            Ressources R = new Ressources();
+            R = sr.Search(idR);
+            System.out.println(idR);
+//            Ressources R = new Ressources();
             R.setIdR(idR);
-//            R.setIdR(Integer.parseInt(tfmidr.getText()));
             R.setPath(tfmpath.getText());
             R.setDescription(tfmdescription.getText());
             R.setTitle(tfmtitle.getText());
+            R.setModule(module.getValue());
+            System.out.println(R.toString());
 
             sr.Update(R);
              //afficher prompt ajouté avec succés
-            Alert alert = new Alert(Alert.AlertType.NONE);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Updating resource..");
             alert.setHeaderText(null);
             alert.setContentText("Update done with success!");
+            
+//            //redirect
+//              try {
+//            FXMLLoader loader = new FXMLLoader(
+//                    getClass().getResource(
+//                            "ressources/FXMLDocument.fxml"
+//                    )
+//            );
+//
+//            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+//            stage.setScene(
+//                    new Scene(loader.load())
+//            );
+//            stage.show();
+//        } catch (IOException ex) {
+//            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+            
+            
 
         }
     }
@@ -281,6 +330,97 @@ public class UpdateRESOURCESFXMLController implements Initializable {
             /////////////////
         }
 
+    }
+
+    @FXML
+    private void showPOSTS(MouseEvent event) {
+          //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void showQUIZZ(MouseEvent event) {
+        //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/quizz/FXMLQuizz.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void showRec(MouseEvent event) {
+          //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/ressources/FXMLDocument.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void showProfile(MouseEvent event) {
+         //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/users/Profile.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void logout(MouseEvent event) {
+         UserSession.getInstace(0).cleanUserSession();
+       //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/users/Login.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
     }
 
 }

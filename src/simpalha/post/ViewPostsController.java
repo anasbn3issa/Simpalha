@@ -55,6 +55,8 @@ import utils.UserSession;
 import services.ServiceUsers;
 import entities.Users;
 import javafx.application.Platform;
+import simpalha.notification.FXMLNotificationController;
+import services.ServiceNotification;
 import javafx.scene.control.TextArea;
 
 /**
@@ -102,6 +104,7 @@ public class ViewPostsController implements Initializable {
             userSession = UserSession.getInstace(0);
             userId = userSession.getUserid();
 
+            launchServiceNotification();
             servicePost = new ServicePost();
             serviceUsers = new ServiceUsers();
 
@@ -546,7 +549,6 @@ public class ViewPostsController implements Initializable {
         }
     }
 
-    @FXML
     private void goToCandidature(MouseEvent event) {
          try {
             FXMLLoader loader = new FXMLLoader(
@@ -567,14 +569,55 @@ public class ViewPostsController implements Initializable {
 
     @FXML
     private void goToReclamation(MouseEvent event) {
+        
     }
 
     @FXML
     private void profilePushed(MouseEvent event) {
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/users/Profile.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
     }
 
     @FXML
     private void LogoutPushed(MouseEvent event) {
+        UserSession.getInstace(0).cleanUserSession();
+        //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/users/Login.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+    
+    public void launchServiceNotification(){
+        ServiceNotification sn = new ServiceNotification(userSession.getUserid());
+        
+        Thread t = new Thread(sn);
+        t.setDaemon(true);
+        t.start();
+    }
+
+    @FXML
+    private void goToNotification(MouseEvent event) {
     }
 
 }

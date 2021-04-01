@@ -3,31 +3,19 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<<<<<<< HEAD:src/simpalha/users/AddAvailability.fxml
-=======
 <?import javafx.scene.control.ButtonBar?>
->>>>>>> f950e1c8b8b4f8718deae992b0a6e346c7b3060b:src/simpalha/ressources/UpdateRESOURCESFXML.fxml
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<<<<<<< HEAD:src/simpalha/users/AddAvailability.fxml
-<?import javafx.scene.paint.Color?>
-=======
 <?import javafx.scene.text.Font?>
->>>>>>> f950e1c8b8b4f8718deae992b0a6e346c7b3060b:src/simpalha/ressources/UpdateRESOURCESFXML.fxml
 <?import javafx.scene.text.Text?>
-<?import tornadofx.control.DateTimePicker?>
 
-<<<<<<< HEAD:src/simpalha/users/AddAvailability.fxml
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="1280.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.users.AddAvailabilityController">
-=======
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="1280.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.ressources.UpdateRESOURCESFXMLController">
->>>>>>> f950e1c8b8b4f8718deae992b0a6e346c7b3060b:src/simpalha/ressources/UpdateRESOURCESFXML.fxml
    <top>
       <HBox style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
@@ -41,8 +29,7 @@
                         <Image url="@../assets/Simpalha.png" />
                      </image>
                   </ImageView>
-               </children>
-            </HBox>
+               </children></HBox>
             <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                <children>
                   <HBox alignment="CENTER">
@@ -53,8 +40,7 @@
                            </HBox.margin>
                         </TextField>
                         <FontAwesomeIcon fill="#485460" iconName="SEARCH" size="1.5em" styleClass="cursor_hand" />
-                     </children>
-                  </HBox>
+                     </children></HBox>
                   <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                      <children>
                         <FontAwesomeIcon iconName="BELL_O" size="1.3em" styleClass="cursor_hand" />
@@ -86,11 +72,7 @@
    <left>
       <VBox prefWidth="150.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
-<<<<<<< HEAD:src/simpalha/users/AddAvailability.fxml
-            <HBox alignment="CENTER_LEFT" styleClass="hover_border" stylesheets="@../../styles/style.css">
-=======
-            <HBox alignment="CENTER_LEFT" styleClass="hover_border">
->>>>>>> f950e1c8b8b4f8718deae992b0a6e346c7b3060b:src/simpalha/ressources/UpdateRESOURCESFXML.fxml
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#showPOSTS" styleClass="hover_border">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -99,14 +81,14 @@
                </VBox.margin>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="CIRCLE_ALT_NOTCH" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Dashboard">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Posts">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Text>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" onMouseClicked="#showP2P" styleClass="hover_border" stylesheets="@../../styles/style.css">
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#showP2P" styleClass="hover_border">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -122,13 +104,13 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" styleClass="hover_border" stylesheets="@../../styles/style.css">
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#showQUIZZ" styleClass="hover_border">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="LIST_UL" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Tasks">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Quizz">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -138,7 +120,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" styleClass="hover_border" stylesheets="@../../styles/style.css">
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#showRESOURCES" styleClass="hover_border">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -154,29 +136,13 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" styleClass="hover_border" stylesheets="@../../styles/style.css">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-               <children>
-                  <FontAwesomeIcon fill="#485460" iconName="ENVELOPE_ALT" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Messages">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Text>
-               </children>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" styleClass="hover_border" stylesheets="@../../styles/style.css">
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#showRec" styleClass="hover_border">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="NEWSPAPER_ALT" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Reports">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Reclamation">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -188,26 +154,26 @@
             </HBox>
             <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER_LEFT" styleClass="hover_border" stylesheets="@../../styles/style.css">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#showProfile" styleClass="hover_border">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                      <children>
-                        <FontAwesomeIcon fill="#485460" iconName="COG" size="1.5em" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Settings">
+                        <FontAwesomeIcon fill="#485460" iconName="USER" size="1.5em" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Profile">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
                         </Text>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" styleClass="hover_border" stylesheets="@../../styles/style.css">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#logout" styleClass="hover_border" stylesheets="@../../styles/style.css">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                      <children>
-                        <FontAwesomeIcon fill="#485460" iconName="USER" size="1.5em" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Contact Support">
+                        <FontAwesomeIcon fill="#485460" iconName="SIGN_OUT" size="1.5em" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Logout">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -230,58 +196,22 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
                <children>
-<<<<<<< HEAD:src/simpalha/users/AddAvailability.fxml
-                  <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-=======
+                  <Button mnemonicParsing="false" onAction="#PagePrecedente" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="&lt;- Go Back " />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="Update Resource:" />
                   <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
->>>>>>> f950e1c8b8b4f8718deae992b0a6e346c7b3060b:src/simpalha/ressources/UpdateRESOURCESFXML.fxml
                      <children>
-                        <Button fx:id="back" mnemonicParsing="false" onAction="#Back" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" styleClass="cursor_hand" stylesheets="@../../styles/style.css" text="Back">
+                        <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-background-radius: 0px;">
                            <graphic>
-                              <FontAwesomeIcon fill="WHITE" iconName="ANGLE_LEFT" size="1.5em" />
+                              <FontAwesomeIcon fill="#485460" iconName="TH_LARGE" size="1.3em" />
                            </graphic>
                         </Button>
-                     </children>
-                     <HBox.margin>
-                        <Insets right="80.0" />
-                     </HBox.margin>
-                  </HBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="New Availability" textAlignment="CENTER" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
-               <children>
-                  <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
-                     <children>
-                        <HBox maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
+                        <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-background-radius: 0px;">
+                           <graphic>
+                              <FontAwesomeIcon fill="#485460" iconName="TH_LIST" size="1.3em" />
+                           </graphic>
+                        </Button>
+                        <HBox alignment="CENTER">
                            <children>
-<<<<<<< HEAD:src/simpalha/users/AddAvailability.fxml
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="101.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em;" text="Start Date" textAlignment="CENTER" />
-                              <DateTimePicker fx:id="start" />
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="20.0" top="20.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="101.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em;" text="End Date" textAlignment="CENTER" />
-                              <DateTimePicker fx:id="end" />
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
-                           <VBox.margin>
-                              <Insets bottom="20.0" top="20.0" />
-                           </VBox.margin>
-                           <children>
-                              <Button fx:id="confirmer" alignment="CENTER" mnemonicParsing="false" onAction="#reserver" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" styleClass="cursor_hand" stylesheets="@../../styles/style.css" text="Confirm" />
-                           </children>
-                        </HBox>
-=======
                               <TextField fx:id="tfmidr" promptText="Search project" style="-fx-background-color: transparent; -fx-prompt-text-fill: #485460;" text="Resource's id">
                                  <HBox.margin>
                                     <Insets left="5.0" right="10.0" />
@@ -295,31 +225,14 @@
                               <Insets left="20.0" />
                            </HBox.margin>
                         </Button>
->>>>>>> f950e1c8b8b4f8718deae992b0a6e346c7b3060b:src/simpalha/ressources/UpdateRESOURCESFXML.fxml
                      </children>
-                     <HBox.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                     </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
-<<<<<<< HEAD:src/simpalha/users/AddAvailability.fxml
-                  </VBox>
-=======
                   </HBox>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" />
->>>>>>> f950e1c8b8b4f8718deae992b0a6e346c7b3060b:src/simpalha/ressources/UpdateRESOURCESFXML.fxml
                </children>
-               <effect>
-                  <DropShadow height="10.0" radius="4.5" width="10.0">
-                     <color>
-                        <Color red="0.7333333492279053" green="0.7333333492279053" blue="0.7333333492279053" />
-                     </color>
-                  </DropShadow>
-               </effect>
             </HBox>
-<<<<<<< HEAD:src/simpalha/users/AddAvailability.fxml
-=======
             <Text fill="#f84605" strokeType="OUTSIDE" strokeWidth="0.0" text="Updating a Simpalha's Resource:" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -334,13 +247,13 @@
             <Button mnemonicParsing="false" onAction="#browse" prefHeight="32.0" prefWidth="91.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Browse File" />
             <Label fx:id="description" prefHeight="36.0" prefWidth="212.0" text="New Description" />
             <TextField fx:id="tfmdescription" prefWidth="851.0" />
+            <Label fx:id="labelmodule" prefHeight="36.0" prefWidth="212.0" text="Module" />
+            <ComboBox fx:id="module" prefHeight="25.0" prefWidth="305.0" />
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
               <buttons>
                   <Button mnemonicParsing="false" onAction="#ModifierRessource" prefHeight="32.0" prefWidth="186.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Submit changes!" />
               </buttons>
             </ButtonBar>
-            <Button mnemonicParsing="false" onAction="#PagePrecedente" prefHeight="71.0" prefWidth="162.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="&lt;- Go Back to resources" />
->>>>>>> f950e1c8b8b4f8718deae992b0a6e346c7b3060b:src/simpalha/ressources/UpdateRESOURCESFXML.fxml
          </children>
       </VBox>
    </center>

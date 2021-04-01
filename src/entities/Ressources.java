@@ -17,8 +17,15 @@ public class Ressources {
     private String path;
     private String title;
     private String description;
-  //  private Button buttonModify;
+private String module;
 
+    public String getModule() {
+        return module;
+    }
+
+    public void setModule(String Module) {
+        this.module = Module;
+    }
     public void setIdR(int idR) {
         this.idR = idR;
     }
@@ -62,15 +69,16 @@ public class Ressources {
         this.title = title;
       //  this.buttonModify = new Button("buttonModify");
 
+      
     }
-//
-//    public Button getButtonModify() {
-//        return buttonModify;
-//    }
-//
-//    public void setButtonModify(Button buttonModify) {
-//        this.buttonModify = buttonModify;
-//    }
+
+     public Ressources(int idR, String path, String description, String title,String module) {
+        this.idR = idR;
+        this.description = description;
+        this.path = path;
+        this.title = title;
+        this.module= module;
+    }
 
 
     public Ressources() {
@@ -78,7 +86,7 @@ public class Ressources {
 
     @Override
     public String toString() {
-        return "Ressources{" + "idR=" + idR + ", path=" + path + ", title=" + title + ", description=" + description + "}\n";
+        return "Ressources{" + "idR=" + idR + ", path=" + path + ", title=" + title + ", description=" + description + "module=" + module +"}\n";
 
     }
 

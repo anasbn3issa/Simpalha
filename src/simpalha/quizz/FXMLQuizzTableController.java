@@ -32,11 +32,13 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import simpalha.FXMLDocumentController;
 import simpalha.notification.FXMLNotificationController;
+import utils.UserSession;
 
 /**
  * FXML Controller class
@@ -254,6 +256,80 @@ public class FXMLQuizzTableController implements Initializable {
         Parent loader;
         try {
             loader = FXMLLoader.load(getClass().getResource("/simpalha/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void showRESOURCES(MouseEvent event) {
+        //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/ressources/FXMLDocument.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void showRec(ContextMenuEvent event) {
+        //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/reclamation/ListerReclamation.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void showProfile(MouseEvent event) {
+        //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/users/Profile.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void logout(MouseEvent event) {
+
+        UserSession.getInstace(0).cleanUserSession();
+        //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/users/Login.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
 
             Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
 
