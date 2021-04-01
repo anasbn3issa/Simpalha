@@ -21,8 +21,8 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="tfusername" layoutX="218.0" layoutY="119.0" />
-      <TextField fx:id="tfpassword" layoutX="218.0" layoutY="180.0" />
+      <TextField fx:id="tfusername" layoutX="218.0" layoutY="119.0" text="arijzt" />
+      <TextField fx:id="tfpassword" layoutX="218.0" layoutY="180.0" text="arij12" />
       <Button layoutX="35.0" layoutY="33.0" mnemonicParsing="false" onAction="#register" text="Inscription" />
       <Button layoutX="250.0" layoutY="297.0" mnemonicParsing="false" onAction="#authentifier" text="Se connecter" />
       <ImageView fitHeight="88.0" fitWidth="157.0" layoutX="417.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">

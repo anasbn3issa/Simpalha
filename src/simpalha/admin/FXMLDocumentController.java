@@ -5,7 +5,6 @@
  */
 package simpalha.admin;
 
-import simpalha.*;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.io.IOException;
 import java.net.URL;
@@ -21,11 +20,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import services.ServiceNotification;
-import simpalha.admin.quizz.FXMLAdminQuizzTableController;
+import services.ServiceP2P;
 import simpalha.notification.FXMLNotificationController;
-import simpalha.quizz.FXMLQuizzController;
 import utils.UserSession;
 
 /**
@@ -38,11 +37,15 @@ public class FXMLDocumentController implements Initializable {
     private UserSession usr;
     @FXML
     private FontAwesomeIcon btNotificationShow;
+    @FXML
+    private Text meetCount;
     
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
+    private ServiceP2P serviceP2P;
+    @FXML
+    private Text meetFinishedCount;
+    @FXML
+    private Text meetScheduledCount;
+
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -50,6 +53,18 @@ public class FXMLDocumentController implements Initializable {
         usr=UserSession.getInstace(0);
         System.out.println(usr);
         launchServiceNotification();
+        
+        serviceP2P = new ServiceP2P();
+        
+        int countMeet = serviceP2P.count();
+        int countFinishedMeet = serviceP2P.finishedCount();
+        int countScheduledMeet = serviceP2P.ScheduledCount();
+        
+        meetCount.setText(String.valueOf(countMeet));
+        meetFinishedCount.setText(String.valueOf(countFinishedMeet));
+        meetScheduledCount.setText(String.valueOf(countScheduledMeet));
+
+        
     }    
     
     public void launchServiceNotification(){
@@ -63,7 +78,7 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void goToViewPosts(MouseEvent event) {
-        Parent loader;
+        /*Parent loader;
         try {
             loader = FXMLLoader.load(getClass().getResource("/simpalha/admin/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
 
@@ -75,13 +90,13 @@ public class FXMLDocumentController implements Initializable {
 
             app_stage.show(); // this shows the scene
         } catch (IOException ex) {
-        }
+        }*/
     }
 
     @FXML
     private void AddNewPost(ActionEvent event) {
         
-        Parent loader;
+        /*Parent loader;
         try {
             loader = FXMLLoader.load(getClass().getResource("/simpalha/post/AddNewPost.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
 
@@ -93,7 +108,7 @@ public class FXMLDocumentController implements Initializable {
 
             app_stage.show(); // this shows the scene
         } catch (IOException ex) {
-        }
+        }*/
     }
 
     @FXML
@@ -117,7 +132,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void candidatures(MouseEvent event) {
-         try {
+         /*try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
                             "/simpalha/users/CandidatureUser.fxml"
@@ -131,7 +146,7 @@ public class FXMLDocumentController implements Initializable {
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
 
     @FXML
@@ -176,7 +191,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void showQuizz(MouseEvent event) {
-        try {
+        /*try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
                             "/simpalha/admin/quizz/FXMLQuizzTable.fxml"
@@ -198,11 +213,8 @@ public class FXMLDocumentController implements Initializable {
         } 
         catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
 
-    @FXML
-    private void showRESOURCES(MouseEvent event) {
-    }
     
 }

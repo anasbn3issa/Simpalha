@@ -102,7 +102,7 @@ public class ServiceComment implements IServiceComment {
     @Override
     public Comment findById(int id) {
         System.out.println("you just entered Service Comment findbyId");
-        System.out.println("your id : "+id);
+        System.out.println("your id : " + id);
         String query = "select * from comment where id=?";
         Comment p = null;
         try {
@@ -111,9 +111,9 @@ public class ServiceComment implements IServiceComment {
             rs = pst.executeQuery();
             System.out.println("entering while rs.next");
             while (rs.next()) {
-                 p = new Comment();
-                 System.out.println("---"+rs.getInt("id")+rs.getInt("owner_id")+rs.getString("solution")+"---");
-                 p.setId(rs.getInt("id"));
+                p = new Comment();
+                System.out.println("---" + rs.getInt("id") + rs.getInt("owner_id") + rs.getString("solution") + "---");
+                p.setId(rs.getInt("id"));
                 p.setTimestamp(rs.getTimestamp("timestamp"));
                 p.setOwnerId(rs.getInt("owner_id"));
                 p.setUpvotes(rs.getInt("upvotes"));
@@ -129,29 +129,28 @@ public class ServiceComment implements IServiceComment {
 
     @Override
     public void MarkAsSolution(int id_post, int id_comment) {
-        
+
         String query = "update post set solution_id=?, status=? where id=?";
-        
+
         try {
-            
-            PreparedStatement pst= cnx.prepareStatement(query);
-            pst.setInt(1,id_comment);
-            pst.setString(2,"SOLVED");
-            pst.setInt(3,id_post);
+
+            PreparedStatement pst = cnx.prepareStatement(query);
+            pst.setInt(1, id_comment);
+            pst.setString(2, "SOLVED");
+            pst.setInt(3, id_post);
             pst.executeUpdate();
-            
-           
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        
-        
-        
-        
+
     }
 
     @Override
+    public int count() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void updateUpvotes(Comment variable) {
         String query = "update comment set upvotes=? where id=?";
         System.out.println(variable.toString());

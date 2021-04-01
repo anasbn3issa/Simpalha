@@ -5,38 +5,18 @@
  */
 package simpalha.admin.P2P;
 
-import simpalha.P2P.*;
-import com.teamdev.jxbrowser.browser.Browser;
-import com.teamdev.jxbrowser.engine.Engine;
-import com.teamdev.jxbrowser.engine.EngineOptions;
-import com.teamdev.jxbrowser.view.swing.BrowserView;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.WindowConstants;
-import static com.teamdev.jxbrowser.engine.RenderingMode.HARDWARE_ACCELERATED;
-import com.teamdev.jxbrowser.media.MediaDevice;
-import com.teamdev.jxbrowser.media.MediaDeviceType;
-import com.teamdev.jxbrowser.media.MediaDevices;
-import com.teamdev.jxbrowser.permission.PermissionType;
-import com.teamdev.jxbrowser.permission.callback.RequestPermissionCallback;
-
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconName;
 import entities.Disponibilite;
 import entities.Meet;
-import entities.Users;
-import java.awt.BorderLayout;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -46,23 +26,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Callback;
-import javax.swing.JButton;
 import services.ServiceDisponibilite;
 import services.ServiceP2P;
 import services.ServiceUsers;
@@ -85,10 +62,13 @@ public class P2PFXMLController implements Initializable {
     @FXML
     private TextField tfsearch;
 
+    private HashMap<String, ArrayList<Meet>> specs = new HashMap<>();
     private int userId;
 
     //observalble list to store data
     private ObservableList<Meet> dataList = FXCollections.observableArrayList();
+    @FXML
+    private ComboBox<String> Specialite;
 
     /**
      * Initializes the controller class.
@@ -138,10 +118,7 @@ public class P2PFXMLController implements Initializable {
                             setText(null);
                         } else {
                             Meet meet = getTableView().getItems().get(getIndex());
-                            modify.setDisable(true);
-                            if (meet.getFeedback_id() == 0) {
-                                modify.setDisable(false);
-                            }
+
                             modify.setOnAction(event -> {
                                 try {
                                     FXMLLoader loader = new FXMLLoader(
@@ -155,8 +132,8 @@ public class P2PFXMLController implements Initializable {
                                             new Scene(loader.load())
                                     );
 
-                                    //UpdateP2PFXMLController controller = loader.getController();
-                                    //controller.initData(meet.getId(), meet.getId_helper());
+                                    UpdateP2PFXMLController controller = loader.getController();
+                                    controller.initData(meet.getId(), meet.getId_helper());
                                     stage.show();
                                 } catch (IOException ex) {
                                     Logger.getLogger(P2PFXMLController.class.getName()).log(Level.SEVERE, null, ex);
@@ -192,7 +169,7 @@ public class P2PFXMLController implements Initializable {
                             setText(null);
                         } else {
                             delete.setOnAction(event -> {
-                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", 
+                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?",
                                         ButtonType.YES, ButtonType.NO);
                                 alert.showAndWait();
 
@@ -228,6 +205,15 @@ public class P2PFXMLController implements Initializable {
         meets.getColumns().add(delCol);
         dataList.addAll(service.Read());
         meets.getItems().addAll(dataList);
+
+        dataList.forEach((meet) -> {
+            specs.putIfAbsent(meet.getSpecialite(), new ArrayList<Meet>(Arrays.asList(meet)));
+        });
+        Specialite.getItems().add("All");
+        for (String sp : specs.keySet()) {
+            Specialite.getItems().add(sp);
+        }
+        
 
         // Wrap the ObservableList in a FilteredList (initially display all data).
         FilteredList<Meet> filteredData = new FilteredList<>(dataList, b -> true);
@@ -284,6 +270,39 @@ public class P2PFXMLController implements Initializable {
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void filterItems(ActionEvent event) {
+        String filter = Specialite.getValue().trim().toLowerCase();
+        ObservableList<Meet> filteredList = FXCollections.observableArrayList();
+
+        if(!filter.toLowerCase().equals("all"))
+            filteredList = dataList.stream().filter(spc -> spc.getSpecialite().toLowerCase().equals(filter)).collect(Collectors.toCollection(FXCollections::observableArrayList));
+        else
+            filteredList.addAll(service.Read());
+        
+        dataList.clear();
+        dataList.addAll(filteredList);
+    }
+
+    @FXML
+    private void signout(MouseEvent event) {
+        UserSession.getInstace(0).cleanUserSession();
+       //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/users/Login.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
         }
     }
 
