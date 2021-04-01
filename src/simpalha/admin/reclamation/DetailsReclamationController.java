@@ -351,7 +351,6 @@ public class DetailsReclamationController implements Initializable {
         }
     }
 
-    @FXML
     private void candidatures(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(
