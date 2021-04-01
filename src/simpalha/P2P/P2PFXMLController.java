@@ -874,7 +874,7 @@ public class P2PFXMLController implements Initializable {
         //note that on this line you can substitue "Screen2.fxml" for a string chosen prior to this line.
         Parent loader;
         try {
-            loader = FXMLLoader.load(getClass().getResource("/simpalha/ressources/FXMLDocument.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+            loader = FXMLLoader.load(getClass().getResource("/simpalha/reclamation/ReclamationSuggestion.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
 
             Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
 
