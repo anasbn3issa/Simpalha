@@ -163,8 +163,8 @@ public class ServiceRessources implements IServiceRessources {
             pst.setString(1, R.getPath());
             pst.setString(2, R.getTitle());
             pst.setString(3, R.getDescription());
-            pst.setInt(4, R.getIdR());
-            pst.setString(5, R.getModule());
+            pst.setInt(5, R.getIdR());
+            pst.setString(4, R.getModule());
 
             pst.executeUpdate();
 

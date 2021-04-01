@@ -249,7 +249,7 @@
                   </HBox>
                </children>
             </HBox>
-            <Text fill="#f84605" strokeType="OUTSIDE" strokeWidth="0.0" text="WE'VE GOT YOUR BACK , FOLKS!" textAlignment="CENTER" wrappingWidth="1106.255859375">
+            <Text fx:id="title" fill="#f84605" strokeType="OUTSIDE" strokeWidth="0.0" text="WE'VE GOT YOUR BACK , FOLKS!" textAlignment="CENTER" wrappingWidth="1106.255859375">
                <font>
                   <Font name="System Bold" size="23.0" />
                </font>
@@ -304,3 +304,4 @@
       </VBox>
    </center>
 </BorderPane>
+
