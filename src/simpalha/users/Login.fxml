@@ -26,7 +26,6 @@
       <Button layoutX="35.0" layoutY="33.0" mnemonicParsing="false" onAction="#register" text="Register" />
       <Button layoutX="270.0" layoutY="282.0" mnemonicParsing="false" onAction="#authentifier" text="Login" />
       <TextField fx:id="tfusername" layoutX="218.0" layoutY="119.0" text="arijzt" />
-      <TextField fx:id="tfpassword" layoutX="218.0" layoutY="180.0" text="arij12" />
       <ImageView fitHeight="88.0" fitWidth="157.0" layoutX="417.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/Simpalha.png" />
@@ -38,5 +37,6 @@
             <Font size="18.0" />
          </font>
       </Text>
+      <PasswordField fx:id="tfpassword" layoutX="218.0" layoutY="180.0" />
    </children>
 </AnchorPane>

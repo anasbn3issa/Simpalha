@@ -32,13 +32,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
+
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+
 import services.ServiceDisponibilite;
 import services.ServiceUsers;
-import simpalha.users.admin.GestionComptesController;
-import simpalha.users.admin.ModifierProfileController;
+
 import utils.UserSession;
 
 /**
@@ -48,8 +49,6 @@ import utils.UserSession;
  */
 public class ProfileController implements Initializable {
 
-    @FXML
-    private Button logout;
     @FXML
     private PasswordField changepassword;
     @FXML
@@ -68,16 +67,28 @@ public class ProfileController implements Initializable {
     private int currentid;
     @FXML
     private Button addav;
-
+ Users currentUser;
+       ServiceUsers serviceUsers;
+    private Text currentusr;
+    private int userid;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-         service = new ServiceUsers();
+       service = new ServiceUsers();
          serviceDisp = new ServiceDisponibilite();
          currentid = UserSession.getInstace(0).getUserid();
+        /*  userid = UserSession.getInstace(0).getUserid();
+        System.out.println(userid);*/
+       
+       /* serviceUsers= new ServiceUsers();
+        currentUser=serviceUsers.findById(userid);
+         currentusr.setText(currentUser.getUsername());*/
+       /* serviceUsers= new ServiceUsers();
+        currentUser=serviceUsers.findById(currentid);
+         currentusr.setText(currentUser.getUsername());*/
          
         TableColumn<Disponibilite, String> idCol = new TableColumn<>("Date début");
         idCol.setCellValueFactory(new PropertyValueFactory<>("datedeb"));
@@ -117,12 +128,14 @@ public class ProfileController implements Initializable {
                             Optional <ButtonType> action=alert.showAndWait();
                             if(action.get()==ButtonType.OK){
                             
-                            Disponibilite disp = getTableView().getItems().get(getIndex());
-                            serviceDisp.Delete(disp);
+                                Disponibilite disp = getTableView().getItems().get(getIndex());
+                                System.out.println(disp);
+                                serviceDisp.Delete(disp);
                       
  
                             dispo.getItems().clear();
-                            dispo.getItems().addAll(serviceDisp.findAllById(currentid));}
+                            dispo.getItems().addAll(serviceDisp.findAllById(currentid));
+                            }
 
                         });
 
@@ -149,7 +162,7 @@ public class ProfileController implements Initializable {
         dispo.getColumns().add(delCol);
         
         //List<Disponibilite> list = serviceDisp.findAllById(currentid);
-        List<Disponibilite> list = serviceDisp.Read();
+        List<Disponibilite> list = serviceDisp.findAllById(currentid);
         list.forEach((disp) -> {
             dispo.getItems().add(disp);
         });
@@ -159,28 +172,9 @@ public class ProfileController implements Initializable {
 
     @FXML
     private void goToViewPosts(MouseEvent event) {
-    }
-
-    @FXML
-    private void showP2P(MouseEvent event) {
-    }
-
-    @FXML
-    private void candidatures(MouseEvent event) {
-    }
-
-   
-
-
-
-
-    @FXML
-    private void logout(ActionEvent event) {
-         UserSession.getInstace(currentid).cleanUserSession(); 
-        
-        try { Parent loader;
-               loader = FXMLLoader.load(getClass().getResource("Login.fxml"));
-                     //Creates a Parent called loader and assign it as ScReen2.FXML
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getClassLoader().getResource("simpalha/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
 
             Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
 
@@ -191,13 +185,26 @@ public class ProfileController implements Initializable {
             app_stage.show(); // this shows the scene
         } catch (IOException ex) {
         }
-       /* FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Login.fxml")); 
-        Parent root = loader.load();
-        logout.getScene().setRoot(root);
-        }
-        catch(IOException e) 
-        { }*/
     }
+
+    @FXML
+    private void showP2P(MouseEvent event) {Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getClassLoader().getResource("simpalha/P2P/P2P.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+
+
+   
 
     @FXML
     private void aboutUpdate(ActionEvent event) {
@@ -270,6 +277,103 @@ public class ProfileController implements Initializable {
         } catch (IOException ex) {
         }
 
+    }
+
+    @FXML
+    private void goToposts(MouseEvent event) {
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getClassLoader().getResource("simpalha/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void quizz(MouseEvent event) {
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getClassLoader().getResource("simpalha/quizz/FXMLQuizz.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void ressources(MouseEvent event) {
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getClassLoader().getResource("simpalha/ressources/FXMLDocument.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void reclamtions(MouseEvent event) {
+    }
+
+    @FXML
+    private void profile(MouseEvent event) {
+         Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getClassLoader().getResource("Profile.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void logout(MouseEvent event) {
+        UserSession.getInstace(currentid).cleanUserSession(); 
+        
+        try { Parent loader;
+               loader = FXMLLoader.load(getClass().getResource("Login.fxml"));
+                     //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+       /* FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Login.fxml")); 
+        Parent root = loader.load();
+        logout.getScene().setRoot(root);
+        }
+        catch(IOException e) 
+        { }*/
     }
     
 }

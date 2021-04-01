@@ -63,9 +63,7 @@ if(!password.getText().isEmpty()&& !passwordconf.getText().isEmpty())
                 
                 Users u = us.findById(cu.targetId);
                 System.out.println(u);
-                String pass = Base64.getEncoder().encodeToString(password.getText().getBytes());
-                System.out.println(pass);
-                u.setPassword(pass);
+                u.setPassword(password.getText());
                 us.updatePassword(u); 
                 
                 Parent loader;

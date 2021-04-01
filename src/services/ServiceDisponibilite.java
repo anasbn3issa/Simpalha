@@ -88,6 +88,17 @@ public class ServiceDisponibilite implements IServiceDisponibilite {
 
     @Override
     public void Delete(Disponibilite variable) {
+        System.out.println(variable.getId());
+        String query = "delete from disponibilite where id=?";
+        try {
+            pst = cnx.prepareStatement(query);
+            pst.setInt(1, variable.getId());
+
+            pst.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Override

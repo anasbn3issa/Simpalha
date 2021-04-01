@@ -6,6 +6,7 @@
 package simpalha.users;
 
 import entities.Candidature;
+import entities.Users;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,14 +26,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import services.ServiceCandidature;
 import services.ServicePost;
@@ -61,6 +68,12 @@ public class CandidatureUserController implements Initializable {
     ImageView imageView = new ImageView();
     private ListView liste;
     private int userid;
+    @FXML
+    private Text currentusr;
+       Users currentUser;
+       ServiceUsers serviceUsers;
+    @FXML
+    private Button back;
 
     /**
      * Initializes the controller class.
@@ -71,6 +84,9 @@ public class CandidatureUserController implements Initializable {
         userid = UserSession.getInstace(0).getUserid();
         System.out.println(userid);
         srv = new ServiceCandidature();
+        serviceUsers= new ServiceUsers();
+        currentUser=serviceUsers.findById(userid);
+         currentusr.setText(currentUser.getUsername());
         ObservableList<String> List = FXCollections.observableArrayList("Java", "UML", "math");
         comb.setItems(List);
 
@@ -78,10 +94,36 @@ public class CandidatureUserController implements Initializable {
 
     @FXML
     private void goToViewPosts(MouseEvent event) {
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getClassLoader().getResource("simpalha/post/ViewPosts.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
     }
 
     @FXML
     private void showP2P(MouseEvent event) {
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getClassLoader().getResource("simpalha/P2P/P2P.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
     }
 
     @FXML
@@ -152,5 +194,90 @@ public class CandidatureUserController implements Initializable {
             /////////////////
         }
         return dest.getName();
+    }
+
+    @FXML
+    private void Back(ActionEvent event) throws IOException{
+        Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getClassLoader().getResource("Profile.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+        
+    }
+
+    @FXML
+    private void quizz(MouseEvent event) {
+         Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getClassLoader().getResource("simpalha/quizz/FXMLQuizz.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void ressources(MouseEvent event) {
+         Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getClassLoader().getResource("simpalha/ressources/FXMLDocument.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void reclamations(MouseEvent event) { Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getClassLoader().getResource("simpalha/reclamation/.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void profile(MouseEvent event) {
+         Parent loader;
+        try {
+            loader = FXMLLoader.load(getClass().getClassLoader().getResource("Profile.fxml")); //Creates a Parent called loader and assign it as ScReen2.FXML
+
+            Scene scene = new Scene(loader); //This creates a new scene called scene and assigns it as the Sample.FXML document which was named "loader"
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+
+            app_stage.setScene(scene); //This sets the scene as scene
+
+            app_stage.show(); // this shows the scene
+        } catch (IOException ex) {
+        }
     }
 }
