@@ -282,4 +282,29 @@ public class ServiceUsers implements IserviceUsers {
         return student;
     }
 
+    @Override
+    public List<Users> fetchHelpers() {
+        List<Users> Utilisateurs = new ArrayList<>();
+
+        try {
+
+            st = cnx.createStatement();
+            String query = "SELECT * FROM users where role=0 AND Spécialité IS NOT NULL";
+            rs = st.executeQuery(query);
+            while (rs.next()) {
+                Users user = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(6), rs.getString(7), rs.getInt(8));
+                Utilisateurs.add(user);
+            }
+
+        } catch (SQLException ex) {
+        }
+
+        return Utilisateurs;
+    }
+
+    @Override
+    public int count() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

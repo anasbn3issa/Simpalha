@@ -16,8 +16,8 @@ public class UpvoteComment {
     public UpvoteComment() {
     }
 
-    public UpvoteComment(int id_post, int id_user) {
-        this.id_comment = id_post;
+    public UpvoteComment(int id_comment, int id_user) {
+        this.id_comment = id_comment;
         this.id_user = id_user;
     }
 public int getId_comment() {
@@ -38,6 +38,8 @@ public int getId_comment() {
 
     @Override
     public String toString() {
-        return "Upvote{" + "id_post=" + id_comment + ", id_user=" + id_user + '}';
+        return "UpvoteComment{" + "id_comment=" + id_comment + ", id_user=" + id_user + '}';
     }
+
+   
 }

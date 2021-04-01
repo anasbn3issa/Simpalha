@@ -57,6 +57,7 @@ public class Users {
 
     public Users(int id, String password, String email, String username, String Specialty,String about,int role) {
         this.id = id;
+        this.role = role;
         this.password = password;
         this.email = email;
         this.about = about;
@@ -70,11 +71,12 @@ public class Users {
         this.username = username;
     }
 
-    public Users(String password, String email, String username,String about) {
+    public Users(String password, String email, String username,String about, int role) {
         this.password = password;
         this.email = email;
         this.username = username;
         this.about = about;
+        this.role = role;
 
     }
     
@@ -122,10 +124,15 @@ public class Users {
         this.Specialty = Specialty;
     }
 
+    
     @Override
     public String toString() {
         return "Users{" + "id=" + id + ", role=" + role + ", password=" + password + ", code=" + code + ", email=" + email + ", username=" + username + ", Specialty=" + Specialty + ", about=" + about + '}';
     }
+    
+    
+
+    
 
    
 

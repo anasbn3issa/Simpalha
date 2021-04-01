@@ -56,7 +56,7 @@ private ServiceUsers srv;
     @FXML
     private void ajouter(ActionEvent event) {
        
-        Users user = new Users(passwd.getText(), email.getText(), username.getText(), about.getText());
+        Users user = new Users(passwd.getText(), email.getText(), username.getText(), about.getText(), 0);
         ServiceUsers us = new ServiceUsers();
        
  

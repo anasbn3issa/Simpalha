@@ -7,6 +7,7 @@ package services;
 
 import entities.Question;
 import entities.Quizz;
+import entities.Users;
 import interfaces.IServiceQuizz;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -210,6 +211,47 @@ public class ServiceQuizz implements IServiceQuizz {
     }
 
     @Override
+    public ObservableList<Quizz> ObservableListAllQuizzesWithUserName() throws SQLException {
+        
+            Statement stm = cnx.createStatement();
+            
+            ServiceUsers usr = new ServiceUsers();
+            
+            String query="SELECT * FROM `quizz`";
+            ResultSet rst = stm.executeQuery(query);
+            
+            List<Quizz> quizzes = new ArrayList<>();
+            
+            while(rst.next())
+            {
+                Quizz Q = new Quizz();
+                
+                Users U;
+
+                
+                Q.setId(rst.getInt("id"));          
+                Q.setTitle(rst.getString("title"));
+                Q.setSubject(rst.getString("subject"));
+                
+                int helperId = rst.getInt("helper_id");
+                
+                U = usr.findById(helperId);
+                
+                Q.setHelper(helperId);
+                Q.setName(U.getUsername());
+               
+                quizzes.add(Q);
+            }
+            
+            
+            ObservableList<Quizz> quizzesObservable = FXCollections.observableArrayList();
+            
+            quizzesObservable.addAll(quizzes);
+            
+            return quizzesObservable;
+    }
+
+    @Override
     public ObservableList<Quizz> ObservableListQuizzes(int helperId) throws SQLException {
         
             
@@ -257,6 +299,11 @@ public class ServiceQuizz implements IServiceQuizz {
             }
             
             return Q.getId();
+    }
+
+    @Override
+    public int count() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

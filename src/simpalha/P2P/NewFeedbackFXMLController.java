@@ -59,6 +59,7 @@ public class NewFeedbackFXMLController implements Initializable {
                      serviceFeedback = new ServiceFeedback();
                      
                      meet = service.findById(meetId);
+                     service.setFinished(meetId);
                      Users h = serviceUser.findById(meet.getId_helper());
                      meet.setHelperDisplay(h.getUsername());
                      

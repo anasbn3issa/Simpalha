@@ -17,7 +17,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import services.ServiceNotification;
 import services.ServiceWrapper;
-import simpalha.quizz.FXMLQuestionTableController;
+import simpalha.admin.quizz.FXMLAdminQuestionTableController;
 
 /**
  * FXML Controller class

@@ -16,13 +16,15 @@ import javafx.stage.Stage;
  * @author α Ω
  */
 public class Simpalha extends Application {
-    
+
     @Override
     public void start(Stage stage) throws Exception {
+
         
-        Parent root = FXMLLoader.load(getClass().getResource("users/admin/GestionCandidatures.fxml"));        
+        Parent root = FXMLLoader.load(getClass().getResource("users/Login.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("admin/FXMLDocument.fxml"));
         Scene scene = new Scene(root);
-        
+
         stage.setScene(scene);
         stage.show();
     }
@@ -33,5 +35,5 @@ public class Simpalha extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

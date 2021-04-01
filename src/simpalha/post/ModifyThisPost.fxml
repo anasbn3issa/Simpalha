@@ -7,7 +7,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -15,6 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="1280.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.post.ModifyThisPostController">
@@ -34,15 +34,7 @@
                </children></HBox>
             <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER">
-                     <children>
-                        <TextField promptText="Search" style="-fx-background-color: transparent; -fx-prompt-text-fill: #485460;">
-                           <HBox.margin>
-                              <Insets left="5.0" right="10.0" />
-                           </HBox.margin>
-                        </TextField>
-                        <FontAwesomeIcon fill="#485460" iconName="SEARCH" size="1.5em" styleClass="cursor_hand" />
-                     </children></HBox>
+                  <HBox alignment="CENTER" />
                   <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                      <children>
                         <FontAwesomeIcon iconName="BELL_O" size="1.3em" styleClass="cursor_hand" />
@@ -90,13 +82,13 @@
                   </Text>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" styleClass="hover_border">
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#goToP2P" styleClass="hover_border">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="CALENDAR_ALT" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Projects">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="P2P">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -106,13 +98,13 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" styleClass="hover_border">
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#goToQuizz" styleClass="hover_border">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="LIST_UL" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Tasks">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Quizz">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -122,13 +114,13 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" styleClass="hover_border">
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#goToRessources" styleClass="hover_border">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="FILE_TEXT_ALT" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Invoice">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Ressources">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -138,13 +130,13 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" styleClass="hover_border">
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#goToCandidature" styleClass="hover_border">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="ENVELOPE_ALT" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Messages">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Candidature">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -154,13 +146,13 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" styleClass="hover_border">
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#goToReclamation" styleClass="hover_border">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
                   <FontAwesomeIcon fill="#485460" iconName="NEWSPAPER_ALT" size="1.5em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Reports">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Reclamation">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -172,26 +164,26 @@
             </HBox>
             <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER_LEFT" styleClass="hover_border">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#goToProfile" styleClass="hover_border">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                      <children>
                         <FontAwesomeIcon fill="#485460" iconName="COG" size="1.5em" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Settings">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Profil">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
                         </Text>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" styleClass="hover_border">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#LogoutPushed" styleClass="hover_border">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                      <children>
                         <FontAwesomeIcon fill="#485460" iconName="USER" size="1.5em" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Contact Support">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Logout">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -214,7 +206,15 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="Posts List" />
+                  <Button mnemonicParsing="false" onAction="#CancelButtonPushed" prefHeight="30.0" prefWidth="104.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="&lt;- Go Back">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="Add New Post" textAlignment="CENTER" wrappingWidth="171.1498031616211">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Text>
                   <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                      <children>
                         <HBox alignment="CENTER" />
@@ -232,38 +232,52 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="239.0" prefWidth="1050.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
+                  <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="254.0" prefWidth="1050.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="64.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../assets/logo.png" />
                                  </image>
                               </ImageView>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="22 Febuary 2020" />
                               <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" />
                            </children>
                         </HBox>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <HBox prefHeight="122.0" prefWidth="1090.0">
+                              <HBox prefHeight="61.0" prefWidth="1030.0">
                                  <children>
-                                    <Label text="Module" />
+                                    <Label text="Module">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font></Label>
                                     <VBox prefHeight="200.0" prefWidth="100.0" />
                                     <ComboBox fx:id="comboModule" prefWidth="150.0" promptText="choose .. " />
                                  </children>
                               </HBox>
+                              <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="19.0" prefWidth="1030.0" />
                               <HBox layoutX="10.0" layoutY="29.0" prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Label text="Problem" />
+                                    <Label text="Problem">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font></Label>
                                     <VBox prefHeight="200.0" prefWidth="100.0" />
                                     <TextArea fx:id="problemText" prefHeight="200.0" prefWidth="200.0" />
                                     <HBox prefHeight="100.0" prefWidth="200.0" />
                                     <HBox prefHeight="100.0" prefWidth="200.0" />
-                                    <Button mnemonicParsing="false" onAction="#SaveChangesButtonPushed" text="Save Changes" />
                                     <VBox prefHeight="38.0" prefWidth="28.0" />
-                                    <Button layoutX="755.0" layoutY="10.0" mnemonicParsing="false" onAction="#CancelButtonPushed" text="Cancel" />
+                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <HBox prefHeight="45.0" prefWidth="100.0" />
+                                          <Button mnemonicParsing="false" onAction="#SaveChangesButtonPushed" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Publish">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </VBox>
                                  </children>
                               </HBox>
                            </children>

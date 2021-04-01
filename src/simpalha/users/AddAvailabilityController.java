@@ -19,6 +19,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.ServiceCandidature;
@@ -45,6 +48,7 @@ public class AddAvailabilityController implements Initializable {
     private DateTimePicker end;
     private ServiceDisponibilite srv;
     private int helperid;
+    
     /**
      * Initializes the controller class.
      */
@@ -88,6 +92,30 @@ public class AddAvailabilityController implements Initializable {
          
        Disponibilite can = srv.findById(helperid);
         System.out.println(can);
+    }
+
+    @FXML
+    private void showRESOURCES(MouseEvent event) {
+    }
+
+    @FXML
+    private void goToViewPosts(MouseEvent event) {
+    }
+
+    @FXML
+    private void showQuizz(MouseEvent event) {
+    }
+
+    @FXML
+    private void showRec(ContextMenuEvent event) {
+    }
+
+    @FXML
+    private void showProfile(MouseEvent event) {
+    }
+
+    @FXML
+    private void logout(MouseEvent event) {
     }
     
 }

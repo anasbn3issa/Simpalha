@@ -29,9 +29,10 @@ public class UserSession {
     public int getUserid() {
         return userid;
     }
+    
     public void cleanUserSession() {
-        userid = 0;
-        instance=null;
+        userid = 0;// or null
+        instance = null;
     }
 
     @Override
