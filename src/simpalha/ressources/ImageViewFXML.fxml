@@ -72,15 +72,7 @@
    <left>
       <VBox prefWidth="150.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#GoBack" prefHeight="30.0" prefWidth="104.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="&lt;- Go Back">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </VBox>
+            <VBox alignment="CENTER" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </left>
@@ -95,6 +87,11 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
                <children>
+                  <Button mnemonicParsing="false" onAction="#GoBack" prefHeight="30.0" prefWidth="104.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="&lt;- Go Back">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="Resources List" />
                   <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                      <children>

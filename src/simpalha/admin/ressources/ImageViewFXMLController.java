@@ -166,9 +166,16 @@ public class ImageViewFXMLController implements Initializable {
     @FXML
     private void GeneratePdf(ActionEvent event) {
 
-      GeneratingPDF GPDF= new GeneratingPDF();
-      GPDF.GeneratePdf(R1);
-      
+    
+            GeneratingPDF GPDF= new GeneratingPDF();
+            File file= GPDF.GetGeneratePdf(R1);
+            
+            DropBoxApi Drpbx = new DropBoxApi();
+        try {
+            Drpbx.uploadDropBox(file.getAbsolutePath());
+        } catch (IOException ex) {
+            Logger.getLogger(ImageViewFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
