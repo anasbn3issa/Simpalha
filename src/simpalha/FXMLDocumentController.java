@@ -79,6 +79,7 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    @FXML
     private void AddNewPost(ActionEvent event) {
         
         Parent loader;

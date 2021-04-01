@@ -16,14 +16,14 @@ import java.time.LocalDate;
  */
 public class Reclamation {
     int Id;
-    String Idreportee,Idreported,description, FileSelected, Record;
+    String Idreportee,Idreported,description, FileSelected ,Record;
     LocalDate dateRec,dateResolution;
-    int ValidStudent, ValidHelper;
+    int ValidStudent, ValidHelper,Status;
 
     public Reclamation() {
     }
 
-    public Reclamation(int Id, String Idreportee, String Idreported, String description, String image, String Record, LocalDate dateRec, LocalDate dateResolution) {
+    public Reclamation(int Id, String Idreportee, String Idreported, String description, String image, String Record, LocalDate dateRec, LocalDate dateResolution, int Status) {
         this.Id = Id;
         this.Idreportee = Idreportee;
         this.Idreported = Idreported;
@@ -34,6 +34,15 @@ public class Reclamation {
         this.dateResolution = dateResolution;
         this.ValidStudent=ValidStudent;
         this.ValidHelper=ValidHelper;
+        this.Status= Status;
+    }
+
+    public int getStatus() {
+        return Status;
+    }
+
+    public void setStatus(int Status) {
+        this.Status = Status;
     }
 
     public String getRecord() {
@@ -119,7 +128,7 @@ public class Reclamation {
 
     @Override
     public String toString() {
-        return "Reclamation{" + "Id=" + Id + ", Idreportee=" + Idreportee + ", Idreported=" + Idreported + ", description=" + description + ", FileSelected=" + FileSelected+ ", Record=" + Record + ", dateRec=" + dateRec + ", dateResolution=" + dateResolution + ", ValidStudent=" + ValidStudent + ", ValidHelper=" + ValidHelper + '}';
+        return "Reclamation{" + "Id=" + Id + ", Idreportee=" + Idreportee + ", Idreported=" + Idreported + ", description=" + description + ", FileSelected=" + FileSelected+ ", Record=" + Record + ", dateRec=" + dateRec + ", dateResolution=" + dateResolution + ", ValidStudent=" + ValidStudent + ", ValidHelper=" + ValidHelper + ", Status=" + Status+ '}';
     }
 
     

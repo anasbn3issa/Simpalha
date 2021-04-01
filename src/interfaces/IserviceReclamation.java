@@ -13,5 +13,6 @@ import entities.Reclamation;
  */
 public interface IserviceReclamation extends IService<Reclamation> {
     public void Validate(Reclamation Rec);
+    public void UpdateStatus(Reclamation Rec);
     
 }

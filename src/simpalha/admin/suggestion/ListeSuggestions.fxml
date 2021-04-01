@@ -12,30 +12,38 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="1280.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.reclamation.ListerReclamationController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="1280.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.admin.suggestion.ListeSuggestionsController">
    <top>
       <HBox style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" maxWidth="-Infinity" prefWidth="150.0" style="-fx-background-color: #0fbcf9;" styleClass="cursor_hand">
+            <HBox alignment="CENTER" maxWidth="-Infinity" prefWidth="150.0" style="-fx-background-color: #f94c0f;" styleClass="cursor_hand">
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
                <children>
                   <ImageView fitHeight="120.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../assets/Simpalha.png" />
+                        <Image url="@../../../assets/Simpalha.png" />
                      </image>
                   </ImageView>
                </children></HBox>
             <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER" />
+                  <HBox alignment="CENTER">
+                     <children>
+                        <TextField promptText="Search" style="-fx-background-color: transparent; -fx-prompt-text-fill: #485460;">
+                           <HBox.margin>
+                              <Insets left="5.0" right="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <FontAwesomeIcon fill="#485460" iconName="SEARCH" size="1.5em" styleClass="cursor_hand" />
+                     </children></HBox>
                   <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                      <children>
                         <FontAwesomeIcon fx:id="btNotificationShow" iconName="BELL_O" onMouseClicked="#notificationsShow" size="1.3em" styleClass="cursor_hand" />
                         <ImageView fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="cursor_hand">
                            <image>
-                              <Image url="@../../assets/male.png" />
+                              <Image url="@../../../assets/male.png" />
                            </image>
                            <HBox.margin>
                               <Insets left="20.0" right="20.0" />
@@ -141,7 +149,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" onMouseClicked="#RecSugg" styleClass="hover_border">
+            <HBox alignment="CENTER_LEFT" styleClass="hover_border">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -201,34 +209,10 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="Claim List" wrappingWidth="98.9312515258789" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="Suggestions List" wrappingWidth="153.79004669189453" />
                   <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-background-radius: 0px;">
-                           <graphic>
-                              <FontAwesomeIcon fill="#485460" iconName="TH_LARGE" size="1.3em" />
-                           </graphic>
-                        </Button>
-                        <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-background-radius: 0px;">
-                           <graphic>
-                              <FontAwesomeIcon fill="#485460" iconName="TH_LIST" size="1.3em" />
-                           </graphic>
-                        </Button>
-                        <HBox alignment="CENTER">
-                           <children>
-                              <TextField promptText="Search " style="-fx-background-color: transparent; -fx-prompt-text-fill: #485460;">
-                                 <HBox.margin>
-                                    <Insets left="5.0" right="10.0" />
-                                 </HBox.margin>
-                              </TextField>
-                              <FontAwesomeIcon fill="#485460" iconName="SEARCH" size="1.5em" styleClass="cursor_hand" />
-                           </children>
-                        </HBox>
-                        <Button mnemonicParsing="false" onAction="#ajouter" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Add New Claim">
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                        </Button>
+                        <HBox alignment="CENTER" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -236,17 +220,12 @@
                   </HBox>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" />
-            <VBox prefHeight="391.0" prefWidth="1090.0">
-               <children>
-                  <TableView fx:id="listeRec" prefHeight="329.0" prefWidth="1090.0" />
-                  <Button fx:id="annuler" mnemonicParsing="false" onAction="#annuler" text="Back">
-                     <VBox.margin>
-                        <Insets left="1000.0" top="20.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
+            <TableView fx:id="listeSugg" prefHeight="374.0" prefWidth="1090.0" />
+            <Button fx:id="annuler" mnemonicParsing="false" onAction="#annuler" text="Back">
+               <VBox.margin>
+                  <Insets left="1040.0" top="20.0" />
+               </VBox.margin>
+            </Button>
          </children>
       </VBox>
    </center>

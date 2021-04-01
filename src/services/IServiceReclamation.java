@@ -21,7 +21,7 @@ import utils.Maconnexion;
  *
  * @author PC
  */
-public class IServiceReclamation implements IserviceReclamation <Reclamation> 
+public class IServiceReclamation implements IserviceReclamation 
 {
     
     Connection cnx;
@@ -32,11 +32,13 @@ public class IServiceReclamation implements IserviceReclamation <Reclamation>
     
     @Override
     public void Create(Reclamation Rec) {
+       
         try {
+            int Status =0;
             Statement st = cnx.createStatement();
             Date dateRec = Date.valueOf(Rec.getDateRec());
             Date dateResolution = Date.valueOf(Rec.getDateResolution());
-            String query = "insert into reclamation values ('" + Rec.getId() +"','"+ Rec.getIdreported()+"','" + Rec.getIdreportee()+"','" + Rec.getDescription()+"','" + Rec.getFileSelected()+"','"+ Rec.getRecord()+"','" + dateRec +"','"+ dateResolution+"'," + Rec.getValidHelper()+"," + Rec.getValidStudent()+ ")";
+            String query = "insert into reclamation values ('" + Rec.getId() +"','"+ Rec.getIdreported()+"','" + Rec.getIdreportee()+"','" + Rec.getDescription()+"','" + Rec.getFileSelected()+"','"+ Rec.getRecord()+"','" + dateRec +"','"+ dateResolution+"'," + Rec.getValidHelper()+"," + Rec.getValidStudent()+" , "+Status+")";
             System.out.println(query);
             System.out.println(Rec.getDescription());
             System.out.println(Rec.getFileSelected());
@@ -63,6 +65,20 @@ public class IServiceReclamation implements IserviceReclamation <Reclamation>
         }
 
     }
+    
+    @Override
+    public void UpdateStatus(Reclamation Rec) {
+    PreparedStatement pt = null;
+        try {
+            pt = cnx.prepareStatement("update reclamation set Status=1 where Id = ? ");
+            pt.setInt(1, Rec.getStatus());
+            pt.setInt(2, Rec.getId());
+            pt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+     
+    }
 
     @Override
     public List<Reclamation> Read() {
@@ -87,6 +103,7 @@ public class IServiceReclamation implements IserviceReclamation <Reclamation>
                 rec.setDateResolution(rst.getDate(8).toLocalDate());
                 rec.setValidStudent(rst.getInt(9));
                 rec.setValidHelper(rst.getInt(10));
+                rec.setStatus(rst.getInt(11));
                 Reclamation.add(rec);
             }
         } catch (SQLException ex) {
@@ -107,35 +124,6 @@ public class IServiceReclamation implements IserviceReclamation <Reclamation>
         }
 
     }
-
-    @Override
-    public Reclamation findbyId(int Id) {
-        Reclamation rec = new Reclamation();
-        try {
-            PreparedStatement pt = cnx.prepareStatement("select * from reclamation where Id =?");
-            pt.setInt(1,Id);
-            ResultSet rst = pt.executeQuery();
-            
-            while (rst.next()) {
-
-                rec.setId(rst.getInt(1));
-                rec.setIdreportee(rst.getString(2));
-                rec.setIdreported(rst.getString(3));
-                rec.setDescription(rst.getString(4));
-                rec.setFileSelected(rst.getString(5));
-                rec.setRecord(rst.getString(6));
-                rec.setDateRec(rst.getDate(7).toLocalDate());
-                rec.setDateResolution(rst.getDate(8).toLocalDate());
-                rec.setValidStudent(rst.getInt(9));
-                rec.setValidHelper(rst.getInt(10));
-              
-            }
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        }
-        return rec;    
-        }
-
    
 
     @Override
@@ -162,6 +150,40 @@ public class IServiceReclamation implements IserviceReclamation <Reclamation>
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Override
+    public List<Reclamation> findAllById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Reclamation findById(int id) {
+Reclamation rec = new Reclamation();
+        try {
+            PreparedStatement pt = cnx.prepareStatement("select * from reclamation where Id =?");
+            pt.setInt(1,id);
+            ResultSet rst = pt.executeQuery();
+            
+            while (rst.next()) {
+
+                rec.setId(rst.getInt(1));
+                rec.setIdreportee(rst.getString(2));
+                rec.setIdreported(rst.getString(3));
+                rec.setDescription(rst.getString(4));
+                rec.setFileSelected(rst.getString(5));
+                rec.setRecord(rst.getString(6));
+                rec.setDateRec(rst.getDate(7).toLocalDate());
+                rec.setDateResolution(rst.getDate(8).toLocalDate());
+                rec.setValidStudent(rst.getInt(9));
+                rec.setValidHelper(rst.getInt(10));
+                rec.setStatus(rst.getInt(11));
+              
+            }
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        return rec;
     }
     
     
