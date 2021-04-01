@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simpalha.ressources;
+package simpalha.admin.ressources;
 
+import simpalha.ressources.*;
 import entities.Ressources;
 import java.io.File;
 import java.io.FileInputStream;
