@@ -116,7 +116,6 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
-    @FXML
     private void candidatures(MouseEvent event) {
          try {
             FXMLLoader loader = new FXMLLoader(
@@ -229,6 +228,25 @@ public class FXMLDocumentController implements Initializable {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
                             "/simpalha/reclamation/ReclamationSuggestion.fxml"
+                    )
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void goToReclamation(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/simpalha/reclamation/listerReclamation.fxml"
                     )
             );
 

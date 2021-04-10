@@ -44,7 +44,7 @@
                               <Insets left="20.0" right="20.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Text fx:id="currentUserNameLabel" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder;" text="Wajdi">
+                        <Text fx:id="currentUserNameLabel" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder;" text="arijzt">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>

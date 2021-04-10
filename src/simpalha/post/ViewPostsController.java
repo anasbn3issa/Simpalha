@@ -58,6 +58,7 @@ import javafx.application.Platform;
 import simpalha.notification.FXMLNotificationController;
 import services.ServiceNotification;
 import javafx.scene.control.TextArea;
+import simpalha.FXMLDocumentController;
 
 /**
  * FXML Controller class
@@ -569,6 +570,21 @@ public class ViewPostsController implements Initializable {
 
     @FXML
     private void goToReclamation(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/simpalha/reclamation/ListerReclamation.fxml"
+                    )
+            );
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //this accesses the window.
+            stage.setScene(
+                    new Scene(loader.load())
+            );
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 
