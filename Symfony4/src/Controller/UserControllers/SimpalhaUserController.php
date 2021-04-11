@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SimpalhaUserController extends AbstractController
 {
     /**
-     * @Route("/user/controllers/simpalha/user", name="user_controllers_simpalha_user")
+     * @Route("/", name="user/simpalha")
      */
     public function index(): Response
     {
