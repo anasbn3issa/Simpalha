@@ -1,0 +1,47 @@
+
+
+{% extends 'baseUser.html.twig' %}
+{% block title %}
+    <title>Post</title>
+{% endblock %}
+
+{% block body %}
+
+    <h1>Post</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ post.id }}</td>
+            </tr>
+            <tr>
+                <th>Timestamp</th>
+                <td>{{ post.timestamp ? post.timestamp|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ post.status }}</td>
+            </tr>
+            <tr>
+                <th>Module</th>
+                <td>{{ post.module }}</td>
+            </tr>
+            <tr>
+                <th>Problem</th>
+                <td>{{ post.problem }}</td>
+            </tr>
+            <tr>
+                <th>ImageName</th>
+                <td>{{ post.imageName }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_controllers_post_index') }}">back to list</a>
+
+    <a href="{{ path('user_controllers_post_edit', {'id': post.id}) }}">edit</a>
+
+    {{ include('user_controllers_post/_delete_form.html.twig') }}
+
+{% endblock %}

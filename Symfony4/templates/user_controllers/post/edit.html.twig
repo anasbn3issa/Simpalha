@@ -1,0 +1,15 @@
+{% extends 'baseUser.html.twig' %}
+
+{% block title %}
+<title>Edit Post</title>
+{% endblock %}
+
+{% block body %}
+    <h1>Edit Post</h1>
+
+    {{ include('user_controllers/post/form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('user_controllers_post_index') }}">back to list</a>
+
+    {{ include('user_controllers/post/_delete_form.html.twig') }}
+{% endblock %}

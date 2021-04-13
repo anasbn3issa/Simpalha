@@ -1,0 +1,32 @@
+{% extends 'baseUser.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('css/algolia-autocomplete.css') }}">
+{% endblock %}
+{% block title %}
+    {{ parent() }}
+    <title>New Post</title>
+{% endblock %}
+
+
+
+
+
+
+{% block body %}
+    <h1>Create a new Post</h1>
+
+    {{ include('user_controllers/post/form.html.twig') }}
+
+    <a href="{{ path('user_controllers_post_index') }}">back to list</a>
+
+
+    {% block javascripts %}
+
+        <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script>
+        <script src="{{ asset('js/algolia-autocomplete.js') }}"></script>
+        <script src="{{ asset('js/admin_article_form.js') }}"></script>
+    {% endblock %}
+{% endblock %}
