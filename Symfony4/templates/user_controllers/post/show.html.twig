@@ -1,0 +1,71 @@
+{% extends 'baseUser.html.twig' %}
+
+{% block title %}
+    <title>Post</title>
+{% endblock %}
+
+{% block body %}
+
+    <h1>Post</h1>
+
+            <div class="article-container my-1">
+                <a href="{{ path('user_controllers_post_show', {id: post.id}) }}">
+                    {#  <img class="article-img" src="{{ asset(post.imageName) }}"> #}
+                    <div class="article-title d-inline-block pl-3 align-middle">
+                        <span>{{ post.module }}</span>
+                        {# <small>({{ post.comments|length }} comments)</small> // later will be added to determine comments' counter for each post #}
+                        <small><a>( )</a></small>
+                <br>
+
+                <small>
+                    <span class="badge badge-light">{{ post.module }}</span>
+                </small>
+
+                <br>
+                <span>{{ post.problem }}</span>
+                <span class="pl-5 article-details float-right"> {{ post.timestamp ? post.timestamp|ago }}</span>
+            </div>
+
+            <div class="article-container my-1">
+                {{ "in here we will be adding the comment" }}
+            </div>
+                    <br>
+                    <div>
+                        {{ "in here we will be displaying the comments for this post" }}
+
+                        {#
+
+                        {% for comment in comments %}
+                            <div class="article-container my-1">
+                                <a href="{{ path('user_controllers_comment_show', {id: comment.id}) }}">
+                                     <img class="article-img" src="{{ asset(post.imageName) }}">
+                                    <div class="article-title d-inline-block pl-3 align-middle">
+                                        <span>{{ comment.owner.id }}</span>
+                                         <small>({{ post.comments|length }} comments)</small> // later will be added to determine comments' counter for each post
+
+                                <br>
+
+                                <small>
+                                    <span class="badge badge-light">{{ comment.upvotes }}</span>
+                                </small>
+
+                                <br>
+                                <span>{{ comment.solution }}</span>
+                                <span class="pl-5 article-details float-right"> {{ comment.timestamp ? comment.timestamp|ago }}</span>
+                                </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+
+                        #}
+                    </div>
+
+
+
+    <a href="{{ path('user_controllers_post_index') }}">back to list</a>
+
+    <a href="{{ path('user_controllers_post_edit', {'id': post.id}) }}">edit</a>
+
+{# {{ include('user_controllers/comment/_delete_form.html.twig') }} #}
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'baseUser.html.twig' %}
+
+{% block title %}Manage Comments{% endblock %}
+
+{% block body %}
+    <h1>Comment index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Timestamp</th>
+                <th>Rating</th>
+                <th>Upvotes</th>
+                <th>Downvotes</th>
+                <th>Solution</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for comment in comments %}
+            <tr>
+                <td>{{ comment.id }}</td>
+                <td>{{ comment.timestamp ? comment.timestamp|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ comment.rating }}</td>
+                <td>{{ comment.upvotes }}</td>
+                <td>{{ comment.downvotes }}</td>
+                <td>{{ comment.solution }}</td>
+                <td>
+                    <a href="{{ path('user_controllers_comment_show', {'id': comment.id}) }}">show</a>
+                    <a href="{{ path('user_controllers_comment_edit', {'id': comment.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_controllers_comment_new') }}">Create new</a>
+{% endblock %}
