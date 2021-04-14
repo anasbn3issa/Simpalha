@@ -19,4 +19,6 @@ class PostController extends AbstractController
             'posts' => $postRepository->findAll(),
         ]);
     }
+
+
 }

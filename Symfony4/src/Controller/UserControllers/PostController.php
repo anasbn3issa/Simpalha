@@ -4,6 +4,7 @@ namespace App\Controller\UserControllers;
 
 use App\Entity\Post;
 use App\Form\Post1Type;
+use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,7 +23,7 @@ class PostController extends AbstractController
      */
     public function index(PostRepository $postRepository): Response
     {
-        return $this->render('user_controllers/post/index.html.twig', [
+        return $this->render('user_controllers/simpalha_user/index.html.twig', [
             'posts' => $postRepository->findAll(),
         ]);
     }
@@ -76,9 +77,10 @@ class PostController extends AbstractController
     /**
      * @Route("/posts", name="user_controller_post_list")
      */
-    public function list(PostRepository $postRepository)
+    public function list(PostRepository $postRepository )
     {
         $posts = $postRepository->findAll();
+
         return $this->render('user_controllers/post/list.html.twig',[
             'posts' => $posts
         ]);

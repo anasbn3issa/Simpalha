@@ -68,10 +68,12 @@ class Post
      */
     private $owner;
 
+
     /**
      * @var \Comment
      *
      * @ORM\ManyToOne(targetEntity="Comment")
+     * @ORM\OrderBy({ "timestamp" = "DESC" })
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="solution_id", referencedColumnName="id")
      * })
