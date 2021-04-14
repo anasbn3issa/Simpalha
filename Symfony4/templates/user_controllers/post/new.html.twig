@@ -5,8 +5,8 @@
 
     <link rel="stylesheet" href="{{ asset('css/algolia-autocomplete.css') }}">
 {% endblock %}
+
 {% block title %}
-    {{ parent() }}
     <title>New Post</title>
 {% endblock %}
 
@@ -17,6 +17,9 @@
 
 {% block body %}
     <h1>Create a new Post</h1>
+
+
+
 
     {{ include('user_controllers/post/form.html.twig') }}
 

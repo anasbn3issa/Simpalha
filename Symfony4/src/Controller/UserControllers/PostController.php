@@ -35,22 +35,30 @@ class PostController extends AbstractController
         $post = new Post();
         $form = $this->createForm(Post1Type::class, $post);
         $form->handleRequest($request);
-        $img=$form->get('imageName')->getData();
 
-        if($img){
-            $img = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
-            // this is needed to safely include the file name as part of the URL
-        }
-        //try {
-          //  $img->move(
-            //    $this->getParameter('postImages'),
-              //  $img
-            //);
-       // } catch (FileException $e) {
-
-        //}
-        //$post->setImageName($img);
         if ($form->isSubmitted() && $form->isValid()) {
+            // for the upload
+
+            $img=$form->get('imageName')->getData();
+
+            if($img){
+                $originalFileName = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFileName= $originalFileName.'-'.uniqid().'.'.$img->guessExtension();
+                // this is needed to safely include the file name as part of the URL
+            }
+            try {
+                $img->move(
+                    $this->getParameter('postImages'),
+                    $img
+                );
+            } catch (FileException $e) {
+                echo $e->getMessage();
+            }
+            $post->setImageName($newFileName);
+
+
+
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($post);
             $entityManager->flush();
