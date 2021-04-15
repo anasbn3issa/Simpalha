@@ -1,0 +1,41 @@
+{% extends 'baseUser.html.twig' %}
+
+{% block title %}
+    <title>All Posts</title>
+{% endblock %}
+
+{% block body %}
+{#
+<a href="{{ path('admin_article_new') }}" class="btn btn-primary pull-right">
+    Create <span class="fa fa-plus-circle"></span>
+</a>
+#}
+
+<h1>All Posts</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Module</th>
+        <th>problem</th>
+        <th> </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for post in posts %}
+        <tr>
+            <td>{{ post.module }}</td>
+            <td>{{ post.problem }}</td>
+            <td>
+                <a href="{{ path('user_controllers_post_edit', {
+                    id: post.id
+                }) }}">
+                    <span class="fa fa-pencil"></span>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
