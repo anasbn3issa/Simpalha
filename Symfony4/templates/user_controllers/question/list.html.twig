@@ -1,0 +1,55 @@
+{% extends 'baseUser.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/quizz/styles.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="quiz-list-container">
+        <div class="quiz-div-container">
+
+            {% for question in questions %}
+
+{#                <div class="quiz-div">#}
+{#                    <h4 class="quiz-div-subject">{{ quiz.subject }}</h4>#}
+{#                    <p class="quiz-div-title">{{ quiz.title }}</p>#}
+{#                    <div class="quiz-div-btn-container">#}
+{#                        <a href="{{ path('question_list', {id: quiz.id}) }}" class="btn btn-success quiz-management-btn">Manage Questions</a>#}
+{#                        <a href="{{ path('quiz_edit', {id: quiz.id}) }}" class="btn btn-primary quiz-management-btn">Update</a>#}
+{#                        <a href="{{ path('quiz_delete', {id: quiz.id}) }}" class="btn btn-danger quiz-management-btn">Delete</a>#}
+{#                    </div>#}
+{#                </div>#}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="bg-dark text-light" style="text-align: center;">Question: {{ question.question }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for answer in question.answers %}
+                            <tr>
+                                <th scope="row" colspan="2" style="text-align: center;{% if answer.id == question.rightAnswer %}color: #00BB33{% endif %}">
+                                    {{ answer.suggestion }}
+                                </th>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class="question-list-btn-container">
+                    <a href="{{ path('answer_list',{id: quizzId,qId:question.id}) }}" class="btn btn-success">Manage Answers</a>
+                    <a href="{{ path('question_edit',{id: quizzId,qId: question.id}) }}" class="btn btn-primary">Update Question</a>
+                    <a href="{{ path('question_delete',{id: quizzId,qId: question.id}) }}" class="btn btn-danger">Delete Question</a>
+                </div>
+
+            {% endfor %}
+        </div>
+        <div class="quiz-div-footer">
+            <a href="{{ path('question_create',{id: quizzId}) }}" class="btn btn-primary quiz-div-footer-btn">Add Question</a>
+            <a href="{{ path('quiz_list') }}" class="btn btn-danger quiz-div-footer-btn">Back</a>
+        </div>
+    </div>
+
+
+{% endblock %}
