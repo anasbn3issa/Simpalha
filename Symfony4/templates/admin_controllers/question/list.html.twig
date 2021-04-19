@@ -1,4 +1,4 @@
-{% extends 'baseUserQuiz.html.twig' %}
+{% extends 'baseAdminQuiz.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/quizz/styles.css') }}">
@@ -6,8 +6,16 @@
 
 {% block body %}
 
-    <div class="quiz-list-container">
+    <div class="admin-quiz-list-container">
         <div class="quiz-div-container">
+            <div class="div-pusher">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
 
             {% for question in questions %}
 
@@ -38,16 +46,14 @@
                 </table>
 
                 <div class="question-list-btn-container">
-                    <a href="{{ path('answer_list',{id: quizzId,qId:question.id}) }}" class="btn btn-success">Manage Answers</a>
-                    <a href="{{ path('question_edit',{id: quizzId,qId: question.id}) }}" class="btn btn-primary">Update Question</a>
-                    <a href="{{ path('question_delete',{id: quizzId,qId: question.id}) }}" class="btn btn-danger">Delete Question</a>
+                    <a href="{{ path('admin_answer_list',{id: quizzId,qId:question.id}) }}" class="btn btn-success">Display Answers</a>
+                    <a href="{{ path('admin_question_delete',{id: quizzId,qId: question.id}) }}" class="btn btn-danger">Delete Question</a>
                 </div>
 
             {% endfor %}
         </div>
         <div class="quiz-div-footer">
-            <a href="{{ path('question_create',{id: quizzId}) }}" class="btn btn-primary quiz-div-footer-btn">Add Question</a>
-            <a href="{{ path('quiz_list') }}" class="btn btn-danger quiz-div-footer-btn">Back</a>
+            <a href="{{ path('admin_quiz_list') }}" class="btn btn-danger quiz-div-footer-btn">Back</a>
         </div>
     </div>
 

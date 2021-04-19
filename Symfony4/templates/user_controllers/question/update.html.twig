@@ -1,4 +1,4 @@
-{% extends 'baseUser.html.twig' %}
+{% extends 'baseUserQuiz.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/quizz/styles.css') }}">
@@ -12,7 +12,7 @@
         {{ form_widget(questionForm) }}
 
         {% if answerExists == 0 %}
-            <a href="" class="btn btn-success">Manage Answers</a>
+            <a href="{{ path('answer_list', {id: quizzId, qId: questionId}) }}" class="btn btn-success">Manage Answers</a>
             <a href="{{ path('question_list',{id: quizzId}) }}" class="btn btn-danger">Back</a>
         {% else %}
             <button type="submit" class="btn btn-primary">Update!</button>

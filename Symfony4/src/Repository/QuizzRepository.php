@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Quizz;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +18,22 @@ class QuizzRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Quizz::class);
+    }
+
+
+
+    public function getWithSearchQueryBuilder(?string $term): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        if($term) {
+            $qb->andWhere('c.subject LIKE :term OR c.title LIKE :term')
+                ->setParameter('term', '%'.$term.'%')
+            ;
+        }
+
+        return $qb
+            ->orderBy('c.subject', 'DESC');
     }
 
     // /**

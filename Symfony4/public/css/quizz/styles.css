@@ -3,6 +3,12 @@
           box-sizing: border-box;
 }
 
+.div-pusher {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 100px !important;
+}
+
 .welcome-quiz {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -33,17 +39,24 @@
   width: 200px;
 }
 
-.quiz-list-container {
+.admin-quiz-list-container {
+  margin-top: 50px;
   display: block;
   height: 100vh;
   width: auto;
+}
+
+.quiz-list-container {
+  display: block;
+  height: auto;
+  width: 100%;
 }
 
 .quiz-div-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 80%;
+  height: auto;
   width: 100%;
   overflow-y: auto;
   -webkit-box-orient: vertical;
@@ -120,6 +133,46 @@
 
 .create-quiz-form-container {
   margin: 100px;
+}
+
+.search-bar-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: auto;
+  width: 100%;
+  padding: 10px;
+}
+
+.search-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px;
+}
+
+.search-input {
+  width: 100%;
+}
+
+.search-quiz-input-button {
+  margin-left: 5px;
+}
+
+.footer {
+  position: fixed;
 }
 
 .question-list-btn-container {

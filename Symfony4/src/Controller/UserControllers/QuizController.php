@@ -1,12 +1,16 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\UserControllers;
 
 use App\Entity\Quizz;
 use App\Entity\Users;
 use App\Form\QuizFormType;
+use App\Repository\QuestionRepository;
+use App\Repository\QuizzRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -125,6 +129,71 @@ class QuizController extends AbstractController
         return $this->render('user_controllers/quiz/update.html.twig', [
             'quizForm' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/quiz/table", name="quiz_table")
+     */
+    public function listStudents(QuizzRepository $quizzRepository, Request $request, PaginatorInterface $paginator): Response
+    {
+        $q = $request->query->get('q');
+        $queryBuilder = $quizzRepository->getWithSearchQueryBuilder($q);
+
+        $pagination = $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1),
+            5
+        );
+
+        return $this->render('user_controllers/quiz/table.html.twig', [
+            'pagination' => $pagination,
+        ]);
+    }
+
+    /**
+     * @Route("/quiz/take/{id}", name="quiz_take")
+     */
+    public function takeQuiz($id, EntityManagerInterface $em)
+    {
+        $quiz = $em->getRepository(Quizz::class)->findOneBy(['id'=>$id]);
+
+        return $this->render('user_controllers/quiz/take.html.twig',[
+            'quiz' => $quiz,
+            'questions' => $quiz->getQuestions(),
+        ]);
+    }
+
+    /**
+     * @Route("/quiz//take/{id}/submit", name="quiz_submit", methods="POST")
+     */
+    public function submitQuiz($id, QuestionRepository $questionRepository,Request $request, EntityManagerInterface $em)
+    {
+        $selectedAnswers = $request->get('selectedAnswers');
+        $questions = $request->get('questions');
+        $maxScore = 20;
+        $questionCount = 0;
+        $score = 0;
+
+        foreach($questions as $question){
+            $questionChosen = $questionRepository->findOneBy(['id'=>$question]);
+
+            foreach ($selectedAnswers as $answer){
+                if ($questionChosen->getRightAnswer() == $answer)
+                    $score++;
+            }
+
+            $questionCount++;
+        }
+
+        $convertedAverage = ($score*$maxScore)/$questionCount;
+
+
+        Return new JsonResponse([
+            'selectedAnswers' => $selectedAnswers,
+            'questions' => $questions,
+            'convertedAverage' => $convertedAverage,
+        ]);
+
     }
 
 

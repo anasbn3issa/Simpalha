@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 //* @ORM\Table(name="quizz", indexes={@ORM\Index(name="fk_quizz_user_id", columns={"helper_id"})})
@@ -26,6 +27,7 @@ class Quizz
 
     /**
      * @var string
+     * @Assert\NotBlank
      *
      * @ORM\Column(name="title", type="string", length=500, nullable=false)
      */
@@ -33,6 +35,7 @@ class Quizz
 
     /**
      * @var string
+     * @Assert\NotBlank
      *
      * @ORM\Column(name="subject", type="string", length=500, nullable=false)
      */

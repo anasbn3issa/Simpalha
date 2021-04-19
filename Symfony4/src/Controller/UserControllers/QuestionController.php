@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\UserControllers;
 
 use App\Entity\Answer;
 use App\Entity\Question;
@@ -108,6 +108,7 @@ class QuestionController extends AbstractController
                 'questionForm' => $form->createView(),
                 'answerExists' => 0,
                 'quizzId' => $id,
+                'questionId' => $qId
             ]);
         }
         else{
@@ -115,6 +116,7 @@ class QuestionController extends AbstractController
                 'questionForm' => $form->createView(),
                 'answerExists' => 1,
                 'quizzId' => $id,
+                'questionId' => $qId
             ]);
 
         }

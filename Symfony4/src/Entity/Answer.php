@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Answer
@@ -23,6 +24,7 @@ class Answer
 
     /**
      * @var string
+     * @Assert\NotBlank
      *
      * @ORM\Column(name="suggestion", type="string", length=1000, nullable=false)
      */

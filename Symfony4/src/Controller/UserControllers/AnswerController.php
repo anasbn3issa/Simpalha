@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\UserControllers;
 
 use App\Entity\Answer;
 use App\Entity\Question;
@@ -103,7 +103,7 @@ class AnswerController extends AbstractController
         }
 
         return $this->render('user_controllers/answer/update.html.twig', [
-            'answerForm' => $form->createView(),
+            'answerForm' => $form->createView()
         ]);
     }
 
