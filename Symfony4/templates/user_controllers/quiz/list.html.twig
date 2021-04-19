@@ -1,0 +1,34 @@
+{% extends 'baseUserQuiz.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/quizz/styles.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="quiz-list-container">
+        <div class="quiz-div-container">
+
+            {% for quiz in quizzs %}
+
+                <div class="quiz-div">
+                    <h4 class="quiz-div-subject">{{ quiz.subject }}</h4>
+                    <p class="quiz-div-title">{{ quiz.title }}</p>
+                    <div class="quiz-div-btn-container">
+                        <a href="{{ path('question_list', {id: quiz.id}) }}" class="btn btn-success quiz-management-btn">Manage Questions</a>
+                        <a href="{{ path('quiz_edit', {id: quiz.id}) }}" class="btn btn-primary quiz-management-btn">Update</a>
+                        <a href="{{ path('quiz_delete', {id: quiz.id}) }}" class="btn btn-danger quiz-management-btn">Delete</a>
+                    </div>
+                </div>
+
+
+            {% endfor %}
+        </div>
+        <div class="quiz-div-footer">
+            <a href="{{ path('quiz_create') }}" class="btn btn-primary quiz-div-footer-btn">Add Quiz</a>
+            <a href="{{ path('quiz') }}" class="btn btn-danger quiz-div-footer-btn">Back</a>
+        </div>
+    </div>
+
+
+{% endblock %}

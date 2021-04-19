@@ -2,13 +2,17 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+
+//* @ORM\Table(name="quizz", indexes={@ORM\Index(name="fk_quizz_user_id", columns={"helper_id"})})
 
 /**
  * Quizz
  *
- * @ORM\Table(name="quizz", indexes={@ORM\Index(name="fk_quizz_user_id", columns={"helper_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\QuizzRepository")
  */
 class Quizz
 {
@@ -23,6 +27,7 @@ class Quizz
 
     /**
      * @var string
+     * @Assert\NotBlank
      *
      * @ORM\Column(name="title", type="string", length=500, nullable=false)
      */
@@ -30,17 +35,29 @@ class Quizz
 
     /**
      * @var string
+     * @Assert\NotBlank
      *
      * @ORM\Column(name="subject", type="string", length=500, nullable=false)
      */
     private $subject;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="helper_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="quizzs")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="helper_id", referencedColumnName="Id")
+     * })
      */
-    private $helperId;
+    private $helper;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Question::class, mappedBy="quizz", cascade={"persist", "remove"})
+     */
+    private $questions;
+
+    public function __construct()
+    {
+        $this->questions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -71,14 +88,44 @@ class Quizz
         return $this;
     }
 
-    public function getHelperId(): ?int
+    public function getHelper(): ?Users
     {
-        return $this->helperId;
+        return $this->helper;
     }
 
-    public function setHelperId(int $helperId): self
+    public function setHelper(?Users $helper): self
     {
-        $this->helperId = $helperId;
+        $this->helper = $helper;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Question[]
+     */
+    public function getQuestions(): Collection
+    {
+        return $this->questions;
+    }
+
+    public function addQuestion(Question $question): self
+    {
+        if (!$this->questions->contains($question)) {
+            $this->questions[] = $question;
+            $question->setQuizz($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestion(Question $question): self
+    {
+        if ($this->questions->removeElement($question)) {
+            // set the owning side to null (unless already changed)
+            if ($question->getQuizz() === $this) {
+                $question->setQuizz(null);
+            }
+        }
 
         return $this;
     }

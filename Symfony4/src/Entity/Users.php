@@ -1,14 +1,18 @@
 <?php
 
+
+
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Users
  *
  * @ORM\Table(name="users")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
 class Users
 {
@@ -45,7 +49,7 @@ class Users
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Spécialité", type="string", length=255, nullable=true)
+     * @ORM\Column(name="specialite", type="string", length=255, nullable=true)
      */
     private $specialite;
 
@@ -69,6 +73,16 @@ class Users
      * @ORM\Column(name="role", type="integer", nullable=false)
      */
     private $role = '0';
+
+    /**
+     * @ORM\OneToMany(targetEntity=Quizz::class, mappedBy="helper")
+     */
+    private $quizzs;
+
+    public function __construct()
+    {
+        $this->quizzs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -111,6 +125,18 @@ class Users
         return $this;
     }
 
+    public function getSpecialite(): ?string
+    {
+        return $this->specialite;
+    }
+
+    public function setSpecialite(?string $specialite): self
+    {
+        $this->specialite = $specialite;
+
+        return $this;
+    }
+
     public function getCode(): ?string
     {
         return $this->code;
@@ -143,6 +169,36 @@ class Users
     public function setRole(int $role): self
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Quizz[]
+     */
+    public function getQuizzs(): Collection
+    {
+        return $this->quizzs;
+    }
+
+    public function addQuizz(Quizz $quizz): self
+    {
+        if (!$this->quizzs->contains($quizz)) {
+            $this->quizzs[] = $quizz;
+            $quizz->setHelper($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuizz(Quizz $quizz): self
+    {
+        if ($this->quizzs->removeElement($quizz)) {
+            // set the owning side to null (unless already changed)
+            if ($quizz->getHelper() === $this) {
+                $quizz->setHelper(null);
+            }
+        }
 
         return $this;
     }

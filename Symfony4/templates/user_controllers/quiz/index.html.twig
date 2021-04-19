@@ -1,0 +1,17 @@
+{% extends 'baseUserQuiz.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/quizz/styles.css') }}">
+{% endblock %}
+
+{% block body %}
+    
+    <div class="welcome-quiz">
+        <h1 class="quiz-title">Test your abilities!</h1>
+        <div class="quiz-index-btns">
+            <a href="{{ path('quiz_table') }}" class="btn btn-outline-dark">Take a Quiz</a>
+            <a href="{{ path('quiz_list') }}" class="btn btn-outline-dark">Manage Your Quizes</a>
+        </div>
+    </div>
+
+{% endblock %}
