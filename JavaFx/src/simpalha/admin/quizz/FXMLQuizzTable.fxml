@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="1280.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.admin.quizz.FXMLAdminQuizzTableController">
+       <top>
+       <HBox style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+          <children>
+             <HBox alignment="CENTER" maxWidth="-Infinity" prefWidth="150.0" style="-fx-background-color: #f94c0f;" styleClass="cursor_hand">
+                <padding>
+                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                </padding>
+                <children>
+                   <ImageView fitHeight="120.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                         <Image url="@../../../assets/Simpalha.png" />
+                      </image>
+                   </ImageView>
+                </children></HBox>
+             <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                <children>
+                   <HBox alignment="CENTER">
+                      <children>
+                         <TextField promptText="Search" style="-fx-background-color: transparent; -fx-prompt-text-fill: #485460;">
+                            <HBox.margin>
+                               <Insets left="5.0" right="10.0" />
+                            </HBox.margin>
+                         </TextField>
+                         <FontAwesomeIcon fill="#485460" iconName="SEARCH" size="1.5em" styleClass="cursor_hand" />
+                      </children></HBox>
+                   <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                      <children>
+                        <FontAwesomeIcon fx:id="btNotificationShow" iconName="BELL_O" onMouseClicked="#notificationsShow" size="1.3em" styleClass="cursor_hand" />
+                         <ImageView fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="cursor_hand">
+                            <image>
+                               <Image url="@../../../assets/bilel.jpg" />
+                            </image>
+                            <HBox.margin>
+                               <Insets left="20.0" right="20.0" />
+                            </HBox.margin>
+                         </ImageView>
+                         <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder;" text="Bilel">
+                            <HBox.margin>
+                               <Insets right="10.0" />
+                            </HBox.margin>
+                         </Text>
+                         <FontAwesomeIcon iconName="ANGLE_DOWN" size="1.5em" styleClass="cursor_hand">
+                            <HBox.margin>
+                               <Insets right="10.0" />
+                            </HBox.margin>
+                         </FontAwesomeIcon>
+                      </children>
+                   </HBox>
+                </children>
+             </HBox>
+          </children>
+       </HBox>
+    </top>
+    <left>
+       <VBox prefWidth="150.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+          <children>
+             <HBox alignment="CENTER_LEFT" onMouseClicked="#showPosts" styleClass="hover_border">
+                <padding>
+                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                </padding>
+                <VBox.margin>
+                   <Insets top="40.0" />
+                </VBox.margin>
+                <children>
+                   <FontAwesomeIcon fill="#485460" iconName="CIRCLE_ALT_NOTCH" size="1.5em" />
+                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Posts">
+                      <HBox.margin>
+                         <Insets left="10.0" />
+                      </HBox.margin>
+                   </Text>
+                </children>
+             </HBox>
+             <HBox alignment="CENTER_LEFT" onMouseClicked="#showP2P" styleClass="hover_border">
+                <padding>
+                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                </padding>
+                <children>
+                   <FontAwesomeIcon fill="#485460" iconName="CALENDAR_ALT" size="1.5em" />
+                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="P2P">
+                      <HBox.margin>
+                         <Insets left="10.0" />
+                      </HBox.margin>
+                   </Text>
+                </children>
+                <VBox.margin>
+                   <Insets top="10.0" />
+                </VBox.margin>
+             </HBox>
+             <HBox alignment="CENTER_LEFT" onMouseClicked="#showQuizz" styleClass="hover_border">
+                <padding>
+                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                </padding>
+                <children>
+                   <FontAwesomeIcon fill="#485460" iconName="LIST_UL" size="1.5em" />
+                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Quizz">
+                      <HBox.margin>
+                         <Insets left="10.0" />
+                      </HBox.margin>
+                   </Text>
+                </children>
+                <VBox.margin>
+                   <Insets top="10.0" />
+                </VBox.margin>
+             </HBox>
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#showRESOURCES" styleClass="hover_border" stylesheets="@../../styles/style.css">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <children>
+                  <FontAwesomeIcon fill="#485460" iconName="FILE_TEXT_ALT" size="1.5em" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Ressources">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" onContextMenuRequested="#showRec" styleClass="hover_border" stylesheets="@../../styles/style.css">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <children>
+                  <FontAwesomeIcon fill="#485460" iconName="NEWSPAPER_ALT" size="1.5em" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Reclamation">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#showProfile" styleClass="hover_border" stylesheets="@../../styles/style.css">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <children>
+                        <FontAwesomeIcon fill="#485460" iconName="USER" size="1.5em" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Profile">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#logout" styleClass="hover_border" stylesheets="@../../styles/style.css">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <children>
+                        <FontAwesomeIcon fill="#485460" iconName="SIGN_OUT" size="1.5em" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #485460;" text="Logout">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Text>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+          </children>
+       </VBox>
+    </left>
+    <center>
+        <AnchorPane prefHeight="539.0" prefWidth="1130.0">
+           <children>
+              <TableView fx:id="LAffiche" layoutX="38.0" layoutY="32.0" prefHeight="502.0" prefWidth="870.0">
+                 <columns>
+                    <TableColumn fx:id="idColumn" prefWidth="40.0" text="ID">
+                       <cellValueFactory>
+                          <PropertyValueFactory property="id" />
+                       </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="quizzColumn" prefWidth="463.0" text="Quizz">
+                       <cellValueFactory>
+                          <PropertyValueFactory property="title" />
+                       </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="subjectColumn" prefWidth="81.0" text="Subject">
+                       <cellValueFactory>
+                          <PropertyValueFactory property="subject" />
+                       </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="helperIdColumn" prefWidth="75.0" text="Helper ID">
+                       <cellValueFactory>
+                          <PropertyValueFactory property="helper" />
+                       </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="helperNameColumn" prefWidth="210.0" text="Helper Name">
+                       <cellValueFactory>
+                          <PropertyValueFactory property="name" />
+                       </cellValueFactory>
+                    </TableColumn>
+                 </columns>
+              </TableView>
+              <Button layoutX="926.0" layoutY="168.0" mnemonicParsing="false" onAction="#addQuizz" prefHeight="25.0" prefWidth="168.0" style="-fx-background-color: #06BA63; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Add" />
+              <Button layoutX="926.0" layoutY="300.0" mnemonicParsing="false" onAction="#editQuizz" prefHeight="25.0" prefWidth="168.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Edit" />
+              <Button layoutX="926.0" layoutY="431.0" mnemonicParsing="false" onAction="#deleteQuizz" prefHeight="25.0" prefWidth="168.0" style="-fx-background-color: #E84855; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" text="Delete" />
+           </children>
+        </AnchorPane>
+   </center>
+</BorderPane>

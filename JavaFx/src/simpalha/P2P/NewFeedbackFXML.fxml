@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="470.0" prefWidth="664.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpalha.P2P.NewFeedbackFXMLController">
+    <stylesheets>
+        <URL value="@/styles/style.css" />
+    </stylesheets>
+   <children>
+      <Text layoutX="259.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="Feedback Meet" />
+      <TextField fx:id="helper" disable="true" layoutX="248.0" layoutY="118.0" />
+      <Text layoutX="151.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="Helper" textAlignment="CENTER" />
+      <TextField fx:id="specialite" disable="true" layoutX="248.0" layoutY="175.0" />
+      <Text layoutX="152.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="Specialté" textAlignment="CENTER" />
+      <Text layoutX="151.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em; -fx-fill: #485460;" text="Feedback" textAlignment="CENTER" />
+      <TextArea fx:id="feedback" layoutX="248.0" layoutY="224.0" prefHeight="111.0" prefWidth="200.0" />
+      <Button fx:id="confirm" layoutX="261.0" layoutY="403.0" mnemonicParsing="false" onAction="#confirm" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: #0fbcf9; -fx-background-radius: 0px; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: bold;" styleClass="cursor_hand" stylesheets="@../../styles/style.css" text="Confirm" />
+   </children>
+</AnchorPane>
