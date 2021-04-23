@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\UserControllers;
 
 
 use App\Form\Security\LoginType;
@@ -28,7 +28,7 @@ class SecurityController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         $form = $this->createForm(LoginType::class);
         return $this->render(
-            'user/security/login.html.twig', [
+            'user_controllers/user/security/login.html.twig', [
                 'form' => $form->createView(),
                 'error' => $error,
             ]

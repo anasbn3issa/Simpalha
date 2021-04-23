@@ -39,7 +39,7 @@ class AdminUsersController extends AbstractController
         if (!$this->isGranted('ROLE_ADMIN')) {
             return $this->redirect($this->generateUrl('homepage'));
         }
-        return $this->render('user/admin/index.html.twig', [
+        return $this->render('admin_controllers/adminUser/index.html.twig', [
             'users' => $usersRepository->findAll(),
         ]);
     }
@@ -89,7 +89,7 @@ class AdminUsersController extends AbstractController
             return $this->redirectToRoute('users_index');
         }
 
-        return $this->render('user/admin/new.html.twig', [
+        return $this->render('admin_controllers/adminUser/new.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);
@@ -103,7 +103,7 @@ class AdminUsersController extends AbstractController
      */
     public function show(Users $user): Response
     {
-        return $this->render('user/admin/show.html.twig', [
+        return $this->render('admin_controllers/adminUser/show.html.twig', [
             'user' => $user,
         ]);
     }
@@ -125,7 +125,7 @@ class AdminUsersController extends AbstractController
             return $this->redirectToRoute('users_index');
         }
 
-        return $this->render('user/admin/edit.html.twig', [
+        return $this->render('admin_controllers/adminUser/edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);

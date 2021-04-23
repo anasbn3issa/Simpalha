@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Controller;
+namespace App\Controller\UserControllers;
 
 
 use App\Entity\Users;
@@ -106,7 +106,7 @@ class UserController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
 
 
-        return $this->render('user/register.html.twig', [
+        return $this->render('user_controllers/user/register.html.twig', [
             'form' => $form->createView(),
             'error' => $error,
             'formlogin' => $formLogin->createView(),
@@ -176,7 +176,7 @@ class UserController extends AbstractController
             $em->refresh($user);
         }
 
-        return $this->render('user/edit.html.twig', [
+        return $this->render('user_controllers/user/edit.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -210,7 +210,7 @@ class UserController extends AbstractController
                 $user = $repository->findOneBy(['email' => $form->get('email')->getData(), 'isActive' => true]);
                 if (!$user) {
                     $this->addFlash('warning', 'user not-found');
-                    return $this->render('user/request-password-reset.html.twig', [
+                    return $this->render('user_controllers/user/request-password-reset.html.twig', [
                         'form' => $form->createView(),
                     ]);
                 }
@@ -230,7 +230,7 @@ class UserController extends AbstractController
             }
         }
 
-        return $this->render('user/request-password-reset.html.twig', [
+        return $this->render('user_controllers/user/request-password-reset.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -275,7 +275,7 @@ class UserController extends AbstractController
             );
         }
 
-        return $this->render('user/password-reset.html.twig', ['form' => $form->createView()]);
+        return $this->render('user_controllers/user/password-reset.html.twig', ['form' => $form->createView()]);
     }
 
     /**
@@ -306,7 +306,7 @@ class UserController extends AbstractController
             $em->flush();
             return $this->redirectToRoute('homepage');
         }
-        return $this->render("user/edit.html.twig", [
+        return $this->render("user_controllers/user/edit.html.twig", [
             'form' => $form->createView()
         ]);
 
