@@ -1,0 +1,61 @@
+{% extends "baseAdmin.html.twig" %}
+
+{% block body %}
+<section id="main-content" style="padding-left: 10px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+                <div class="card-header border-0">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="mb-0">Users List</h3>
+                        </div>
+                        <div class="col text-right">
+                            <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idc</th>
+                <th>Fichier</th>
+                <th>Status</th>
+                <th>Datec</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for candidature in candidatures %}
+            <tr>
+                <td>{{ candidature.idc }}</td>
+                <td>{{ candidature.fichier }}</td>
+                <td>{{ candidature.status }}</td>
+                <td>{{ candidature.datec ? candidature.datec|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('candidatures_show', {'idc': candidature.idc}) }}">show</a>
+                    <a href="{{ path('candidatures_edit', {'idc': candidature.idc}) }}">edit</a>
+                    {% if candidature.status ==0  %}
+                        <a class="btn btn-danger" href="{{ path('candidatures_isActive', {'id': candidature.idc,'type':1}) }}">Approve</a>
+                        <a class="btn btn-success" href="{{ path('candidatures_isActive', {'id': candidature.idc,'type':0}) }}">Disapprove</a>
+                  {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+                </div>
+            </div>
+
+    <a href="{{ path('candidatures_new') }}">Create new</a>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

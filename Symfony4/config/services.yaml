@@ -4,7 +4,11 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    app.recaptcha_key: '%env(RECAPTCHA_KEY)%'
+    app.recaptcha_secret: '%env(RECAPTCHA_SECRET)%'
     postImages: '%kernel.project_dir%/public/uploads/postImages'
+    users_images: '%kernel.project_dir%/public/uploads/users'
+    google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
 
 services:
     # default configuration for services in *this* file
@@ -30,3 +34,14 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Service\Mailer:
+        arguments:
+            $noreply: 'noreply@noreply.com'
+
+    App\Service\CaptchaValidator:
+        arguments:
+            $key: '%app.recaptcha_key%'
+            $secret: '%app.recaptcha_secret%'
+    App\Service\FileUploader:
+        arguments:
+            $targetDirectory: '%users_images%'

@@ -3,12 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Answer
  *
  * @ORM\Table(name="answer", indexes={@ORM\Index(name="fk_question_id", columns={"question_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\AnswerRepository")
  */
 class Answer
 {
@@ -23,6 +24,7 @@ class Answer
 
     /**
      * @var string
+     * @Assert\NotBlank
      *
      * @ORM\Column(name="suggestion", type="string", length=1000, nullable=false)
      */
@@ -32,8 +34,10 @@ class Answer
      * @var int
      *
      * @ORM\Column(name="question_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity=Question::class, inversedBy="answers")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $questionId;
+    private $question;
 
     public function getId(): ?int
     {
@@ -51,16 +55,14 @@ class Answer
 
         return $this;
     }
-
-    public function getQuestionId(): ?int
+    public function getQuestion(): ?Question
     {
-        return $this->questionId;
+        return $this->question;
     }
 
-    public function setQuestionId(int $questionId): self
+    public function setQuestion(?Question $question): self
     {
-        $this->questionId = $questionId;
-
+        $this->question = $question;
         return $this;
     }
 
