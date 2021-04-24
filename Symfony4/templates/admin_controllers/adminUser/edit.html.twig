@@ -1,0 +1,19 @@
+{% extends 'baseAdmin.html.twig' %}
+{% block body %}
+<section id="main-content" style="padding-left: 10px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-5">
+                <h1 style="padding-top: 80px"> <span class="d-block p-2 bg-primary text-black" > Edit User  </span></h1>
+
+
+    {{ include('user/adminUser/Userform.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('users_index') }}">back to list</a>
+
+    {{ include('user/adminUser/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

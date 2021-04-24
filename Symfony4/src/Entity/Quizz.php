@@ -2,16 +2,15 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\ORM\Mapping as ORM;
-
-//* @ORM\Table(name="quizz", indexes={@ORM\Index(name="fk_quizz_user_id", columns={"helper_id"})})
 
 /**
  * Quizz
  *
+ * @ORM\Table(name="quizz", indexes={@ORM\Index(name="fk_quizz_user_id", columns={"helper_id"})})
  * @ORM\Entity(repositoryClass="App\Repository\QuizzRepository")
  */
 class Quizz
@@ -42,6 +41,15 @@ class Quizz
     private $subject;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="helper_id", type="integer", nullable=false)
+     */
+    private $helperId;
+
+    /**
+     * @var \Users
+     *
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="quizzs")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="helper_id", referencedColumnName="Id")
@@ -88,6 +96,16 @@ class Quizz
         return $this;
     }
 
+    public function getHelperId(): ?int
+    {
+        return $this->helperId;
+    }
+
+    public function setHelperId(int $helperId): self
+    {
+        $this->helperId = $helperId;
+        return $this;
+    }
     public function getHelper(): ?Users
     {
         return $this->helper;
@@ -126,7 +144,6 @@ class Quizz
                 $question->setQuizz(null);
             }
         }
-
         return $this;
     }
 

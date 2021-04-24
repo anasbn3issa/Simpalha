@@ -31,16 +31,24 @@ class Candidatures
     /**
      * @var string
      *
-     * @ORM\Column(name="specialite", type="string", length=255, nullable=false)
+     * @ORM\Column(name="fichier", type="string", length=255, nullable=false)
      */
-    private $specialite;
+    private $fichier;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="fichier", type="string", length=255, nullable=false)
+     * @ORM\Column(name="description", type="string", length=255, nullable=false)
      */
-    private $fichier;
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="specialite", type="string", length=255, nullable=false)
+     */
+    private $specialite;
+
 
     /**
      * @var int|null
@@ -56,10 +64,51 @@ class Candidatures
      */
     private $datec = 'CURRENT_TIMESTAMP';
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Users")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="Id")
+     * })
+     */
+    private $createdBy;
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * @param mixed $createdBy
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+    }
+
     public function getIdc(): ?int
     {
         return $this->idc;
     }
+
 
     public function getEmail(): ?string
     {

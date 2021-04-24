@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/public/css/algolia-autocomplete.css" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/js/admin_article_form.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/js/algolia-autocomplete.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/js/article_show.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/Entity/Users.php" charset="windows-1252" />
     <file url="PROJECT" charset="windows-1252" />
   </component>
 </project>
