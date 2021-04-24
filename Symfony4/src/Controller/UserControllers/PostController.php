@@ -79,7 +79,7 @@ class PostController extends AbstractController
      */
     public function list(PostRepository $postRepository )
     {
-        $posts = $postRepository->findAll();
+        $posts = $postRepository->findAllPostsOrderedByNewest();
 
         return $this->render('user_controllers/post/list.html.twig',[
             'posts' => $posts
@@ -89,10 +89,16 @@ class PostController extends AbstractController
     /**
      * @Route("/{id}", name="user_controllers_post_show", methods={"GET"})
      */
-    public function show(Post $post): Response
+    public function show($id,Post $post,EntityManagerInterface $em): Response
     {
-        return $this->render('user_controllers/post/show.html.twig', [
+        $post = $em->getRepository(Post::class)
+            ->findOneBy([
+                'id'=> $id,
+            ]);
+        $comments = $post->getComments();
+        return $this->render('user_controllers/post/show.html.twig',[
             'post' => $post,
+            'comments' => $comments,
         ]);
     }
 
