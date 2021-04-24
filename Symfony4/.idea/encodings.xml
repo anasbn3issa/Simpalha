@@ -1,30 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/public/.htaccess" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/css/algolia-autocomplete.css" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/js/admin_article_form.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/js/algolia-autocomplete.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/js/article_show.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/Controller/UserControllers/SecurityController.php" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/Controller/UserControllers/SecurityController.php" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/Controller/UserControllers/UserController.php" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/Controller/UserControllers/UserController.php" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/Entity/Users.php" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/src/Form/Security" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/Form/User" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/Security" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/Service" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/Validator" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/templates/admin_controllers/adminUser" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/templates/admin_controllers/adminUser/Userform.html.twig" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/templates/admin_controllers/adminUser/_delete_form.html.twig" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/templates/admin_controllers/adminUser/edit.html.twig" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/templates/admin_controllers/adminUser/index.html.twig" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/templates/admin_controllers/adminUser/new.html.twig" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/templates/admin_controllers/adminUser/show.html.twig" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/templates/user_controllers/user" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/templates/user_controllers/user" charset="UTF-8" />
     <file url="PROJECT" charset="windows-1252" />
   </component>
 </project>

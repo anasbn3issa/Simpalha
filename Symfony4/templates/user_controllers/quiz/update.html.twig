@@ -1,0 +1,19 @@
+{% extends 'baseUserQuiz.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/quizz/styles.css') }}">
+{% endblock %}
+
+{% block body %}
+
+
+    <div class="create-quiz-form-container">
+        {{ form_start(quizForm) }}
+        {{ form_widget(quizForm) }}
+
+        <button type="submit" class="btn btn-primary">Update!</button>
+        {{ form_end(quizForm) }}
+    </div>
+
+
+{% endblock %}

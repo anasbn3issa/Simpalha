@@ -16,6 +16,29 @@
                     </div>
                 </a>
 
+                <!-- Supporting Articles -->
+
+                {% for post in posts %}
+                    <div class="article-container my-1">
+                        <a href="{{ path('user_controllers_post_show', {id: post.id}) }}">
+                            {#  <img class="article-img" src="{{ asset(post.imageName) }}"> #}
+                            <div class="article-title d-inline-block pl-3 align-middle">
+                                <span>{{ post.module }}</span>
+                                {# <small>({{ post.comments|length }} comments)</small> // later will be added to determine comments' counter for each post #}
+                                <small><a >({{ "comments" }} )</a></small>
+                                <br>
+
+                                    <small>
+                                        <span class="badge badge-light">{{ post.module }}</span>
+                                    </small>
+
+                                <br>
+                                <span>{{ post.problem }}</span>
+                                <span class="pl-5 article-details float-right"> {{ post.timestamp ? post.timestamp|ago }}</span>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
 
 
             </div>

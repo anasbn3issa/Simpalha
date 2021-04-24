@@ -16,7 +16,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity()
-  * @UniqueEntity(fields={"email"}, message="user exists")
+ * @UniqueEntity(fields={"email"}, message="user exists")
  */
 class Users implements AdvancedUserInterface, \Serializable
 {

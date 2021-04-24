@@ -21,6 +21,12 @@ class Candidatures
      */
     private $idc;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     */
+    private $email;
 
     /**
      * @var string
@@ -28,12 +34,22 @@ class Candidatures
      * @ORM\Column(name="fichier", type="string", length=255, nullable=false)
      */
     private $fichier;
+
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
      */
     private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="specialite", type="string", length=255, nullable=false)
+     */
+    private $specialite;
+
+
     /**
      * @var int|null
      *
@@ -44,10 +60,9 @@ class Candidatures
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="datec", type="datetime", nullable=false)
+     * @ORM\Column(name="datec", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $datec;
-
+    private $datec = 'CURRENT_TIMESTAMP';
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Users")
@@ -80,27 +95,7 @@ class Candidatures
     {
         return $this->createdBy;
     }
-    /**
-     * @return bool
-     */
-    public function isEnabled()
-    {
-        return $this->isActive;
-    }
-    /**
-     * @return bool
-     */
-    public function getIsActive()
-    {
-        return $this->isActive;
-    }
-    /**
-     * @param bool $isActive
-     */
-    public function setIsActive($isActive)
-    {
-        $this->isActive = $isActive;
-    }
+
     /**
      * @param mixed $createdBy
      */
@@ -115,36 +110,60 @@ class Candidatures
     }
 
 
-    public function getFichier()
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getSpecialite(): ?string
+    {
+        return $this->specialite;
+    }
+
+    public function setSpecialite(string $specialite): self
+    {
+        $this->specialite = $specialite;
+
+        return $this;
+    }
+
+    public function getFichier(): ?string
     {
         return $this->fichier;
     }
 
-    public function setFichier($fichier)
+    public function setFichier(string $fichier): self
     {
         $this->fichier = $fichier;
 
         return $this;
     }
 
-    public function getStatus()
+    public function getStatus(): ?int
     {
         return $this->status;
     }
 
-    public function setStatus(?int $status)
+    public function setStatus(?int $status): self
     {
         $this->status = $status;
 
         return $this;
     }
 
-    public function getDatec()
+    public function getDatec(): ?\DateTimeInterface
     {
         return $this->datec;
     }
 
-    public function setDatec($datec)
+    public function setDatec(\DateTimeInterface $datec): self
     {
         $this->datec = $datec;
 

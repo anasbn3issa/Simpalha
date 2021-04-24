@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Meet
  *
  * @ORM\Table(name="meet", indexes={@ORM\Index(name="fk_meet_disponibilite_id", columns={"disponibilite_id"}), @ORM\Index(name="fk_meet_feedback_id", columns={"feedback_id"}), @ORM\Index(name="fk_meet_student_id", columns={"id_student"}), @ORM\Index(name="fk_meet_helper_id", columns={"id_helper"})})
+ * @ORM\Table(name="meet", indexes={@ORM\Index(name="fk_meet_feedback_id", columns={"feedback_id"}), @ORM\Index(name="fk_meet_student_id", columns={"id_student"}), @ORM\Index(name="fk_meet_helper_id", columns={"id_helper"}), @ORM\Index(name="fk_meet_disponibilite_id", columns={"disponibilite_id"})})
  * @ORM\Entity
  */
 class Meet
