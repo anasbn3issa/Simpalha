@@ -41,7 +41,7 @@ class CommentController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $comment = $form->getData();
-            $comment->setIdPost($id);
+            $comment->setPost($post);
             $post->setComment($comment);
 
             $entityManager = $this->getDoctrine()->getManager();

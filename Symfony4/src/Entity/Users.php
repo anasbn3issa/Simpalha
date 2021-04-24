@@ -123,7 +123,7 @@ class Users implements AdvancedUserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Spécialité", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Specialty", type="string", length=255, nullable=true)
      */
     private $specialite;
 
