@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<title>Meet</title>
+
+{% block body %}
+    <h1>Meet</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Specialite</th>
+                <td>{{ meet.specialite }}</td>
+            </tr>
+            <tr>
+                <th>Etat</th>
+                <td>{{ meet.etat }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('meet_index') }}">back to list</a>
+
+    <a href="{{ path('meet_edit', {'id': meet.id}) }}">edit</a>
+
+    {{ include('user_controllers/meet/_delete_form.html.twig') }}
+{% endblock %}

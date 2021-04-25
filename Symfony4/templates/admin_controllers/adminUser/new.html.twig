@@ -1,0 +1,33 @@
+{% extends 'baseUser.html.twig' %}
+{% block title %}Register!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section id="main-content" style="padding-left: 10px">
+        <div class="col-md-4 col-sm-4 mb">
+            <h1>Create new User</h1>
+
+            {{ include('user/adminUser/Userform.html.twig') }}
+
+        </div>
+    </section>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

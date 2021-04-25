@@ -1,0 +1,54 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+
+<section id="main-content" style="padding-left: 10px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-5">
+                <h1 style="padding-top: 80px"> <span class="d-block p-2 bg-primary text-black" > User show  </span></h1>
+
+                <table id="example" class="table table-striped table-bordered" >
+                    <thead>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ user.password }}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ user.code }}</td>
+            </tr>
+            <tr>
+                <th>About</th>
+                <td>{{ user.about }}</td>
+            </tr>
+            <tr>
+                <th>Role</th>
+                <td>{{ user.role }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('users_index') }}">back to list</a>
+
+    <a href="{{ path('user_controllers_users_edit', {'id': user.id}) }}">edit</a>
+
+    {{ include('user/adminUser/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

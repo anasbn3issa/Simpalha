@@ -1,0 +1,33 @@
+{{ form_start(form) }}
+    <div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>{{ form_label(form.specialite)}}</label>
+            {{ form_widget(form.specialite) }}
+        </div>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>{{ form_label(form.idHelper)}}</label>
+                {{ form_widget(form.idHelper) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>{{ form_label(form.disponibilite)}}</label>
+            {{ form_widget(form.disponibilite) }}
+        </div>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+            {{ form_widget(form.Save) }}
+            </div>
+        </div>
+    </div>
+{{ form_end(form) }}
