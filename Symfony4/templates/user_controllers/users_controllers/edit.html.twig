@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Edit Users</title>
+
+{% block body %}
+    <h1>Edit Users</h1>
+
+    {{ include('user_controllers_users_controllers/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('user_controllers_users_controllers_index') }}">back to list</a>
+
+    {{ include('user_controllers_users_controllers/_delete_form.html.twig') }}
+{% endblock %}
