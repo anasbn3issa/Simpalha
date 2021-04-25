@@ -1,0 +1,33 @@
+{{ form_start(form) }}
+    <div>
+    <div class="col-md-6 mx-auto">
+        <div class="form-group">
+            <label>Speciality</label>
+            <h3>{{ meet.specialite }}</h3>
+        </div>
+    </div>
+    </div>
+    <div>
+        <div class="col-md-6 mx-auto">
+            <div class="form-group">
+                <label>Helper</label>
+                <h3>{{ helper.username }}</h3>
+            </div>
+        </div>
+    </div>
+    <div>
+    <div class="col-md-6 mx-auto">
+        <div class="form-group">
+            <label>{{ form_label(form.disponibilite)}}</label>
+            {{ form_widget(form.disponibilite) }}
+        </div>
+    </div>
+    </div>
+    <div>
+        <div class="col-md-12 mx-auto">
+            <div class="form-group">
+            {{ form_widget(form.Save) }}
+            </div>
+        </div>
+    </div>
+{{ form_end(form) }}
