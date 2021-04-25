@@ -1,12 +1,11 @@
 $(document).ready(function() {
 
+    // question ids of the questions in the Quiz
     var questionIds = function(){
         let questions = [];
         let i = 1;
         $(".question-counter").each(function(){
-            console.log($("#question-counter-"+i));
-            console.log("Question counter : "+$("#question-counter-"+i).val());
-            console.log(i);
+
             let questionId = parseInt($("#question-counter-"+i).val());
             questions.push(questionId);
             i++;
@@ -15,6 +14,7 @@ $(document).ready(function() {
         return questions;
     }
 
+    // answer ids for chosen answer in the Quiz
     var answerIds = function(){
         let answers = [];
         let i = 1;
@@ -30,12 +30,12 @@ $(document).ready(function() {
         return answers;
     }
 
+    // data processing after "show result" is clicked in the Quiz page
     $('.js-quiz-submit').click( function(e) {
+
         e.preventDefault();
-        console.log('this is e : ' + e);
 
         var $link = $(e.currentTarget);
-        console.log('this is e link : ' + e.currentTarget);
 
         let questions = questionIds();
         let selectedAnswers = answerIds();
@@ -52,7 +52,20 @@ $(document).ready(function() {
         }).done(function(data) {
             convertedAverage = data.convertedAverage;
 
-            if(convertedAverage<5)
+            if(convertedAverage === -1){
+                $('.result-modal-title').addClass('text-danger')
+                $('.result-modal-title').html('Sorry..');
+                $('.result-modal').addClass('text-dark');
+                $('.result-modal').html("This Quiz has no questions yet");
+            }
+            else if(convertedAverage === -2)
+            {
+                $('.result-modal-title').addClass('text-danger')
+                $('.result-modal-title').html('Try again later!');
+                $('.result-modal').addClass('text-dark');
+                $('.result-modal').html("You already have passed this test, try again Later");
+            }
+            else if(convertedAverage<5 && convertedAverage>=0)
             {
                 $('.result-modal-title').addClass('text-danger')
                 $('.result-modal-title').html('Try and put in just a little effort at least..');
@@ -84,6 +97,50 @@ $(document).ready(function() {
             console.log('those are the selected answers : ' + data.selectedAnswers);
             console.log('those are the questions : ' + data.questions);
             console.log('converted average : ' + data.convertedAverage);
+        })
+    });
+
+    // datetime chosen in the form
+    var chosenDate = function(){
+        return $("#datetime-input").val();
+    }
+
+
+    $('.js-compare-average').click( function(e) {
+        e.preventDefault();
+
+        var $link = $(e.currentTarget);
+
+        let selectedDate = chosenDate();
+        console.log(chosenDate());
+
+        $.ajax({
+            method: 'POST',
+            dataType: "json",
+            url: $link.attr('href'),
+            data:{
+                'selectedDate' : selectedDate
+            },
+        }).done(function(data) {
+            $compare = $(".compare-average");
+            dataAverage = Math.round((data.average + Number.EPSILON) * 100) / 100;
+            dataAverageDiff = Math.round((data.averageDiff + Number.EPSILON) * 100) / 100;
+
+            if(data.averageDiff > 0)
+            {
+                $compare.addClass("text-success");
+                $compare.html(dataAverage + " (+"+dataAverageDiff+")");
+            }
+            else if(data.averageDiff === 0){
+                $compare.addClass("text-info");
+                $compare.html(dataAverage + " (="+dataAverageDiff+")");
+            }
+            else if(data.averageDiff <0){
+                $compare.addClass("text-danger");
+                $compare.html(dataAverage + " ("+dataAverageDiff+")");
+
+            }
+
         })
     });
 });

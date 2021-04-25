@@ -5,37 +5,29 @@
 {% endblock %}
 
 {% block body %}
-    <div class="div-pusher">
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-    </div>
 
-    <div class="answer-list-container">
-        <h1>{{ question.question }}</h1>
+    <h1 class="text-center text-dark">{{ question.question }}</h1>
 
-        <div class="quiz-list-container">
-            <div class="quiz-div-container">
+    <div class="quiz-list-container">
+        <div class="quiz-div-container">
 
-                {% for answer in answers %}
+            {% for answer in answers %}
 
-                    <div class="quiz-div">
-                        <h4 class="quiz-div-subject {% if answer.id == question.rightAnswer %}font-weight-bold text-success{% endif %}" >{{ answer.suggestion }}</h4>
-                        <div class="answer-div-btn-container">
-                            <a href="{{ path('answer_edit', {id: quizzId,qId: questionId,aId: answer.id}) }}" class="btn btn-primary quiz-management-btn">Update</a>
-                            <a href="{{ path('answer_delete', {id: quizzId,qId: questionId,aId: answer.id}) }}" class="btn btn-danger quiz-management-btn">Delete</a>
-                        </div>
+                <div class="quiz-div">
+                    <h4 class="quiz-div-subject {% if answer.id == question.rightAnswer %}font-weight-bold text-success{% endif %}" >{{ answer.suggestion }}</h4>
+                    <div class="answer-div-btn-container">
+                        <a href="{{ path('answer_edit', {id: quizzId,qId: questionId,aId: answer.id}) }}" class="btn btn-primary quiz-management-btn">Update</a>
+                        <a href="{{ path('answer_right', {id: quizzId,qId: questionId,aId: answer.id}) }}" class="btn btn-success quiz-management-btn">Right Answer</a>
+                        <a href="{{ path('answer_delete', {id: quizzId,qId: questionId,aId: answer.id}) }}" class="btn btn-danger quiz-management-btn">Delete</a>
                     </div>
+                </div>
 
 
-                {% endfor %}
-            </div>
-            <div class="quiz-div-footer">
-                <a href="{{ path('answer_create',{id: quizzId, qId: questionId}) }}" class="btn btn-primary quiz-div-footer-btn">Add Answer</a>
-                <a href="{{ path('question_list',{id: quizzId}) }}" class="btn btn-danger quiz-div-footer-btn">Back</a>
-            </div>
+            {% endfor %}
+        </div>
+        <div class="quiz-div-footer">
+            <a href="{{ path('answer_create',{id: quizzId, qId: questionId}) }}" class="btn btn-primary quiz-div-footer-btn">Add Answer</a>
+            <a href="{{ path('question_list',{id: quizzId}) }}" class="btn btn-danger quiz-div-footer-btn">Back</a>
         </div>
     </div>
 
