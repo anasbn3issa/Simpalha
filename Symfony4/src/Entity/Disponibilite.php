@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * Disponibilite
  *
  * @ORM\Table(name="disponibilite", indexes={@ORM\Index(name="fk_disponibilite_helper_id", columns={"helperId"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\DisponibiliteRepository")
  */
 class Disponibilite
 {
@@ -24,6 +26,7 @@ class Disponibilite
     /**
      * @var string
      *
+     * @Groups("meet:search")
      * @ORM\Column(name="dateDeb", type="string", length=255, nullable=false)
      */
     private $datedeb;
@@ -31,6 +34,7 @@ class Disponibilite
     /**
      * @var string
      *
+     * @Groups("meet:search")
      * @ORM\Column(name="dateFin", type="string", length=255, nullable=false)
      */
     private $datefin;

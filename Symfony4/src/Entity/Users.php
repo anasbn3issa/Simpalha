@@ -15,7 +15,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
- * @ORM\Entity()
+ * @ORM\Table(name="users")
+ * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
  * @UniqueEntity(fields={"email"}, message="user exists")
  */
 class Users implements AdvancedUserInterface, \Serializable
@@ -135,6 +136,11 @@ class Users implements AdvancedUserInterface, \Serializable
     private $code;
 
     /**
+     * @ORM\OneToMany(targetEntity=Quizz::class, mappedBy="helper")
+     */
+    private $quizzs;
+
+    /**
      * @return string
      */
     public function getAbout()
@@ -230,6 +236,7 @@ class Users implements AdvancedUserInterface, \Serializable
 
     public function __construct()
     {
+        $this->quizzs = new ArrayCollection();
     }
 
     /**
@@ -424,7 +431,7 @@ class Users implements AdvancedUserInterface, \Serializable
         }
         foreach ($roles as $role) {
             if (substr($role, 0, 5) !== 'ROLE_') {
-                throw new InvalidArgumentException("Chaque rôle doit commencer par 'ROLE_'");
+                throw new InvalidArgumentException("Chaque rÃ´le doit commencer par 'ROLE_'");
             }
         }
         $this->roles = $roles;
@@ -473,6 +480,36 @@ class Users implements AdvancedUserInterface, \Serializable
     public function isEnabled()
     {
         return $this->isActive;
+    }
+
+    /**
+     * @return Collection|Quizz[]
+     */
+    public function getQuizzs(): Collection
+    {
+        return $this->quizzs;
+    }
+
+    public function addQuizz(Quizz $quizz): self
+    {
+        if (!$this->quizzs->contains($quizz)) {
+            $this->quizzs[] = $quizz;
+            $quizz->setHelper($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuizz(Quizz $quizz): self
+    {
+        if ($this->quizzs->removeElement($quizz)) {
+            // set the owning side to null (unless already changed)
+            if ($quizz->getHelper() === $this) {
+                $quizz->setHelper(null);
+            }
+        }
+
+        return $this;
     }
 
     /** @see \Serializable::serialize() */

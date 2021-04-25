@@ -1,0 +1,58 @@
+{% extends 'baseAdmin.html.twig' %}
+{% block title %}Meet index{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid mt--6">
+        <div class="row justify-content-center">
+            <div class=" col ">
+                <div class="card">
+                    <div class="card-header bg-transparent row">
+                        <div class="col-6">
+                            <h3 class="mb-0">MeetIndex</h3>
+                        </div>
+                        <div class="col-6" style="text-align: end">
+                            <h3 class="mb-0"><a target="_blank" href="{{ path('admin_calendar') }}">MeetIndex</a></h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+    <table id="default_order" class="table align-items-center table-flush">
+        <thead class="thead-light">
+            <tr>
+                <th>Helper</th>
+                <th>Specialite</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for meet in meets %}
+            <tr>
+                <td>{{ meet.idHelper.username }}</td>
+                <td>{{ meet.specialite }}</td>
+                <td>{{ meet.disponibilite.datedeb }}</td>
+                <td>
+                    {{ include('admin_controllers/meet/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        {% endblock %}
+{% block scripts %}
+{{ parent() }}
+    <script src="{{ asset("assets/js/datatable/jquery.dataTables.min.js") }}"></script>
+    <script src="{{ asset("assets/js/datatable/datatable-basic.init.js") }}"></script>
+{% endblock %}
