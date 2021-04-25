@@ -1,6 +1,33 @@
 {
+    "bacon/bacon-qr-code": {
+        "version": "2.0.3"
+    },
     "behat/transliterator": {
         "version": "v1.3.0"
+    },
+    "brick/math": {
+        "version": "0.9.2"
+    },
+    "captcha-com/captcha": {
+        "version": "4.2.5"
+    },
+    "captcha-com/symfony-captcha-bundle": {
+        "version": "4.2.12"
+    },
+    "dasprid/enum": {
+        "version": "1.0.3"
+    },
+    "dompdf/dompdf": {
+        "version": "v1.0.2"
+    },
+    "endroid/installer": {
+        "version": "1.3.3"
+    },
+    "endroid/qr-code": {
+        "version": "4.1.2"
+    },
+    "endroid/qr-code-bundle": {
+        "version": "4.0.2"
     },
     "gedmo/doctrine-extensions": {
         "version": "v3.0.5"
@@ -15,6 +42,33 @@
         },
         "files": [
             "./config/packages/google_recaptcha.yaml"
+        ]
+    },
+    "phenx/php-font-lib": {
+        "version": "0.5.2"
+    },
+    "phenx/php-svg-lib": {
+        "version": "v0.3.3"
+    },
+    "ramsey/collection": {
+        "version": "1.1.3"
+    },
+    "ramsey/uuid": {
+        "version": "4.1.1"
+    },
+    "sabberworm/php-css-parser": {
+        "version": "8.3.1"
+    },
+    "stof/doctrine-extensions-bundle": {
+        "version": "1.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.2",
+            "ref": "6c1ceb662f8997085f739cd089bfbef67f245983"
+        },
+        "files": [
+            "./config/packages/stof_doctrine_extensions.yaml"
         ]
     },
     "swiftmailer/swiftmailer": {
