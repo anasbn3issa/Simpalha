@@ -1,0 +1,230 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.div-pusher {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 100px !important;
+}
+
+.welcome-quiz {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 77vh;
+  width: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.quiz-index-btns {
+  margin-top: 150px;
+  width: 30%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.quiz-index-btns > a {
+  width: 200px;
+}
+
+.admin-quiz-list-container {
+  margin-top: 50px;
+  display: block;
+  height: 100vh;
+  width: auto;
+}
+
+.quiz-list-container {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.quiz-div-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: auto;
+  width: 100%;
+  overflow-y: auto;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 5px groove rgba(28, 110, 164, 0.34);
+  border-radius: 3px 3px 3px 3px;
+  margin-bottom: 10px;
+}
+
+.quiz-div {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #00000040;
+}
+
+.quiz-div-subject {
+  text-align: center;
+}
+
+.quiz-div-title {
+  text-align: center;
+}
+
+.icon-progression-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 10px;
+}
+
+.icon-progression-container > i {
+  font-size: 1.5em;
+}
+
+.quiz-div-btn-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 50%;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.quiz-div-btn-container > a {
+  width: 200px;
+}
+
+.quiz-div-footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: auto;
+  width: 100%;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.quiz-div-footer-btn {
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 200px;
+}
+
+.create-quiz-form-container {
+  margin: 100px;
+}
+
+.search-bar-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: auto;
+  width: 100%;
+  padding: 10px;
+}
+
+.search-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px;
+}
+
+.search-input {
+  width: 100%;
+}
+
+.search-quiz-input-button {
+  margin-left: 5px;
+}
+
+.footer {
+  position: fixed;
+}
+
+.question-list-btn-container {
+  margin-bottom: 30px;
+}
+
+.answer-list-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100vh;
+  width: auto;
+}
+
+.answer-div-btn-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 50%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.answer-div-btn-container > a {
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 150px;
+}
+/*# sourceMappingURL=styles.css.map */

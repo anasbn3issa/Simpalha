@@ -1,0 +1,25 @@
+{% extends 'baseUser.html.twig' %}
+{% block title %}New Meet{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row mb-4 mr-1 pb-4">
+            <div class="col-12 mb-3">
+                <a href="{{ path('meet_index') }}"><button type="button" class="btn waves-effect waves-light btn-lg btn-primary">
+                        &nbsp; Retour</button></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Create new Meet</h4>
+                        <div class="card-block">
+                            {{ include('user_controllers/meet/_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

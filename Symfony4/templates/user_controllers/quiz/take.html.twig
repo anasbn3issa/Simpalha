@@ -1,0 +1,76 @@
+{% extends 'baseUserQuiz.html.twig' %}
+
+{% block body %}
+
+    <div class="quiz-list-container">
+        <div class="quiz-div-container">
+
+            <div class="quiz-div">
+                <h4 class="quiz-div-subject">{{ quiz.title }}</h4>
+            </div>
+
+            {% set questCounter = 1 %}
+            {% set i = 1 %}
+
+            {% for question in questions %}
+                <input type="hidden" class="question-counter" id="question-counter-{{ questCounter }}" value="{{ question.id }}">
+                {% set answerCounter = 1 %}
+
+                <div class="quiz-div question-container">
+                    <div class="quiz-test-question-container">
+                        <h2 class="quiz-test-question">{{ question.question }}</h2>
+                        <div class="quiz-test-answers-container">
+                                {% for answer in question.answers %}
+
+
+                                    <div class="form-check">
+                                        <input class="form-check-input answer-counter" type="radio" name="answer-group-{{ questCounter }}" id="answer-{{ i }}" value="{{ answer.id }}" {% if answerCounter == 1 %}checked{% endif %}>
+                                        <label class="form-check-label" for="answer-{{ i }}">
+                                            {{ answer.suggestion }}
+                                        </label>
+                                    </div>
+
+                                    {% set i = i + 1 %}
+                                    {% set answerCounter = answerCounter + 1 %}
+
+                                {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                {% set questCounter = questCounter + 1 %}
+
+            {% else %}
+                <div class="quiz-div">
+                    <h4 class="quiz-div-subject">There are no questions to this test yet..</h4>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="quiz-div-footer">
+            <a href="{{ path('quiz_submit',{id: quiz.id}) }}" class="btn btn-success quiz-div-footer-btn js-quiz-submit " data-toggle="modal" data-target="#showResultModal">Show Result</a>
+            <a href="{{ path('quiz_table') }}" class="btn btn-danger quiz-div-footer-btn">Go Back</a>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="showResultModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title result-modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body result-modal">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

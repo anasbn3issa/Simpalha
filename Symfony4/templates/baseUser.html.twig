@@ -11,7 +11,8 @@
               crossorigin="anonymous">
         <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}">
         <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-        <link rel="stylesheet" href="https://demo.bootstrapious.com/directory/1-0/css/style.default.css">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style.min.css') }}">
         <link rel="icon" href="{{ asset("images/logo.png") }}" type="image/png">
     {% endblock %}
     <style>.dropdown-toggle::after {
@@ -41,51 +42,53 @@
                 </div>
             </form>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown"><a href="index.html" data-toggle="dropdown"
-                                                 aria-haspopup="true" aria-expanded="false"
-                                                 class="nav-link dropdown-toggle active">
-
-                        Home</a>
-                    <div aria-labelledby="docsDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
-                        <h6 class="dropdown-header font-weight-normal">Documentation</h6><a
-                                href="docs/docs-introduction.html" class="dropdown-item">Introduction </a><a
-                                href="docs/docs-directory-structure.html" class="dropdown-item">Directory structure </a><a
-                                href="docs/docs-gulp.html" class="dropdown-item">Gulp </a>
-                        <a
-                                href="docs/docs-customizing-css.html" class="dropdown-item">Customizing CSS </a><a
-                                href="docs/docs-credits.html" class="dropdown-item">Credits </a>
-                        <div class="dropdown-divider"></div>
-                        <h6 class="dropdown-header font-weight-normal">Components</h6><a
-                                href="docs/components-bootstrap.html" class="dropdown-item">Bootstrap </a><a
-                                href="docs/components-directory.html" class="dropdown-item">Theme </a>
-                    </div>
-                </li>
-                <!-- Megamenu-->
-                <!-- /Megamenu end-->
-                <li class="nav-item"><a href="contact.html" class="nav-link">P2P</a>
-                </li>
-                <li class="nav-item"><a href="contact.html" class="nav-link">Resources</a>
-                </li>
-                <li class="nav-item dropdown"><a id="docsDropdownMenuLink" href="index.html" data-toggle="dropdown"
-                                                 aria-haspopup="true" aria-expanded="false"
-                                                 class="nav-link dropdown-toggle ">
-
-                        Complaint</a>
-                    <div aria-labelledby="docsDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
-                        <h6 class="dropdown-header font-weight-normal">Documentation</h6><a
-                                href="docs/docs-introduction.html" class="dropdown-item">Introduction </a><a
-                                href="docs/docs-directory-structure.html" class="dropdown-item">Directory structure </a><a
-                                href="docs/docs-gulp.html" class="dropdown-item">Gulp </a>
-                        <a
-                                href="docs/docs-customizing-css.html" class="dropdown-item">Customizing CSS </a><a
-                                href="docs/docs-credits.html" class="dropdown-item">Credits </a>
-                        <div class="dropdown-divider"></div>
-                        <h6 class="dropdown-header font-weight-normal">Components</h6><a
-                                href="docs/components-bootstrap.html" class="dropdown-item">Bootstrap </a><a
-                                href="docs/components-directory.html" class="dropdown-item">Theme </a>
-                    </div>
-                </li>
                 {% if is_granted('ROLE_USER') %}
+
+                    <li class="nav-item dropdown"><a href="index.html" data-toggle="dropdown"
+                                                     aria-haspopup="true" aria-expanded="false"
+                                                     class="nav-link dropdown-toggle active">
+
+                            Home</a>
+                        <div aria-labelledby="docsDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
+                            <h6 class="dropdown-header font-weight-normal">Documentation</h6><a
+                                    href="docs/docs-introduction.html" class="dropdown-item">Introduction </a><a
+                                    href="docs/docs-directory-structure.html" class="dropdown-item">Directory structure </a><a
+                                    href="docs/docs-gulp.html" class="dropdown-item">Gulp </a>
+                            <a
+                                    href="docs/docs-customizing-css.html" class="dropdown-item">Customizing CSS </a><a
+                                    href="docs/docs-credits.html" class="dropdown-item">Credits </a>
+                            <div class="dropdown-divider"></div>
+                            <h6 class="dropdown-header font-weight-normal">Components</h6><a
+                                    href="docs/components-bootstrap.html" class="dropdown-item">Bootstrap </a><a
+                                    href="docs/components-directory.html" class="dropdown-item">Theme </a>
+                        </div>
+                    </li>
+                    <!-- Megamenu-->
+                    <!-- /Megamenu end-->
+                    <li class="nav-item"><a href={{ path('meet_index')}} class="nav-link">P2P</a>
+                    </li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Resources</a>
+                    </li>
+                    <li class="nav-item dropdown"><a id="docsDropdownMenuLink" href="index.html" data-toggle="dropdown"
+                                                     aria-haspopup="true" aria-expanded="false"
+                                                     class="nav-link dropdown-toggle ">
+
+                            Complaint</a>
+                        <div aria-labelledby="docsDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
+                            <h6 class="dropdown-header font-weight-normal">Documentation</h6><a
+                                    href="docs/docs-introduction.html" class="dropdown-item">Introduction </a><a
+                                    href="docs/docs-directory-structure.html" class="dropdown-item">Directory structure </a><a
+                                    href="docs/docs-gulp.html" class="dropdown-item">Gulp </a>
+                            <a
+                                    href="docs/docs-customizing-css.html" class="dropdown-item">Customizing CSS </a><a
+                                    href="docs/docs-credits.html" class="dropdown-item">Credits </a>
+                            <div class="dropdown-divider"></div>
+                            <h6 class="dropdown-header font-weight-normal">Components</h6><a
+                                    href="docs/components-bootstrap.html" class="dropdown-item">Bootstrap </a><a
+                                    href="docs/components-directory.html" class="dropdown-item">Theme </a>
+                        </div>
+                    </li>
+
 
                     <li class="nav-item dropdown position-static">
 
@@ -93,6 +96,8 @@
                            class="nav-link ">
                             <img
                                     alt="Image"
+                                    width="30"
+                                    height="30"
                                     src="{{ asset('uploads/users/') }}{{ app.user.imageName }}"
                                     class="avatar avatar-sm">
                         </a>
@@ -135,11 +140,13 @@
     <div class="alert alert-success">{{ message }}</div>
 {% endfor %}
 {% block body %}{% endblock %}
+{% block scripts %}
+    <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="application/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://use.fontawesome.com/c02388dd2b.js"></script>
+{% endblock %}
 
-<script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="application/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://use.fontawesome.com/c02388dd2b.js"></script>
 
 <footer class="footer">
     <div class="container text-center">
@@ -149,3 +156,4 @@
 </footer>
 </body>
 </html>
+
