@@ -15,6 +15,7 @@
     "dompdf/dompdf": "^1.0",
     "endroid/qr-code-bundle": "^4.0",
     "gedmo/doctrine-extensions": "^3.0",
+    "stof/doctrine-extensions-bundle": "^1.6",
     "google/recaptcha": "~1.1",
     "knplabs/knp-paginator-bundle": "^5.4",
     "knplabs/knp-time-bundle": "^1.16",

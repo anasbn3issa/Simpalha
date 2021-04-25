@@ -65,7 +65,7 @@ class QuestionController extends AbstractController
 
             $this->addFlash('success','You successfully added a new question to your Quiz');
 
-            return $this->redirectToRoute('question_list',['id'=>$id]);
+            return $this->redirectToRoute('answer_list',['id'=>$id,'qId'=>$question->getId()]);
         }
 
         return $this->render('user_controllers/question/new.html.twig', [
@@ -99,7 +99,7 @@ class QuestionController extends AbstractController
 
             $this->addFlash('success','Question '.$question->getQuestion().' updated. Never say no, to making it better!');
 
-            return $this->redirectToRoute('question_list',['id'=>$id]);
+            return $this->redirectToRoute('answer_list',['id'=>$id,'qId'=>$question->getId()]);
         }
 
         if($answersRepo->countAnswersToQuestion($qId) == 0)
