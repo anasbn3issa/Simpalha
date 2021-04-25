@@ -1,0 +1,44 @@
+{% extends 'FINALRESOURCESbaseUser.html.twig' %}
+
+
+{% block body %}
+    <title>Ressources</title>
+    <a href="{{ path('ressourcesUser_index') }}" align="center">back to list</a>
+    <h1 align="center">Details of the resource : {{ ressource.title }} </h1> </br>
+
+    <table class="table">
+        <tbody>
+            <tr><!--
+                <th>Idr</th>
+                <td>{{ ressource.idr }}</td> -->
+            </tr>
+            <tr> <td></td>
+                <th>Path</th>
+                <td>{{ ressource.path }}</td><td></td>
+            </tr>
+            <tr><td></td>
+                <th>Title</th>
+                <td>{{ ressource.title }}</td><td></td>
+            </tr>
+            <tr><td></td>
+                <th>Description</th>
+                <td>{{ ressource.description }}</td><td></td>
+            </tr>
+            <tr><td></td>
+                <th>Module</th>
+                <td>{{ ressource.module }}</td><td></td>
+            </tr>
+
+            <tr><td></td>
+                <th>Viewing resource:</th>
+                <td> <h5>Via path : {{ ressource.path }}  </h5>
+                    <img src="{{ asset("#{ressource.getPath()}") }}" /></td>           <td></td> </tr>
+
+        </tbody>
+    </table>
+    <a href="{{ path('ressource_pdf', {'idr': ressource.idr}) }}"><button class="btn">Get PDF</button></a> </br>
+
+
+
+
+{% endblock %}

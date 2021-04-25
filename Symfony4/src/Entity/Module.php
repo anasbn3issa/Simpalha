@@ -3,12 +3,15 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Module
  *
  * @ORM\Table(name="module")
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ModulesRepository")
+
  */
 class Module
 {
@@ -23,7 +26,7 @@ class Module
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="No file chosen. Please choose File.")
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
@@ -46,4 +49,9 @@ class Module
     }
 
 
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

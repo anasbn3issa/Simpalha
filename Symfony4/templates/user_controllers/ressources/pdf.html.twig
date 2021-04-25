@@ -1,0 +1,46 @@
+
+{% block body %}
+    <h1 align="center">{{ ressource.title }}</h1>
+    <hr>
+
+    <table class="table" align="center">
+        <br>
+
+        <tr>
+            <th></th>
+            <td></td>
+        </tr></br>
+        <tr>
+            <th>Description</th>
+            <td>    {{ ressource.description }}</br></td>
+        </tr>
+        <tr>
+            <th></th>
+            <td></br></td>
+        </tr>
+        <tr>
+            <th>Module</th>
+            <td>    {{ ressource.module }}</br></td>
+        </tr>
+        <tr>
+            <th></th>
+            <td></br></td>
+        </tr>
+        <tr>
+
+            <th></th>
+            <td>
+                <img src="{{ asset("#{ressource.getPath()}") }}" /></td>            </tr>
+
+
+        </tbody>
+    </table>
+
+
+
+{% endblock %}
+</br></br></br></br></br>
+</br></br></br></br></br>
+</br></br></br><hr>
+
+<h3 align="center">Copyright: simpalha.</h3>
