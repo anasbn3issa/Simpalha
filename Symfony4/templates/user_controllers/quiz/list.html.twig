@@ -6,10 +6,23 @@
 
 {% block body %}
 
+    <div class="search-bar-container">
+        <form>
+            <div class="search-bar">
+                <input class="form-control" name="q" type="search" value="{{ app.request.query.get('q') }}" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success search-quiz-input-button" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+
     <div class="quiz-list-container">
         <div class="quiz-div-container">
 
-            {% for quiz in quizzs %}
+            <div class="quiz-div">
+                <h4 class="quiz-div-subject">Quiz List ({{ pagination.getTotalItemCount }})</h4>
+            </div>
+
+            {% for quiz in pagination %}
 
                 <div class="quiz-div">
                     <h4 class="quiz-div-subject">{{ quiz.subject }}</h4>
@@ -19,11 +32,21 @@
                         <a href="{{ path('quiz_edit', {id: quiz.id}) }}" class="btn btn-primary quiz-management-btn">Update</a>
                         <a href="{{ path('quiz_delete', {id: quiz.id}) }}" class="btn btn-danger quiz-management-btn">Delete</a>
                     </div>
+                    <div class="icon-progression-container">
+                        <a href="{{ path('quiz_progression', {id: quiz.id}) }}" class="btn btn-outline-primary quiz-management-btn"><i class="fa fa-line-chart" aria-hidden="true"></i></a>
+
+                    </div>
                 </div>
 
-
+            {% else %}
+                <div class="quiz-div">
+                    <h4 class="quiz-div-subject">No tests found..</h4>
+                </div>
             {% endfor %}
         </div>
+
+        {{ knp_pagination_render(pagination) }}
+
         <div class="quiz-div-footer">
             <a href="{{ path('quiz_create') }}" class="btn btn-primary quiz-div-footer-btn">Add Quiz</a>
             <a href="{{ path('quiz') }}" class="btn btn-danger quiz-div-footer-btn">Back</a>

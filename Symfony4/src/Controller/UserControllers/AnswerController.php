@@ -127,4 +127,34 @@ class AnswerController extends AbstractController
 
         return $this->redirectToRoute('answer_list',['id'=>$id,'qId'=>$qId]);
     }
+
+    /**
+     * @Route("/quizz/{id}/question/{qId}/answer/{aId}/right", name="answer_right")
+     */
+    public function rightAnswer($id,$qId,$aId,EntityManagerInterface $em,Request $request)
+    {
+        $questionRepo = $em->getRepository(Question::class);
+        $repo = $em->getRepository(Answer::class);
+
+        $question = $questionRepo->findOneBy([
+            'id' => $qId
+        ]);
+
+        $answer= $repo->findOneBy([
+            'id' => $aId
+        ]);
+
+        $title = $answer->getSuggestion();
+
+        $question->setRightAnswer($answer);
+
+        $em->persist($question);
+        $em->flush();
+
+        $this->addFlash('success','Answer '.$title.' was successfully labeled as right answer!');
+
+        return $this->redirectToRoute('answer_list',['id'=>$id,'qId'=>$qId]);
+    }
+
+
 }

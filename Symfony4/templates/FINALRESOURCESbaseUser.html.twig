@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Welcome to Simpalha{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+        <link rel="stylesheet" href="https://demo.bootstrapious.com/directory/1-0/css/style.default.css">
+        <link rel="icon" href="{{ asset("images/logo.png") }}" type="image/png">
+    {% endblock %}
+    <style>.dropdown-toggle::after {
+            display: none;
+        }</style>
+</head>
+<nav class="navbar navbar-expand-md fixed-top shadow navbar-light bg-white {{ app.session.flashbag.peek('success')|length > 0 ? '' : 'mb-2' }} ">
+    <div class="container-fluid">
+        <div class="d-flex"><a href="index.html" class="navbar-brand text-uppercase font-weight-bold">
+                <img style="margin-bottom: 5px;" class="navbar-brand space-brand"
+                     src="{{ asset('images/Simpalha.png') }}"
+                     width="95px" height="55"/></a>
+
+        </div>
+        <button type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+                aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right"><i
+                    class="fa fa-bars"></i></button>
+        <!-- Navbar Collapse -->
+        <div id="navbarCollapse" class="collapse navbar-collapse">
+            <form action="#" id="searchcollapsed" class="form-inline my-2 d-sm-none">
+                <div class="input-label-absolute input-label-absolute-left input-reset w-100">
+                    <label for="searchcollapsed_search" class="label-absolute"><i class="fa fa-search"></i><span
+                                class="sr-only">What are you looking for?</span></label>
+                    <input id="searchcollapsed_search" placeholder="Search" aria-label="Search"
+                           class="form-control form-control-sm border-0 shadow-0 bg-gray-200">
+                    <button type="reset" class="btn btn-reset btn-sm"><i class="fa-times fas"> </i></button>
+                </div>
+            </form>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown"><a href="index.html" data-toggle="dropdown"
+                                                 aria-haspopup="true" aria-expanded="false"
+                                                 class="nav-link dropdown-toggle active">
+
+                        Home</a>
+                    <div aria-labelledby="docsDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
+                        <h6 class="dropdown-header font-weight-normal">Documentation</h6><a
+                                href="docs/docs-introduction.html" class="dropdown-item">Introduction </a><a
+                                href="docs/docs-directory-structure.html" class="dropdown-item">Directory structure </a><a
+                                href="docs/docs-gulp.html" class="dropdown-item">Gulp </a>
+                        <a
+                                href="docs/docs-customizing-css.html" class="dropdown-item">Customizing CSS </a><a
+                                href="docs/docs-credits.html" class="dropdown-item">Credits </a>
+                        <div class="dropdown-divider"></div>
+                        <h6 class="dropdown-header font-weight-normal">Components</h6><a
+                                href="docs/components-bootstrap.html" class="dropdown-item">Bootstrap </a><a
+                                href="docs/components-directory.html" class="dropdown-item">Theme </a>
+                    </div>
+                </li>
+                <!-- Megamenu-->
+                <!-- /Megamenu end-->
+                <li class="nav-item"><a href="contact.html" class="nav-link">P2P</a>
+                </li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Resources</a>
+                </li>
+                <li class="nav-item dropdown"><a id="docsDropdownMenuLink" href="index.html" data-toggle="dropdown"
+                                                 aria-haspopup="true" aria-expanded="false"
+                                                 class="nav-link dropdown-toggle ">
+
+                        Complaint</a>
+                    <div aria-labelledby="docsDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
+                        <h6 class="dropdown-header font-weight-normal">Documentation</h6><a
+                                href="docs/docs-introduction.html" class="dropdown-item">Introduction </a><a
+                                href="docs/docs-directory-structure.html" class="dropdown-item">Directory structure </a><a
+                                href="docs/docs-gulp.html" class="dropdown-item">Gulp </a>
+                        <a
+                                href="docs/docs-customizing-css.html" class="dropdown-item">Customizing CSS </a><a
+                                href="docs/docs-credits.html" class="dropdown-item">Credits </a>
+                        <div class="dropdown-divider"></div>
+                        <h6 class="dropdown-header font-weight-normal">Components</h6><a
+                                href="docs/components-bootstrap.html" class="dropdown-item">Bootstrap </a><a
+                                href="docs/components-directory.html" class="dropdown-item">Theme </a>
+                    </div>
+                </li>
+                {% if is_granted('ROLE_USER') %}
+
+                    <li class="nav-item dropdown position-static">
+
+                        <a href="#" data-toggle="dropdown"
+                           class="nav-link ">
+                            <img
+                                    alt="Image"
+                                    src="{{ asset('uploads/users/') }}{{ app.user.imageName }}"
+                                    class="avatar avatar-sm">
+                        </a>
+                        <div aria-labelledby="docsDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
+
+                            <h6 class="dropdown-header font-weight-normal">Settings</h6><a
+                                    href="{{ path('user_edit') }}" class="dropdown-item">Edit profil </a><a
+                                    href="{{ path('candidatures_new') }}" class="dropdown-item">New Candidate </a><a
+                                    href="{{ path('candidatures_index') }}" class="dropdown-item">List Candidates </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ path('security_logout') }}" class="dropdown-item">Logout </a>
+
+                            {% if is_granted('ROLE_ADMIN') %}
+
+                                <a
+                                        href="{{ path('admin_homepage') }}" class="dropdown-item">Admin </a>
+                            {% endif %}
+
+                        </div>
+
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a  class="nav-link" href="">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a  class="nav-link" href="">Register</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<body style="padding-top: 105px;">
+<ol class="breadcrumb">
+
+</ol>
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">{{ message }}</div>
+{% endfor %}
+{% block body %}{% endblock %}
+
+<script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="application/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://use.fontawesome.com/c02388dd2b.js"></script>
+
+<footer class="footer">
+    <div class="container text-center">
+        <span class="text-muted">Made with <i class="fa fa-heart" style="color: red;"></i> by the guys and gals at <a
+                    href="https://www.facebook.com/simpalha" target="_blank">Spir'IT</a></span>
+    </div>
+</footer>
+</body>
+</html>

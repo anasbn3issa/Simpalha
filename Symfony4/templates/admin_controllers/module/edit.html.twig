@@ -1,0 +1,38 @@
+{% extends 'baseAdmin.html.twig' %}
+{% block body %}
+
+    <section id="main-content" style="padding-left: 410px">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="row align-items-center">
+                            <div class="col">
+
+                                <h3 class="mb-0">Update module</h3>
+                            </div>
+                            <div class="col text-right">
+                                <a href="{{ path('module_index') }}" class="btn btn-sm btn-primary">Go Back to List</a>
+                            </div>
+                        </div>
+
+                        </div>
+                        {{ include('admin_controllers/module/_form.html.twig', {'button_label': 'Update'}) }}
+                        <div class="col text-right">
+                        {{ include('admin_controllers/module/_delete_form.html.twig') }}
+                        </div>
+
+                        </br>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+{% endblock %}
