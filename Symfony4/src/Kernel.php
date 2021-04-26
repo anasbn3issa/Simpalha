@@ -8,6 +8,8 @@ use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
+use CMEN\GoogleChartsBundle\CMENGoogleChartsBundle;
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 
 class Kernel extends BaseKernel
 {
@@ -23,6 +25,7 @@ class Kernel extends BaseKernel
                 yield new $class();
             }
         }
+
     }
 
     public function getProjectDir(): string
@@ -51,4 +54,6 @@ class Kernel extends BaseKernel
         $routes->import($confDir.'/{routes}/*'.self::CONFIG_EXTS, '/', 'glob');
         $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob');
     }
+
+
 }

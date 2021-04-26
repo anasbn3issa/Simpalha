@@ -3,10 +3,10 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Suggestion
- *
  * @ORM\Table(name="suggestion", indexes={@ORM\Index(name="fk_suggestion_studentId", columns={"StudentId"})})
  * @ORM\Entity
  */
@@ -19,19 +19,29 @@ class Suggestion
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idSugg;
+    private $Id_Sugg;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="topic", type="string", length=30, nullable=false)
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 50,
+     *      minMessage = "topic must include at least {{ limit }} characters",
+     *      maxMessage = "topic must include at most {{ limit }} characters"
+     * )
      */
     private $topic;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="description", type="string", length=30, nullable=false)
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 255,
+     *      minMessage = "description must include at least {{ limit }} characters",
+     *      maxMessage = "description must include at most {{ limit }} characters"
+     * )
      */
     private $description;
 
@@ -47,19 +57,19 @@ class Suggestion
      *
      * @ORM\Column(name="StudentId", type="integer", nullable=false)
      */
-    private $studentid;
+    private $StudentId;
 
-    public function getIdSugg(): ?int
+    public function getId_Sugg(): ?int
     {
-        return $this->idSugg;
+        return $this->Id_Sugg;
     }
 
-    public function getTopic(): ?string
+    public function gettopic(): ?string
     {
         return $this->topic;
     }
 
-    public function setTopic(string $topic): self
+    public function settopic(string $topic): self
     {
         $this->topic = $topic;
 
@@ -90,14 +100,14 @@ class Suggestion
         return $this;
     }
 
-    public function getStudentid(): ?int
+    public function getStudentId(): ?int
     {
-        return $this->studentid;
+        return $this->StudentId;
     }
 
-    public function setStudentid(int $studentid): self
+    public function setStudentId(int $StudentId): self
     {
-        $this->studentid = $studentid;
+        $this->StudentId = $StudentId;
 
         return $this;
     }

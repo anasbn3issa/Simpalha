@@ -1,0 +1,36 @@
+{%  extends 'baseUser.html.twig' %}
+
+{% block body %}
+    <h1>Suggestion</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdSugg</th>
+                <td>{{ suggestion.idSugg }}</td>
+            </tr>
+            <tr>
+                <th>Topic</th>
+                <td>{{ suggestion.topic }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ suggestion.description }}</td>
+            </tr>
+            <tr>
+                <th>Record</th>
+                <td>{{ suggestion.record }}</td>
+            </tr>
+            <tr>
+                <th>Studentid</th>
+                <td>{{ suggestion.studentid }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_controllers_suggestion_user_index') }}">back to list</a>
+
+    <a href="{{ path('user_controllers_suggestion_user_edit', {'idSugg': suggestion.idSugg}) }}">edit</a>
+
+    {{ include('user_controllers_suggestion_user/_delete_form.html.twig') }}
+{% endblock %}

@@ -21,6 +21,7 @@
     <!-- Argon CSS -->
     <link rel="stylesheet" href="{{ asset("assets/css/argon.css?v=1.2.0")}}" type="text/css">
 
+
 </head>
 <body>
     <!-- Sidenav -->
@@ -79,6 +80,19 @@
                                 <span class="nav-link-text">Posts&Comments</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('admin_controllers_reclamation_admin_index') }}">
+                                <i class="fa fa-book text-green"></i>
+                                <span class="nav-link-text">Claims</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('admin_controllers_suggestion_admin_index') }}">
+                              <i class="fa fa-tasks text-blue"></i>
+                                <span class="nav-link-text">Suggestions</span>
+                            </a>
+                        </li>
+
                     </ul>
                     <!-- Divider -->
                     <!-- Heading -->
@@ -311,7 +325,7 @@
         </nav>
         <!-- Header -->
         <!-- Header -->
-        <div class="header bg-primary pb-6">
+        {# <div class="header bg-primary pb-6">
             <div class="container-fluid">
                 <div class="header-body">
                     <div class="row align-items-center py-4">
@@ -419,7 +433,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> #}
         <!-- Page content -->
         <div class="container-fluid mt--6">
 

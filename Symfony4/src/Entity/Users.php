@@ -45,9 +45,9 @@ class Users
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Spécialité", type="string", length=255, nullable=true)
+     * @ORM\Column(name="SpÃ©cialitÃ©", type="string", length=255, nullable=true)
      */
-    private $specialite;
+    private $spã©cialitã©;
 
     /**
      * @var string|null
@@ -107,6 +107,18 @@ class Users
     public function setUsername(string $username): self
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    public function getSpã©cialitã©(): ?string
+    {
+        return $this->spã©cialitã©;
+    }
+
+    public function setSpã©cialitã©(?string $spã©cialitã©): self
+    {
+        $this->spã©cialitã© = $spã©cialitã©;
 
         return $this;
     }
