@@ -50,7 +50,7 @@ class RessourcesController extends AbstractController
             $entityManager->persist($ressource);
             $entityManager->flush();
 
-            /* SMS API
+             //SMS API
             $basic  = new \Vonage\Client\Credentials\Basic("34e34089", "BgEEVv60NIjzoVqH");
             $client = new \Vonage\Client($basic);
             $response = $client->sms()->send(
@@ -63,7 +63,7 @@ class RessourcesController extends AbstractController
             } else {
                 echo "The message failed with status: " . $message->getStatus() . "\n";
             }
-            END OF SMS API*/
+            //END OF SMS API
 
             return $this->redirectToRoute('ressources_index');
         }
@@ -99,7 +99,7 @@ class RessourcesController extends AbstractController
             $file = $ressource->getPath();
             $fileName = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move($this->getParameter('upload_directory'), $fileName);
-            $ressource->setPath("/public/images/" . $fileName);
+            $ressource->setPath("/uploads/" . $fileName);
 
 
             $this->getDoctrine()->getManager()->flush();
