@@ -87,6 +87,8 @@ class PostController extends AbstractController
         ]);
     }
 
+
+
     /**
      * @Route("/{id}", name="user_controllers_post_show", methods={"GET"})
      */
@@ -126,15 +128,20 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_controllers_post_delete", methods={"POST"})
+     * @Route("/delete/{id}", name="user_controllers_post_delete")
      */
-    public function delete(Request $request, Post $post): Response
+    public function delete($id,Request $request,EntityManagerInterface $em): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($post);
-            $entityManager->flush();
-        }
+        $repo= $em->getRepository(Post::class);
+        $post=$repo->findOneBy(
+            ['id' => $id]
+        );
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($post);
+        $entityManager->flush();
+
+        $this->addFlash('failure','Post Deleted.');
 
         return $this->redirectToRoute('user_controllers_post_index');
     }

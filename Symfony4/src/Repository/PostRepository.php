@@ -27,7 +27,7 @@ class PostRepository extends ServiceEntityRepository
     {
         return $this->getOrCreateQueryBuilder()
             ->andWhere('a.status IS NOT NULL')
-            ->orderBy('a.timestamp','DESC')
+            ->orderBy('a.timestamp','ASC')
             ->getQuery()
             ->getResult()
             ;

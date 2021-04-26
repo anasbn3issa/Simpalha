@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vangrg\ProfanityBundle\Validator\Constraints\ProfanityCheck;
 
 /**
  * Post
@@ -50,6 +51,7 @@ class Post
      *
      * @ORM\Column(name="problem", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="How can you publish a post with no problem ? ")
+     * @ProfanityCheck()
      */
     private $problem;
 
@@ -61,7 +63,7 @@ class Post
     private $imageName;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="post", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="post", cascade="all")
      */
     private $comments;
 

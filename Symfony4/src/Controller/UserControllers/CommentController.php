@@ -6,6 +6,7 @@ use App\Entity\Comment;
 use App\Entity\Post;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
+use IndyDevGuy\WikiBundle\WikiBundle;
 use Psr\Log\LoggerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -55,6 +56,9 @@ class CommentController extends AbstractController
                 'id' => $id
             ]);
         }
+
+
+
 
         return $this->render('user_controllers/comment/index.html.twig', [
             'form' => $form->createView(),
