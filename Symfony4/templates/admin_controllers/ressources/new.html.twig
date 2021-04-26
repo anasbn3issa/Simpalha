@@ -1,0 +1,60 @@
+{% extends 'baseAdmin.html.twig' %}
+
+
+{% block body %}
+
+
+    <section id="main-content" style="padding-left: 280px">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="row align-items-center">
+                            <div class="col">
+
+                                <h3 class="mb-0">Add Resource</h3>
+                            </div>
+                            <div class="col text-right">
+                                <a href="{{ path('ressources_index') }}" class="btn btn-sm btn-primary">Back to List</a>
+                            </div>
+
+                        </div>             </br>
+
+                        {% set i = 0 %}
+
+                        {% for ressource in ressources %}
+                            {% set i = i + 1 %}
+                        {% endfor%}
+                        <title>New Ressources</title>
+
+                        {% if 3 - i >0 %}
+                            <h1 align="center">Creating a new Resource ..</h1>
+                            <h3 align="center">There are  {{ i }} resources, {{ 3 - i }} more to go </h3>
+                            {{ include('admin_controllers/ressources/_form.html.twig') }}
+                        {% endif %}
+
+                        {% if 3 - i < 0 or 3 - i == 0%}
+                            <h2 >Creating a new Resource ..</h2> </br> </br> </br>
+                            <h1 align="center"> ERROR! Impossible to add a new resource, </h1>
+                            <h3 align="center"> Quota achieved ( Maximum achieved) </br> there are already {{ i }} resources! </h3>
+
+                        {% endif %}
+
+
+
+
+
+                        </br>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+{% endblock %}

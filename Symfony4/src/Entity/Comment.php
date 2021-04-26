@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Comment
  *
- * @ORM\Table(name="comment", indexes={@ORM\Index(name="fk_ownerCommentId", columns={"owner_id"}), @ORM\Index(name="fk_idPost", columns={"id_Post"})})
- * @ORM\Entity
+ * @ORM\Table(name="comment", indexes={@ORM\Index(name="fk_idPost", columns={"id_Post"}), @ORM\Index(name="fk_ownerCommentId", columns={"owner_id"})})
+ * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  */
 class Comment
 {
@@ -26,7 +26,7 @@ class Comment
      *
      * @ORM\Column(name="timestamp", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $timestamp = 'CURRENT_TIMESTAMP';
+    private $timestamp;
 
     /**
      * @var int
@@ -75,6 +75,7 @@ class Comment
      * })
      */
     private $owner;
+
 
     public function getId(): ?int
     {

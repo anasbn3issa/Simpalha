@@ -1,0 +1,24 @@
+{% extends 'baseAdminQuiz.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/quizz/styles.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="div-pusher">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+    
+    <div class="welcome-quiz">
+        <h1 class="quiz-title">Test your abilities!</h1>
+        <div class="quiz-index-btns">
+            <a href="" class="btn btn-outline-dark">Take a Quiz</a>
+            <a href="{{ path('admin_quiz_list') }}" class="btn btn-outline-dark">Manage Your Quizes</a>
+        </div>
+    </div>
+
+{% endblock %}

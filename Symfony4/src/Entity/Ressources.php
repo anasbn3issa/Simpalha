@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="ressources")
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\RessourcesRepository")
  */
 class Ressources
 {
@@ -24,31 +25,35 @@ class Ressources
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="No file chosen. Please choose File.")
      * @ORM\Column(name="path", type="string", length=255, nullable=false)
      */
     private $path;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Title Cannot be accepted : Blank")
      * @ORM\Column(name="title", type="string", length=255, nullable=false)
      */
     private $title;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Description Cannot be accepted : Blank")
+     * @Assert\Length(min="10",
+     *      minMessage=" Minimum description's length = {{ limit }}")
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
      */
     private $description;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank (message="Module Cannot be accepted : Blank")
      * @ORM\Column(name="module", type="string", length=255, nullable=false)
      */
     private $module;
+
+    protected $captchaCode;
 
     public function getIdr(): ?int
     {
@@ -60,7 +65,7 @@ class Ressources
         return $this->path;
     }
 
-    public function setPath(string $path): self
+    public function setPath($path): self
     {
         $this->path = $path;
 
@@ -102,6 +107,18 @@ class Ressources
 
         return $this;
     }
+    public function getCaptchaCode()
+    {
+        return $this->captchaCode;
+    }
+
+    public function setCaptchaCode($captchaCode)
+    {
+        $this->captchaCode = $captchaCode;
+
+        return $this;
+    }
+
 
 
 }

@@ -3,12 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Post
  *
- * @ORM\Table(name="post", indexes={@ORM\Index(name="fk_ownerId", columns={"owner_id"}), @ORM\Index(name="fk_solutionId", columns={"solution_id"})})
- * @ORM\Entity
+ * @ORM\Table(name="post", indexes={@ORM\Index(name="fk_solutionId", columns={"solution_id"}), @ORM\Index(name="fk_ownerId", columns={"owner_id"})})
+ * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
  */
 class Post
 {
@@ -26,7 +27,7 @@ class Post
      *
      * @ORM\Column(name="timestamp", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $timestamp = 'CURRENT_TIMESTAMP';
+    private $timestamp;
 
     /**
      * @var string
@@ -46,13 +47,14 @@ class Post
      * @var string
      *
      * @ORM\Column(name="problem", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="How can you publish a post with no problem ? ")
      */
     private $problem;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="image_name", type="string", length=255, nullable=false)
+     * @ORM\Column(name="image_name", type="string", length=255, nullable=true)
      */
     private $imageName;
 
@@ -66,15 +68,18 @@ class Post
      */
     private $owner;
 
+
     /**
      * @var \Comment
      *
      * @ORM\ManyToOne(targetEntity="Comment")
+     * @ORM\OrderBy({ "timestamp" = "DESC" })
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="solution_id", referencedColumnName="id")
      * })
      */
     private $solution;
+
 
     public function getId(): ?int
     {
@@ -141,6 +146,12 @@ class Post
         return $this;
     }
 
+    public function getImagePath()
+    {
+        return 'images/'.$this->getImageFilename();
+    }
+
+
     public function getOwner(): ?Users
     {
         return $this->owner;
@@ -164,6 +175,5 @@ class Post
 
         return $this;
     }
-
 
 }

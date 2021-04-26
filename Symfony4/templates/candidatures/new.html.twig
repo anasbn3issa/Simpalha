@@ -1,0 +1,15 @@
+{% extends "baseUser.html.twig" %}
+{% block body %}
+        <div class="container">    <h1>Create new application</h1>
+
+
+        <div class="card">
+            <div class="card-body">
+                {{ include('candidatures/_form.html.twig') }}
+
+            </div>
+            <a href="{{ path('candidatures_index') }}">back to list</a>
+
+        </div>
+    </div>
+{% endblock %}
