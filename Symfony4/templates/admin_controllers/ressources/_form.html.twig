@@ -1,0 +1,44 @@
+
+{% block body %}
+{{ form_start(form, {'attr':{'novalidate':'novalidate'}}) }}
+  <table>
+    <tr>
+      <td>
+  {{ form_label(form.path, 'Path') }}</td> <td>
+  {{ form_widget(form.path)}}
+  {{ form_errors(form.path) }} </td></tr>
+    <tr>
+      <td>
+  {{ form_label(form.title, 'Title') }}</td> <td>
+  {{ form_widget(form.title,{'attr': {'placeholder':'Add title..'}}) }}
+  {{ form_errors(form.title) }} </td></tr>
+    <tr>
+      <td>
+  {{ form_label(form.description, 'Description') }}</td> <td>
+  {{ form_widget(form.description,{'attr': {'placeholder':'Add description'}}) }}
+  {{ form_errors(form.description) }}</td></tr>
+    <tr><td>
+  {{ form_label(form.module, 'Module') }}</td> <td>
+  {{ form_widget(form.module,{'attr': {'placeholder':'Add module'}}) }}
+  {{ form_errors(form.module) }}</td></tr>
+    <tr>
+      <td>
+        <label>Are you a robot?</label>
+      </td>
+      <td>
+        {{ form_widget(form.captchaCode,{'attr': {'class':'form-control'}}) }}
+
+      </td>
+
+    </tr>
+    <tr>
+      <td>
+      </td> <td> {% set formErrors = form.vars.errors.form.getErrors(true) %}
+        {% if formErrors|length %}
+          {% for error in formErrors %}
+           <li>{{ error.message }} </li>
+          {% endfor %}
+        {% endif %}
+    <button class="btn">{{ button_label|default('Add ressource .') }}</button></td></tr></table>
+{{ form_end(form) }}
+{% endblock %}

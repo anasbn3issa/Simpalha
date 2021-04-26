@@ -1,0 +1,41 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+<section id="main-content" style="padding-left: 400px">
+    <sec class="container-fluid">
+        <div class="row">
+            <div class="card">
+                <div class="card-header border-0">
+                    <div class="row align-items-center">
+                        <div class="col">
+
+                            <h3 class="mb-0">Module's Details</h3>
+                        </div>
+                        <div class="col text-right">
+                            <a href="{{ path('module_index') }}" class="btn btn-sm btn-primary">Back to list</a>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table" id="table">
+                     <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <td>{{ module.name }}</td>
+                        <td><a href="{{ path('module_edit', {'id': module.id}) }}">edit</a></td>
+                    </tr>
+                    </tbody>
+
+                </table>
+
+                <div class="col text-right">
+
+                {{ include('admin_controllers/module/_delete_form.html.twig') }}
+                </div>
+
+            </div>
+        </div>
+        {# display navigation #}
+    </sec>
+</section>
+        {% endblock %}
