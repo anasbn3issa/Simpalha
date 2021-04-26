@@ -1,0 +1,66 @@
+{% extends 'baseAdmin.html.twig' %}
+
+
+{% block body %}
+
+    <section id="main-content" style="padding-left: 400px">
+        <sec class="container-fluid">
+            <div class="row">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="row align-items-center">
+                            <div class="col">
+
+                                <h3 class="mb-0">Resource's Details</h3>
+                            </div>
+                            <div class="col text-right">
+                                <a href="{{ path('ressources_index') }}" class="btn btn-sm btn-primary">Back to list</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table" id="table">
+                        <tbody>
+                        <tr><!--
+                <th>Idr</th>
+                <td>{{ ressource.idr }}</td>
+            </tr>
+            <tr>
+                <th>Path</th>
+                <td>{{ ressource.path }}</td>
+            </tr>-->
+                        <tr>
+                            <th>Title</th>
+                            <td>{{ ressource.title }}</td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td>{{ ressource.description }}</td>
+                        </tr>
+                        <tr>
+                            <th>Module</th>
+                            <td>{{ ressource.module }}</td>
+                        </tr>
+                        <tr>
+
+                            <th>Viewing resource:</th>
+                            <td> <h5>Via path : {{ ressource.path }}  </h5>
+                                <img src="{{ asset("#{ressource.getPath()}") }}" /></td>            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                    <div class="col text-right">
+
+                        <a href="{{ path('ressources_edit', {'idr': ressource.idr}) }}"> <button class="btn">edit</button></a>
+                        {{ include('admin_controllers/ressources/_delete_form.html.twig') }}
+                    </div>
+
+                </div>
+            </div>
+            {# display navigation #}
+        </sec>
+    </section>
+{% endblock %}
