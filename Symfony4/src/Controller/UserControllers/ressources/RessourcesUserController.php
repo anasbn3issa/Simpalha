@@ -42,12 +42,19 @@ class RessourcesUserController extends AbstractController
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
-        $pdfOptions->set('isRemoteEnabled', TRUE);
+        $pdfOptions->setIsRemoteEnabled(true);
+
 
 
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
-        // Retrieve the HTML generated in our twig file
+/*
+        $path = "http://localhost:8000".$ressource->getPath();
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        $ressource->setPath($base64);
+*/        // Retrieve the HTML generated in our twig file
         $html = $this->renderView('user_controllers/ressources/pdf.html.twig', [
             'ressource' => $ressource,
         ]);
