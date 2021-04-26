@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/post")
@@ -30,6 +31,7 @@ class PostController extends AbstractController
 
     /**
      * @Route("/new", name="user_controllers_post_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function new(Request $request): Response
     {
@@ -43,20 +45,19 @@ class PostController extends AbstractController
             $img=$form->get('imageName')->getData();
 
             if($img){
-                $originalFileName = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFileName= $originalFileName.'-'.uniqid().'.'.$img->guessExtension();
-                // this is needed to safely include the file name as part of the URL
+
+                $newFileName= md5(uniqid()).'.'.$img->guessExtension();
             }
             try {
                 $img->move(
                     $this->getParameter('postImages'),
-                    $img
+                    $newFileName
                 );
             } catch (FileException $e) {
                 echo $e->getMessage();
             }
-            $post->setImageName($newFileName);
-
+            $post->setImageName('/postImages/'.$newFileName);
+            $post->setOwner($this->getUser());
 
 
 
@@ -103,7 +104,8 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="user_controllers_post_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="user_controllers_post_edit", methods={"POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function edit(Request $request, Post $post,EntityManagerInterface $em): Response
     {

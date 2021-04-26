@@ -146,22 +146,22 @@ class Post
         return $this;
     }
 
-    public function getImageName(): ?string
+    public function getImageName()
     {
         return $this->imageName;
     }
 
-    public function setImageName(string $imageName): self
+    public function setImageName($imageName): self
     {
         $this->imageName = $imageName;
 
         return $this;
     }
 
-    public function getImagePath()
-    {
-        return 'images/'.$this->getImageFilename();
-    }
+//    public function getImagePath()
+//    {
+//        return 'images/'.$this->getImageFilename();
+//    }
 
 
     public function getOwner(): ?Users

@@ -8,6 +8,7 @@ use App\Form\CommentType;
 use App\Repository\CommentRepository;
 use Psr\Log\LoggerInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +23,7 @@ class CommentController extends AbstractController
 
     /**
      * @Route("/post/{id}/comments", name="comments_list")
+     * @IsGranted("ROLE_USER")
      */
     public function list($id,Request $request, EntityManagerInterface $em,CommentRepository $commentRepository)
     {
@@ -35,13 +37,13 @@ class CommentController extends AbstractController
         $comments =$commentRepository->findAllCommentsSortedByUpvotes($post);
         $comment = new Comment();
 
-
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $comment = $form->getData();
             $comment->setPost($post);
+            $comment->setOwner($this->getUser());
             $post->setComment($comment);
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -67,6 +69,7 @@ class CommentController extends AbstractController
     }
     /**
      * @Route("/post/{id}/comment/upvote", name="comment_upvote", methods={"POST","GET"})
+     * @IsGranted("ROLE_USER")
      */
     public function togglePostHeart($id,Comment $comment, LoggerInterface $logger, Request $request,EntityManagerInterface $em,CommentRepository $commentRepository)
     {
@@ -95,6 +98,7 @@ class CommentController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="user_controllers_comment_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function edit(Request $request, Comment $comment): Response
     {
@@ -127,5 +131,21 @@ class CommentController extends AbstractController
         return $this->redirectToRoute('user_controllers_comment_index');
     }
 
+    /**
+     * @Route("/mark_as_solution/{id}", name="user_mark_as_solution",methods={"POST","GET"})
+     * @IsGranted("ROLE_USER")
+     */
+    public function markAsSolution(Request $request,Comment $comment,EntityManagerInterface $em,LoggerInterface $logger): Response
+    {
+        $post=$comment->getPost();
+        $post->setSolution($comment);
+        $post->setStatus("SOLVED");
+        $em->flush();
+        $logger->info('Comment is being marked as solution!');
+        $this->addFlash('success','Glad to help');
+        return $this->redirectToRoute('comments_list',array(
+            'id'=>$post->getId()
+        ));
+    }
 
 }

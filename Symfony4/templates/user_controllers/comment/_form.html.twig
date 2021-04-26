@@ -1,8 +1,8 @@
 <div class="row mb-5">
     <div class="col-sm-12">
-        <img class="comment-img rounded-circle" src="{{ asset('images/astronaut-profile.png') }}">
+        <img class="comment-img rounded-circle" src="{{ asset('uploads/users/') }}{{ app.user.imageName }}">
         <div class="comment-container d-inline-block pl-3 align-top">
-            <span class="commenter-name">Ali Ben Ali</span>
+            <span class="commenter-name">{{ app.user.username }}</span>
             {{ form_start(form) }}
             {{ form_widget(form) }}
             <button class="btn btn-info">{{ button_label|default('Save') }}</button>
