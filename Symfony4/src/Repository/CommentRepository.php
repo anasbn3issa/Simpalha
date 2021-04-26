@@ -23,11 +23,25 @@ class CommentRepository extends ServiceEntityRepository
     /**
      * @return Comment[]
      */
-    public function findAllCommentsForThisPost(int $id)
+    public function findAllCommentsForThisPost()
     {
         return $this->getOrCreateQueryBuilder('a')
-            ->andWhere('a.owner.id = $id')
+            ->andWhere('a.timestamp IS NOT NULL')
             ->orderBy('a.timestamp','DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * @return Comment[]
+     */
+    public function findAllCommentsSortedByUpvotes($post)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.post =:post')
+            ->orderBy('a.upvotes','DESC')
+            ->setParameter('post',$post)
             ->getQuery()
             ->getResult()
             ;
