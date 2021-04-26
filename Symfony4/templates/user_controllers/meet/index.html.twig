@@ -67,23 +67,24 @@
                     {% endif %}
 
                     <div class="row" style="margin: auto">
-                        <div class="" style="margin:auto">
-                            <label>Join:</label>
-                            <select class="select ml-3" id="myselect3">
-                                <optgroup label="Join">
-                                    <option></option>
-                                    <option value="navigator">Navigator</option>
-                                    <option id="QR" data-toggle="modal" data-id="{{ meet.id }}" value="qr">QR</option>
-                                </optgroup>
-                            </select>
-                        </div>
-                        <div class="" style="margin:auto">
-                            <a href="{{ path('meet_edit', {'id': meet.id}) }}">edit</a>
-                        </div>
+                        {% if meet.disponibilite.datedeb|date('d-m-Y h:m:s') > 'now'|date('d-m-Y h:m:s') %}
+                            <div class="" style="margin:auto">
+                                <label>Join:</label>
+                                <select class="select ml-3" id="myselect3">
+                                    <optgroup label="Join">
+                                        <option></option>
+                                        <option value="navigator">Navigator</option>
+                                        <option id="QR" data-toggle="modal" data-id="{{ meet.id }}" value="qr">QR</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="" style="margin:auto">
+                                <a href="{{ path('meet_edit', {'id': meet.id}) }}">edit</a>
+                            </div>
+                        {% endif %}
                         <div class="" style="margin:auto">
                             {{ include('user_controllers/meet/_delete_form.html.twig') }}
                         </div>
-
 
                     </div>
                 </td>

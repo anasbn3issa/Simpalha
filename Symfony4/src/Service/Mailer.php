@@ -47,7 +47,7 @@ class Mailer
             'activationUrl' => $url
         ];
 
-        $this->sendMessage('user/email/register-done.html.twig', $context, $this->noreply, $user->getEmail());
+        $this->sendMessage('user_controllers/user/email/register-done.html.twig', $context, $this->noreply, $user->getEmail());
     }
 
     /**

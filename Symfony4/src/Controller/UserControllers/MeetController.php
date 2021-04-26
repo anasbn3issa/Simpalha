@@ -7,6 +7,7 @@ use App\Entity\Users;
 use App\Form\MeetType;
 use App\Repository\MeetRepository;
 use App\Repository\UserRepository;
+use App\Repository\UsersRepository;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,22 +25,22 @@ class MeetController extends AbstractController
     public function index(MeetRepository $meetRepository): Response
     {
         return $this->render('user_controllers/meet/index.html.twig', [
-            'meets' => $meetRepository->findAll(),
+            'meets' => $meetRepository->findByUser($this->getUser()),
         ]);
     }
 
     /**
      * @Route("/new/{id}", name="meet_new", methods={"GET","POST"})
      */
-    public function new(Request $request, Users $user): Response
+    public function new(Request $request, Users $user, UsersRepository $userRepository): Response
     {
 
         $meet = new Meet();
 
         $meet->setIdHelper($user);
-        $meet->setIdStudent($user);
+        $meet->setIdStudent($userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]));
 
-        $meet->setSpecialite($user->getSpecialite());
+        $meet->setSpecialite('test');
 
         $form = $this->createForm(MeetType::class, $meet, [
             'disp'=>null,
