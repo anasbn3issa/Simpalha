@@ -11,16 +11,22 @@ use App\Repository\QuizzRepository;
 use App\Repository\QuizzResultRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+/**
+ * @Route("/quiz")
+ */
 class QuizController extends AbstractController
 {
     /**
-     * @Route("/quiz", name="quiz")
+     * @Route("/", name="quiz")
+     * @IsGranted("ROLE_USER")
      */
     public function index(): Response
     {
@@ -30,20 +36,16 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/quiz/list", name="quiz_list")
+     * @Route("/list", name="quiz_list")
+     * @IsGranted("ROLE_USER")
      */
     public function list(EntityManagerInterface $em, QuizzRepository $quizzRepository, Request $request, PaginatorInterface $paginator): Response
     {
         $q = $request->query->get('q');
 
-        $repository = $em->getRepository(Users::class);
-
-        $user = $repository->findOneBy(
-            ['id' => 14]
-        );
+        $user = $em->getRepository(Users::class)->findOneBy(['id'=>$this->getUser()->getId()]);
 
         $queryBuilder = $quizzRepository->getHelperQuizListQueryBuilder($user,$q);
-
 
         $pagination = $paginator->paginate(
             $queryBuilder,
@@ -57,22 +59,20 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/quiz/create", name="quiz_create")
+     * @Route("/create", name="quiz_create")
+     * @IsGranted("ROLE_USER")
      */
     public function new(Request $request, EntityManagerInterface $em): Response
     {
 
         $quiz = new Quizz();
 
-        // TODO : Make it modular once the login is implemented
-        $user = $em->getRepository(Users::class)->findOneBy(['id'=>14]);
-
-        $repo = $em->getRepository(Quizz::class);
-
         $form = $this->createForm(QuizFormType::class, $quiz);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+
+            $user = $em->getRepository(Users::class)->findOneBy(['id'=>$this->getUser()->getId()]);
 
             /** @var Quizz $quiz */
 
@@ -93,7 +93,8 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/quizz/{id}/delete", name="quiz_delete")
+     * @Route("/{id}/delete", name="quiz_delete")
+     * @IsGranted("ROLE_USER")
      */
     public function delete($id,EntityManagerInterface $em,Request $request)
     {
@@ -114,7 +115,8 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/quiz/{id}/edit", name="quiz_edit")
+     * @Route("/{id}/edit", name="quiz_edit")
+     * @IsGranted("ROLE_USER")
      */
     public function edit($id, EntityManagerInterface $em,Request $request)
     {
@@ -143,7 +145,8 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/quiz/table", name="quiz_table")
+     * @Route("/table", name="quiz_table")
+     * @IsGranted("ROLE_USER")
      */
     public function listStudents(QuizzRepository $quizzRepository, Request $request, PaginatorInterface $paginator): Response
     {
@@ -162,7 +165,8 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/quiz/take/{id}", name="quiz_take")
+     * @Route("/take/{id}", name="quiz_take")
+     * @IsGranted("ROLE_USER")
      */
     public function takeQuiz($id, EntityManagerInterface $em)
     {
@@ -175,7 +179,8 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/quiz/take/{id}/submit", name="quiz_submit", methods="POST")
+     * @Route("/take/{id}/submit", name="quiz_submit", methods="POST")
+     * @IsGranted("ROLE_USER")
      */
     public function submitQuiz($id, QuestionRepository $questionRepository,QuizzResultRepository $quizzResultRepository,Request $request, EntityManagerInterface $em)
     {
@@ -193,8 +198,10 @@ class QuizController extends AbstractController
             $convertedAverage = -1;
         }
         else {
-            // TODO : CHANGE THE HARDCODED STUDENT ONCE THERE'S A LOGGED IN STUDENT
-            $quizFound = $quizzResultRepository->checkIfPassedQuizInLast24Hours($quizz,14);
+            dump($request);
+
+//            $quizFound = $quizzResultRepository->checkIfPassedQuizInLast24Hours($quizz,$this->getUser()->getId());
+            $quizFound = false;
 
             if($quizFound){
                 $convertedAverage = -2;
@@ -216,12 +223,11 @@ class QuizController extends AbstractController
                 $quizzResult = new QuizzResult();
 
                 $quizzResult->setQuizz($quizz);
-                $quizzResult->setResultDate(new \DateTime());
-//                $quizzResult->setResultDate(new \DateTime(sprintf('-%d months',rand(0,2020))));
+//                $quizzResult->setResultDate(new \DateTime());
+                $quizzResult->setResultDate(new \DateTime(sprintf('-%d days',rand(0,2020))));
                 $quizzResult->setResult($convertedAverage);
 
-                // TODO : CHANGE THE HARDCODED STUDENT ONCE THERE'S A LOGGED IN STUDENT
-                $quizzResult->setStudentId(14);
+                $quizzResult->setStudentId($this->getUser()->getId());
 
                 $em->persist($quizzResult);
                 $em->flush();
@@ -239,7 +245,8 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/quiz/{id}/progression", name="quiz_progression")
+     * @Route("/{id}/progression", name="quiz_progression")
+     * @IsGranted("ROLE_USER")
      */
     public function progressionQuiz($id, QuizzRepository $quizzRepository,QuizzResultRepository $quizzResultRepository,Request $request,PaginatorInterface $paginator, EntityManagerInterface $em)
     {

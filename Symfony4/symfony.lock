@@ -107,6 +107,18 @@
     "swiftmailer/swiftmailer": {
         "version": "v6.2.7"
     },
+    "symfony/security-core": {
+        "version": "v4.4.21"
+    },
+    "symfony/security-csrf": {
+        "version": "v4.4.20"
+    },
+    "symfony/security-guard": {
+        "version": "v4.4.20"
+    },
+    "symfony/security-http": {
+        "version": "v4.4.21"
+    },
     "symfony/swiftmailer-bundle": {
         "version": "2.5",
         "recipe": {

@@ -14,10 +14,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+/**
+ * @Route("/admin/quiz")
+ */
 class QuestionController extends AbstractController
 {
     /**
-     * @Route("/admin/quiz/{id}/questions", name="admin_question_list")
+     * @Route("/{id}/questions", name="admin_question_list")
      */
     public function list($id,EntityManagerInterface $em): Response
     {
@@ -36,7 +40,7 @@ class QuestionController extends AbstractController
     }
 
     /**
-     * @Route("/admin/quizz/{id}/question/{qId}/delete", name="admin_question_delete")
+     * @Route("/{id}/question/{qId}/delete", name="admin_question_delete")
      */
     public function delete($id,$qId,EntityManagerInterface $em,Request $request)
     {
