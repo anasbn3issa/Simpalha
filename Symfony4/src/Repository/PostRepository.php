@@ -27,13 +27,26 @@ class PostRepository extends ServiceEntityRepository
     {
         return $this->getOrCreateQueryBuilder()
             ->andWhere('a.status IS NOT NULL')
-            ->orderBy('a.timestamp','ASC')
+            ->orderBy('a.timestamp','DESC')
             ->getQuery()
             ->getResult()
             ;
 
     }
 
+    /**
+     * @return Post[]
+     */
+    public function findAllPostsByModuleOrderedByNewest(String $module)
+    {
+        return $this->getOrCreateQueryBuilder()
+            ->andWhere('a.module =:module')
+            ->orderBy('a.timestamp','DESC')
+            ->setParameter('module',$module)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
 
 
