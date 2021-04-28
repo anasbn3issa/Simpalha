@@ -22,6 +22,7 @@ class UserType extends AbstractType
             ->add('lastName')
             ->add('dateOfBirth', DateType::class, ['attr' => ['class' => 'js-datepicker'],
             ])
+            ->add('pseudo')
             ->add('phone')
             ->add('adresse', TextType::class, ['attr' => ['id' => 'searchTextField','autocomplete'=>'on']
             ])

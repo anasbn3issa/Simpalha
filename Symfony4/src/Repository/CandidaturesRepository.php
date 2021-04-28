@@ -3,28 +3,28 @@
 namespace App\Repository;
 
 
-use App\Entity\Users;
+use App\Entity\Candidatures;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Users|null find($id, $lockMode = null, $lockVersion = null)
- * @method Users|null findOneBy(array $criteria, array $orderBy = null)
- * @method Users[]    findAll()
- * @method Users[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Candidatures|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Candidatures|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Candidatures[]    findAll()
+ * @method Candidatures[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UsersRepository extends ServiceEntityRepository
+class CandidaturesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Users::class);
+        parent::__construct($registry, Candidatures::class);
     }
 
 
     /**
-     * @return Users[] Returns an array of User objects
+     * @return Candidatures[] Returns an array of User objects
      */
     public function findByRoleField($value): array
     {
