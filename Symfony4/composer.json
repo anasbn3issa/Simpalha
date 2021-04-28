@@ -18,6 +18,7 @@
     "google/recaptcha": "~1.1",
     "indydevguy/wiki-bundle": "^0.0.29",
     "knplabs/knp-paginator-bundle": "^5.4",
+    "knplabs/knp-snappy-bundle": "^1.8",
     "knplabs/knp-time-bundle": "^1.16",
     "phpdocumentor/reflection-docblock": "^5.2",
     "ramsey/uuid": "^4.1",
@@ -49,6 +50,7 @@
     "symfony/yaml": "4.4.*",
     "twig/extra-bundle": "^2.12|^3.0",
     "twig/twig": "^2.12|^3.0",
+    "ext-fileinfo": "*",
     "vangrg/profanity-bundle": "^1.1",
     "vonage/client": "^2.4"
   },
