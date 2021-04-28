@@ -10,16 +10,18 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use InvalidArgumentException;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
+
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
  * @UniqueEntity(fields={"email"}, message="user exists")
  */
-class Users implements AdvancedUserInterface, \Serializable
+class Users implements UserInterface, \Serializable
 {
     /**
      * @var int
@@ -51,11 +53,33 @@ class Users implements AdvancedUserInterface, \Serializable
     private $isActive;
 
 
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="username", type="string", length=255, nullable=true)
+     */
+    private $pseudo;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $firstName;
+
+    /**
+     * @return string|null
+     */
+    public function getPseudo()
+    {
+        return $this->pseudo;
+    }
+
+    /**
+     * @param string|null $pseudo
+     */
+    public function setPseudo($pseudo)
+    {
+        $this->pseudo = $pseudo;
+    }
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -126,7 +150,7 @@ class Users implements AdvancedUserInterface, \Serializable
      *
      * @ORM\Column(name="Specialty", type="string", length=255, nullable=true)
      */
-    private $specialite;
+    private $specialty;
 
     /**
      * @var string|null
@@ -177,15 +201,15 @@ class Users implements AdvancedUserInterface, \Serializable
      */
     public function getSpecialite()
     {
-        return $this->specialite;
+        return $this->specialty;
     }
 
     /**
-     * @param string|null $specialite
+     * @param string|null $specialty
      */
-    public function setSpecialite(?string $specialite)
+    public function setSpecialite(?string $specialty)
     {
-        $this->specialite = $specialite;
+        $this->specialty = $specialty;
     }
 
     /**
@@ -233,7 +257,6 @@ class Users implements AdvancedUserInterface, \Serializable
     }
 
 
-
     public function __construct()
     {
         $this->quizzs = new ArrayCollection();
@@ -246,7 +269,6 @@ class Users implements AdvancedUserInterface, \Serializable
     {
         return $this->firstName;
     }
-
 
 
     /**
@@ -394,7 +416,6 @@ class Users implements AdvancedUserInterface, \Serializable
     }
 
 
-
     /**
      * @return mixed
      */
@@ -438,8 +459,14 @@ class Users implements AdvancedUserInterface, \Serializable
         return $this;
     }
 
-    // not used
 
+    /**
+     * @param string|null $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
     /**
      * @return string
      */
@@ -447,6 +474,23 @@ class Users implements AdvancedUserInterface, \Serializable
     {
         return $this->getEmail();
     }
+
+    /**
+     * @return string|null
+     */
+    public function getSpecialty(): ?string
+    {
+        return $this->specialty;
+    }
+
+    /**
+     * @param string|null $specialty
+     */
+    public function setSpecialty(?string $specialty): void
+    {
+        $this->specialty = $specialty;
+    }
+
 
     public function getSalt()
     {
@@ -520,6 +564,7 @@ class Users implements AdvancedUserInterface, \Serializable
             $this->email,
             $this->firstName,
             $this->lastName,
+            $this->pseudo,
             $this->phone,
             $this->roles,
             $this->password,
@@ -536,6 +581,7 @@ class Users implements AdvancedUserInterface, \Serializable
             $this->email,
             $this->firstName,
             $this->lastName,
+            $this->pseudo,
             $this->phone,
             $this->roles,
             $this->password,
@@ -550,6 +596,7 @@ class Users implements AdvancedUserInterface, \Serializable
     }
 
 
-
-
 }
+
+
+

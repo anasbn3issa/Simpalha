@@ -37,6 +37,13 @@ class UsersRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+    public function findEntitiesByString($str)
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT c FROM App:Candidatures c  WHERE c.description LIKE :str'
+
+            )->setParameter('str', '%'.$str.'%')->getResult();
+    }
 
     /**
      * @return Users[] Returns an array of User objects

@@ -24,7 +24,7 @@ class SecurityController extends AbstractController
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
             return $this->redirect($this->generateUrl('user_controller_post_list'));
         }
-        // get the login error if there is one
+        // get the  login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         $form = $this->createForm(LoginType::class);
         return $this->render(
@@ -37,11 +37,9 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/logout", name="logout")
-     * @throws \Exception
      */
     public function logout()
     {
-        throw new \Exception('Don\'t forget to activate logout in security.yaml');
         return $this->redirectToRoute('security_login');
     }
 }
