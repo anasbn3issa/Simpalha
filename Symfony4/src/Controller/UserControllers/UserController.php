@@ -54,7 +54,7 @@ class UserController extends AbstractController
                              Mailer $mailer, AuthenticationUtils $authenticationUtils, CaptchaValidator $captchaValidator, TranslatorInterface $translator)
     {
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $this->redirect($this->generateUrl('homepage'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
         $form = $this->createForm(RegistrationType::class);
         $form->handleRequest($request);
@@ -86,7 +86,7 @@ class UserController extends AbstractController
                 if (self::configMail) {
                     $mailer->sendActivationEmailMessage($user);
                     $this->addFlash('success', 'confirmation link is sent tou you');
-                    return $this->redirect($this->generateUrl('homepage'));
+                    return $this->redirect($this->generateUrl('admin_homepage'));
                 }
 
                 return $this->redirect($this->generateUrl('user_activate', ['token' => $token]));
@@ -171,7 +171,7 @@ class UserController extends AbstractController
                 $em->flush();
                 $this->addFlash('success', 'user updated successfully');
 
-                return $this->redirect($this->generateUrl('homepage'));
+                return $this->redirect($this->generateUrl('admin_homepage'));
             }
 
             $em->refresh($user);
@@ -195,7 +195,7 @@ class UserController extends AbstractController
                                          TranslatorInterface $translator)
     {
         if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            return $this->redirect($this->generateUrl('homepage'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $form = $this->createForm(RequestResetPasswordType::class);
@@ -225,7 +225,7 @@ class UserController extends AbstractController
                 $mailer->sendResetPasswordEmailMessage($user);
 
                 $this->addFlash('success', 'Password link sent successfully');
-                return $this->redirect($this->generateUrl('homepage'));
+                return $this->redirect($this->generateUrl('admin_homepage'));
             } catch (ValidatorException $exception) {
 
             }
@@ -249,7 +249,7 @@ class UserController extends AbstractController
                                   LoginFormAuthenticator $loginFormAuthenticator, UserPasswordEncoderInterface $encoder)
     {
         if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            return $this->redirect($this->generateUrl('homepage'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $form = $this->createForm(ResetPasswordType::class, $user);
@@ -305,7 +305,7 @@ class UserController extends AbstractController
             $em->persist($user);
 
             $em->flush();
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('admin_homepage');
         }
         return $this->render("user_controllers/user/edit.html.twig", [
             'form' => $form->createView()
