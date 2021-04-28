@@ -29,7 +29,7 @@
                     <tbody>
                         {% for answer in question.answers %}
                             <tr>
-                                <th scope="row" colspan="2" style="text-align: center;{% if answer.id == question.rightAnswer %}color: #00BB33{% endif %}">
+                                <th scope="row" colspan="2" style="text-align: center;" {% if answer.id == question.rightAnswer %}class="text-success"{% endif %}>
                                     {{ answer.suggestion }}
                                 </th>
                             </tr>

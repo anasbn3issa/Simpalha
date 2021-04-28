@@ -30,6 +30,7 @@
                 <div class="form-group">
                     <input class="form-control mt-2" type="datetime-local" value="2021-04-22T10:00" name="datetime-input" id="datetime-input">
                 </div>
+                <a href="{{ path('quiz_chart', {id: quiz.id}) }}" class="btn btn-info quiz-management-btn"><i class="fa fa-chart-bar" aria-hidden="true"></i></a>
 
             </div>
 
@@ -38,7 +39,6 @@
         {{ knp_pagination_render(pagination) }}
 
         <div class="quiz-div-footer">
-            <a href="{{ path('quiz_create') }}" class="btn btn-primary quiz-div-footer-btn">Add Quiz</a>
             <a href="{{ path('quiz_list') }}" class="btn btn-danger quiz-div-footer-btn">Back</a>
         </div>
     </div>

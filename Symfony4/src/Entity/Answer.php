@@ -31,9 +31,8 @@ class Answer
     private $suggestion;
 
     /**
-     * @var int
+     * @var \Question
      *
-     * @ORM\Column(name="question_id", type="integer", nullable=false)
      * @ORM\ManyToOne(targetEntity=Question::class, inversedBy="answers")
      * @ORM\JoinColumn(nullable=false)
      */
