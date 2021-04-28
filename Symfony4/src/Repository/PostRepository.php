@@ -6,6 +6,7 @@ use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
+use phpDocumentor\Reflection\Types\String_;
 
 /**
  * @method Post|null find($id, $lockMode = null, $lockVersion = null)
@@ -27,13 +28,21 @@ class PostRepository extends ServiceEntityRepository
     {
         return $this->getOrCreateQueryBuilder()
             ->andWhere('a.status IS NOT NULL')
-            ->orderBy('a.timestamp','ASC')
+            ->orderBy('a.timestamp','DESC')
             ->getQuery()
             ->getResult()
             ;
 
     }
 
+//    /**
+//     * @return Post[]
+//     */
+//    public function findAllPostsByModuleOrderedByNewest(String_ $module)
+//    {
+//        return $this->getOrCreateQueryBuilder('a.status IS NOT NULL')
+//            ->andWhere('a.module LIKE ')
+//    }
 
 
 
