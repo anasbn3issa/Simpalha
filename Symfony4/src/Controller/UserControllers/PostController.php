@@ -76,13 +76,13 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/posts", name="user_controller_post_list")
+     * @Route("/posts/{module}", name="user_controller_post_list")
      */
-    public function list(PostRepository $postRepository )
+    public function list($module,PostRepository $postRepository )
     {
-        $posts = $postRepository->findAllPostsOrderedByNewest();
+        $posts = $postRepository->findAllPostsByModuleOrderedByNewest($module);
 
-        return $this->render('user_controllers/post/list.html.twig',[
+        return $this->render('user_controllers/simpalha_user/index.html.twig',[
             'posts' => $posts
         ]);
     }
