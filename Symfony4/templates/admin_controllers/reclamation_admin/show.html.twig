@@ -169,11 +169,11 @@
 
                                 </tbody>
                             </table>
-                            {% for locale in locales %}
+                           {#  {% for locale in locales %}
                                 {% if locale != app.request.locale %}
                                     <a href="{{ path('change_locale', {'locale': locale}) }}">{{ locale }}</a>
                                 {% endif %}
-                            {% endfor %}
+                            {% endfor %}#}
 
 
                         </div>

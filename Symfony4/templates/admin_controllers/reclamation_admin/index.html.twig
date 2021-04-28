@@ -132,7 +132,7 @@
                             <a type="button" class="btn btn-primary btn-sm mt-3 mb-3" data-toggle="modal" data-target="#myModal">Statistics</a>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal fade" id="myModal" role="dialog" >
                                 <div class="modal-dialog">
 
                                     <!-- Modal content-->
@@ -142,7 +142,8 @@
 
                                         </div>
                                         <div class="modal-body">
-                                            php bin/console derver:run
+                                            <div id="div_chart"></div>
+
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -230,6 +231,10 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            {{ gc_draw(pieChart, 'div_chart') }}
+        </script>
         </div>
     </section>
 

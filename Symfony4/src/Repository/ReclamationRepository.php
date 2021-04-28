@@ -19,6 +19,24 @@ class ReclamationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reclamation::class);
     }
 
+
+    /**
+     *  @return Reclamation[] Returns an array of Reclamation objects
+     */
+
+    public function calcul($status)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.statut = :val')
+            ->setParameter('val', $status)
+            ->getQuery()
+            ->getResult()
+            ;
+
+    }
+
+
+
     // /**
     //  * @return Reclamation[] Returns an array of Reclamation objects
     //  */

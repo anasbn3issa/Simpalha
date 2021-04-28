@@ -5,6 +5,7 @@ namespace App\Controller\AdminControllers;
 use App\Entity\Reclamation;
 use App\Form\ReclamationAdminType;
 use App\Repository\ReclamationRepository;
+use CMEN\GoogleChartsBundle\GoogleCharts\Options\PieChart\PieSlice;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,9 +35,29 @@ class ReclamationAdminController extends AbstractController
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
             2 // Nombre de résultats par page
         );
+        $validated = $reclamationRepository->findByStatus(1);
+        $all = $reclamationRepository->findAll();
+        $rejected = $reclamationRepository->findByStatus(0);
 
+        $pieChart = new PieChart();
+        $pieChart->getData()->setArrayToDataTable(
+            [
+                ['Label', 'Percentage'],
+                ['validate', count($rejected)],
+                ['Not validate', count($validated)]
+            ]
+        );
+        $pieChart->getOptions()->setTitle('Percentage Claims');
+        $pieChart->getOptions()->setHeight(500);
+        $pieChart->getOptions()->setWidth(500);
+        $pieChart->getOptions()->setHeight(500);
+        $pieChart->getOptions()->setWidth(400);
+        $pieChart->getOptions()->getTooltip()->setTrigger('focus');
+        $pieChart->getOptions()->getLegend()->setPosition('top');
+        $pieChart->getOptions()->setPieSliceText('Label');
         return $this->render('admin_controllers/reclamation_admin/index.html.twig', [
             'reclamations' => $reclamations,
+            'pieChart' => $pieChart
         ]);
     }
 
@@ -93,12 +114,13 @@ class ReclamationAdminController extends AbstractController
      * @Route("/Validate/{id}", name="admin_controllers_reclamation_admin_validate", methods={"GET","POST"})
      */
     public function validate($id, ReclamationRepository $repository)
-    { $reclamation = $repository->find($id);
-     $reclamation->setStatus(1);
-     $entityManager = $this->getDoctrine()->getManager();
-     $entityManager->flush();
-     return $this->redirectToRoute("admin_controllers_reclamation_admin_index");
-     return $this->render("reclamation_admin/show.html.twig");
+    {
+        $reclamation = $repository->find($id);
+        $reclamation->setStatus(1);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
+        return $this->redirectToRoute("admin_controllers_reclamation_admin_index");
+        return $this->render("reclamation_admin/show.html.twig");
     }
 
     /**
@@ -115,40 +137,51 @@ class ReclamationAdminController extends AbstractController
         return $this->redirectToRoute('admin_controllers_reclamation_admin_index');
     }
 
-
     /**
-     * @Route("occurence", name="occurence")
+     * @Route("/statistics",name="statistics")
      */
-    public function occurence():Response
+    public function statistics(ReclamationRepository $ReclamationRepository)
     {
-        $repository = $this->getDoctrine()->getRepository(Reclamation::class);
-        $reclamation = $repository->findAll();
-        $em = $this->getDoctrine()->getManager();
+        //$liste=$this->verif($reclamationRepository,$donnees);
 
-        $Validate = 0;
-        $NotValidate = 0;
-        $percV =0;
-        $percNV = 0;
-        $NBrec=0;
-        foreach ($reclamation as $reclamation) {
-            $NBrec+=1;
-            if ($reclamation->getStatus() == "Validate")  :
-
-                $Validate += 1;
-            elseif ($reclamation->getStatus() == "NotValidate"):
-
-                $NotValidate += 1;
-
-            endif;
-
+        $list1 = $ReclamationRepository->calcul(1);
+        $total1 = 1;
+        foreach ($list1 as $row) {
+            $total1++;
         }
 
-        $percV = number_format(($Validate/$NBrec)*100,2);
-        $percNV = number_format(($NotValidate/$NBrec)*100, 2);
+        $list2 = $ReclamationRepository->calcul(0);
+        $total2 = 0;
+        foreach ($list2 as $row) {
+            $total2++;
+        }
+        $pieChart = new PieChart();
+        $pieChart->getData()->setArrayToDataTable(
+            [
+                ['Pac Man', 'Percentage'],
+                ['', 75],
+                ['', 25]
+            ]
+        );
+        $pieChart->getOptions()->getLegend()->setPosition('none');
+        $pieChart->getOptions()->setPieSliceText('none');
+        $pieChart->getOptions()->setPieStartAngle(135);
 
-        return new Response('percentage claims Validates : '.$percV.' %', 'percentage claims not validates: ' .$percNV. '%');
+        $pieSlice1 = new PieSlice();
+        $pieSlice1->setColor('yellow');
+        $pieSlice2 = new PieSlice();
+        $pieSlice2->setColor('transparent');
+        $pieChart->getOptions()->setSlices([$pieSlice1, $pieSlice2]);
 
-
+        $pieChart->getOptions()->setHeight(500);
+        $pieChart->getOptions()->setWidth(900);
+        $pieChart->getOptions()->getTooltip()->setTrigger('none');
+        var_dump($pieChart);
+        dump($pieChart);
+        return $this->render('admin_controllers/reclamation_admin/index.html.twig', array(
+                'chart' => $pieChart,
+            )
+        );
     }
 
     /**
