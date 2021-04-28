@@ -24,9 +24,11 @@ class EditType extends AbstractType
                 'first_options' => ['label' => 'Password'],
                 'second_options' => ['label' => 'Confirm password'],
             ])
+            ->add('pseudo')
             ->add('email', null, [
                 'label' => 'Email'
             ]);
+
         parent::buildForm($builder, $options);
     }
 

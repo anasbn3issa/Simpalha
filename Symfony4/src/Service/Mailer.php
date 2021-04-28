@@ -40,6 +40,9 @@ class Mailer
      */
     public function sendActivationEmailMessage(Users $user)
     {
+        $mailLogger = new \Swift_Plugins_Loggers_ArrayLogger();
+        $this->mailer->registerPlugin(new \Swift_Plugins_LoggerPlugin($mailLogger));
+
         $url = $this->router->generate('user_activate', ['token' => $user->getToken()], UrlGeneratorInterface::ABSOLUTE_URL);
 
         $context = [
@@ -64,7 +67,7 @@ class Mailer
             'resetPasswordUrl' => $url,
         ];
 
-        $this->sendMessage('user/email/request-password.html.twig', $messageBody, $this->noreply, $user->getEmail());
+        $this->sendMessage('user_controllers/user/email/request-password.html.twig', $messageBody, $this->noreply, $user->getEmail());
     }
 
     /**
@@ -72,9 +75,9 @@ class Mailer
      * @param $context array
      * @param $fromEmail string
      * @param $toEmail string
-     * @throws \Exception
-     * @throws \Throwable
      * @return bool
+     * @throws \Throwable
+     * @throws \Exception
      */
     protected function sendMessage($templateName, $context, $fromEmail, $toEmail)
     {

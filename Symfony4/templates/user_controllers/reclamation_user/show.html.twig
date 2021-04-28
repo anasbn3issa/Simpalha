@@ -1,0 +1,103 @@
+{%  extends 'baseUser.html.twig' %}
+
+{% block body %}
+
+    <section id="main-content">
+        <div style="width: auto; length: auto ">
+            <div class="app-content">
+                <div style="padding-bottom: 20px;  margin: 10px 0 0px;  border-bottom: 1px solid #eee;">
+                    <div style="padding-bottom: 20px;  margin: 10px 0 0px;  border-bottom: 1px solid #eee;">
+                        <ol class="breadcrumb">
+                        </ol>
+                    </div>
+
+                    <div class="card-header">
+                        <div class="card-title"><h3>Details Claim</h3></div>
+                    </div>
+
+                </div>
+                <a class="btn btn-primary btn-sm mt-3 mb-3"  href="{{ path('user_controllers_reclamation_user_index')}}">Back</a>
+                <a class="btn btn-primary btn-sm mt-3 mb-3"  >Validate</a>
+                <div style="width: auto; length: auto ">
+                    <div style="width: auto; length: auto ">
+                        <div >
+                            <div class="btn-toolbar " role="toolbar" aria-label="Programmatic control">
+
+                            </div>
+                            <div class="btn-group btn-group-sm " >
+
+
+                            </div>
+
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th>id</th>
+                                    <td>{{ reclamation.id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Idreportee</th>
+                                    <td>{{ reclamation.Idreportee }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Idreportee</th>
+                                    <td>{{ reclamation.Idreported }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Image</th>
+                                    <td>{{ reclamation.FileSelected }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Description</th>
+                                    <td>{{ reclamation.description }}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Date Creation</th>
+                                    <td>{{ reclamation.dateRec |date('Y-m-d') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>date Resolution</th>
+                                    <td>{{ reclamation.dateResolution |date('Y-m-d') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Valid Student</th>
+                                    <td>{{ reclamation.ValidStudent }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Valid Helper</th>
+                                    <td>{{ reclamation.ValidHelper }}</td>
+                                </tr>
+
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                    <!-- table-wrapper -->
+                    <div class="card-body">
+
+                    </div>
+
+                </div>
+
+                <!-- section-wrapper -->
+            </div>
+
+
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+
+
+    </section>
+
+
+
+
+{% endblock %}

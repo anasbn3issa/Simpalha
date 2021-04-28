@@ -26,7 +26,8 @@ class PostRepository extends ServiceEntityRepository
     public function findAllPostsOrderedByNewest()
     {
         return $this->getOrCreateQueryBuilder()
-            ->andWhere('a.status LIKE "OPEN" ')
+            ->andWhere('a.status IS NOT NULL')
+            ->orderBy('a.timestamp','ASC')
             ->getQuery()
             ->getResult()
             ;

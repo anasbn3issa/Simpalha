@@ -1,43 +1,102 @@
 {% extends 'baseUser.html.twig' %}
 
-{% block title %}Manage Comments{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+    <script src="{{ asset('js/article_show.js') }}"></script>
+    <script src="{{ asset('js/post_mark_as_solution.js') }}"></script>
+{% endblock %}
 
 {% block body %}
     <h1>Comment index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Timestamp</th>
-                <th>Rating</th>
-                <th>Upvotes</th>
-                <th>Downvotes</th>
-                <th>Solution</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for comment in comments %}
-            <tr>
-                <td>{{ comment.id }}</td>
-                <td>{{ comment.timestamp ? comment.timestamp|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ comment.rating }}</td>
-                <td>{{ comment.upvotes }}</td>
-                <td>{{ comment.downvotes }}</td>
-                <td>{{ comment.solution }}</td>
-                <td>
-                    <a href="{{ path('user_controllers_comment_show', {'id': comment.id}) }}">show</a>
-                    <a href="{{ path('user_controllers_comment_edit', {'id': comment.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="article-container my-1">
+{#            <a href="{{ path('user_controllers_post_show', {id: post.id}) }}"/>#}
+                <span>{{ post.owner.username }}</span>
+                <small>({{ post.comments|length }} comments)</small>
+                <small><a>({{ post.status }})</a></small>
+                {% if post.status=="SOLVED" %}
+                    <img src="{{ asset('images/solved.png') }}" width="35px"/>
+                {% endif %}
+                {% if post.owner.id == app.user.id %}
+                    <a href="{{ path('user_controllers_post_edit', {
+                        id: post.id
+                    }) }}">
+                        <span class="fa fa-pencil"></span>
+                    </a>
+                    <a href="{{ path('user_controllers_post_delete', {
+                        id: post.id
+                    }) }}">
+                        <span class="fa fa-trash"></span>
+                    </a>
+                {% endif %}
+                <br>
+                <small>
+                    <span class="badge badge-light">{{ post.module }}</span>
+                </small>
+                <br>
 
-    <a href="{{ path('user_controllers_comment_new') }}">Create new</a>
+                <span class="pl-5 article-details float-right"> {{ post.timestamp ? post.timestamp|ago }}</span>
+            <span>{{ post.problem }}</span>
+        </div>
+
+
+        <div>
+            <img class="article-img float-lg-right" src="{{ asset('uploads/'~post.getImageName()) }}" style="width :300px; height : 280px;"/>
+        </div>
+
+        <br>
+
+        <div>
+            {{ include('user_controllers/comment/new.html.twig') }}
+
+        </div>
+
+        <div>
+
+
+            {% for comment in comments %}
+                <div class="article-container my-1">
+{#                        <a href="{{ path('user_controllers_comment_show', {id: comment.id}) }}">#}
+                        <div class="article-title d-inline-block pl-3 align-middle">
+                                <span>{{ comment.owner.username }}</span>
+
+                                <span class="pl-5 article-details float-right"> {{ comment.timestamp ? comment.timestamp|ago }}</span>
+                                {% if (comment.post.solution== comment) %}
+                                <img src="{{ asset('images/solved.png') }}" width="35px"/>
+                            {% endif %}
+
+                            <br>
+                            <span>{{ comment.solution }}</span>
+                            <br><br>
+
+                            <small>
+                                <span class="pl-2 article-details">
+                                    <span class="js-like-article-count">{{ comment.upvotes }}</span>
+                                    <a href="{{ path('comment_upvote', {id : comment.id}) }}" class="fa fa-heart-o like-article js-like-article"></a>
+                                </span>
+                            </small>
+
+                            {% if ( comment.post.solution == NULL ) %}
+                                {% if (post.owner.id == app.user.id) %}
+                                <a href="{{ path('user_mark_as_solution', {id: comment.id}) }}" class="btn btn-info btn-solution js-mark-as-solution" >Mark as solution</a>
+                                    {% endif %}
+                            {% endif %}
+
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+
+
+        </div>
+
+
+
+
+{#    <a href="{{ path('user_controllers_comment_new') }}">Create new</a>#}
 {% endblock %}

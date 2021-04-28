@@ -26,7 +26,7 @@ class UsersRepository extends ServiceEntityRepository
     /**
      * @return Users[] Returns an array of User objects
      */
-    public function findByRoleField($value): array
+    public function findByRoleField($value)
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.role = :val')
@@ -37,11 +37,18 @@ class UsersRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+    public function findEntitiesByString($str)
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT c FROM App:Candidatures c  WHERE c.description LIKE :str'
+
+            )->setParameter('str', '%'.$str.'%')->getResult();
+    }
 
     /**
      * @return Users[] Returns an array of User objects
      */
-    public function findHelpers(): array
+    public function findHelpers()
     {
         $qb = $this->createQueryBuilder('u');
 

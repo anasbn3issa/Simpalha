@@ -34,9 +34,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('user_controllers_comment_index') }}">back to list</a>
+    <a href="{{ path('comments_list', {'id': comment.id}) }}">back to list</a>
 
     <a href="{{ path('user_controllers_comment_edit', {'id': comment.id}) }}">edit</a>
 
-    {{ include('user_controllers_comment/_delete_form.html.twig') }}
+    {{ include('user_controllers/comment/_delete_form.html.twig') }}
 {% endblock %}

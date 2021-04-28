@@ -44,13 +44,13 @@ class RessourcesController extends AbstractController
             $fileName = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move($this->getParameter('upload_directory'), $fileName);
             $ressource->setPath('/uploads/' . $fileName);
-
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($ressource);
             $entityManager->flush();
 
-             //SMS API
+/*
+            // SMS API
+>>>>>>> 046591aa4a0301bc030e9aeb16a110573ddb3939
             $basic  = new \Vonage\Client\Credentials\Basic("34e34089", "BgEEVv60NIjzoVqH");
             $client = new \Vonage\Client($basic);
             $response = $client->sms()->send(
@@ -63,8 +63,8 @@ class RessourcesController extends AbstractController
             } else {
                 echo "The message failed with status: " . $message->getStatus() . "\n";
             }
-            //END OF SMS API
-
+          //  END OF SMS API
+*/
             return $this->redirectToRoute('ressources_index');
         }
 

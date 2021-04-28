@@ -37,7 +37,7 @@ class AdminUsersController extends AbstractController
     public function index(UsersRepository $usersRepository): Response
     {
         if (!$this->isGranted('ROLE_ADMIN')) {
-            return $this->redirect($this->generateUrl('homepage'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
         return $this->render('admin_controllers/adminUser/index.html.twig', [
             'users' => $usersRepository->findAll(),
@@ -52,7 +52,7 @@ class AdminUsersController extends AbstractController
     public function userChangeIsActive(int $id): RedirectResponse
     {
         if (!$this->isGranted('ROLE_ADMIN')) {
-            return $this->redirect($this->generateUrl('homepage'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -97,7 +97,7 @@ class AdminUsersController extends AbstractController
 
 
     /**
-     * @Route("/{id}", name="user_controllers_users_show", methods={"GET"})
+     * @Route("/{id}", name="user_controllers_users_show")
      * @param Users $user
      * @return Response
      */
