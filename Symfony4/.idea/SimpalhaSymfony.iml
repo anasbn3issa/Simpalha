@@ -324,6 +324,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/commonmark-highlighter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/vangrg/profanity-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/ux-chartjs" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/webpack-encore-bundle" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
