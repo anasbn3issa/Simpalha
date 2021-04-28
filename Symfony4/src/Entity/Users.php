@@ -569,6 +569,7 @@ class Users implements UserInterface, \Serializable
             $this->pseudo,
             $this->phone,
             $this->roles,
+            $this->specialty,
             $this->password,
             $this->isActive,
 
@@ -586,6 +587,7 @@ class Users implements UserInterface, \Serializable
             $this->pseudo,
             $this->phone,
             $this->roles,
+            $this->specialty,
             $this->password,
             $this->isActive,
 

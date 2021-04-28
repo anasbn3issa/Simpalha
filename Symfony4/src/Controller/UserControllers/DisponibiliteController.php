@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DisponibiliteController extends AbstractController
 {
     /**
-     * @Route("/", name="user_controllers_disponibilite_index", methods={"GET"})
+     * @Route("/", name="user_disponibilite_index", methods={"GET"})
      */
     public function index(DisponibiliteRepository $disponibiliteRepository, UsersRepository $userRepository): Response
     {

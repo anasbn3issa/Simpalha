@@ -42,6 +42,9 @@ class FeedbackController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($feedback);
             $meet->setFeedback($feedback);
+            $meet->setEtat(1);
+            $meet->getDisponibilite()->setEtat(0);
+
             $entityManager->persist($meet);
             $entityManager->flush();
 
