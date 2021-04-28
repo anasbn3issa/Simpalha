@@ -35,3 +35,4 @@ security:
 
   access_control:
     - { path: ^/adminUser, roles: ROLE_ADMIN }
+    - { path: ^/disponibilite, roles: ROLE_HELPER }

@@ -30,12 +30,12 @@
         <tbody>
         {% for meet in meets %}
             <tr>
-                <td>{{ meet.idHelper.username }}</td>
+                <td>{{ meet.idHelper.pseudo }}</td>
                 <td>{{ meet.specialite }}</td>
                 <td>{% if meet.feedback is not null %}
                         {{ meet.feedback.description }}</td>
                     {% endif %}
-                <td>{{ meet.disponibilite.datedeb }}</td>
+                <td>{{ meet.disponibilite.datedeb|date('d-m-y h:i') }}</td>
                 <td>
                     {{ include('admin_controllers/meet/_delete_form.html.twig') }}
                 </td>
