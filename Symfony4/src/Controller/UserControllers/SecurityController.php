@@ -22,7 +22,7 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $this->redirect($this->generateUrl('user_controller_post_list'));
+            return $this->redirect($this->generateUrl('user_controllers_post_index'));
         }
         // get the  login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
- * @Route("/user/controllers/reclamation/user")
+ * @Route("/reclamation")
  */
 class ReclamationUserController extends AbstractController
 {

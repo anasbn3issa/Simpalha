@@ -20,9 +20,6 @@ class SuggestionType extends AbstractType
             ->add('description', TextType::class,[
                 'label'=>'description',
                 'attr'=>['placeholder'=>'suggestion']])
-            ->add('Record', TextType::class, [
-                'label'=>'Record',
-                'attr'=>['placeholder'=>'Record']])
 
 
 

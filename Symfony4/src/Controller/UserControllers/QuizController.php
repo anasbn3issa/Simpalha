@@ -200,8 +200,10 @@ class QuizController extends AbstractController
         else {
             dump($request);
 
-//            $quizFound = $quizzResultRepository->checkIfPassedQuizInLast24Hours($quizz,$this->getUser()->getId());
-            $quizFound = false;
+            dump($this->getUser()->getId());
+            $quizFound = $quizzResultRepository->checkIfPassedQuizInLast24Hours($quizz,$this->getUser()->getId());
+
+            dump($quizFound);
 
             if($quizFound){
                 $convertedAverage = -2;
@@ -223,8 +225,8 @@ class QuizController extends AbstractController
                 $quizzResult = new QuizzResult();
 
                 $quizzResult->setQuizz($quizz);
-//                $quizzResult->setResultDate(new \DateTime());
-                $quizzResult->setResultDate(new \DateTime(sprintf('-%d days',rand(0,2020))));
+                $quizzResult->setResultDate(new \DateTime());
+//                $quizzResult->setResultDate(new \DateTime(sprintf('-%d days',rand(0,2020))));
                 $quizzResult->setResult($convertedAverage);
 
                 $quizzResult->setStudentId($this->getUser()->getId());

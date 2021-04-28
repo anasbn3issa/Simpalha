@@ -33,11 +33,14 @@
             "branch": "master",
             "version": "2.0",
             "ref": "8eb1cd0962ded6a6d6e1e5a9b6d3e888f9f94ff6"
-        }
+<<<<<<< HEAD
         },
         "files": [
             "./config/packages/fos_ckeditor.yaml"
         ]
+=======
+        }
+>>>>>>> 046591aa4a0301bc030e9aeb16a110573ddb3939
     },
     "gedmo/doctrine-extensions": {
         "version": "v3.0.5"

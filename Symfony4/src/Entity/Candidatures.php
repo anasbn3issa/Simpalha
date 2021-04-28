@@ -40,7 +40,7 @@ class Candidatures
     /**
      * @var string
      *
-     * @ORM\Column(name="Specialty", type="string", length=255, nullable=false)
+     * @ORM\Column(name="Specialty", type="string", length=255, nullable=true)
      */
     private $Specialty;
 
@@ -84,6 +84,22 @@ class Candidatures
     }
 
     /**
+     * @return string
+     */
+    public function getSpecialty()
+    {
+        return $this->Specialty;
+    }
+
+    /**
+     * @param string $Specialty
+     */
+    public function setSpecialty(string $Specialty)
+    {
+        $this->Specialty = $Specialty;
+    }
+
+    /**
      * @return mixed
      */
     public function getCreatedBy()
@@ -102,18 +118,6 @@ class Candidatures
     public function getIdc(): ?int
     {
         return $this->idc;
-    }
-
-    public function getSpecialty(): ?string
-    {
-        return $this->Specialty;
-    }
-
-    public function setSpecialite(string $Specialty): self
-    {
-        $this->Specialty = $Specialty;
-
-        return $this;
     }
 
     public function getFichier(): ?string

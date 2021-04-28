@@ -25,5 +25,8 @@ return [
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
     Symfony\UX\Chartjs\ChartjsBundle::class => ['all' => true],
     CMEN\GoogleChartsBundle\CMENGoogleChartsBundle::class => ['all' => true],
+<<<<<<< HEAD
     FOS\CKEditorBundle\FOSCKEditorBundle::class => ['all' => true],
+=======
+>>>>>>> 046591aa4a0301bc030e9aeb16a110573ddb3939
 ];
