@@ -56,15 +56,7 @@ class Comment
      */
     private $solution;
 
-    /**
-     * @var \Post
-     *
-     * @ORM\ManyToOne(targetEntity="Post")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_Post", referencedColumnName="id")
-     * })
-     */
-    private $idPost;
+
 
     /**
      * @var \Users
@@ -75,6 +67,17 @@ class Comment
      * })
      */
     private $owner;
+
+
+    /**
+     * @var \Post
+     *
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_Post", referencedColumnName="id")
+     * })
+     */
+    private $post;
 
 
     public function getId(): ?int
@@ -142,18 +145,6 @@ class Comment
         return $this;
     }
 
-    public function getIdPost(): ?Post
-    {
-        return $this->idPost;
-    }
-
-    public function setIdPost(?Post $idPost): self
-    {
-        $this->idPost = $idPost;
-
-        return $this;
-    }
-
     public function getOwner(): ?Users
     {
         return $this->owner;
@@ -167,4 +158,22 @@ class Comment
     }
 
 
+    public function getPost(): ?Post
+    {
+        return $this->post;
+    }
+
+    public function setPost(?Post $post): self
+    {
+        $this->post = $post;
+
+        return $this;
+    }
+
+
+    public function incrementUpvotesCount(): self
+    {
+        $this->upvotes = $this->upvotes + 1 ;
+        return $this;
+    }
 }

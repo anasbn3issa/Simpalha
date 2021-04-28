@@ -59,6 +59,23 @@ class QuizzResultRepository extends ServiceEntityRepository
 
 
 
+    public function findAllBeforeSelectedTimeAsc($quiz,$time)
+    {
+
+        $qb = $this->createQueryBuilder('q');
+
+        $qb->where('q.resultDate < :to')
+            ->setParameter('to',$time)
+            ->andWhere('q.quizz = :valb')
+            ->setParameter('valb', $quiz)
+            ->orderBy('q.resultDate', 'ASC')
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+
     public function getAllBeforeSelectedTimeQueryBuilder($quiz,$time)
     {
 

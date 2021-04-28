@@ -60,7 +60,7 @@ class Ressources
         return $this->idr;
     }
 
-    public function getPath(): ?string
+    public function getPath()
     {
         return $this->path;
     }
