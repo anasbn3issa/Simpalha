@@ -325,6 +325,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/vangrg/profanity-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/ux-chartjs" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/webpack-encore-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/cmen/google-charts-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/friendsofsymfony/ckeditor-bundle" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
