@@ -1,6 +1,7 @@
 {% extends 'baseUser.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
+    {{ encore_entry_link_tags('app') }}
     <link rel="stylesheet" href="{{ asset('css/quizz/styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script
@@ -9,6 +10,11 @@
             crossorigin="anonymous"></script>
     <script src="{{ asset('js/quiz/quiz_take.js') }}"></script>
 
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('app') }}
 {% endblock %}
 
 {% block body %}{% endblock %}

@@ -10,7 +10,7 @@
         <form>
             <div class="search-bar">
                 <input class="form-control" name="q" type="search" value="{{ app.request.query.get('q') }}" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success search-quiz-input-button" type="submit">Search</button>
+                <button class="btn btn-success search-quiz-input-button" type="submit">Search</button>
             </div>
         </form>
     </div>
@@ -33,7 +33,7 @@
                         <a href="{{ path('quiz_delete', {id: quiz.id}) }}" class="btn btn-danger quiz-management-btn">Delete</a>
                     </div>
                     <div class="icon-progression-container">
-                        <a href="{{ path('quiz_progression', {id: quiz.id}) }}" class="btn btn-outline-primary quiz-management-btn"><i class="fa fa-line-chart" aria-hidden="true"></i></a>
+                        <a href="{{ path('quiz_progression', {id: quiz.id}) }}" class="btn btn-dark quiz-management-btn"><i class="fa fa-line-chart" aria-hidden="true"></i></a>
 
                     </div>
                 </div>

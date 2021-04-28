@@ -50,6 +50,21 @@
     "indydevguy/wiki-bundle": {
         "version": "v0.0.29"
     },
+    "knplabs/knp-snappy": {
+        "version": "v1.2.1"
+    },
+    "knplabs/knp-snappy-bundle": {
+        "version": "1.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.5",
+            "ref": "c81bdcf4a9d4e7b1959071457f9608631865d381"
+        },
+        "files": [
+            "./config/packages/knp_snappy.yaml"
+        ]
+    },
     "knplabs/knp-time-bundle": {
         "version": "v1.16.0"
     },
@@ -107,6 +122,18 @@
     "swiftmailer/swiftmailer": {
         "version": "v6.2.7"
     },
+    "symfony/security-core": {
+        "version": "v4.4.21"
+    },
+    "symfony/security-csrf": {
+        "version": "v4.4.20"
+    },
+    "symfony/security-guard": {
+        "version": "v4.4.20"
+    },
+    "symfony/security-http": {
+        "version": "v4.4.21"
+    },
     "symfony/swiftmailer-bundle": {
         "version": "2.5",
         "recipe": {
@@ -119,6 +146,31 @@
             "./config/packages/dev/swiftmailer.yaml",
             "./config/packages/swiftmailer.yaml",
             "./config/packages/test/swiftmailer.yaml"
+        ]
+    },
+    "symfony/ux-chartjs": {
+        "version": "v1.2.0"
+    },
+    "symfony/webpack-encore-bundle": {
+        "version": "1.9",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.9",
+            "ref": "9399a0bfc6ee7a0c019f952bca46d6a6045dd451"
+        },
+        "files": [
+            "./assets/app.js",
+            "./assets/bootstrap.js",
+            "./assets/controllers.json",
+            "./assets/controllers/hello_controller.js",
+            "./assets/styles/app.css",
+            "./config/packages/assets.yaml",
+            "./config/packages/prod/webpack_encore.yaml",
+            "./config/packages/test/webpack_encore.yaml",
+            "./config/packages/webpack_encore.yaml",
+            "./package.json",
+            "./webpack.config.js"
         ]
     },
     "vangrg/profanity-bundle": {
