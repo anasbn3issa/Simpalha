@@ -1,11 +1,7 @@
-<!DOCTYPE html>
 
-<title>New Comment</title>
 
 {% block body %}
-    <h1>Create new Comment</h1>
 
-    {{ include('user_controllers_comment/_form.html.twig') }}
+    {{ include('user_controllers/comment/_form.html.twig') }}
 
-    <a href="{{ path('user_controllers_comment_index') }}">back to list</a>
 {% endblock %}

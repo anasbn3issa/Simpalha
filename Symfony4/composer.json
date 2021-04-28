@@ -16,6 +16,7 @@
     "endroid/qr-code-bundle": "^4.0",
     "gedmo/doctrine-extensions": "^3.0",
     "google/recaptcha": "~1.1",
+    "indydevguy/wiki-bundle": "^0.0.29",
     "knplabs/knp-paginator-bundle": "^5.4",
     "knplabs/knp-snappy-bundle": "^1.8",
     "knplabs/knp-time-bundle": "^1.16",
@@ -51,7 +52,9 @@
     "twig/twig": "^2.12|^3.0",
     "vonage/client": "^2.4",
     "ext-fileinfo": "*",
-    "ext-http": "*"
+    "ext-http": "*",
+    "vangrg/profanity-bundle": "^1.1",
+    "vonage/client": "^2.4"
   },
   "require-dev": {
     "symfony/browser-kit": "^4.4",

@@ -10,15 +10,20 @@ use App\Repository\PostRepository;
 
 class PostController extends AbstractController
 {
+
+
     /**
-     * @Route("/admin/post", name="admin_controllers_post")
+     * @Route("/admin/posts", name="admin_controller_post_list")
      */
-    public function index(PostRepository $postRepository): Response
+    public function list(PostRepository $postRepository )
     {
-        return $this->render('user_controllers/post/index.html.twig', [
-            'posts' => $postRepository->findAll(),
+        $posts = $postRepository->findAll();
+
+        return $this->render('admin_controllers/simpalha_admin/listPosts.html.twig',[
+            'posts' => $posts
         ]);
     }
+
 
 
 }
