@@ -1,11 +1,11 @@
 {% extends 'baseUser.html.twig' %}
-{% block title %}Edit Meet{% endblock %}
+{% block title %}New Disponibilite{% endblock %}
 
 {% block body %}
     <div class="container">
         <div class="row mb-4 mr-1 pb-4">
             <div class="col-12 mb-3">
-                <a href="{{ path('meet_index') }}"><button type="button" class="btn waves-effect waves-light btn-lg btn-primary">
+                <a href="{{ path('user_helper_index') }}"><button type="button" class="btn waves-effect waves-light btn-lg btn-primary">
                         &nbsp; Retour</button></a>
             </div>
         </div>
@@ -13,9 +13,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Edit Meet</h4>
+                        <h4 class="card-title" style="text-align: center">Add Disponibilite</h4>
                         <div class="card-block">
-                            {{ include('user_controllers/meet/_form.html.twig', {'helper':meet.idHelper}) }}
+                            {{ include('user_controllers/disponibilite/_form.html.twig')}}
                         </div>
                     </div>
                 </div>

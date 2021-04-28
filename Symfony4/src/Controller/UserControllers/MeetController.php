@@ -2,17 +2,22 @@
 
 namespace App\Controller\UserControllers;
 
+use App\Entity\Feedback;
 use App\Entity\Meet;
 use App\Entity\Users;
+use App\Form\FeedbackType;
 use App\Form\MeetType;
+use App\Repository\DisponibiliteRepository;
 use App\Repository\MeetRepository;
 use App\Repository\UserRepository;
 use App\Repository\UsersRepository;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @Route("/meet")
@@ -20,13 +25,41 @@ use Symfony\Component\Routing\Annotation\Route;
 class MeetController extends AbstractController
 {
     /**
+     * @Route("/getmeetbydisp", name="getmeetbydisp", methods={"GET"})
+     */
+    public function teststsetsetset(Request $request, MeetRepository $meetRepository, DisponibiliteRepository $disponibiliteRepository, NormalizerInterface $normalizer): Response
+    {
+        $filter = $request->query->get('id');
+        $dis = $disponibiliteRepository->findOneBy(['id'=>$filter]);
+        $meet = $meetRepository->findOneBy(['disponibilite'=>$dis]);
+        if($meet != null) {
+            $json_meets = $normalizer->normalize($meet, 'json', ['groups'=>'meet:search']);
+            // Send all this back to client
+            return new JsonResponse(array(
+                'status' => 'OK',
+                'data' => $json_meets),
+                200);
+        }
+        return new JsonResponse(array(
+            'status' => 'ERROR',
+            'data' => 'not found'),
+            200);
+    }
+
+    /**
      * @Route("/", name="meet_index", methods={"GET"})
      */
     public function index(MeetRepository $meetRepository): Response
     {
-        return $this->render('user_controllers/meet/index.html.twig', [
-            'meets' => $meetRepository->findByUser($this->getUser()),
-        ]);
+        if($this->getUser()!=null) {
+            $feedback = new Feedback();
+            $feedback_form = $this->createForm(FeedbackType::class, $feedback);
+            return $this->render('user_controllers/meet/index.html.twig', [
+                'meets' => $meetRepository->findByUser($this->getUser()),
+                'feedback'=>$feedback_form->createView(),
+            ]);
+        }
+        return $this->redirectToRoute('security_login');
     }
 
     /**

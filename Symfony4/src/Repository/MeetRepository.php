@@ -34,7 +34,7 @@ class MeetRepository extends ServiceEntityRepository
             ->orWhere($qb->expr()->like('student.username', $qb->expr()->literal('%' . $value . '%')))
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
 
 

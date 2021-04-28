@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use InvalidArgumentException;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -30,6 +31,7 @@ class Users implements AdvancedUserInterface, \Serializable
      */
     private $id;
     /**
+     * @Groups("meet:search")
      * @ORM\Column(type="string", length=60, unique=true)
      * @Assert\NotBlank(groups={"Registration"})
      * @Assert\Email()

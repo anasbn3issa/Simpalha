@@ -30,6 +30,27 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="FeedbackModal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Leave Feedback <span class="eventName"></span></h4>
+                </div>
+                <div class="modal-body" style="margin: auto">
+
+                    <div class="form-group row col-md-12">
+                        <input type="hidden" name="meetId" id="meetId2" value=""/>
+                        <div class="input-group">
+                            {{ include('user_controllers/feedback/_form.html.twig',
+                            {'form': feedback} ) }}
+
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     <div class="container">
     <div class="row mb-4 mr-1 pb-4">
@@ -58,35 +79,44 @@
             <tr>
                 <td>{{ meet.idHelper.username }}</td>
                 <td>{{ meet.specialite }}</td>
-                <td>{{ meet.disponibilite.datedeb }}</td>
+                <td>{{ meet.disponibilite.datedeb|date('d-m-y h:i') }}
+                </td>
                 <td>
 
-                    {% if(meet.etat!=0) %}
+                    {% if(meet.etat==0) %}
 
+                        <div class="row" style="margin: auto">
+                            {% if meet.disponibilite.datedeb|date('d-m-y h:i:s') > 'now'|date('d-m-y h:i:s', "Europe/London") %}
+                                <div class="" style="margin:auto">
+                                    <a href="{{ path('meet_edit', {'id': meet.id}) }}">edit</a>
+                                </div>
+                                <div class="" style="margin:auto">
+                                    {{ include('user_controllers/meet/_delete_form.html.twig') }}
+                                </div>
+                            {% else %}
+                                <div class="" style="margin:auto">
+                                    <label>Join:</label>
+                                    <select class="select ml-3" id="myselect3">
+                                        <optgroup label="Join">
+                                            <option></option>
+                                            <option value="navigator">Navigator</option>
+                                            <option id="QR" data-toggle="modal" data-id="{{ meet.id }}" value="qr">QR</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                {% if meet.feedback is null %}
+                                    <div class="" style="margin:auto">
+                                    Finished meeting? <br>
+                                    <button data-toggle="modal" data-id="{{ meet.id }}" id="feedbackbtn"
+                                            class="btn btn-sm btn-primary">Leave Feedback</button>
+                                    </div>
+                                {% endif %}
+
+                            {% endif %}
+                        </div>
 
                     {% endif %}
 
-                    <div class="row" style="margin: auto">
-                        {% if meet.disponibilite.datedeb|date('d-m-Y h:m:s') > 'now'|date('d-m-Y h:m:s') %}
-                            <div class="" style="margin:auto">
-                                <label>Join:</label>
-                                <select class="select ml-3" id="myselect3">
-                                    <optgroup label="Join">
-                                        <option></option>
-                                        <option value="navigator">Navigator</option>
-                                        <option id="QR" data-toggle="modal" data-id="{{ meet.id }}" value="qr">QR</option>
-                                    </optgroup>
-                                </select>
-                            </div>
-                            <div class="" style="margin:auto">
-                                <a href="{{ path('meet_edit', {'id': meet.id}) }}">edit</a>
-                            </div>
-                        {% endif %}
-                        <div class="" style="margin:auto">
-                            {{ include('user_controllers/meet/_delete_form.html.twig') }}
-                        </div>
-
-                    </div>
                 </td>
             </tr>
         {% else %}
@@ -109,7 +139,21 @@
     <script src="{{ asset("assets/js/select2/select2.min.js") }}"></script>
     <script>
         function openNav(){
-            window.open('{{ app.request.server.get('SERVER_URL') }}', 'Simpalha chat room','_blank');
+            var popup = window.open('{{ app.request.server.get('SERVER_URL') }}', 'Simpalha chat room','_blank');
+
+            popup.onload = function () {
+
+                this.document.body.addEventListener('click', function () {
+                    // Now, let's log inside of the new window.
+                    // Since in here, this === this.document.body,
+                    // then you'll have to use the newWin var we set before.
+                    // newWin is the window object.
+                    popup.alert('Logging in new window!');
+                });
+            };
+
+
+
         }
 
         function openModal(){
@@ -118,6 +162,13 @@
             var url = '{{ qr_code_data_uri(app.request.server.get('SERVER_URL')) }}';
             $("#QRScan").attr("src", url );
             $("#QRModal").modal("show");
+        }
+
+        function openfeedback(){
+            var myMeetId = $("#feedbackbtn").data('id');
+            $("#idmt").val(myMeetId);
+            $("#FeedbackModal").modal("show");
+
         }
     </script>
 

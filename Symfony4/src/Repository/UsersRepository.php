@@ -46,7 +46,7 @@ class UsersRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('u');
 
         return $qb
-            ->orWhere($qb->expr()->neq('u.specialite', "''"))
+            ->orwhere($qb->expr()->neq('u.specialite', "''"))
             ->getQuery()
             ->getResult()
             ;

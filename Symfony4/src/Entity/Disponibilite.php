@@ -56,31 +56,36 @@ class Disponibilite
      */
     private $helperid;
 
+    public function __construct()
+    {
+
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDatedeb(): ?string
+    public function getDatedeb(): ?\DateTime
     {
-        return $this->datedeb;
+        return new \DateTime($this->datedeb);
     }
 
-    public function setDatedeb(string $datedeb): self
+    public function setDatedeb(\DateTime $datedeb): self
     {
-        $this->datedeb = $datedeb;
+        $this->datedeb = $datedeb->format("Y-m-d h:i:s");
 
         return $this;
     }
 
-    public function getDatefin(): ?string
+    public function getDatefin(): ?\DateTime
     {
-        return $this->datefin;
+        return new \DateTime($this->datefin);
     }
 
-    public function setDatefin(string $datefin): self
+    public function setDatefin(\DateTime $datefin): self
     {
-        $this->datefin = $datefin;
+        $this->datefin = $datefin->format('Y-m-d h:i:s');
 
         return $this;
     }
