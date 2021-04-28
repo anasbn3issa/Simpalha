@@ -7,6 +7,7 @@ use App\Entity\Module;
 use App\Form\Ressources1Type;
 use App\Repository\ModulesRepository;
 use App\Repository\RessourcesRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +17,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 
 /**
- * @Route("/ressources")
+ * @Route("/admin/ressources")
+ * @IsGranted("ROLE_ADMIN")
  */
 class RessourcesController extends AbstractController
 {
@@ -47,7 +49,7 @@ class RessourcesController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($ressource);
             $entityManager->flush();
-/*
+
             // SMS API
             $basic  = new \Vonage\Client\Credentials\Basic("34e34089", "BgEEVv60NIjzoVqH");
             $client = new \Vonage\Client($basic);
@@ -61,8 +63,8 @@ class RessourcesController extends AbstractController
             } else {
                 echo "The message failed with status: " . $message->getStatus() . "\n";
             }
-          //  END OF SMS API
-*/
+            //  END OF SMS API :)
+
             return $this->redirectToRoute('ressources_index');
         }
 
@@ -97,7 +99,7 @@ class RessourcesController extends AbstractController
             $file = $ressource->getPath();
             $fileName = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move($this->getParameter('upload_directory'), $fileName);
-            $ressource->setPath("/public/images/" . $fileName);
+            $ressource->setPath("/uploads/" . $fileName);
 
 
             $this->getDoctrine()->getManager()->flush();

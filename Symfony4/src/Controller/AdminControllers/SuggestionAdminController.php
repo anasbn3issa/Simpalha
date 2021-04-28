@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 
 /**
- * @Route("/admin/controllers/suggestion/admin")
+ * @Route("/admin/suggestion")
  */
 class SuggestionAdminController extends AbstractController
 {
@@ -30,7 +30,7 @@ class SuggestionAdminController extends AbstractController
         );
 
         return $this->render('admin_controllers/suggestion_admin/index.html.twig', [
-            'reclamations' => $suggestions,
+            'suggestions' => $suggestions,
         ]);
 
     }

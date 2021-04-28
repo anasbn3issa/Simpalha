@@ -63,7 +63,7 @@ class Reclamation
      *
      * @ORM\Column(name="Record", type="string", length=255, nullable=false)
      */
-    private $record;
+    private $record = "recorddddd";
 
     /**
      * @var \DateTime
@@ -97,7 +97,7 @@ class Reclamation
      *
      * @ORM\Column(name="ValidStudent", type="integer", nullable=false)
      */
-    private $validstudent;
+    private $validstudent=0;
 
     /**
      * @var int|null
@@ -111,7 +111,7 @@ class Reclamation
      *
      * @ORM\Column(name="ValidHelper", type="integer", nullable=false)
      */
-    private $validhelper;
+    private $validhelper=0;
 
 
     public function getId(): ?int

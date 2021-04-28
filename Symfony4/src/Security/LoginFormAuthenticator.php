@@ -121,7 +121,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      */
     protected function getDefaultSuccessRedirectUrl()
     {
-        return $this->router->generate('user_controller_post_list');
+        return $this->router->generate('user_controllers_post_index');
     }
 
 }
