@@ -1,0 +1,77 @@
+{%  extends 'baseUser.html.twig' %}
+
+
+{% block body %}
+
+    <section id="main-content">
+        <div style="width: auto; length: auto ">
+            <div class="app-content">
+                <div style="padding-bottom: 20px;  margin: 10px 0 0px;  border-bottom: 1px solid #eee;">
+                    <div style="padding-bottom: 20px;  margin: 10px 0 0px;  border-bottom: 1px solid #eee;">
+                        <ol class="breadcrumb">
+
+                        </ol>
+                    </div>
+
+                    <div class="card-header">
+                        <div class="card-title"><h4>List Suggestions</h4></div>
+                    </div>
+                    <a class="btn btn-primary btn-sm mt-3 mb-3" href="{{ path('user_controllers_suggestion_user_new') }}">Add New Suggestion</a>
+
+                </div>
+
+
+                <div style="width: auto; length: auto ">
+                    <div style="width: auto; length: auto ">
+                        <div >
+                            <div class="btn-toolbar " role="toolbar" aria-label="Programmatic control">
+
+                                <div class="btn-group btn-group-sm " >
+
+
+                                </div>
+                                <div class="table-responsive">
+                                    <table id="example" class="table table-striped table-bordered" >
+                                        <thead>
+                                        <tr>
+                                            <th>IdSugg</th>
+                                            <th>topic</th>
+                                            <th>description</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr      {% for suggestion in suggestions %}
+                                            <tr>
+                                                <td>{{ suggestion.Id_Sugg }}</td>
+                                                <td>{{ suggestion.topic }}</td>
+                                                <td>{{ suggestion.description }}</td>
+
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="10">no records found</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- table-wrapper -->
+                            <div class="card-body">
+
+                            </div>
+
+                        </div>
+
+                        <!-- section-wrapper -->
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </section>
+{% endblock %}
