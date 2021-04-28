@@ -50,14 +50,14 @@ class Suggestion
      *
      * @ORM\Column(name="Record", type="string", length=255, nullable=true)
      */
-    private $record;
+    private $record="recordddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
 
     /**
      * @var int
      *
      * @ORM\Column(name="StudentId", type="integer", nullable=false)
      */
-    private $StudentId;
+    private $StudentId=0;
 
     public function getId_Sugg(): ?int
     {

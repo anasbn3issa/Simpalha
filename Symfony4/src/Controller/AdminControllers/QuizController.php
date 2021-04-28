@@ -30,7 +30,7 @@ class QuizController extends AbstractController
      */
     public function list(EntityManagerInterface $em): Response
     {
-        $repository = $em->getRepository(Users::class);
+        $repository = $em->getRepository(Quizz::class);
 
         $quizes = $repository->findAll();
 

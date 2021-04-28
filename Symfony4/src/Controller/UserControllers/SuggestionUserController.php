@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @Route("/user/controllers/suggestion/user")
+ * @Route("/suggestion")
  */
 class SuggestionUserController extends AbstractController
 {

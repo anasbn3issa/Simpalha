@@ -19,7 +19,7 @@ use Knp\Component\Pager\PaginatorInterface;
 
 
 /**
- * @Route("/admin/controllers/reclamation/admin")
+ * @Route("/admin/reclamation")
  */
 class ReclamationAdminController extends AbstractController
 {

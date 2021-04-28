@@ -7,6 +7,7 @@ use App\Entity\Candidatures;
 
 use App\Form\CandidaturesType;
 use App\Service\FileUploader;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +22,7 @@ class CandidaturesController extends AbstractController
 {
     /**
      * @Route("/", name="candidatures_index", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(): Response
     {
@@ -59,7 +61,7 @@ class CandidaturesController extends AbstractController
             $entityManager->persist($candidature);
             $entityManager->flush();
             $this->addFlash('success', 'Application added successfully');
-            return $this->redirectToRoute('candidatures_index');
+            return $this->redirectToRoute('user_controllers_post_index');
         }
 
         return $this->render('candidatures/new.html.twig', [
@@ -128,7 +130,10 @@ class CandidaturesController extends AbstractController
         $candidature = $this->getDoctrine()->getRepository(Candidatures::class)->find($id);
         $type ? $candidature->setStatus(1) : $candidature->setStatus(2);
         $candidature->getCreatedBy()->setRoles(array('ROLE_HELPER'));
+        $helper = $candidature->getCreatedBy();
+        $helper->setSpecialite($candidature->getSpecialty());
         $em->persist($candidature);
+        $em->persist($helper);
         $em->flush();
         $this->addFlash('success', 'Application Status changed successfully');
         return $this->redirect($this->generateUrl('candidatures_index'));

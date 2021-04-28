@@ -16,6 +16,7 @@ class CandidaturesType extends AbstractType
     {
         $builder
             ->add('description')
+            ->add('Specialty')
             ->add('fichier', FileType::class, ['attr' => ['class' => 'custom-file-input'],
                 'label' => 'upload your certifications/report',
                 'mapped' => false,
