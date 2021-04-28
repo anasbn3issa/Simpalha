@@ -1,0 +1,94 @@
+{%  extends 'baseUser.html.twig' %}
+
+{% block body %}
+
+    <section id="main-content">
+        <div style="width: auto; length: auto ">
+            <div class="app-content">
+                <div style="padding-bottom: 20px;  margin: 10px 0 0px;  border-bottom: 1px solid #eee;">
+                    <div style="padding-bottom: 20px;  margin: 10px 0 0px;  border-bottom: 1px solid #eee;">
+                        <ol class="breadcrumb">
+                            </ol>
+                    </div>
+
+                    <div class="card-header">
+                        <div class="card-title"><h4>List Claims</h4></div>
+                    </div>
+                    <a class="btn btn-primary btn-sm mt-3 mb-3" href="{{ path('user_controllers_reclamation_user_new') }}">Add New Claim</a>
+
+                </div>
+
+
+                <div style="width: auto; length: auto ">
+                    <div style="width: auto; length: auto ">
+                        <div >
+                            <div class="btn-toolbar " role="toolbar" aria-label="Programmatic control">
+
+                                <div class="btn-group btn-group-sm " >
+
+
+                                </div>
+                                <div class="table-responsive">
+                                    <table id="example" class="table table-striped table-bordered" >
+                                        <thead>
+                                        <tr>
+                                            <th>idreportee</th>
+                                            <th>idreported</th>
+                                            <th>description</th>
+                                            <th>fileselected</th>
+                                            <th>daterec</th>
+                                            <th>dateresolution</th>
+                                            <th>validstudent</th>
+                                            <th>validhelper</th>
+                                            <th>status</th>
+                                            <th>Operations</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr      {% for reclamation in reclamations %}
+                                            <tr>
+                                                <td>{{ reclamation.idreportee }}</td>
+                                                <td>{{ reclamation.idreported }}</td>
+                                                <td>{{ reclamation.description }}</td>
+                                                <td><img src="{{ asset('img/' ~ reclamation.fileselected ) }}" alt="img" class="image" style="max-height: 100px; width: 100px;" ></td>
+                                                <td>{{ reclamation.daterec |date('Y-m-d') }}</td>
+                                                <td>{{ reclamation.dateresolution ? reclamation.dateresolution |date('Y-m-d') :'' }}</td>
+                                                <td>{{ reclamation.validstudent }}</td>
+                                                <td>{{ reclamation.validhelper }} </td>
+                                                <td>{{ reclamation.status}}</td>
+
+                                                <td>
+                                                     <a  href="{{ path('user_controllers_reclamation_user_edit', {'id': reclamation.id}) }}"><i class="fa fa-edit"></i> <span class="sm-1"> </span></a>
+                                                     <a  href="{{ path('user_controllers_reclamation_user_delete', {'id': reclamation.id}) }}"><i class="fa fa-trash"></i> <span class="sm-1"> </span></a>
+                                                     <a  href="{{ path('user_controllers_reclamation_user_show', {'id': reclamation.id}) }}"><i class="fa fa-tasks"></i> <span class="sm-1"> </span></a>
+                                                </td>
+
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="10">no records found</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- table-wrapper -->
+                            <div class="card-body">
+
+                            </div>
+
+                        </div>
+
+                        <!-- section-wrapper -->
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </section>
+{% endblock %}

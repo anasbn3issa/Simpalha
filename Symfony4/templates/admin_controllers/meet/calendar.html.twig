@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <link rel="stylesheet" href="{{ asset('assets/css/calendar/fullcalendar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/calendar/calendar.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/calendar/style.min.css') }}">
+    <title>Simpalha meets calendar</title>
+</head>
+
+<body>
+<!-- EDIT EVENT MODAL -->
+
+<div class="modal fade" tabindex="-1" role="dialog" id="editEventModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="margin: auto">
+                <h4 class="modal-title">Meet details <span class="eventName"></span></h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="col-md-8 mx-auto">
+                    <div class="form-group">
+                        <label>Helper: </label>
+                        <label id="helperIdtext"></label>
+
+                    </div>
+                </div>
+                <div class="col-md-8 mx-auto">
+                    <div class="form-group">
+                        <label>Student: </label>
+                        <label id="studentIdtext"></label>
+
+                    </div>
+                </div>
+                <div class="col-md-8 mx-auto">
+                    <div class="form-group">
+                        <label>Specialite: </label>
+                        <label id="specialiteIdtext"></label>
+
+                    </div>
+                </div>
+                <div class="col-md-8 mx-auto">
+                    <div class="form-group">
+                        <label>Date: </label>
+                        <label id="datetext"></label>
+
+                    </div>
+                </div>
+                <div class="col-md-8 mx-auto">
+                    <div class="form-group">
+                        <label>Status: </label>
+                        <label id="statustext"></label>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="container-fluid mt--6">
+        <div class="row justify-content-center">
+            <div class=" col ">
+                <div class="card">
+                    <div class="card-header bg-transparent">
+                        <h3 class="mb-0">MeetIndex</h3>
+                    </div>
+                    <div class="card-body">
+                        <div style="text-align: right">
+                            <input type="search" id="search" placeholder="Search.." name="search" class="search">
+                        </div>
+                        <div class="print-visible" id="calendar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<script src="{{ asset("assets/js/calendar/jquery.min.js") }}"></script>
+<script src="{{ asset("assets/js/calendar/bootstrap.min.js") }}"></script>
+
+    <script src="{{ asset("assets/js/calendar/moment.js") }}"></script>
+    <script src="{{ asset("assets/js/calendar/locale-all.js") }}"></script>
+    <script src="{{ asset("assets/js/calendar/fullcalendar.min.js") }}"></script>
+    <script>
+        var events = [];
+        var editEvent;
+        var newEvent;
+        var filterpath = '{{ path('admin_meet_search') }}';
+
+
+        function fillCalendar() {
+            {% for meet in meets %}
+            events.push({
+                _id: '{{ meet.id }}',
+                title: 'Helper '+ '{{ meet.idHelper.username }}' + " meet with "+'{{ meet.idStudent.username }}',
+                avatar: "",
+                etat:'{{ meet.etat }}',
+                description:
+                    'Helper '+ '{{ meet.idHelper.username }}' + " meet with "+'{{ meet.idStudent.username }}',
+                start: moment('{{meet.disponibilite.datedeb}}','YYYY-MM-DD HH:mm:ss'),
+                end: moment('{{meet.disponibilite.datefin }}','YYYY-MM-DD HH:mm:ss'),
+                type: "Appointment",
+                calendar: "",
+                className: "colorAppointment",
+                student: '{{ meet.idStudent.username }}',
+                specialite: '{{ meet.specialite }}',
+                helper: '{{ meet.idHelper.username }}',
+                backgroundColor: "#f4516c",
+                textColor: "#ffffff",
+                allDay: false,
+            });
+            {% endfor %}
+
+}
+
+fillCalendar();
+
+</script>
+<script src="{{ asset("assets/js/calendar/calendar.js") }}"></script>
+
+
+</body>
+</html>

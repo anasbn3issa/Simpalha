@@ -11,6 +11,8 @@ use App\Form\User\RegistrationType;
 use App\Form\User\RequestResetPasswordType;
 use App\Form\User\ResetPasswordType;
 use App\Form\UserType;
+use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\UsersRepository;
 use App\Security\LoginFormAuthenticator;
 use App\Service\CaptchaValidator;
 use App\Service\FileUploader;
@@ -22,7 +24,6 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -311,5 +312,15 @@ class UserController extends AbstractController
         ]);
 
 
+    }
+
+    /**
+     * @Route("/helpers", name="helper_index")
+     */
+    public function helpers(UsersRepository $userRepository): Response
+    {
+        return $this->render('user_controllers/users_controllers/helpers.html.twig', [
+            'users' => $userRepository->findHelpers(),
+        ]);
     }
 }

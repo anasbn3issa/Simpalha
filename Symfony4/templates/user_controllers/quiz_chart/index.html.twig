@@ -1,0 +1,26 @@
+{% extends 'baseUserQuiz.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/quizz/styles.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="quiz-list-container">
+        <div class="quiz-div-container">
+
+            <div class="quiz-div">
+                <h4 class="quiz-div-subject">{{ quiz.title}}</h4>
+            </div>
+
+            <div class="quiz-div">
+                {{ render_chart(chart) }}
+            </div>
+
+        </div>
+
+        <div class="quiz-div-footer">
+            <a href="{{ path('quiz_progression',{id: quiz.id}) }}" class="btn btn-danger quiz-div-footer-btn">Back</a>
+        </div>
+    </div>
+{% endblock %}

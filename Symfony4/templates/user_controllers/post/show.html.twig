@@ -27,13 +27,16 @@
             </div>
 
             <div class="article-container my-1">
-                {{ "in here we will be adding the comment" }}
             </div>
                     <br>
                     <div>
-                        {{ "in here we will be displaying the comments for this post" }}
+                        {{ include('user_controllers/comment/new.html.twig') }}
 
-                        {#
+                    </div>
+
+                    <div>
+
+
 
                         {% for comment in comments %}
                             <div class="article-container my-1">
@@ -57,7 +60,7 @@
                             </div>
                         {% endfor %}
 
-                        #}
+
                     </div>
 
 

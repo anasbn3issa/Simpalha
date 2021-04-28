@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\QuizzResult;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Types\Type;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +19,78 @@ class QuizzResultRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, QuizzResult::class);
     }
+
+
+
+    public function checkIfPassedQuizInLast24Hours($quizz,$studId)
+    {
+        $date = new \DateTime();
+        $dateSub = $date->sub(new \DateInterval('P1D'));
+
+        $qb = $this->createQueryBuilder('q');
+
+        $qb->where('q.resultDate >= :from')
+            ->setParameter('from',$dateSub)
+            ->andWhere('q.quizz = :valb')
+            ->setParameter('valb', $quizz)
+            ->andWhere('q.studentId = :valc')
+            ->setParameter('valc', $studId)
+        ;
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+
+
+    public function findAllBeforeSelectedTime($quiz,$time)
+    {
+
+        $qb = $this->createQueryBuilder('q');
+
+        $qb->where('q.resultDate < :to')
+            ->setParameter('to',$time)
+            ->andWhere('q.quizz = :valb')
+            ->setParameter('valb', $quiz)
+            ->orderBy('q.resultDate', 'DESC')
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+
+    public function findAllBeforeSelectedTimeAsc($quiz,$time)
+    {
+
+        $qb = $this->createQueryBuilder('q');
+
+        $qb->where('q.resultDate < :to')
+            ->setParameter('to',$time)
+            ->andWhere('q.quizz = :valb')
+            ->setParameter('valb', $quiz)
+            ->orderBy('q.resultDate', 'ASC')
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+
+    public function getAllBeforeSelectedTimeQueryBuilder($quiz,$time)
+    {
+
+        $qb = $this->createQueryBuilder('q');
+
+        $qb->where('q.resultDate < :to')
+            ->setParameter('to',$time)
+            ->andWhere('q.quizz = :valb')
+            ->setParameter('valb', $quiz)
+            ->orderBy('q.resultDate', 'DESC')
+        ;
+
+        return $qb;
+    }
+
 
     // /**
     //  * @return QuizzResult[] Returns an array of QuizzResult objects

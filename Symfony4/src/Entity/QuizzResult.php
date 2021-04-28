@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class QuizzResult
 {
+
     /**
      * @var int
      *
@@ -43,11 +44,14 @@ class QuizzResult
     private $studentId;
 
     /**
-     * @var int
+     * @var \Quizz
      *
-     * @ORM\Column(name="quizz_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Quizz", inversedBy="quizzResults")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="quizz_id", referencedColumnName="id")
+     * })
      */
-    private $quizzId;
+    private $quizz;
 
     public function getId(): ?int
     {
@@ -90,14 +94,14 @@ class QuizzResult
         return $this;
     }
 
-    public function getQuizzId(): ?int
+    public function getQuizz(): ?Quizz
     {
-        return $this->quizzId;
+        return $this->quizz;
     }
 
-    public function setQuizzId(int $quizzId): self
+    public function setQuizz(?Quizz $quizz): self
     {
-        $this->quizzId = $quizzId;
+        $this->quizz = $quizz;
 
         return $this;
     }

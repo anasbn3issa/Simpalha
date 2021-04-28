@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Quizz;
+use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -31,6 +32,23 @@ class QuizzRepository extends ServiceEntityRepository
                 ->setParameter('term', '%'.$term.'%')
             ;
         }
+
+        return $qb
+            ->orderBy('c.subject', 'DESC');
+    }
+
+
+
+    public function getHelperQuizListQueryBuilder(?Users $user,?string $term): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('c');
+
+
+        $qb->andWhere('c.helper = :helper')
+            ->setParameter('helper',$user)
+            ->andWhere('c.subject LIKE :term OR c.title LIKE :term')
+            ->setParameter('term', '%'.$term.'%')
+        ;
 
         return $qb
             ->orderBy('c.subject', 'DESC');

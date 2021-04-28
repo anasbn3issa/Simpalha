@@ -45,6 +45,20 @@ class UsersRepository extends ServiceEntityRepository
             )->setParameter('str', '%'.$str.'%')->getResult();
     }
 
+    /**
+     * @return Users[] Returns an array of User objects
+     */
+    public function findHelpers(): array
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        return $qb
+            ->where($qb->expr()->isNotNull('u.specialite'))
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 
 
 

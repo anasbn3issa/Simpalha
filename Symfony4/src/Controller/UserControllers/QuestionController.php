@@ -9,15 +9,21 @@ use App\Entity\Users;
 use App\Form\QuestionEditFormType;
 use App\Form\QuestionFormType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+/**
+ * @Route("/quiz/{id}/questions")
+ */
 class QuestionController extends AbstractController
 {
     /**
-     * @Route("/quiz/{id}/questions", name="question_list")
+     * @Route("/", name="question_list")
+     * @IsGranted("ROLE_USER")
      */
     public function list($id,EntityManagerInterface $em): Response
     {
@@ -36,7 +42,8 @@ class QuestionController extends AbstractController
     }
 
     /**
-     * @Route("/quiz/{id}/question/create", name="question_create")
+     * @Route("/create", name="question_create")
+     * @IsGranted("ROLE_USER")
      */
     public function new($id,Request $request, EntityManagerInterface $em): Response
     {
@@ -65,7 +72,7 @@ class QuestionController extends AbstractController
 
             $this->addFlash('success','You successfully added a new question to your Quiz');
 
-            return $this->redirectToRoute('question_list',['id'=>$id]);
+            return $this->redirectToRoute('answer_list',['id'=>$id,'qId'=>$question->getId()]);
         }
 
         return $this->render('user_controllers/question/new.html.twig', [
@@ -74,7 +81,8 @@ class QuestionController extends AbstractController
     }
 
     /**
-     * @Route("/quiz/{id}/question/{qId}/edit", name="question_edit")
+     * @Route("/{qId}/edit", name="question_edit")
+     * @IsGranted("ROLE_USER")
      */
     public function edit($id,$qId, EntityManagerInterface $em,Request $request)
     {
@@ -99,7 +107,7 @@ class QuestionController extends AbstractController
 
             $this->addFlash('success','Question '.$question->getQuestion().' updated. Never say no, to making it better!');
 
-            return $this->redirectToRoute('question_list',['id'=>$id]);
+            return $this->redirectToRoute('answer_list',['id'=>$id,'qId'=>$question->getId()]);
         }
 
         if($answersRepo->countAnswersToQuestion($qId) == 0)
@@ -123,7 +131,8 @@ class QuestionController extends AbstractController
     }
 
     /**
-     * @Route("/quizz/{id}/question/{qId}/delete", name="question_delete")
+     * @Route("/{qId}/delete", name="question_delete")
+     * @IsGranted("ROLE_USER")
      */
     public function delete($id,$qId,EntityManagerInterface $em,Request $request)
     {

@@ -4,6 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    directory: '%kernel.project_dir%/public'
+    upload_directory: '%kernel.project_dir%/public/uploads'
     app.recaptcha_key: '%env(RECAPTCHA_KEY)%'
     app.recaptcha_secret: '%env(RECAPTCHA_SECRET)%'
     postImages: '%kernel.project_dir%/public/uploads/postImages'
