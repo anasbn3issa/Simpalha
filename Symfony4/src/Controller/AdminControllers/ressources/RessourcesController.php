@@ -50,7 +50,7 @@ class RessourcesController extends AbstractController
             $entityManager->persist($ressource);
             $entityManager->flush();
 
-            // SMS API
+
             $basic  = new \Vonage\Client\Credentials\Basic("34e34089", "BgEEVv60NIjzoVqH");
             $client = new \Vonage\Client($basic);
             $response = $client->sms()->send(

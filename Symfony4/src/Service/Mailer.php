@@ -49,12 +49,8 @@ class Mailer
             'user' => $user,
             'activationUrl' => $url
         ];
-        if ($this->sendMessage('user_controllers/user/email/register-done.html.twig', $context, $this->noreply, $user->getEmail())
-        ) {
-            echo '[SWIFTMAILER] sent email to ';
-        } else {
-            echo '[SWIFTMAILER] not sending email: ' . $mailLogger->dump();
-        }
+
+        $this->sendMessage('user_controllers/user/email/register-done.html.twig', $context, $this->noreply, $user->getEmail());
     }
 
     /**

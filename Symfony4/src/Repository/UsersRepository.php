@@ -26,7 +26,7 @@ class UsersRepository extends ServiceEntityRepository
     /**
      * @return Users[] Returns an array of User objects
      */
-    public function findByRoleField($value): array
+    public function findByRoleField($value)
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.role = :val')
@@ -48,12 +48,13 @@ class UsersRepository extends ServiceEntityRepository
     /**
      * @return Users[] Returns an array of User objects
      */
-    public function findHelpers(): array
+    public function findHelpers()
     {
         $qb = $this->createQueryBuilder('u');
 
         return $qb
-            ->where($qb->expr()->isNotNull('u.specialite'))
+            ->orwhere($qb->expr()->neq('u.specialty', "''"))
+            ->andWhere($qb->expr()->isNotNull('u.specialty'))
             ->getQuery()
             ->getResult()
             ;

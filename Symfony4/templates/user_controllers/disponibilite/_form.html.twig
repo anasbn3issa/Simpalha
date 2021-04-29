@@ -1,0 +1,25 @@
+{{ form_start(form) }}
+<div>
+    <div class="col-md-6 mx-auto">
+        <div class="form-group">
+            <label>{{ form_label(form.datedeb)}}</label>
+            {{ form_widget(form.datedeb) }}
+        </div>
+    </div>
+</div>
+<div>
+    <div class="col-md-6 mx-auto">
+        <div class="form-group">
+            <label>{{ form_label(form.datefin)}}</label>
+            {{ form_widget(form.datefin) }}
+        </div>
+    </div>
+</div>
+<div>
+    <div class="col-md-12 mx-auto">
+        <div class="form-group">
+            {{ form_widget(form.Save) }}
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}

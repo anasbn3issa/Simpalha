@@ -1,0 +1,24 @@
+{{ form_start(form, {'action' : path('user_feedback_new')}) }}
+<div>
+    <div class="mx-auto">
+        <div class="form-group">
+            <label>{{ form_label(form.description)}}</label>
+            {{ form_widget(form.description) }}
+        </div>
+    </div>
+</div>
+<div>
+    <div class="mx-auto">
+        <div class="form-group">
+            <input type="hidden" class="form-control form-control" id="idmt" name="idmt" readonly>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="col-md-12 mx-auto">
+        <div class="form-group">
+            {{ form_widget(form.Save) }}
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}

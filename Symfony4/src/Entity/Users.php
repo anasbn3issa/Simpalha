@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use InvalidArgumentException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -32,6 +33,7 @@ class Users implements UserInterface, \Serializable
      */
     private $id;
     /**
+     * @Groups("meet:search")
      * @ORM\Column(type="string", length=60, unique=true)
      * @Assert\NotBlank(groups={"Registration"})
      * @Assert\Email()
@@ -567,6 +569,7 @@ class Users implements UserInterface, \Serializable
             $this->pseudo,
             $this->phone,
             $this->roles,
+            $this->specialty,
             $this->password,
             $this->isActive,
 
@@ -584,6 +587,7 @@ class Users implements UserInterface, \Serializable
             $this->pseudo,
             $this->phone,
             $this->roles,
+            $this->specialty,
             $this->password,
             $this->isActive,
 

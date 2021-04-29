@@ -8,6 +8,7 @@ use App\Form\MeetType;
 use App\Repository\MeetRepository;
 use App\Repository\UserRepository;
 use Ramsey\Uuid\Uuid;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +18,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @Route("/admin/meet")
+ * @IsGranted("ROLE_ADMIN")
  */
 class AdminMeetController extends AbstractController
 {
@@ -33,7 +35,7 @@ class AdminMeetController extends AbstractController
     /**
      * @Route("/calendar", name="admin_calendar", methods={"GET"})
      */
-    public function test(MeetRepository $meetRepository): Response
+    public function calendar(MeetRepository $meetRepository): Response
     {
         return $this->render('admin_controllers/meet/calendar.html.twig', [
             'meets' => $meetRepository->findAll(),
@@ -124,7 +126,6 @@ class AdminMeetController extends AbstractController
 
         return $this->redirectToRoute('meet_index');
     }
-
 
     /**
      * @Route("/search", name="admin_meet_search", methods={"GET"})

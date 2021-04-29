@@ -4,7 +4,11 @@ $(document).ready(function () {
         allowClear: true
     });
 
-    $('.select').on('change', function() {
+    $('#feedbackbtn').on('click', function() {
+        openfeedback();
+    });
+
+        $('.select').on('change', function() {
         switch (this.value){
             case 'navigator':{
                 openNav();
