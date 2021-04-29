@@ -183,6 +183,22 @@ public class ServiceUsers implements IserviceUsers {
             Logger.getLogger(Maconnexion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public Users findbyemail(String email){
+        Users student = null;
+        String query = "select * from users where email=?";
+        try {
+            pstmt = cnx.prepareStatement(query);
+            pstmt.setString(1, email);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                student = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(7), rs.getInt(8));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceUsers.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return student;
+    }
 
     public int geIdbyUsername(String username) throws SQLException {
 

@@ -5,6 +5,7 @@
  */
 package simpalha.users;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import entities.Users;
 import java.io.IOException;
 import java.net.URL;
@@ -44,7 +45,7 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
+        ServiceUsers us = new ServiceUsers();
     }
 
     @FXML
@@ -70,16 +71,19 @@ public class LoginController implements Initializable {
 
         if (!tfusername.getText().isEmpty() && !tfpassword.getText().isEmpty()) {
             ServiceUsers us = new ServiceUsers();
-
-            Users u = new Users(tfpassword.getText(), tfusername.getText());
-            if (us.check(u)) {
-                int id = us.geIdbyUsername(u.getUsername());
+            Users user = us.findbyemail(tfusername.getText());
+            
+            String bcryptHashString = user.getPassword();
+            
+            // $2a$12$US00g/uMhoSBm.HiuieBjeMtoN69SN.GE25fCpldebzkryUyopws6
+            BCrypt.Result result = BCrypt.verifyer().verify(tfpassword.getText().toCharArray(), bcryptHashString);
+            if (result.verified) {
                 UserSession usr
-                        = UserSession.getInstace(id);
-                u = us.findById(id);
-                System.out.println(u);
+                        = UserSession.getInstace(user.getId());
+                System.out.println(user);
                 String path = "simpalha/FXMLDocument.fxml";
-                if (u.getRole() == 1) {
+                if (user.getRole() == 1) {
+                    System.out.println("admin");
                     path = "simpalha/admin/FXMLDocument.fxml";
                 }
                 try {
