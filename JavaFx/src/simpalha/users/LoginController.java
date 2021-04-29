@@ -72,7 +72,7 @@ public class LoginController implements Initializable {
         if (!tfusername.getText().isEmpty() && !tfpassword.getText().isEmpty()) {
             ServiceUsers us = new ServiceUsers();
             Users user = us.findbyemail(tfusername.getText());
-            
+            System.out.println(user);
             String bcryptHashString = user.getPassword();
             
             // $2a$12$US00g/uMhoSBm.HiuieBjeMtoN69SN.GE25fCpldebzkryUyopws6
