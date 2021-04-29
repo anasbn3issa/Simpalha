@@ -5,6 +5,7 @@
  */
 package simpalha.users;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import entities.Users;
 import java.io.IOException;
 import java.net.URL;
@@ -56,8 +57,9 @@ private ServiceUsers srv;
     @FXML
     private void ajouter(ActionEvent event) {
        
-        Users user = new Users(passwd.getText(), email.getText(), username.getText(), about.getText(), 0);
-        ServiceUsers us = new ServiceUsers();
+        String passHas = BCrypt.withDefaults().hashToString(12, passwd.getText().toCharArray());
+        Users user = new Users(passHas, email.getText(), username.getText(), about.getText(), 0);
+                ServiceUsers us = new ServiceUsers();
        
  
             if (us.usernameExist(username.getText()) )
