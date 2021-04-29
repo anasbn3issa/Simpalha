@@ -54,7 +54,7 @@ class Meet
     /**
      * @var \Feedback
      *
-     * @ORM\ManyToOne(targetEntity="Feedback")
+     * @ORM\ManyToOne(targetEntity="Feedback", cascade="all")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="feedback_id", referencedColumnName="id")
      * })

@@ -124,7 +124,7 @@ class AdminMeetController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('meet_index');
+        return $this->redirectToRoute('admin_meet');
     }
 
     /**
