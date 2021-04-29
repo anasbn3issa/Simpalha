@@ -47,7 +47,7 @@ class DisponibiliteController extends AbstractController
             $entityManager->persist($disponibilite);
             $entityManager->flush();
 
-            return $this->redirectToRoute('user_controllers_disponibilite_index');
+            return $this->redirectToRoute('user_disponibilite_index');
         }
 
         return $this->render('user_controllers/disponibilite/new.html.twig', [

@@ -13,6 +13,7 @@ $("#zero_config").DataTable();
 /****************************************
  *       Default Order Table           *
  ****************************************/
+
 $("#default_order").DataTable({
 	lengthMenu: [
 		[5, 20, 40, -1],

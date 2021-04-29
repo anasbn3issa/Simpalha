@@ -54,6 +54,7 @@ class UsersRepository extends ServiceEntityRepository
 
         return $qb
             ->orwhere($qb->expr()->neq('u.specialty', "''"))
+            ->andWhere($qb->expr()->isNotNull('u.specialty'))
             ->getQuery()
             ->getResult()
             ;

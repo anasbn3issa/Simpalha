@@ -27,7 +27,7 @@ class MeetController extends AbstractController
     /**
      * @Route("/getmeetbydisp", name="getmeetbydisp", methods={"GET"})
      */
-    public function teststsetsetset(Request $request, MeetRepository $meetRepository, DisponibiliteRepository $disponibiliteRepository, NormalizerInterface $normalizer): Response
+    public function getmeetbydisp(Request $request, MeetRepository $meetRepository, DisponibiliteRepository $disponibiliteRepository, NormalizerInterface $normalizer): Response
     {
         $filter = $request->query->get('id');
         $dis = $disponibiliteRepository->findOneBy(['id'=>$filter]);
@@ -54,8 +54,13 @@ class MeetController extends AbstractController
         if($this->getUser()!=null) {
             $feedback = new Feedback();
             $feedback_form = $this->createForm(FeedbackType::class, $feedback);
+            $meetshlp=null;
+            if ($this->isGranted('ROLE_HELPER')) {
+                $meetshlp = $meetRepository->findBy(['idHelper'=>$this->getUser()]);
+            }
             return $this->render('user_controllers/meet/index.html.twig', [
                 'meets' => $meetRepository->findByUser($this->getUser()),
+                'meets_hlp' => $meetshlp,
                 'feedback'=>$feedback_form->createView(),
             ]);
         }
@@ -73,7 +78,7 @@ class MeetController extends AbstractController
         $meet->setIdHelper($user);
         $meet->setIdStudent($userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]));
 
-        $meet->setSpecialite('test');
+        $meet->setSpecialite($user->getSpecialite());
 
         $form = $this->createForm(MeetType::class, $meet, [
             'disp'=>null,

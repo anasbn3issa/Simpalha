@@ -84,13 +84,14 @@
                             {% endif %}
                         </td>
                         <td>
+                            {% if(disponibilite.etat==0) %}
                             <div class="" style="margin:auto">
                                 {{ include('user_controllers/disponibilite/_delete_form.html.twig') }}
                             </div>
-                            {% if disponibilite.etat != 0 %}
+                            <a href="{{ path('user_disponibilite_edit', {'id': disponibilite.id}) }}">edit</a>
+                            {% else %}
                                 <a href="#" id="showmeet" data-toggle="modal" data-id="{{ disponibilite.id }}">show</a>
                             {% endif %}
-                            <a href="{{ path('user_disponibilite_edit', {'id': disponibilite.id}) }}">edit</a>
                         </td>
                     </tr>
                 {% else %}
