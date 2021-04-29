@@ -103,8 +103,8 @@
                 etat:'{{ meet.etat }}',
                 description:
                     'Helper '+ '{{ meet.idHelper.username }}' + " meet with "+'{{ meet.idStudent.username }}',
-                start: moment('{{meet.disponibilite.datedeb}}','YYYY-MM-DD HH:mm:ss'),
-                end: moment('{{meet.disponibilite.datefin }}','YYYY-MM-DD HH:mm:ss'),
+                start: moment('{{meet.disponibilite.datedeb|date('y-m-d h:i:s')}}','YYYY-MM-DD HH:mm:ss'),
+                end: moment('{{meet.disponibilite.datefin|date('d-m-y h:i:s') }}','YYYY-MM-DD HH:mm:ss'),
                 type: "Appointment",
                 calendar: "",
                 className: "colorAppointment",
