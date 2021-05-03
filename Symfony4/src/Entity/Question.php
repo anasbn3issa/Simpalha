@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -21,6 +22,7 @@ class Question
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("question","answer","quizz")
      */
     private $id;
 
@@ -28,6 +30,7 @@ class Question
      * @var int
      *
      * @ORM\Column(name="right_answer", type="integer", nullable=false)
+     * @Groups("question","answer","quizz")
      */
     private $rightAnswer;
 
@@ -36,6 +39,7 @@ class Question
      * @Assert\NotBlank
      *
      * @ORM\Column(name="question", type="string", length=500, nullable=false)
+     * @Groups("answer","question","quizz")
      */
     private $question;
 
@@ -46,11 +50,13 @@ class Question
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="quizz_id", referencedColumnName="id")
      * })
+     * @Groups("question","answer")
      */
     private $quizz;
 
     /**
      * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="question", cascade={"persist", "remove"})
+     * @Groups("quizz","question")
      */
     private $answers;
 

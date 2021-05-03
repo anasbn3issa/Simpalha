@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,6 +23,7 @@ class Quizz
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("question","answer","quizz","quizz_result")
      */
     private $id;
 
@@ -30,6 +32,7 @@ class Quizz
      * @Assert\NotBlank
      *
      * @ORM\Column(name="title", type="string", length=500, nullable=false)
+     * @Groups("question","answer","quizz","quizz_result")
      */
     private $title;
 
@@ -38,6 +41,7 @@ class Quizz
      * @Assert\NotBlank
      *
      * @ORM\Column(name="subject", type="string", length=500, nullable=false)
+     * @Groups("question","answer","quizz","quizz_result")
      */
     private $subject;
 
@@ -46,16 +50,19 @@ class Quizz
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="helper_id", referencedColumnName="Id")
      * })
+     * @Groups("question","answer","quizz","quizz_result")
      */
     private $helper;
 
     /**
      * @ORM\OneToMany(targetEntity=Question::class, mappedBy="quizz", cascade={"persist", "remove"})
+     * @Groups("quizz")
      */
     private $questions;
 
     /**
      * @ORM\OneToMany(targetEntity=QuizzResult::class, mappedBy="quizz", cascade={"persist", "remove"})
+     * @Groups("quizz")
      */
     private $quizzResults;
 

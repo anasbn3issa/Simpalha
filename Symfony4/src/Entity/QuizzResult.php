@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * QuizzResult
@@ -19,6 +20,7 @@ class QuizzResult
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("quizz_result","quizz")
      */
     private $id;
 
@@ -26,6 +28,7 @@ class QuizzResult
      * @var int
      *
      * @ORM\Column(name="result", type="integer", nullable=false)
+     * @Groups("quizz_result","quizz")
      */
     private $result;
 
@@ -33,6 +36,7 @@ class QuizzResult
      * @var \DateTime
      *
      * @ORM\Column(name="result_date", type="datetime", nullable=false)
+     * @Groups("quizz_result","quizz")
      */
     private $resultDate;
 
@@ -40,6 +44,7 @@ class QuizzResult
      * @var int
      *
      * @ORM\Column(name="student_id", type="integer", nullable=false)
+     * @Groups("quizz_result","quizz")
      */
     private $studentId;
 
@@ -50,6 +55,7 @@ class QuizzResult
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="quizz_id", referencedColumnName="id")
      * })
+     * @Groups("quizz_result")
      */
     private $quizz;
 
