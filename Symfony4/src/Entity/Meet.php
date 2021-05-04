@@ -30,12 +30,13 @@ class Meet
      * @var string
      * @Assert\NotBlank(message="Can't be blank.")
      * @ORM\Column(name="specialite", type="string", length=30, nullable=false)
+     * @Groups("meet:index")
      */
     private $specialite;
 
     /**
      * @var int
-     * @Groups("meet:search")
+     * @Groups("meet:search", "meet:index")
      *
      * @ORM\Column(name="etat", type="integer", nullable=false)
      */
