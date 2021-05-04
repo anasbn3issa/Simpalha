@@ -7,10 +7,12 @@ use App\Entity\Users;
 use App\Form\QuizFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Constraints\Json;
 
 
 /**
@@ -29,8 +31,8 @@ class QuizController extends AbstractController
 
         $json = $serializer->serialize($quizes, 'json',['groups'=>'quizz']);
 
-        return $this->render('admin_controllers/quiz/list.html.twig', [
-            'quizzs' => $json,
+        return new JsonResponse([
+           'quizList' => $json
         ]);
     }
 
@@ -45,14 +47,8 @@ class QuizController extends AbstractController
             'id' => $id
         ]);
 
-        $title = $quiz->getTitle();
-
         $em->remove($quiz);
         $em->flush();
-
-        $this->addFlash('failure','Quiz '.$title.' was deleted from your list..');
-
-        return $this->redirectToRoute('admin_quiz_list');
     }
 
 

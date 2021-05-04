@@ -50,7 +50,7 @@ class Quizz
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="helper_id", referencedColumnName="Id")
      * })
-     * @Groups("question","answer","quizz","quizz_result")
+     * @Groups("question","answer","quizz")
      */
     private $helper;
 

@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 
@@ -55,8 +56,8 @@ class QuestionController extends AbstractController
             $answer = new Answer();
             $answer->setSuggestion("");
 
-            $question = $request->getContent();
-            $data=$serializer->deserialize($question,Question::class,'json');
+            $content = $request->getContent();
+            $data=$serializer->deserialize($content,Question::class,'json');
             $data->setQuizz($quizz);
             $data->setRightAnswer($answer);
 
@@ -84,9 +85,9 @@ class QuestionController extends AbstractController
 
         if($request->getMethod() == "POST") {
 
-            $question = $request->getContent();
+            $content = $request->getContent();
 
-            $data=$serializer->deserialize($question,Question::class,'json');
+            $data=$serializer->deserialize($content,Question::class,'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $question]);
 
             $em->persist($data);
             $em->flush();

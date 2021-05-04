@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 
@@ -101,14 +102,17 @@ class QuizController extends AbstractController
 
         if($request->getMethod() == "POST") {
 
-            $quizz = $request->getContent();
-            $data = $serializer->deserialize($quizz,Quizz::class,'json');
+            $content = $request->getContent();
+
+            $data = $serializer->deserialize($content,Quizz::class,'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $quizz]);
+
+//            dd($data);
 
             $em->persist($data);
             $em->flush();
         }
 
-        $json = $serializer->serialize($quizz,Quizz::class,['groups'=>'quizz']);
+        $json = $serializer->serialize($quizz,'json',['groups'=>'quizz']);
 
         return new JsonResponse([
             'quiz'=>$json
@@ -118,43 +122,40 @@ class QuizController extends AbstractController
 
     // TODO : HERE WSELT HERE
 
+
     /**
      * @Route("/table", name="quiz_table")
-     * @IsGranted("ROLE_USER")
      */
-    public function listStudents(QuizzRepository $quizzRepository, Request $request, PaginatorInterface $paginator): Response
+    public function listStudents(QuizzRepository $quizzRepository, Request $request, SerializerInterface $serializer): Response
     {
         $q = $request->query->get('q');
-        $queryBuilder = $quizzRepository->getWithSearchQueryBuilder($q);
+        $quizList = $quizzRepository->getWithSearchQueryBuilder($q)->getQuery()->getResult();
 
-        $pagination = $paginator->paginate(
-            $queryBuilder,
-            $request->query->getInt('page', 1),
-            5
-        );
+        $json = $serializer->serialize($quizList,"json",['groups'=>'quizz']);
 
-        return $this->render('user_controllers/quiz/table.html.twig', [
-            'pagination' => $pagination,
+        return new JsonResponse([
+            "quizList" =>$json
         ]);
     }
 
     /**
      * @Route("/take/{id}", name="quiz_take")
-     * @IsGranted("ROLE_USER")
      */
-    public function takeQuiz($id, EntityManagerInterface $em)
+    public function takeQuiz($id, EntityManagerInterface $em, SerializerInterface $serializer)
     {
         $quiz = $em->getRepository(Quizz::class)->findOneBy(['id'=>$id]);
 
-        return $this->render('user_controllers/quiz/take.html.twig',[
-            'quiz' => $quiz,
-            'questions' => $quiz->getQuestions(),
+        $jsonQuiz = $serializer->serialize($quiz,"json",['groups'=>'quizz']);
+        $jsonQuestions = $serializer->serialize($quiz->getQuestions(),"json",['groups' => 'question']);
+
+        return new JsonResponse([
+            "quiz" =>$jsonQuiz,
+            "questions" => $jsonQuestions
         ]);
     }
 
     /**
      * @Route("/take/{id}/submit", name="quiz_submit", methods="POST")
-     * @IsGranted("ROLE_USER")
      */
     public function submitQuiz($id, QuestionRepository $questionRepository,QuizzResultRepository $quizzResultRepository,Request $request, EntityManagerInterface $em)
     {
@@ -221,10 +222,9 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/progression", name="quiz_progression")
-     * @IsGranted("ROLE_USER")
+     * @Route("/{id}/progression", name="quiz_progression", methods={"POST","GET"})
      */
-    public function progressionQuiz($id, QuizzRepository $quizzRepository,QuizzResultRepository $quizzResultRepository,Request $request,PaginatorInterface $paginator, EntityManagerInterface $em)
+    public function progressionQuiz($id, QuizzRepository $quizzRepository,QuizzResultRepository $quizzResultRepository,Request $request,SerializerInterface $serializer)
     {
 
         if($request->isMethod('GET'))
@@ -248,17 +248,14 @@ class QuizController extends AbstractController
                 $average = -1;
             }
 
-            $queryBuilder = $quizzResultRepository->getAllBeforeSelectedTimeQueryBuilder($quiz, new \DateTime());
+            $resultsList = $quizzResultRepository->getAllBeforeSelectedTimeQueryBuilder($quiz, new \DateTime())->getQuery()->getResult();
 
-            $pagination = $paginator->paginate(
-                $queryBuilder,
-                $request->query->getInt('page', 1),
-                5
-            );
+            $jsonQuizResults = $serializer->serialize($resultsList, 'json', ['groups'=>'quizz_result']);
+            $jsonQuiz = $serializer->serialize($quiz,'json', ['groups'=>'quizz']);
 
-            return $this->render('user_controllers/quiz/progression.html.twig',[
-                'pagination' => $pagination,
-                'quiz' => $quiz,
+            return new JsonResponse([
+                'quizResults' => $jsonQuizResults,
+                'quiz' => $jsonQuiz,
                 'average' => $average
             ]);
         }
