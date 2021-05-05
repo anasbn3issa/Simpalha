@@ -20,6 +20,7 @@ class Disponibilite
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("meet:search", "meet:index")
      */
     private $id;
 

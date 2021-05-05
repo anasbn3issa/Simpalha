@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Meet
 {
     /**
-     * @Groups("meet:search")
+     * @Groups("meet:search", "meet:index")
      * @var string
      *
      * @ORM\Column(name="id", type="string", length=60, nullable=false)
@@ -49,6 +49,7 @@ class Meet
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="disponibilite_id", referencedColumnName="id")
      * })
+     * @Groups("meet:index")
      */
     private $disponibilite;
 
@@ -59,6 +60,7 @@ class Meet
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="feedback_id", referencedColumnName="id")
      * })
+     * @Groups("meet:search", "meet:index")
      */
     private $feedback;
 
@@ -70,6 +72,7 @@ class Meet
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_helper", referencedColumnName="Id")
      * })
+     * @Groups("meet:search", "meet:index")
      */
     private $idHelper;
 
@@ -81,6 +84,7 @@ class Meet
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_student", referencedColumnName="Id")
      * })
+     * @Groups("meet:search", "meet:index")
      */
     private $idStudent;
 

@@ -55,10 +55,17 @@ class MobileMeetController extends AbstractController
     {
         $meets = $meetRepository->findAll();
         $res = $serializer->serialize($meets, 'json', ['groups'=>'meet:index']);
+        if($res!=null){
+            return new JsonResponse(array(
+                'status' => 'OK',
+                'data' => $res),
+                200);
+        }
         return new JsonResponse(array(
-            'status' => 'OK',
-            'data' => $res),
-            200);
+            'status' => 'ERROR',
+            'message'=>"fetch error"),
+            500);
+
     }
 
     /**
