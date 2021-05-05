@@ -8,6 +8,7 @@ package com.mycompany.myapp.gui;
 import com.codename1.components.SpanLabel;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.mycompany.myapp.services.MeetTask;
 import com.mycompany.myapp.services.ServiceTask;
 
 /**
