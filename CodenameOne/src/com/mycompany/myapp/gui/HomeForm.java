@@ -9,6 +9,7 @@ import com.codename1.ui.Button;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
+import com.mycompany.myapp.gui.meet.ListMeetsForm;
 import com.mycompany.myapp.services.MeetTask;
 
 /**
@@ -32,7 +33,7 @@ public class HomeForm extends Form {
         Button btnListTasks = new Button("List Tasks");
 
         btnAddTask.addActionListener(e -> new AddTaskForm(current).show());
-        btnListTasks.addActionListener(e -> System.out.println(MeetTask.getInstance().getAllMeets().toString()));
+        btnListTasks.addActionListener(e -> new ListMeetsForm(current).show());
         addAll(btnAddTask, btnListTasks);
 
     }

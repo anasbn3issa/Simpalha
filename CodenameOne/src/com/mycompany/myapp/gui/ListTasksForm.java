@@ -21,7 +21,7 @@ public class ListTasksForm extends Form{
         setTitle("List tasks");
         
         SpanLabel sp = new SpanLabel();
-        sp.setText(ServiceTask.getInstance().getAllTasks().toString());
+        sp.setText(MeetTask.getInstance().getAllMeets().toString());
         add(sp);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> previous.showBack());
     }
