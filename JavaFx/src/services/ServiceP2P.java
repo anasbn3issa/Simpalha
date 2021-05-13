@@ -254,8 +254,9 @@ public class ServiceP2P implements IServiceP2P {
 
             while (rs.next()) {
                 Meet meet = new Meet(rs.getString(1), rs.getInt(3), rs.getInt(4), rs.getInt(6), rs.getString(2), rs.getString(5), rs.getInt(7));
-
                 Disponibilite disponibilite = serviceDisp.findOneByEtat(Integer.valueOf(meet.getTime()), 1);
+                System.out.println("disponibilite");
+                System.out.println(meet.getTime());
                 meet.setTime(disponibilite.getDatedeb() + "->" + disponibilite.getDateFin());
 
                 Users helper = serviceUser.findById(meet.getId_helper());
