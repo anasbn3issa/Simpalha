@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vangrg\ProfanityBundle\Validator\Constraints\ProfanityCheck;
 
@@ -19,6 +20,7 @@ class Post
     /**
      * @var int
      *
+     * @Groups("post:index")
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -28,6 +30,7 @@ class Post
     /**
      * @var \DateTime
      *
+     * @Groups("post:index")
      * @ORM\Column(name="timestamp", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $timestamp;
@@ -35,6 +38,7 @@ class Post
     /**
      * @var string
      *
+     * @Groups("post:index")
      * @ORM\Column(name="status", type="string", length=12, nullable=false, options={"default"="OPEN"})
      */
     private $status = 'OPEN';
@@ -42,6 +46,7 @@ class Post
     /**
      * @var string
      *
+     * @Groups("post:index")
      * @ORM\Column(name="module", type="string", length=255, nullable=false)
      */
     private $module;
@@ -49,6 +54,7 @@ class Post
     /**
      * @var string
      *
+     * @Groups("post:index")
      * @ORM\Column(name="problem", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="How can you publish a post with no problem ? ")
      * @ProfanityCheck()
@@ -58,11 +64,13 @@ class Post
     /**
      * @var string
      *
+     * @Groups("post:index")
      * @ORM\Column(name="image_name", type="string", length=255, nullable=true)
      */
     private $imageName;
 
     /**
+     * @Groups("post:index")
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="post", cascade="all")
      */
     private $comments;
@@ -75,6 +83,7 @@ class Post
     /**
      * @var \Users
      *
+     * @Groups("post:index")
      * @ORM\ManyToOne(targetEntity="Users")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="owner_id", referencedColumnName="Id")
@@ -86,6 +95,7 @@ class Post
     /**
      * @var \Comment
      *
+     * @Groups("post:index")
      * @ORM\ManyToOne(targetEntity="Comment")
      * @ORM\OrderBy({ "timestamp" = "DESC" })
      * @ORM\JoinColumns({

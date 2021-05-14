@@ -1,78 +1,75 @@
 <?php
 
-namespace App\Controller\UserControllers;
+namespace App\Controller\Mobile\UserControllers;
 
 use App\Entity\Post;
 use App\Form\Post1Type;
 use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
+use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Serializer\Encoder\JsonEncode;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/mobile/post")
  */
-class PostController extends AbstractController
+class MobilePostController extends AbstractController
 {
+
+
     /**
-     * @Route("/", name="user_controllers_post_index", methods={"GET"})
+     * @Route("/getposts", name="getposts_mobile")
      */
-    public function index(PostRepository $postRepository): Response
+    public function getPosts(PostRepository $postRepository,SerializerInterface $serializer): Response
     {
-        return $this->render('user_controllers/simpalha_user/index.html.twig', [
-            'posts' => $postRepository->findAllPostsOrderedByNewest(),
-        ]);
+        $posts =$postRepository->findAllPostsOrderedByNewest();
+        $res = $serializer->serialize($posts, 'json', ['groups'=>'post:index']);
+
+        if($res!=null){
+            return new JsonResponse(array(
+                'status' => 'OK',
+                'data' => $res),
+                200);
+        }
+        return new JsonResponse(array(
+            'status' => 'ERROR',
+            'message'=>"fetch error"),
+            500);
+
     }
 
     /**
-     * @Route("/new", name="user_controllers_post_new", methods={"GET","POST"})
-     * @IsGranted("ROLE_USER")
+     * @Route("/new", name="addpost_mobile", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,SerializerInterface $serializer,EntityManagerInterface $entityManager,UsersRepository $usersRepository): Response
     {
-        $post = new Post();
-        $form = $this->createForm(Post1Type::class, $post);
-        $form->handleRequest($request);
+        $content=$request->getContent();
+        $parametersAsArray = json_decode($content, true);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // for the upload
+        $owner=$usersRepository->findOneBy(['id'=>$parametersAsArray['owner']]);
+        $parametersAsArray['owner']=$owner;
 
-            $img=$form->get('imageName')->getData();
+        $post= new Post();
+        $post->setOwner($owner);
+        $post->setProblem($parametersAsArray['problem']);
+        $post->setModule($parametersAsArray['module']);
 
-            if($img){
+        $entityManager->persist($post);
+        $entityManager->flush();
 
-                $newFileName= md5(uniqid()).'.'.$img->guessExtension();
-            }
-            try {
-                $img->move(
-                    $this->getParameter('postImages'),
-                    $newFileName
-                );
-            } catch (FileException $e) {
-                echo $e->getMessage();
-            }
-            $post->setImageName('/postImages/'.$newFileName);
-            $post->setOwner($this->getUser());
-
-
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($post);
-            $entityManager->flush();
-
-            $this->addFlash('success','Post Created! Knowledge is power!');
-            return $this->redirectToRoute('user_controllers_post_index');
-        }
-
-        return $this->render('user_controllers/post/new.html.twig', [
-            'post' => $post,
-            'form' => $form->createView(),
-        ]);
+        return new JsonResponse('post added successfully !');
     }
 
     /**
