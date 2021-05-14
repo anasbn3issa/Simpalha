@@ -14,5 +14,9 @@ public class Statics {
    // public static final String BASE_URL="http://127.0.0.1:8000/";
 
     public static final String BASE_URL="http://localhost:8000/mobile/";
+<<<<<<< HEAD
+=======
+    public static final String BASE_URL_ARIJ="http://localhost/Simpalha/Symfony4/public/";
+>>>>>>> 0d464f3dbba29a66781439d6c2fde4d5d7b2a2b9
 
 }

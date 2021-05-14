@@ -5,30 +5,36 @@
  */
 package com.mycompany.myapp.gui;
 
+
 import com.codename1.ui.Button;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BoxLayout;
+<<<<<<< HEAD
 import com.mycompany.myapp.services.MeetTask;
 import com.mycompany.myapp.services.ServicePost;
+=======
+import com.codename1.ui.util.Resources;
+>>>>>>> 0d464f3dbba29a66781439d6c2fde4d5d7b2a2b9
 
 /**
  *
  * @author bhk
  */
-public class HomeForm extends Form {
+public class HomeForm extends SideMenu {
 
     Form current;
-    /*Garder traçe de la Form en cours pour la passer en paramètres 
-    aux interfaces suivantes pour pouvoir y revenir plus tard en utilisant
-    la méthode showBack*/
-    
-    public HomeForm() {
-        current = this; //Récupération de l'interface(Form) en cours
+    public HomeForm(Resources res) {
+        Toolbar tb = getToolbar();
+        tb.setTitleCentered(false);
+        setupSideMenu(res);
+        current = this;
         setTitle("Home");
         setLayout(BoxLayout.y());
 
         add(new Label("Choose an option"));
+<<<<<<< HEAD
         Button btnAddTask = new Button("Add Task");
         Button btnListTasks = new Button("List Tasks");
         
@@ -43,6 +49,13 @@ public class HomeForm extends Form {
         
         
         addAll(btnAddTask, btnListTasks,btnAddPost,btnListPosts);
+=======
+        Button btnApplications = new Button("Applications list");
+        
+
+   
+        addAll(btnApplications);
+>>>>>>> 0d464f3dbba29a66781439d6c2fde4d5d7b2a2b9
 
     }
 
