@@ -30,7 +30,7 @@ class Users implements UserInterface, \Serializable
      * @ORM\Column(name="Id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Groups("quizz","quizz_result")
+     * @Groups("meet:search", "meet:index","quizz","quizz_result")
      */
     private $id;
     /**
