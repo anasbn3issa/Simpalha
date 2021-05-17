@@ -3,7 +3,7 @@
 namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * Ressources
  *
@@ -19,6 +19,7 @@ class Ressources
      * @ORM\Column(name="idR", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("ressource")
      */
     private $idr;
 
@@ -26,6 +27,7 @@ class Ressources
      * @var string
      * @Assert\NotBlank(message="No file chosen. Please choose File.")
      * @ORM\Column(name="path", type="string", length=255, nullable=false)
+     * @Groups("ressource")
      */
     private $path;
 
@@ -33,6 +35,7 @@ class Ressources
      * @var string
      * @Assert\NotBlank(message="Title Cannot be accepted : Blank")
      * @ORM\Column(name="title", type="string", length=255, nullable=false)
+     * @Groups("ressource")
      */
     private $title;
 
@@ -42,6 +45,7 @@ class Ressources
      * @Assert\Length(min="10",
      *      minMessage=" Minimum description's length = {{ limit }}")
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
+     * @Groups("ressource")
      */
     private $description;
 
@@ -49,9 +53,16 @@ class Ressources
      * @var string
      * @Assert\NotBlank (message="Module Cannot be accepted : Blank")
      * @ORM\Column(name="module", type="string", length=255, nullable=false)
+     * @Groups("ressource")
      */
     private $module;
 
+    /**
+     * @var string
+     *
+     *
+     *
+     */
     protected $captchaCode;
 
     public function getIdr(): ?int

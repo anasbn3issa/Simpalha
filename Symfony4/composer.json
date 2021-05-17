@@ -52,7 +52,6 @@
     "twig/twig": "^2.12|^3.0",
     "vonage/client": "^2.4",
     "ext-fileinfo": "*",
-    "ext-http": "*",
     "vangrg/profanity-bundle": "^1.1",
     "vonage/client": "^2.4"
   },

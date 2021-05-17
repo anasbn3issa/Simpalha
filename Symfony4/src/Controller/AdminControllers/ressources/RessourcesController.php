@@ -63,6 +63,7 @@ class RessourcesController extends AbstractController
             }
           //  END OF SMS API
 */
+
             return $this->redirectToRoute('ressources_index');
         }
 
@@ -97,7 +98,7 @@ class RessourcesController extends AbstractController
             $file = $ressource->getPath();
             $fileName = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move($this->getParameter('upload_directory'), $fileName);
-            $ressource->setPath("/public/images/" . $fileName);
+            $ressource->setPath("/uploads/" . $fileName);
 
 
             $this->getDoctrine()->getManager()->flush();

@@ -1,9 +1,16 @@
 
 {% block body %}
-    <h1 align="center">{{ ressource.title }}</h1>
+
+    <img style="margin-bottom: 5px;" class="navbar-brand space-brand"
+         src="{{ logo }}"
+         width="95px" height="55"/></a>
+</br>
     <hr>
 
-    <table class="table" align="center">
+    <h1 align="center"> {{ ressource.title|upper  }}  </h1>
+    <hr>
+
+    <table class="table">
         <br>
 
         <tr>
@@ -11,7 +18,8 @@
             <td></td>
         </tr></br>
         <tr>
-            <th>Description</th>
+            <th>
+                    Description</th>
             <td>    {{ ressource.description }}</br></td>
         </tr>
         <tr>
@@ -27,7 +35,7 @@
             <td></br></td>
         </tr>
         <tr>
-            <th>path</th>
+            <th>Image </th>
             <td>    </br></td>
         </tr>
         <tr>
@@ -37,15 +45,12 @@
 
                 <img src="{{ ressource.path }}" /></td>            </tr>
 
-
         </tbody>
     </table>
 
+ <hr>
 
+    <h3 align="center">Copyright: Simpalha by SPIR'IT.</h3>
+    <hr>
 
 {% endblock %}
-</br></br></br></br></br>
-</br></br></br></br></br>
-</br></br></br><hr>
-
-<h3 align="center">Copyright: simpalha.</h3>
