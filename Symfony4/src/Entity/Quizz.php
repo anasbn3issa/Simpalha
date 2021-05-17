@@ -23,7 +23,7 @@ class Quizz
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Groups("question","answer","quizz","quizz_result")
+     * @Groups("question","answer","quizz","quizz_result","quizz:list")
      */
     private $id;
 
@@ -32,7 +32,7 @@ class Quizz
      * @Assert\NotBlank
      *
      * @ORM\Column(name="title", type="string", length=500, nullable=false)
-     * @Groups("question","answer","quizz","quizz_result")
+     * @Groups("question","answer","quizz","quizz_result","quizz:list")
      */
     private $title;
 
@@ -41,7 +41,7 @@ class Quizz
      * @Assert\NotBlank
      *
      * @ORM\Column(name="subject", type="string", length=500, nullable=false)
-     * @Groups("question","answer","quizz","quizz_result")
+     * @Groups("question","answer","quizz","quizz_result","quizz:list")
      */
     private $subject;
 

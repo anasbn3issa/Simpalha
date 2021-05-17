@@ -27,7 +27,7 @@ class QuestionController extends AbstractController
     /**
      * @Route("/", name="question_list")
      */
-    public function list($id,EntityManagerInterface $em, SerializerInterface $serializer): Response
+    public function listJSON($id,EntityManagerInterface $em, SerializerInterface $serializer): Response
     {
         $repository = $em->getRepository(Quizz::class);
 
@@ -35,35 +35,31 @@ class QuestionController extends AbstractController
             ['id' => $id]
         );
 
-        $json = $serializer->serialize($quiz, 'json',['groups'=>'quizz']);
+        $json = $serializer->serialize($quiz->getQuestions(), 'json',['groups'=>'question:list']);
 
         return new JsonResponse([
-            'quiz' => $json,
+            'questions' => $json,
             'quizzId' => $id
         ]);
     }
 
     /**
-     * @Route("/create", name="question_create", methods={"POST","GET"})
+     * @Route("/create/{questionText}", name="question_create")
      */
-    public function new($id,Request $request, EntityManagerInterface $em, SerializerInterface $serializer): Response
+    public function newJSON($id,$questionText,Request $request, EntityManagerInterface $em, SerializerInterface $serializer): Response
     {
 
         $quizz = $em->getRepository(Quizz::class)->findOneBy(['id'=>$id]);
+        $question = new Question();
+        $answer = new Answer();
+        $answer->setSuggestion("");
 
-        if($request->getMethod() == "POST") {
+        $question->setQuestion($questionText);
+        $question->setQuizz($quizz);
+        $question->setRightAnswer($answer);
 
-            $answer = new Answer();
-            $answer->setSuggestion("");
-
-            $content = $request->getContent();
-            $data=$serializer->deserialize($content,Question::class,'json');
-            $data->setQuizz($quizz);
-            $data->setRightAnswer($answer);
-
-            $em->persist($data);
-            $em->flush();
-        }
+        $em->persist($question);
+        $em->flush();
 
         $json = $serializer->serialize($quizz, 'json',['groups'=>'quizz']);
 
@@ -73,25 +69,18 @@ class QuestionController extends AbstractController
     }
 
     /**
-     * @Route("/{qId}/edit", name="question_edit", methods={"POST","GET"})
+     * @Route("/{qId}/edit/{questionText}", name="question_edit")
      */
-    public function edit($id,$qId, EntityManagerInterface $em,Request $request, SerializerInterface $serializer)
+    public function editJSON($id,$qId,$questionText, EntityManagerInterface $em,Request $request, SerializerInterface $serializer)
     {
         $repo = $em->getRepository(Question::class);
-
         $question = $repo->findOneBy(['id'=>$qId]);
-
         $answersRepo = $em->getRepository(Answer::class);
 
-        if($request->getMethod() == "POST") {
+        $question->setQuestion($questionText);
 
-            $content = $request->getContent();
-
-            $data=$serializer->deserialize($content,Question::class,'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $question]);
-
-            $em->persist($data);
-            $em->flush();
-        }
+        $em->persist($question);
+        $em->flush();
 
         $json = $serializer->serialize($question, 'json',['groups'=>'question']);
 
@@ -117,7 +106,7 @@ class QuestionController extends AbstractController
     /**
      * @Route("/{qId}/delete", name="question_delete")
      */
-    public function delete($id,$qId,EntityManagerInterface $em,Request $request)
+    public function deleteJSON($id,$qId,EntityManagerInterface $em,Request $request)
     {
         $repo = $em->getRepository(Question::class);
 
@@ -127,6 +116,10 @@ class QuestionController extends AbstractController
 
         $em->remove($question);
         $em->flush();
+
+        return new JsonResponse([
+            'deleted' => true
+        ]);
     }
 
 

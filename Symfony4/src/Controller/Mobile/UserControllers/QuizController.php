@@ -28,18 +28,18 @@ use Symfony\Component\Serializer\SerializerInterface;
 class QuizController extends AbstractController
 {
     /**
-     * @Route("/list", name="quiz_list")
+     * @Route("/list/{uid}", name="quiz_list")
      */
-    public function list(EntityManagerInterface $em, QuizzRepository $quizzRepository, Request $request, PaginatorInterface $paginator, SerializerInterface $serializer): Response
+    public function listJSON($uid,EntityManagerInterface $em, QuizzRepository $quizzRepository, Request $request, PaginatorInterface $paginator, SerializerInterface $serializer): Response
     {
         $q = $request->query->get('q');
 
 //        $user = $em->getRepository(Users::class)->findOneBy(['id'=>$this->getUser()->getId()]);
-        $user = $em->getRepository(Users::class)->findOneBy(['id'=>11]);
+        $user = $em->getRepository(Users::class)->findOneBy(['id'=>$uid]);
 
         $quizes = $quizzRepository->getHelperQuizListQueryBuilder($user,$q)->getQuery()->getResult();
 
-        $json = $serializer->serialize($quizes, 'json',['groups'=>'quizz']);
+        $json = $serializer->serialize($quizes, 'json',['groups'=>'quizz:list']);
 
         return new JsonResponse([
            'quizes' => $json
@@ -47,27 +47,20 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/create", name="quiz_create", methods={"POST","GET"})
+     * @Route("/create/{uid}/{title}/{subject}", name="quiz_create")
      */
-    public function new(Request $request, EntityManagerInterface $em, SerializerInterface $serializer): Response
+    public function newJSON($uid, $title, $subject,Request $request, EntityManagerInterface $em, SerializerInterface $serializer): Response
     {
 
+        $user = $em->getRepository(Users::class)->findOneBy(['id'=>$uid]);
         $quiz = new Quizz();
 
-        if($request->getMethod() == "POST") {
+        $quiz->setHelper($user);
+        $quiz->setTitle($title);
+        $quiz->setSubject($subject);
 
-//            $user = $em->getRepository(Users::class)->findOneBy(['id'=>$this->getUser()->getId()]);
-            $user = $em->getRepository(Users::class)->findOneBy(['id'=>11]);
-
-            /** @var Quizz $quiz */
-
-            $quiz = $request->getContent();
-            $data=$serializer->deserialize($quiz,Quizz::class,'json');
-            $data->setHelper($user);
-
-            $em->persist($data);
-            $em->flush();
-        }
+        $em->persist($quiz);
+        $em->flush();
 
         $json = $serializer->serialize($quiz, 'json',['groups'=>'quizz']);
 
@@ -79,7 +72,7 @@ class QuizController extends AbstractController
     /**
      * @Route("/{id}/delete", name="quiz_delete")
      */
-    public function delete($id,EntityManagerInterface $em,Request $request)
+    public function deleteJSON($id,EntityManagerInterface $em,Request $request)
     {
         $repo = $em->getRepository(Quizz::class);
 
@@ -89,136 +82,32 @@ class QuizController extends AbstractController
 
         $em->remove($quiz);
         $em->flush();
+
+        return new JsonResponse([
+            'oof' => "ahou khdém"
+        ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="quiz_edit", methods={"POST","GET"})
+     * @Route("/{id}/edit/{title}/{subject}", name="quiz_edit", methods={"POST","GET"})
      */
-    public function edit($id, EntityManagerInterface $em,Request $request, SerializerInterface $serializer)
+    public function editJSON($id,$title,$subject, EntityManagerInterface $em,Request $request, SerializerInterface $serializer)
     {
         $repo = $em->getRepository(Quizz::class);
 
-        $quizz = $repo->findOneBy(['id'=>$id]);
+        $quiz = $repo->findOneBy(['id'=>$id]);
 
-        if($request->getMethod() == "POST") {
+        $quiz->setTitle($title);
+        $quiz->setSubject($subject);
 
-            $content = $request->getContent();
+        $em->persist($quiz);
+        $em->flush();
 
-            $data = $serializer->deserialize($content,Quizz::class,'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $quizz]);
-
-//            dd($data);
-
-            $em->persist($data);
-            $em->flush();
-        }
-
-        $json = $serializer->serialize($quizz,'json',['groups'=>'quizz']);
+        $json = $serializer->serialize($quiz,'json',['groups'=>'quizz']);
 
         return new JsonResponse([
             'quiz'=>$json
         ]);
-    }
-
-
-    // TODO : HERE WSELT HERE
-
-
-    /**
-     * @Route("/table", name="quiz_table")
-     */
-    public function listStudents(QuizzRepository $quizzRepository, Request $request, SerializerInterface $serializer): Response
-    {
-        $q = $request->query->get('q');
-        $quizList = $quizzRepository->getWithSearchQueryBuilder($q)->getQuery()->getResult();
-
-        $json = $serializer->serialize($quizList,"json",['groups'=>'quizz']);
-
-        return new JsonResponse([
-            "quizList" =>$json
-        ]);
-    }
-
-    /**
-     * @Route("/take/{id}", name="quiz_take")
-     */
-    public function takeQuiz($id, EntityManagerInterface $em, SerializerInterface $serializer)
-    {
-        $quiz = $em->getRepository(Quizz::class)->findOneBy(['id'=>$id]);
-
-        $jsonQuiz = $serializer->serialize($quiz,"json",['groups'=>'quizz']);
-        $jsonQuestions = $serializer->serialize($quiz->getQuestions(),"json",['groups' => 'question']);
-
-        return new JsonResponse([
-            "quiz" =>$jsonQuiz,
-            "questions" => $jsonQuestions
-        ]);
-    }
-
-    /**
-     * @Route("/take/{id}/submit", name="quiz_submit", methods="POST")
-     */
-    public function submitQuiz($id, QuestionRepository $questionRepository,QuizzResultRepository $quizzResultRepository,Request $request, EntityManagerInterface $em)
-    {
-        $quizz = $em->getRepository(Quizz::class)->findOneBy(['id'=>$id]);
-        $selectedAnswers = $request->get('selectedAnswers');
-        $questions = $request->get('questions');
-        $maxScore = 20;
-        $questionCount = 0;
-        $score = 0;
-
-        $elementCount = count($questions);
-
-
-        if($elementCount<=0){
-            $convertedAverage = -1;
-        }
-        else {
-            dump($request);
-
-            dump($this->getUser()->getId());
-            $quizFound = $quizzResultRepository->checkIfPassedQuizInLast24Hours($quizz,$this->getUser()->getId());
-
-            dump($quizFound);
-
-            if($quizFound){
-                $convertedAverage = -2;
-            }
-            else{
-                foreach($questions as $question){
-                    $questionChosen = $questionRepository->findOneBy(['id'=>$question]);
-
-                    foreach ($selectedAnswers as $answer){
-                        if ($questionChosen->getRightAnswer() == $answer)
-                            $score++;
-                    }
-
-                    $questionCount++;
-                }
-
-                $convertedAverage = ($score*$maxScore)/$questionCount;
-
-                $quizzResult = new QuizzResult();
-
-                $quizzResult->setQuizz($quizz);
-                $quizzResult->setResultDate(new \DateTime());
-//                $quizzResult->setResultDate(new \DateTime(sprintf('-%d days',rand(0,2020))));
-                $quizzResult->setResult($convertedAverage);
-
-                $quizzResult->setStudentId($this->getUser()->getId());
-
-                $em->persist($quizzResult);
-                $em->flush();
-
-            }
-
-        }
-
-        Return new JsonResponse([
-            'selectedAnswers' => $selectedAnswers,
-            'questions' => $questions,
-            'convertedAverage' => $convertedAverage,
-        ]);
-
     }
 
     /**

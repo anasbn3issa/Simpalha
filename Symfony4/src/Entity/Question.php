@@ -22,7 +22,7 @@ class Question
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Groups("question","answer","quizz")
+     * @Groups("question","answer","quizz","question:list")
      */
     private $id;
 
@@ -30,7 +30,7 @@ class Question
      * @var int
      *
      * @ORM\Column(name="right_answer", type="integer", nullable=false)
-     * @Groups("question","answer","quizz")
+     * @Groups("question","answer","quizz","question:list")
      */
     private $rightAnswer;
 
@@ -39,7 +39,7 @@ class Question
      * @Assert\NotBlank
      *
      * @ORM\Column(name="question", type="string", length=500, nullable=false)
-     * @Groups("answer","question","quizz")
+     * @Groups("answer","question","quizz","question:list")
      */
     private $question;
 

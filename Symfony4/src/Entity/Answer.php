@@ -20,7 +20,7 @@ class Answer
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Groups("question","answer","quizz")
+     * @Groups("question","answer","quizz","answer:list")
      */
     private $id;
 
@@ -29,7 +29,7 @@ class Answer
      * @Assert\NotBlank
      *
      * @ORM\Column(name="suggestion", type="string", length=1000, nullable=false)
-     * @Groups("question","answer","quizz")
+     * @Groups("question","answer","quizz","answer:list")
      */
     private $suggestion;
 
