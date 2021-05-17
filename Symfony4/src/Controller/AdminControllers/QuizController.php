@@ -11,10 +11,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+/**
+ * @Route("/admin/quiz")
+ */
 class QuizController extends AbstractController
 {
     /**
-     * @Route("/admin/quiz", name="admin_quiz")
+     * @Route("/", name="admin_quiz")
      */
     public function index(): Response
     {
@@ -22,17 +26,13 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/admin/quiz/list", name="admin_quiz_list")
+     * @Route("/list", name="admin_quiz_list")
      */
     public function list(EntityManagerInterface $em): Response
     {
-        $repository = $em->getRepository(Users::class);
+        $repository = $em->getRepository(Quizz::class);
 
-        $user = $repository->findOneBy(
-            ['id' => 14]
-        );
-
-        $quizes = $user->getQuizzs();
+        $quizes = $repository->findAll();
 
         return $this->render('admin_controllers/quiz/list.html.twig', [
             'quizzs' => $quizes,
@@ -40,7 +40,7 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/admin/quizz/{id}/delete", name="admin_quiz_delete")
+     * @Route("/{id}/delete", name="admin_quiz_delete")
      */
     public function delete($id,EntityManagerInterface $em,Request $request)
     {

@@ -9,15 +9,22 @@ use App\Form\AnswerFormType;
 use App\Form\QuestionEditFormType;
 use App\Form\QuestionFormType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+
+/**
+ * @Route("/quiz/{id}/questions/{qId}/answers")
+ */
 class AnswerController extends AbstractController
 {
     /**
-     * @Route("/quiz/{id}/questions/{qId}/answers", name="answer_list")
+     * @Route("/", name="answer_list")
+     * @IsGranted("ROLE_USER")
      */
     public function list($id,$qId,EntityManagerInterface $em): Response
     {
@@ -44,7 +51,8 @@ class AnswerController extends AbstractController
     }
 
     /**
-     * @Route("/quiz/{id}/question/{qId}/answer/create", name="answer_create")
+     * @Route("/create", name="answer_create")
+     * @IsGranted("ROLE_USER")
      */
     public function new($id,$qId,Request $request, EntityManagerInterface $em): Response
     {
@@ -79,7 +87,8 @@ class AnswerController extends AbstractController
     }
 
     /**
-     * @Route("/quiz/{id}/question/{qId}/answer/{aId}/edit", name="answer_edit")
+     * @Route("/edit", name="answer_edit")
+     * @IsGranted("ROLE_USER")
      */
     public function edit($id,$qId,$aId, EntityManagerInterface $em,Request $request)
     {
@@ -108,7 +117,8 @@ class AnswerController extends AbstractController
     }
 
     /**
-     * @Route("/quizz/{id}/question/{qId}/answer/{aId}/delete", name="answer_delete")
+     * @Route("/{aId}/delete", name="answer_delete")
+     * @IsGranted("ROLE_USER")
      */
     public function delete($id,$qId,$aId,EntityManagerInterface $em,Request $request)
     {
@@ -129,7 +139,8 @@ class AnswerController extends AbstractController
     }
 
     /**
-     * @Route("/quizz/{id}/question/{qId}/answer/{aId}/right", name="answer_right")
+     * @Route("/{aId}/right", name="answer_right")
+     * @IsGranted("ROLE_USER")
      */
     public function rightAnswer($id,$qId,$aId,EntityManagerInterface $em,Request $request)
     {

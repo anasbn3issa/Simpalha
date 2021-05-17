@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Controller\UserControllers;
+
 use App\Entity\Candidatures;
 
 
 use App\Form\CandidaturesType;
 use App\Service\FileUploader;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,18 +16,18 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
 
 /**
- * @Route("/candidatures")
+     * @Route("/candidatures")
  */
 class CandidaturesController extends AbstractController
 {
     /**
      * @Route("/", name="candidatures_index", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(): Response
     {
         $candidatures = $this->getDoctrine()
-            ->getRepository(Candidatures::class)
-            ->findAll();
+            ->getRepository(Candidatures::class)->findAll();
 
         return $this->render('candidatures/index.html.twig', [
             'candidatures' => $candidatures,
@@ -55,10 +57,11 @@ class CandidaturesController extends AbstractController
             }
             $candidature->setDatec(new \DateTime);
             $candidature->setStatus(0);
+            $candidature->setCreatedBy($this->getUser());
             $entityManager->persist($candidature);
             $entityManager->flush();
-
-            return $this->redirectToRoute('candidatures_index');
+            $this->addFlash('success', 'Application added successfully');
+            return $this->redirectToRoute('user_controllers_post_index');
         }
 
         return $this->render('candidatures/new.html.twig', [
@@ -105,7 +108,7 @@ class CandidaturesController extends AbstractController
      */
     public function delete(Request $request, Candidatures $candidature): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$candidature->getIdc(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $candidature->getIdc(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($candidature);
             $entityManager->flush();
@@ -113,21 +116,61 @@ class CandidaturesController extends AbstractController
 
         return $this->redirectToRoute('candidatures_index');
     }
+
     /**
      * @Route("/users/changeStatus/{id}/{type}", name="candidatures_isActive")
      */
     public function CandidatureChangeIsActive(int $id, int $type)
     {
         if (!$this->isGranted('ROLE_ADMIN')) {
-            return $this->redirect($this->generateUrl('homepage'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $em = $this->getDoctrine()->getManager();
         $candidature = $this->getDoctrine()->getRepository(Candidatures::class)->find($id);
         $type ? $candidature->setStatus(1) : $candidature->setStatus(2);
+        $candidature->getCreatedBy()->setRoles(array('ROLE_HELPER'));
+        $helper = $candidature->getCreatedBy();
+        $helper->setSpecialite($candidature->getSpecialty());
         $em->persist($candidature);
+        $em->persist($helper);
         $em->flush();
-        $this->addFlash('success', 'User Status changed successfully');
+        $this->addFlash('success', 'Application Status changed successfully');
         return $this->redirect($this->generateUrl('candidatures_index'));
     }
+
+    /**
+     * @Route("searchajax", name="ajaxsearch")
+     */
+    public function searchAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $requestString = $request->get('q');
+        $candidatures = $em->getRepository(Candidatures::class)->findEntitiesByString($requestString);
+        if (!$candidatures) {
+            $result['candidatures']['error'] = "No application found :( ";
+
+        } else {
+            $result['candidatures'] = $this->getRealEntities($candidatures);
+        }
+        return new Response(json_encode($result));
+
+    }
+
+    public function getRealEntities($candidatures)
+    {
+        foreach ($candidatures as $candidatures){
+
+            $realEntities[$candidatures->getIdc()] = [$candidatures->getIdc(),
+                $candidatures->getCreatedBy()->getPseudo(),
+                $candidatures->getFichier(),
+                $candidatures->getDescription(),
+                $candidatures->getStatus(),
+                $candidatures->getDatec()->format('Y-m-d H:i:s')
+            ];
+        }
+        return $realEntities;
+    }
+
+
 }

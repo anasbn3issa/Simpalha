@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Candidatures
  *
  * @ORM\Table(name="candidatures")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\CandidaturesRepository")
  */
 class Candidatures
 {
@@ -21,12 +21,7 @@ class Candidatures
      */
     private $idc;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255, nullable=false)
-     */
-    private $email;
+
 
     /**
      * @var string
@@ -45,9 +40,9 @@ class Candidatures
     /**
      * @var string
      *
-     * @ORM\Column(name="specialite", type="string", length=255, nullable=false)
+     * @ORM\Column(name="Specialty", type="string", length=255, nullable=true)
      */
-    private $specialite;
+    private $Specialty;
 
 
     /**
@@ -67,7 +62,7 @@ class Candidatures
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Users")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id", referencedColumnName="Id")
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="Id",nullable=false)
      * })
      */
     private $createdBy;
@@ -89,6 +84,22 @@ class Candidatures
     }
 
     /**
+     * @return string
+     */
+    public function getSpecialty()
+    {
+        return $this->Specialty;
+    }
+
+    /**
+     * @param string $Specialty
+     */
+    public function setSpecialty(string $Specialty)
+    {
+        $this->Specialty = $Specialty;
+    }
+
+    /**
      * @return mixed
      */
     public function getCreatedBy()
@@ -107,31 +118,6 @@ class Candidatures
     public function getIdc(): ?int
     {
         return $this->idc;
-    }
-
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getSpecialite(): ?string
-    {
-        return $this->specialite;
-    }
-
-    public function setSpecialite(string $specialite): self
-    {
-        $this->specialite = $specialite;
-
-        return $this;
     }
 
     public function getFichier(): ?string
@@ -157,6 +143,7 @@ class Candidatures
 
         return $this;
     }
+
 
     public function getDatec(): ?\DateTimeInterface
     {

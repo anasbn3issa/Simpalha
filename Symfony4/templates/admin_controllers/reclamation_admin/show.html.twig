@@ -1,0 +1,205 @@
+{%  extends 'baseAdmin.html.twig' %}
+
+{#  {% block body %}
+    <section id="main-content">
+        <div style="width: auto; length: auto ">
+            <div class="app-content">
+                <div style="padding-bottom: 20px;  margin: 10px 0 0px;  border-bottom: 1px solid #eee;">
+                    <div style="padding-bottom: 20px;  margin: 10px 0 0px;  border-bottom: 1px solid #eee;">
+                        <ol class="breadcrumb">
+                            <li ><a href="#"><i class="fe   fe-box mr-1"></i> HelpDesk</a></li>
+                            <li >List Claims</li>
+                        </ol>
+                    </div>
+                    <div style="width: auto; length: auto ">
+                        <div style="width: auto; length: auto ">
+                            <div >
+                                <div class="btn-toolbar " role="toolbar" aria-label="Programmatic control">
+
+                                    <div class="btn-group btn-group-sm " >
+
+
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table id="example" class="table table-striped table-bordered" >
+                                            <thead>
+                                            <tr>
+                                                <th >id</th>
+                                                <th>idreportee</th>
+                                                <th>idreported</th>
+                                                <th>description</th>
+                                                <th>fileselected</th>
+                                                <th>daterec</th>
+                                                <th>dateresolution</th>
+                                                <th>validstudent</th>
+                                                <th>validhelper</th>
+                                                <th>status</th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr      {% for reclamation in reclamations %}
+                                                <tr>
+                                                    <td>{{ reclamation.id }}</td>
+                                                    <td>{{ reclamation.idreportee }}</td>
+                                                    <td>{{ reclamation.idreported }}</td>
+                                                    <td>{{ reclamation.description }}</td>
+                                                    <td><img src="{{ asset('img/' ~ reclamation.fileselected ) }}" alt="img" class="image" style="max-height: 100px; width: 100px;" ></td>
+                                                    <td>{{ reclamation.daterec |date('Y-m-d') }}</td>
+                                                    <td>{{ reclamation.dateresolution |date('Y-m-d') }}</td>
+                                                    <td>{{ reclamation.validstudent }}</td>
+                                                    <td>{{ reclamation.validhelper }} </td>
+                                                    <td>{{ reclamation.status}}</td>
+                                                </tr>
+
+                                            {% else %}
+                                                <tr>
+                                                    <td colspan="10">no records found</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <a class="btn btn-primary btn-sm mt-3 mb-3" href="{{ path('admin_controllers_reclamation_admin_index')}}">Back</a>
+
+                                </div>
+                                <!-- table-wrapper -->
+                                <div class="card-body">
+
+                                </div>
+
+                            </div>
+
+                            <!-- section-wrapper -->
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+{% endblock %} #}
+
+{% block title %}Details Claim{% endblock %}
+
+{% block body %}
+
+    <section id="main-content">
+        <div style="width: auto; length: auto ">
+            <div class="app-content">
+                <div style="padding-bottom: 20px;  margin: 10px 0 0px;  border-bottom: 1px solid #eee;">
+                    <div style="padding-bottom: 20px;  margin: 10px 0 0px;  border-bottom: 1px solid #eee;">
+                        <ol class="breadcrumb">
+                        </ol>
+                    </div>
+
+                    <div class="card-header">
+                        <div class="card-title"><h3>Details Claim</h3></div>
+                    </div>
+
+                </div>
+                <a class="btn btn-primary btn-sm mt-3 mb-3"  href="{{ path('admin_controllers_reclamation_admin_index')}}">Back</a>
+                <td>
+                    {% if reclamation.status==1 %}
+                <a class="btn btn-primary btn-sm mt-3 mb-3" href="{{ path('admin_controllers_reclamation_admin_validate',{ 'id':reclamation.id } ) }}"hidden >Validate</a>
+                    {% else %}
+                    <a class="btn btn-primary btn-sm mt-3 mb-3" href="{{ path('admin_controllers_reclamation_admin_validate',{ 'id':reclamation.id } ) }}">Validate</a>
+                    {% endif %}
+
+                </td>
+
+                <div style="width: auto; length: auto ">
+                    <div style="width: auto; length: auto ">
+                        <div >
+                            <div class="btn-toolbar " role="toolbar" aria-label="Programmatic control">
+
+                            </div>
+                            <div class="btn-group btn-group-sm " >
+
+
+                            </div>
+
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th>id</th>
+                                    <td>{{ reclamation.id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Idreportee</th>
+                                    <td>{{ reclamation.Idreportee }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Idreportee</th>
+                                    <td>{{ reclamation.Idreported }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Image</th>
+                                    <td>{{ reclamation.FileSelected }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Description</th>
+                                    <td>{{ reclamation.description }}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Date Creation</th>
+                                    <td>{{ reclamation.dateRec |date('Y-m-d') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>date Resolution</th>
+                                    <td>{{ reclamation.dateResolution |date('Y-m-d') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Valid Student</th>
+                                    <td>{{ reclamation.ValidStudent }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Valid Helper</th>
+                                    <td>{{ reclamation.ValidHelper }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Status</th>
+                                    <td>{{ reclamation.status}}</td>
+                                </tr>
+
+
+                                </tbody>
+                            </table>
+                           {#  {% for locale in locales %}
+                                {% if locale != app.request.locale %}
+                                    <a href="{{ path('change_locale', {'locale': locale}) }}">{{ locale }}</a>
+                                {% endif %}
+                            {% endfor %}#}
+
+
+                        </div>
+                    </div>
+                    <!-- table-wrapper -->
+                    <div class="card-body">
+
+                    </div>
+
+                </div>
+
+                <!-- section-wrapper -->
+            </div>
+
+
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+
+
+    </section>
+
+
+
+
+{% endblock %}

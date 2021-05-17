@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\ReclamationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Reclamation
@@ -32,6 +34,7 @@ class Reclamation
      * @var string
      *
      * @ORM\Column(name="Idreported", type="string", length=8, nullable=false)
+
      */
     private $idreported;
 
@@ -39,46 +42,77 @@ class Reclamation
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 255,
+     *      minMessage = "description must include at least {{ limit }} characters",
+     *      maxMessage = "description must include at most {{ limit }} characters"
+     * )
      */
     private $description;
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="dateRec", type="date", nullable=false)
+     * @ORM\Column(name="FileSelected", type="string", length=255, nullable=false)
      */
-    private $daterec;
+    private $fileselected;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Record", type="string", length=255, nullable=false)
+     */
+    private $record = "recorddddd";
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateResolution", type="date", nullable=false)
+     * @ORM\Column(name="dateRec", type="datetime", nullable=true)
      */
-    private $dateresolution;
+    public $daterec;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateResolution", type="date", nullable=true)
+     */
+    public $dateresolution;
+
+    public function __construct()
+    {
+        $this->setDaterec(new \DateTime());
+
+    }
+    /**
+     * @ORM\PostLoad()
+     */
+
+    public function PostLoad()
+    {
+        $this->updateAt = new \DateTime();
+    }
+     /**
      * @var int
      *
      * @ORM\Column(name="ValidStudent", type="integer", nullable=false)
      */
-    private $validstudent;
+    private $validstudent=0;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="Status", type="integer", nullable=true)
+     */
+    private $status;
 
     /**
      * @var int
      *
      * @ORM\Column(name="ValidHelper", type="integer", nullable=false)
      */
-    private $validhelper;
+    private $validhelper=0;
 
-    /**
-     * @var \Users
-     *
-     * @ORM\ManyToOne(targetEntity="Users")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="StudentId", referencedColumnName="Id")
-     * })
-     */
-    private $studentid;
 
     public function getId(): ?int
     {
@@ -121,24 +155,48 @@ class Reclamation
         return $this;
     }
 
-    public function getDaterec(): ?\DateTimeInterface
+    public function getFileselected(): ?string
+    {
+        return $this->fileselected;
+    }
+
+    public function setFileselected(string $fileselected): self
+    {
+        $this->fileselected = $fileselected;
+
+        return $this;
+    }
+
+    public function getRecord(): ?string
+    {
+        return $this->record;
+    }
+
+    public function setRecord(string $record): self
+    {
+        $this->record = $record;
+
+        return $this;
+    }
+
+    public function getDaterec()
     {
         return $this->daterec;
     }
 
-    public function setDaterec(\DateTimeInterface $daterec): self
+    public function setDaterec($daterec)
     {
         $this->daterec = $daterec;
 
         return $this;
     }
 
-    public function getDateresolution(): ?\DateTimeInterface
+    public function getDateresolution()
     {
         return $this->dateresolution;
     }
 
-    public function setDateresolution(\DateTimeInterface $dateresolution): self
+    public function setDateresolution($dateresolution)
     {
         $this->dateresolution = $dateresolution;
 
@@ -157,6 +215,18 @@ class Reclamation
         return $this;
     }
 
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?int $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
     public function getValidhelper(): ?int
     {
         return $this->validhelper;
@@ -169,17 +239,7 @@ class Reclamation
         return $this;
     }
 
-    public function getStudentid(): ?Users
-    {
-        return $this->studentid;
-    }
 
-    public function setStudentid(?Users $studentid): self
-    {
-        $this->studentid = $studentid;
-
-        return $this;
-    }
 
 
 }

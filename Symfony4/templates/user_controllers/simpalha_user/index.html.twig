@@ -11,8 +11,8 @@
                 <!-- H1 Article -->
                 <a class="main-article-link" href="#">
                     <div class="main-article mb-5 pb-3">
-                        <img src="{{ asset('images/meteor-shower.jpg') }}" alt="meteor shower">
-                        <h1 class="text-center mt-2">Want a cool "fill this later": <br>"add a link to a resource in the future"</h1>
+                        <img src="{{ asset('images/altumcode-XMFZqrGyV-Q-unsplash.jpg') }}" alt="meteor shower">
+                        <a href="{{ path('user_controllers_post_new') }}"><h1 class="text-center mt-2">Do you need help ?  <br>Share with us your problem</h1></a>
                     </div>
                 </a>
 
@@ -29,7 +29,7 @@
                                 <br>
 
                                     <small>
-                                        <span class="badge badge-light">{{ post.module }}</span>
+                                        <a href="{{ path('user_controller_post_list',{module: post.module}) }}" ><span class="badge badge-light">{{ post.module }}</span></a>
                                     </small>
 
                                 <br>

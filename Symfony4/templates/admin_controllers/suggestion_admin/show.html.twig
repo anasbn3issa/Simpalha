@@ -1,0 +1,73 @@
+{%  extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+<section id="main-content">
+    <div style="width: auto; length: auto ">
+        <div class="app-content">
+            <div style="padding-bottom: 20px;  margin: 10px 0 0px;  border-bottom: 1px solid #eee;">
+                <div style="padding-bottom: 20px;  margin: 10px 0 0px;  border-bottom: 1px solid #eee;">
+                    <ol class="breadcrumb">
+
+                    </ol>
+                </div>
+
+                <div class="card-header">
+                    <div class="card-title"><h3>Details Suggestion</h3></div>
+                </div>
+
+            </div>
+            <a class="btn btn-primary btn-sm mt-3 mb-3"  href="{{ path('admin_controllers_suggestion_admin_index')}}">Back</a>
+
+            <div style="width: auto; length: auto ">
+                <div style="width: auto; length: auto ">
+                    <div >
+                        <div class="btn-toolbar " role="toolbar" aria-label="Programmatic control">
+
+                        </div>
+                        <div class="btn-group btn-group-sm " >
+
+
+                        </div>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id_Sugg</th>
+                <td>{{ suggestion.Id_Sugg }}</td>
+            </tr>
+            <tr>
+                <th>Topic</th>
+                <td>{{ suggestion.topic }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ suggestion.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+                    </div>
+                </div>
+                <!-- table-wrapper -->
+                <div class="card-body">
+
+                </div>
+
+            </div>
+
+            <!-- section-wrapper -->
+        </div>
+
+
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+
+</section>
+
+{% endblock %}

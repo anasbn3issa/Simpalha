@@ -26,7 +26,8 @@ class MeetType extends AbstractType
                 'class' => Disponibilite::class,
                 'attr'=>['class'=>'form-control'],
                 'choice_label' => function (Disponibilite $disponibilite) {
-                    return $disponibilite->getDatedeb() . '->' . $disponibilite->getDatefin();
+                    return $disponibilite->getDatedeb()->format('d-m-y h:i')
+                        . '->' . $disponibilite->getDatefin()->format('d-m-y h:i');
                 },
                 'query_builder' => function(DisponibiliteRepository  $r) use($options) {
                     if($options['disp'] != null)

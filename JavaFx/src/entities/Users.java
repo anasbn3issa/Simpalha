@@ -82,11 +82,9 @@ public class Users {
     
 
     public String getPassword() {
-        return Base64.getEncoder().encodeToString(password.getBytes());
+        return this.password;
     }
-/*public String getDecryptedPassword() {
-        return new String (Base64.getMimeDecoder().decode(encyptedpasswd));
-    }*/
+
     public void setPassword(String password) {
         this.password = password;
     }

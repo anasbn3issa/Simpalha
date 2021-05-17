@@ -1,61 +1,129 @@
 {% extends "baseAdmin.html.twig" %}
 
 {% block body %}
-<section id="main-content" style="padding-left: 10px">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="card">
-                <div class="card-header border-0">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h3 class="mb-0">Users List</h3>
-                        </div>
-                        <div class="col text-right">
-                            <a href="#!" class="btn btn-sm btn-primary">See all</a>
+    <section id="main-content" style="padding-left: 10px">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h3 class="mb-0">Applications List</h3>
+                            </div>
+                            <div class="col text-right">
+                                <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="table-responsive">
+                    <div class="table-responsive">
+                        <input type="text" width="300" id="search" class="form-control pl-3" placeholder="Search here">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Idc</th>
+                                <th>Applicant</th>
+                                <th>Fichier</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Datec</th>
+                                <th >Management</th>
+                                <th >Status</th>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Idc</th>
-                <th>Fichier</th>
-                <th>Status</th>
-                <th>Datec</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for candidature in candidatures %}
-            <tr>
-                <td>{{ candidature.idc }}</td>
-                <td>{{ candidature.fichier }}</td>
-                <td>{{ candidature.status }}</td>
-                <td>{{ candidature.datec ? candidature.datec|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('candidatures_show', {'idc': candidature.idc}) }}">show</a>
-                    <a href="{{ path('candidatures_edit', {'idc': candidature.idc}) }}">edit</a>
-                    {% if candidature.status ==0  %}
-                        <a class="btn btn-danger" href="{{ path('candidatures_isActive', {'id': candidature.idc,'type':1}) }}">Approve</a>
-                        <a class="btn btn-success" href="{{ path('candidatures_isActive', {'id': candidature.idc,'type':0}) }}">Disapprove</a>
-                  {% endif %}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                            </tr>
+                            </thead>
+                            <tbody id="entitiesNav">
+                            {% for candidature in candidatures %}
+                                <tr>
+                                    <td>{{ candidature.idc }}</td>
+                                    <td>{{ candidature.createdBy.email }}</td>
+                                    <td>{{ candidature.fichier }}</td>
+                                    <td>{{ candidature.description }}</td>
+                                    <td>{{ candidature.status }}</td>
+                                    <td>{{ candidature.datec ? candidature.datec|date('Y-m-d H:i:s') : '' }}</td>
+                                    <td>
+                                        <a href="{{ path('candidatures_show', {'idc': candidature.idc}) }}">show</a>
+                                        <a href="{{ path('candidatures_edit', {'idc': candidature.idc}) }}">edit</a>
+                                    </td>
+                                    <td>
+                                    {% if candidature.status ==0 %}
+                                        <a class="btn btn-danger"
+                                           href="{{ path('candidatures_isActive', {'id': candidature.idc,'type':1}) }}">Approve</a>
+                                        <a class="btn btn-success"
+                                           href="{{ path('candidatures_isActive', {'id': candidature.idc,'type':0}) }}">Disapprove</a>
+                                        {% else %}
+
+                                        <button type="button" class="btn btn-success"> Approved</button>
+
+                                    {% endif %}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="5">no records found</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+
+                <a href="{{ path('candidatures_new') }}">Create new</a>
             </div>
 
-    <a href="{{ path('candidatures_new') }}">Create new</a>
         </div>
+    </section>
+    <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js') }}"></script>
 
-    </div>
-</section>
+    <script>
+        jQuery(document).ready(function () {
+            var searchRequest = null;
+            $("#search").keyup(function () {
+                var minlength = 1;
+                var that = this;
+                var value = $(this).val();
+                var entitySelector = $("#entitiesNav").html('');
+                if (value.length >= minlength) {
+                    if (searchRequest != null)
+                        searchRequest.abort();
+                    searchRequest = $.ajax({
+                        type: "GET",
+                        url: "{{ path('ajaxsearch') }}",
+                        data: {
+                            'q': value
+                        },
+                        dataType: "text",
+                        success: function (msg) {
+                            //we need to check if the value is the same
+                            if (value === $(that).val()) {
+                                var result = JSON.parse(msg);
+                                $.each(result, function (key, arr) {
+                                    $.each(arr, function (id, value) {
+                                        if (key === 'candidatures') {
+                                            if (id !== 'error') {
+                                                console.log(value);
+                                                entitySelector.append('<tr>' +
+                                                    '<td>'+value[0]+'</td>' +
+                                                    '<td>'+value[1]+'</td>' +
+                                                    '<td>'+value[2]+'</td>' +
+                                                    '<td>'+value[3]+'</td>' +
+                                                    '<td>'+value[4]+'</td>' +
+                                                    '<td>'+value[5]+'</td>' +
+                                                    '<td>  <a href="/simpalha/Symfony4/public/candidatures/'+value[0]+'">show</a></td>' +
+                                                    '<td>'+value[6]+'</td>' +
+                                                    '<td>  <a href="/simpalha/Symfony4/public/candidatures/'+value[0]+'">edit</a></td>' +
+                                                    '</tr>')
+                                            } else {
+                                                entitySelector.append('<li class="errorLi">' + value + '</li>');
+                                            }
+                                        }
+                                    });
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
 {% endblock %}

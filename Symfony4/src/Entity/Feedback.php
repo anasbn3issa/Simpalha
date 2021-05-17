@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Feedback
  *
  * @ORM\Table(name="feedback", indexes={@ORM\Index(name="fk_feedback_meet_id", columns={"id_meet"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\FeedbackRepository")
  */
 class Feedback
 {
@@ -18,6 +20,7 @@ class Feedback
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("meet:search", "meet:index")
      */
     private $id;
 
@@ -33,7 +36,7 @@ class Feedback
      *
      * @ORM\Column(name="timestamp", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $timestamp = 'CURRENT_TIMESTAMP';
+    private $timestamp;
 
     /**
      * @var \Meet
@@ -44,6 +47,11 @@ class Feedback
      * })
      */
     private $idMeet;
+
+    public function __construct()
+    {
+        $this->timestamp = new Datetime();
+    }
 
     public function getId(): ?int
     {
@@ -85,6 +93,8 @@ class Feedback
 
         return $this;
     }
+
+
 
 
 }

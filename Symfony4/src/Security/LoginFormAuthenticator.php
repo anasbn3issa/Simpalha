@@ -3,8 +3,6 @@
 namespace App\Security;
 
 
-use App\Entity\User;
-
 use App\Entity\Users;
 use App\Form\Security\LoginType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -42,7 +40,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      * @param Request $request
      * @return bool
      */
-   
+
     public function supports(Request $request)
     {
         return $request->getPathInfo() == '/login' && $request->isMethod('POST');
@@ -73,7 +71,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $username = $credentials['email'];
-
         return $this->em->getRepository(Users::class)
             ->findOneBy(['email' => $username]);
     }
@@ -124,7 +121,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      */
     protected function getDefaultSuccessRedirectUrl()
     {
-        return $this->router->generate('user_controller_post_list');
+        return $this->router->generate('user_controllers_post_index');
     }
 
 }

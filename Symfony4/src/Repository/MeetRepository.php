@@ -29,31 +29,28 @@ class MeetRepository extends ServiceEntityRepository
         return $qb
             ->join("m.idHelper", "helper")
             ->join("m.idStudent", "student")
-            ->orWhere($qb->expr()->like('m.specialite', $qb->expr()->literal('%' . $value . '%')))
+            ->orWhere($qb->expr()->like('m.specialty', $qb->expr()->literal('%' . $value . '%')))
             ->orWhere($qb->expr()->like('helper.username', $qb->expr()->literal('%' . $value . '%')))
             ->orWhere($qb->expr()->like('student.username', $qb->expr()->literal('%' . $value . '%')))
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
 
 
-    // /**
-    //  * @return Meet[] Returns an array of Meet objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Meet[] Returns an array of Meet objects
+      */
+    public function findByUser($user)
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('m.idStudent = :user')
+            ->setParameter('user', $user)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Meet

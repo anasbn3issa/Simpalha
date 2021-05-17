@@ -9,7 +9,6 @@ security:
       entity:
         class: App\Entity\Users
         property: email
-
   firewalls:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -30,10 +29,10 @@ security:
         path: /logout
   role_hierarchy:
     ROLE_ADMIN: ROLE_ADMIN
-    ROLE_ENTREPRISE: ROLE_ENTREPRISE
+    ROLE_HELPER: ROLE_HELPER
     ROLE_USER: ROLE_USER
-    ROLE_SUPER_ADMIN: [ ROLE_ENTREPRISE, ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
+    ROLE_SUPER_ADMIN: [ ROLE_HELPER, ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
 
   access_control:
     - { path: ^/adminUser, roles: ROLE_ADMIN }
-    - { path: ^/entreprise, roles: ROLE_ENTREPRISE }
+    - { path: ^/disponibilite, roles: ROLE_HELPER }

@@ -32,7 +32,16 @@ class DisponibiliteRepository extends ServiceEntityRepository
 
         else
 
-        return $qb;
+            return $qb;
+    }
+
+    public function getHelperDispMeet(Users  $helper)
+    {
+        return $this->createQueryBuilder('d')
+            ->where('d.helperid = :helper')
+            ->setParameter('helper', $helper)
+            ->getQuery()
+            ->getResult();
     }
 
     public function getDisp(Users  $helper)

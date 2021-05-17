@@ -43,13 +43,12 @@ class QuizzRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('c');
 
-        if($term) {
-            $qb->andWhere('c.helper = :helper')
-                ->setParameter('helper',$user)
-                ->andWhere('c.subject LIKE :term OR c.title LIKE :term')
-                ->setParameter('term', '%'.$term.'%')
-            ;
-        }
+
+        $qb->andWhere('c.helper = :helper')
+            ->setParameter('helper',$user)
+            ->andWhere('c.subject LIKE :term OR c.title LIKE :term')
+            ->setParameter('term', '%'.$term.'%')
+        ;
 
         return $qb
             ->orderBy('c.subject', 'DESC');
