@@ -5,9 +5,12 @@
  */
 package com.mycompany.myapp.entities;
 
+import java.util.Date;
 
 
-import java.sql.Timestamp;
+
+
+
 
 /**
  *
@@ -21,7 +24,7 @@ public class Post {
 
     private int id,ownerId,solution_id;
     private String problem;
-    private Timestamp timestamp;
+    private Date timestamp;
     private String status;
     private String module;
     private String imageName;
@@ -36,7 +39,7 @@ public class Post {
         this.module = module;
     }
 
-    public Post(int id, String problem, String module, Timestamp timestamp) {
+    public Post(int id, String problem, String module, Date timestamp) {
         this.id = id;
         this.problem = problem;
         this.module = module;
@@ -74,7 +77,7 @@ public class Post {
         return problem;
     }
 
-    public Timestamp getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
@@ -92,7 +95,7 @@ public class Post {
         this.problem = problem;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 

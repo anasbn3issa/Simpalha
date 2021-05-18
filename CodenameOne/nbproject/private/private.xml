@@ -3,24 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/CodenameOne/src/com/mycompany/myapp/gui/ListPostsForm.java</file>
-            <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/CodenameOne/src/com/mycompany/myapp/entities/Meet.java</file>
-            <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/CodenameOne/src/com/mycompany/myapp/services/MeetTask.java</file>
-            <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/CodenameOne/src/com/mycompany/myapp/gui/HomeForm.java</file>
-            <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/CodenameOne/src/com/mycompany/myapp/services/ServicePost.java</file>
+            <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/CodenameOne/src/com/mycompany/myapp/gui/Login.java</file>
             <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/CodenameOne/src/com/mycompany/myapp/entities/Post.java</file>
-            <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/CodenameOne/src/com/mycompany/myapp/services/ServiceTask.java</file>
-            <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/CodenameOne/src/com/mycompany/myapp/gui/ListTasksForm.java</file>
             <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/CodenameOne/src/com/mycompany/myapp/utils/Statics.java</file>
-=======
-            <file>file:/C:/xampp/htdocs/Simpalha/CodenameOne/src/com/mycompany/myapp/gui/Login.java</file>
-            <file>file:/C:/xampp/htdocs/Simpalha/CodenameOne/src/com/mycompany/myapp/gui/Register.java</file>
-            <file>file:/C:/xampp/htdocs/Simpalha/CodenameOne/src/com/mycompany/myapp/gui/HomeForm.java</file>
-            <file>file:/C:/xampp/htdocs/Simpalha/CodenameOne/src/com/mycompany/myapp/gui/BaseForm.java</file>
-            <file>file:/C:/xampp/htdocs/Simpalha/CodenameOne/src/com/mycompany/myapp/entities/User.java</file>
-            <file>file:/C:/xampp/htdocs/Simpalha/CodenameOne/src/com/mycompany/myapp/services/AuthService.java</file>
->>>>>>> 0d464f3dbba29a66781439d6c2fde4d5d7b2a2b9
+            <file>file:/C:/Users/anaso/OneDrive/Desktop/Simpalha/CodenameOne/build.xml</file>
         </group>
     </open-files>
 </project-private>

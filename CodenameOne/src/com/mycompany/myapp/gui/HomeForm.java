@@ -11,12 +11,9 @@ import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BoxLayout;
-<<<<<<< HEAD
 import com.mycompany.myapp.services.MeetTask;
 import com.mycompany.myapp.services.ServicePost;
-=======
 import com.codename1.ui.util.Resources;
->>>>>>> 0d464f3dbba29a66781439d6c2fde4d5d7b2a2b9
 
 /**
  *
@@ -34,7 +31,6 @@ public class HomeForm extends SideMenu {
         setLayout(BoxLayout.y());
 
         add(new Label("Choose an option"));
-<<<<<<< HEAD
         Button btnAddTask = new Button("Add Task");
         Button btnListTasks = new Button("List Tasks");
         
@@ -49,13 +45,11 @@ public class HomeForm extends SideMenu {
         
         
         addAll(btnAddTask, btnListTasks,btnAddPost,btnListPosts);
-=======
         Button btnApplications = new Button("Applications list");
         
 
    
         addAll(btnApplications);
->>>>>>> 0d464f3dbba29a66781439d6c2fde4d5d7b2a2b9
 
     }
 
