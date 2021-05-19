@@ -11,7 +11,7 @@ package com.mycompany.myapp.gui;
  */
 import com.mycompany.myapp.gui.AddTaskForm;
 import com.mycompany.myapp.gui.ListTasksForm;
-
+import com.mycompany.myapp.gui.quiz.List;
 import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.Layout;
@@ -58,13 +58,12 @@ public class SideMenu extends Form {
         getToolbar().addMaterialCommandToSideMenu("  Projects", FontImage.MATERIAL_ACCESS_TIME, null);
         getToolbar().addMaterialCommandToSideMenu("  Releases", FontImage.MATERIAL_ACCESS_TIME, null);
 
-        getToolbar().addMaterialCommandToSideMenu("  Documents", FontImage.MATERIAL_TRENDING_UP, null);
+        getToolbar().addMaterialCommandToSideMenu("  Quiz", FontImage.MATERIAL_TRENDING_UP, e -> new List(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Issues", FontImage.MATERIAL_ACCESS_TIME, null);
 
         getToolbar().addMaterialCommandToSideMenu("  Meeting Claims", FontImage.MATERIAL_ACCESS_TIME, null);
         getToolbar().addMaterialCommandToSideMenu("  Account Settings", FontImage.MATERIAL_SETTINGS, null);
 
         getToolbar().addMaterialCommandToSideMenu("  Logout", FontImage.MATERIAL_EXIT_TO_APP, null/*e -> new Login(current, res).show()*/);
-
     }
 }

@@ -93,12 +93,12 @@ public class Login extends Form {
         }
         
         ImageViewer img = new ImageViewer(res.getImage("Simpalhalogo.png").scaled(600, 300));
-Style loginStyle = img.getAllStyles();
-         loginStyle.setMargin(Component.TOP, 70);
-         Container logoC = BoxLayout.encloseY(img
+        Style loginStyle = img.getAllStyles();
+        loginStyle.setMargin(Component.TOP, 70);
+        Container logoC = BoxLayout.encloseY(img
         );
          
-         add(BorderLayout.OVERLAY, logoC);
+        add(BorderLayout.OVERLAY, logoC);
         Container by = BoxLayout.encloseY(
                 welcome,
 

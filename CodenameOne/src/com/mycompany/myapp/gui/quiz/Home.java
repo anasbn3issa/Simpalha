@@ -7,6 +7,7 @@ package com.mycompany.myapp.gui.quiz;
 
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BorderLayout;
@@ -22,7 +23,7 @@ public class Home extends Form {
     private Container c;
     private Button list;
     
-    public Home(Resources theme){
+    public Home(Resources theme, Form previous){
         current = this;
         
         Toolbar tb = getToolbar();
@@ -38,9 +39,11 @@ public class Home extends Form {
         add(BorderLayout.CENTER, list);
         
         list.addActionListener(e->{
-            new List(theme,current).show();
+            new List(theme).show();
         });
         
+        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK
+                        , e->previous.showBack()); // Revenir vers l'interface précédente
         
     }
     

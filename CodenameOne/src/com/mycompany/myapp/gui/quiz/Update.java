@@ -30,7 +30,7 @@ public class Update extends Form {
     private TextField tfquizTitle, tfquizSubject;
     private Label lQuizTitle, lQuizSubject;
     
-    public Update(Resources theme, Form previous,Form beforePrevious, Quiz q){
+    public Update(Resources theme, Form previous, Quiz q){
         setLayout(new BorderLayout());
         setTitle("Update Quiz");
         
@@ -55,7 +55,7 @@ public class Update extends Form {
                         Dialog.show("ERROR", "Server Error", new Command("OK"));
                     
                 }
-            new List(theme,beforePrevious).show();
+            new List(theme).show();
         });
         
         

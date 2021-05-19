@@ -12,6 +12,7 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import com.mycompany.myapp.entities.Quiz;
+import com.mycompany.myapp.utils.Session;
 import com.mycompany.myapp.utils.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -112,8 +113,7 @@ public class ServiceQuiz {
             for(Map<String,Object> obj : list){
                 Quiz q = new Quiz(
                     (int)Float.parseFloat(obj.get("id").toString()),
-//                        Once session getUserId()
-                    11,
+                    Session.ConnectedUser.getId(),
                     obj.get("title").toString(),
                     obj.get("subject").toString()
                 );
@@ -131,7 +131,7 @@ public class ServiceQuiz {
     
     public ArrayList<Quiz> getAllQuizes(){
 //        ONCE SESSION WORKS, CHANGE 11 WITH getUserId()
-        String url = Statics.BASE_URL+"quiz/list/11";
+        String url = Statics.BASE_URL+"quiz/list/"+Session.ConnectedUser.getId();
         
         System.out.println("This is the URL: \n" + url);
         

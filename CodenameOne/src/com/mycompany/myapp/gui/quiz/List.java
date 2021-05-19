@@ -17,6 +17,7 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.entities.Quiz;
+import com.mycompany.myapp.gui.HomeForm;
 import com.mycompany.myapp.gui.question.QuestionList;
 import com.mycompany.myapp.services.ServiceQuestion;
 import com.mycompany.myapp.services.ServiceQuiz;
@@ -33,11 +34,13 @@ public class List extends Form{
     private Container addContainer;
     private Button addButton;
     
-    public List(Resources theme,Form previous){
+    public List(Resources theme){
         
         current = this;
         addButton = new Button("Add Quiz");
         quizesContainer = new Container(BoxLayout.y());
+        
+        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> new HomeForm(theme).showBack());
         
         setLayout(new BorderLayout());
         setTitle("Quiz List");
@@ -73,11 +76,11 @@ public class List extends Form{
                 else
                     Dialog.show("ERROR", "Server Error", new Command("OK"));
                 
-                new List(theme,previous).show();
+                new List(theme).show();
             });
             
             bModify.addActionListener(e->{
-                new Update(theme,current,previous,q).show();
+                new Update(theme,current,q).show();
             });
             
             
@@ -88,14 +91,11 @@ public class List extends Form{
         add(BorderLayout.NORTH, quizesContainer).add(BorderLayout.SOUTH, addButton);
         
         addButton.addActionListener(e->{
-            new Add(theme,current,previous).show(); 
+            new Add(theme,current).show(); 
         });
         
         
         setScrollable(true);
-        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK
-                        , e->previous.showBack()); // Revenir vers l'interface précédente
-        revalidate();
     }
     
 }

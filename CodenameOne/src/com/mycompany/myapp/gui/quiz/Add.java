@@ -30,7 +30,7 @@ public class Add extends Form {
     private TextField tfquizTitle, tfquizSubject;
     private Label lQuizTitle, lQuizSubject;
     
-    public Add(Resources theme, Form previous, Form beforePrevious ){
+    public Add(Resources theme, Form previous ){
         
         setLayout(new BorderLayout());
         setTitle("Add Quiz");
@@ -54,7 +54,7 @@ public class Add extends Form {
                     else
                         Dialog.show("ERROR", "Server Error", new Command("OK"));
                 }
-            new List(theme,beforePrevious).show();
+            new List(theme).show();
         });
         
         
