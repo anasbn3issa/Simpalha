@@ -37,8 +37,8 @@ public class Login extends Form {
                // new Label("Spir'IT", "WelcomeBlue")
         );
         getTitleArea().setUIID("Container");
-        TextField login = new TextField(null, "Enter your username ! Exp: Admin_Admin", 20, TextField.ANY);
-        TextField password = new TextField(null, "Enter tour password", 20, TextField.PASSWORD);
+        TextField login = new TextField("bilel.taktak@esprit.tn", "Enter your username ! Exp: Admin_Admin", 20, TextField.ANY);
+        TextField password = new TextField("Maz123", "Enter tour password", 20, TextField.PASSWORD);
         login.getAllStyles().setMargin(LEFT, 0);
         password.getAllStyles().setMargin(LEFT, 0);
         Label loginIcon = new Label("", "TextField");
@@ -52,7 +52,7 @@ public class Login extends Form {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                AuthService ser =new AuthService();
+                AuthService ser = AuthService.getInstance();
                 ser.login(login.getText(), password.getText());
                 if (Session.ConnectedUser.getId()>0) {
                     Toolbar.setGlobalToolbar(true);

@@ -104,7 +104,7 @@ public class Register extends Form {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
-                AuthService service = new AuthService();
+                AuthService service = AuthService.getInstance();
                 service.SingUp(firstName.getText(),lastName.getText(),date.getDate(),Integer.parseInt(phone.getText()),address.getText(),pseudo.getText(),password.getText(),email.getText());
                 new HomeForm(res).show();
             }
