@@ -38,9 +38,9 @@ class MeetRepository extends ServiceEntityRepository
     }
 
 
-     /**
-      * @return Meet[] Returns an array of Meet objects
-      */
+    /**
+     * @return Meet[] Returns an array of Meet objects
+     */
     public function findByUser($user)
     {
         return $this->createQueryBuilder('m')
@@ -48,9 +48,23 @@ class MeetRepository extends ServiceEntityRepository
             ->setParameter('user', $user)
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
 
+    /**
+     * @return Meet[] Returns an array of Meet objects
+     */
+    public function findByHelper($user)
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.idHelper = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    
 
     /*
     public function findOneBySomeField($value): ?Meet

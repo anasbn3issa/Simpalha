@@ -13,9 +13,9 @@ import java.util.Objects;
  * @author win10
  */
 public class User {
-    
-    private int id,isActive,phone;
-    private String email,password,firstName,lastName,roles,token,imageName,adresse,pseudo,specialty,about;
+
+    private int id, isActive, phone;
+    private String email, password, firstName, lastName, roles, token, imageName, adresse, pseudo, specialty, about;
     private Date dateOfBirth;
     private Date createdAt;
     private Date updatedAt;
@@ -48,7 +48,7 @@ public class User {
     public User() {
     }
 
-    public User(int id, int isActive, String pseudo,String about,String specialty ,int phone, String email, String password, String firstName, String lastName, String roles, String token, String imageName, String adresse, String professionalTitle, Date dateOfBirth, Date createdAt, Date updatedAt, Date activatedAt) {
+    public User(int id, int isActive, String pseudo, String about, String specialty, int phone, String email, String password, String firstName, String lastName, String roles, String token, String imageName, String adresse, String professionalTitle, Date dateOfBirth, Date createdAt, Date updatedAt, Date activatedAt) {
         this.id = id;
         this.isActive = isActive;
         this.phone = phone;
@@ -67,6 +67,12 @@ public class User {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.activatedAt = activatedAt;
+    }
+
+    public User(int id, String pseudo, String specialty) {
+        this.id = id;
+        this.pseudo = pseudo;
+        this.specialty = specialty;
     }
 
     public int getId() {
@@ -199,8 +205,12 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
         return getId() == user.getId() && getIsActive() == user.getIsActive() && getPhone() == user.getPhone() && getEmail().equals(user.getEmail()) && getPassword().equals(user.getPassword()) && Objects.equals(getFirstName(), user.getFirstName()) && Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getRoles(), user.getRoles()) && Objects.equals(getToken(), user.getToken()) && Objects.equals(getImageName(), user.getImageName()) && Objects.equals(getAdresse(), user.getAdresse()) && Objects.equals(getProfessionalTitle(), user.getProfessionalTitle()) && Objects.equals(getDateOfBirth(), user.getDateOfBirth()) && Objects.equals(getCreatedAt(), user.getCreatedAt()) && Objects.equals(getUpdatedAt(), user.getUpdatedAt()) && Objects.equals(getActivatedAt(), user.getActivatedAt());
     }
@@ -215,8 +225,4 @@ public class User {
         return "User{" + "id=" + id + ", isActive=" + isActive + ", phone=" + phone + ", email=" + email + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", roles=" + roles + ", token=" + token + ", imageName=" + imageName + ", adresse=" + adresse + ", pseudo=" + pseudo + ", specialty=" + specialty + ", about=" + about + ", dateOfBirth=" + dateOfBirth + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", activatedAt=" + activatedAt + '}';
     }
 
-   
-
-   
 }
-
