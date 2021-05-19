@@ -8,6 +8,7 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.io.Log;
 import com.codename1.ui.Toolbar;
+import com.mycompany.myapp.gui.ListPostsForm;
 import com.mycompany.myapp.gui.Login;
 import com.mycompany.myapp.gui.quiz.Home;
 
@@ -44,7 +45,6 @@ public class MyApplication {
     }
     
     public void start() {
-//        new Home(theme).show();
         new Login(theme).show();
     }
 

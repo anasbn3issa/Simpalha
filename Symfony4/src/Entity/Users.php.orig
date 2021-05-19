@@ -31,7 +31,7 @@ class Users implements UserInterface, \Serializable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
 <<<<<<< HEAD
-     * @Groups("meet:search", "meet:index","quizz","quizz_result")
+     * @Groups("meet:search", "meet:index","post:index")
 =======
      * @Groups("meet:search", "meet:index", "helpers:index", "meet:student")
 >>>>>>> 83a3ec5833e646922e749a786e35694884c41c23
@@ -65,7 +65,11 @@ class Users implements UserInterface, \Serializable
      *
      * @Groups("helpers:index", "meet:student")
      * @ORM\Column(name="username", type="string", length=255, nullable=true)
+<<<<<<< HEAD
      * @Groups("quizz","quizz_result")
+=======
+     * @Groups("post:index")
+>>>>>>> b4f3875cc711f7402e946a2865893fa3e5259d04
      */
     private $pseudo;
 
@@ -570,6 +574,7 @@ class Users implements UserInterface, \Serializable
     {
         return $this->activatedAt;
     }
+
 
 
 }

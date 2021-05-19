@@ -98,7 +98,7 @@ public class Login extends Form {
         Container logoC = BoxLayout.encloseY(img
         );
          
-        add(BorderLayout.OVERLAY, logoC);
+         //add(BorderLayout.OVERLAY, logoC);
         Container by = BoxLayout.encloseY(
                 welcome,
 
