@@ -30,7 +30,7 @@ class Users implements UserInterface, \Serializable
      * @ORM\Column(name="Id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Groups("meet:search", "meet:index")
+     * @Groups("meet:search", "meet:index","post:index")
      */
     private $id;
     /**
@@ -60,6 +60,7 @@ class Users implements UserInterface, \Serializable
      * @var string|null
      *
      * @ORM\Column(name="username", type="string", length=255, nullable=true)
+     * @Groups("post:index")
      */
     private $pseudo;
 

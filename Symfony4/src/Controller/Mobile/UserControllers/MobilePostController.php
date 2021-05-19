@@ -35,8 +35,8 @@ class MobilePostController extends AbstractController
     public function getPosts(PostRepository $postRepository,SerializerInterface $serializer): Response
     {
         $posts =$postRepository->findAllPostsOrderedByNewest();
-        $res = $serializer->serialize($posts, 'json', ['groups'=>'post:index']);
 
+        $res = $serializer->serialize($posts, 'json', ['groups'=>'post:index']);
         if($res!=null){
             return new JsonResponse(array(
                 'status' => 'OK',
@@ -51,20 +51,24 @@ class MobilePostController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="addpost_mobile", methods={"GET","POST"})
+     * @Route("/new/{problem}/{module}", name="addpost_mobile", methods={"POST"})
      */
-    public function new(Request $request,SerializerInterface $serializer,EntityManagerInterface $entityManager,UsersRepository $usersRepository): Response
+    public function new($problem,$module,Request $request,SerializerInterface $serializer,EntityManagerInterface $entityManager,UsersRepository $usersRepository): Response
     {
-        $content=$request->getContent();
-        $parametersAsArray = json_decode($content, true);
-
-        $owner=$usersRepository->findOneBy(['id'=>$parametersAsArray['owner']]);
-        $parametersAsArray['owner']=$owner;
+       // $content=$request->getContent();
+        //$parametersAsArray = json_decode($content, true);
+        //dd($parametersAsArray,$content);
+        //$owner=$usersRepository->findOneBy(['id'=>$parametersAsArray['owner']]);
+       // $parametersAsArray['owner']=$owner;
 
         $post= new Post();
-        $post->setOwner($owner);
-        $post->setProblem($parametersAsArray['problem']);
-        $post->setModule($parametersAsArray['module']);
+        $thisDate= new \DateTime('now');
+        $post->setTimestamp($thisDate);
+        //$post->setOwner($owner);
+        $post->setModule($module);
+
+
+        $post->setProblem($problem);
 
         $entityManager->persist($post);
         $entityManager->flush();
@@ -72,17 +76,7 @@ class MobilePostController extends AbstractController
         return new JsonResponse('post added successfully !');
     }
 
-    /**
-     * @Route("/posts/{module}", name="user_controller_post_list")
-     */
-    public function list($module,PostRepository $postRepository )
-    {
-        $posts = $postRepository->findAllPostsByModuleOrderedByNewest($module);
 
-        return $this->render('user_controllers/simpalha_user/index.html.twig',[
-            'posts' => $posts
-        ]);
-    }
 
 
 
@@ -103,29 +97,25 @@ class MobilePostController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="user_controllers_post_edit", methods={"POST"})
-     * @IsGranted("ROLE_USER")
+     * @Route("/{id}/edit/{problem}", name="updatepost_mobile", methods={"POST"})
      */
-    public function edit(Request $request, Post $post,EntityManagerInterface $em): Response
+    public function edit($id,$problem,Request $request, Post $post,EntityManagerInterface $em,SerializerInterface $serializer): Response
     {
-        $form = $this->createForm(Post1Type::class, $post);
-        $form->handleRequest($request);
+        $repo = $em->getRepository(Post::class);
+        $post = $repo ->findOneBy(['id'=>$id]);
+        $post->setProblem($problem);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        $em->persist($post);
+        $em->flush();
 
-            $this->addFlash('success','Post Modified with success!');
-            return $this->redirectToRoute('user_controllers_post_index');
-        }
+        $json = $serializer->serialize($post,'json',['groups'=>'post:index']);
+        dd($post);
+        return new JsonResponse('Post Updated');
 
-        return $this->render('user_controllers/post/edit.html.twig', [
-            'post' => $post,
-            'form' => $form->createView(),
-        ]);
     }
 
     /**
-     * @Route("/delete/{id}", name="user_controllers_post_delete")
+     * @Route("/delete/{id}", name="deletepost_mobile")
      */
     public function delete($id,Request $request,EntityManagerInterface $em): Response
     {
@@ -138,9 +128,8 @@ class MobilePostController extends AbstractController
         $entityManager->remove($post);
         $entityManager->flush();
 
-        $this->addFlash('failure','Post Deleted.');
 
-        return $this->redirectToRoute('user_controllers_post_index');
+        return new JsonResponse(['oof'=>"post deleted"]);
     }
 
 }

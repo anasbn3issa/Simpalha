@@ -31,7 +31,7 @@ public class AuthService {
 
       public void SingUp(String firstName , String lastName , Date dateOfBirth, int phone , String adresse , String professionalTitle , String password, String email ) {
         ConnectionRequest con=new ConnectionRequest();
-        con.setUrl(Statics.BASE_URL_ARIJ+ "api/register" + "?firstName=" + firstName + "&lastName=" + lastName + "&dateOfBirth=" + dateOfBirth + "&phone=" + phone + "&adresse=" + adresse + "&professionalTitle=" + professionalTitle + "&password=" + password + "&email=" + email);
+        con.setUrl(Statics.BASE_URL+ "/user/register" + "?firstName=" + firstName + "&lastName=" + lastName + "&dateOfBirth=" + dateOfBirth + "&phone=" + phone + "&adresse=" + adresse + "&professionalTitle=" + professionalTitle + "&password=" + password + "&email=" + email);
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
@@ -85,7 +85,7 @@ public class AuthService {
         con.setPost(false);
         con.addArgument("email", email);
         con.addArgument("password", password);
-        con.setUrl(Statics.BASE_URL_ARIJ+"api/login");
+        con.setUrl(Statics.BASE_URL+"/user/login");
         User user = new User();
         con.addResponseListener((NetworkEvent evt) -> {
             if (con.getResponseCode() == 200) {

@@ -34,17 +34,12 @@ public class HomeForm extends SideMenu {
         Button btnAddTask = new Button("Add Task");
         Button btnListTasks = new Button("List Tasks");
         
-        Button btnAddPost = new Button("Add Post");
-        Button btnListPosts = new Button("List Posts");
 
         btnAddTask.addActionListener(e -> new AddTaskForm(current).show());
         btnListTasks.addActionListener(e -> System.out.println(MeetTask.getInstance().getAllMeets().toString()));
         
-        btnAddPost.addActionListener(e -> new ListPostsForm(current).show());
-        btnListPosts.addActionListener(e -> System.out.println(ServicePost.getInstance().getAllPosts().toString()));
         
-        
-        addAll(btnAddTask, btnListTasks,btnAddPost,btnListPosts);
+        addAll(btnAddTask, btnListTasks);
         Button btnApplications = new Button("Applications list");
         
 

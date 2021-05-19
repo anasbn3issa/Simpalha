@@ -28,10 +28,19 @@ public class Post {
     private String status;
     private String module;
     private String imageName;
+    private String ownerUserName;
 
     public Post() {
         if (status==null)
             status="OPEN";
+    }
+
+    public String getOwnerUserName() {
+        return ownerUserName;
+    }
+
+    public void setOwnerUserName(String ownerUserName) {
+        this.ownerUserName = ownerUserName;
     }
 
     public Post(String problem, String module) {
@@ -43,7 +52,7 @@ public class Post {
         this.id = id;
         this.problem = problem;
         this.module = module;
-        this.timestamp = timestamp;
+        this.timestamp = (Date)timestamp;
     }
 
     public Post(int id, String problem, String module) {
@@ -96,7 +105,7 @@ public class Post {
     }
 
     public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
+        this.timestamp = (Date) timestamp;
     }
 
     public String getStatus() {
