@@ -1,0 +1,60 @@
+[0518/204512.421:INFO:CONSOLE(73988)] "[HMR] Waiting for update signal from WDS...", source: https://esprittest.ulysse.media/static/js/0.chunk.js (73988)
+[0518/204516.710:INFO:CONSOLE(9001)] "WebSocket connection to 'wss://esprittest.ulysse.media/sockjs-node' failed: Error during WebSocket handshake: Unexpected response code: 404", source: https://esprittest.ulysse.media/static/js/0.chunk.js (9001)
+[0518/204516.710:INFO:CONSOLE(9014)] "The development server has disconnected.
+Refresh the page if necessary.", source: https://esprittest.ulysse.media/static/js/0.chunk.js (9014)
+[0518/204735.202:INFO:CONSOLE(73988)] "[HMR] Waiting for update signal from WDS...", source: https://esprittest.ulysse.media/static/js/0.chunk.js (73988)
+[0518/204736.756:INFO:CONSOLE(9001)] "WebSocket connection to 'wss://esprittest.ulysse.media/sockjs-node' failed: Error during WebSocket handshake: Unexpected response code: 404", source: https://esprittest.ulysse.media/static/js/0.chunk.js (9001)
+[0518/204736.756:INFO:CONSOLE(9014)] "The development server has disconnected.
+Refresh the page if necessary.", source: https://esprittest.ulysse.media/static/js/0.chunk.js (9014)
+[0518/204935.373:INFO:CONSOLE(2)] "JQMIGRATE: Migrate is installed, version 3.3.2", source: https://www.codenameone.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2 (2)
+[0518/204935.629:INFO:CONSOLE(116)] "Uncaught ReferenceError: Paddle is not defined", source: https://www.codenameone.com/ (116)
+[0518/204937.056:INFO:CONSOLE(0)] "An <img> element was lazyloaded with loading=lazy, but had no dimensions specified. Specifying dimensions improves performance. See https://crbug.com/954323", source: https://www.codenameone.com/ (0)
+[0518/204950.988:INFO:CONSOLE(0)] "A cookie associated with a cross-site resource at https://facebook.com/ was set without the `SameSite` attribute. A future release of Chrome will only deliver cookies with cross-site requests if they are set with `SameSite=None` and `Secure`. You can review cookies in developer tools under Application>Storage>Cookies and see more details at https://www.chromestatus.com/feature/5088147346030592 and https://www.chromestatus.com/feature/5633521622188032.", source: https://www.codenameone.com/ (0)
+[0518/205705.034:INFO:CONSOLE(73988)] "[HMR] Waiting for update signal from WDS...", source: https://esprittest.ulysse.media/static/js/0.chunk.js (73988)
+[0518/205705.314:INFO:CONSOLE(9001)] "WebSocket connection to 'wss://esprittest.ulysse.media/sockjs-node' failed: Error during WebSocket handshake: Unexpected response code: 404", source: https://esprittest.ulysse.media/static/js/0.chunk.js (9001)
+[0518/205705.314:INFO:CONSOLE(9014)] "The development server has disconnected.
+Refresh the page if necessary.", source: https://esprittest.ulysse.media/static/js/0.chunk.js (9014)
+[0518/210743.214:INFO:CONSOLE(73988)] "[HMR] Waiting for update signal from WDS...", source: https://esprittest.ulysse.media/static/js/0.chunk.js (73988)
+[0518/210743.461:INFO:CONSOLE(9001)] "WebSocket connection to 'wss://esprittest.ulysse.media/sockjs-node' failed: Error during WebSocket handshake: Unexpected response code: 404", source: https://esprittest.ulysse.media/static/js/0.chunk.js (9001)
+[0518/210743.461:INFO:CONSOLE(9014)] "The development server has disconnected.
+Refresh the page if necessary.", source: https://esprittest.ulysse.media/static/js/0.chunk.js (9014)
+[0518/210804.722:ERROR:audio_rtp_receiver.cc(89)] AudioRtpReceiver::OnSetVolume: No audio channel exists.
+[0518/210806.308:ERROR:audio_rtp_receiver.cc(89)] AudioRtpReceiver::OnSetVolume: No audio channel exists.
+[0518/210806.680:WARNING:used_ids.h(55)] Duplicate id found. Reassigning from 104 to 127
+[0518/210806.680:WARNING:used_ids.h(55)] Duplicate id found. Reassigning from 103 to 125
+[0518/210806.680:WARNING:used_ids.h(55)] Duplicate id found. Reassigning from 1 to 14
+[0518/210806.680:WARNING:used_ids.h(55)] Duplicate id found. Reassigning from 3 to 13
+[0518/210806.680:WARNING:used_ids.h(55)] Duplicate id found. Reassigning from 5 to 12
+[0518/210806.680:WARNING:used_ids.h(55)] Duplicate id found. Reassigning from 6 to 11
+[0518/210811.380:WARNING:turn_port.cc(826)] Port[2b64ce10:0:1:0:relay:Net[any:0:0:0:x:x:x:x:x/0:Wildcard:id=0]]: TURN host lookup received error 0
+[0518/210811.380:WARNING:turn_port.cc(826)] Port[2b64d570:0:1:0:relay:Net[any:0:0:0:x:x:x:x:x/0:Wildcard:id=0]]: TURN host lookup received error 0
+[0518/210811.435:WARNING:stun_port.cc(450)] Port[2b649ad0:0:1:0:local:Net[any:0:0:0:x:x:x:x:x/0:Wildcard:id=0]]: StunPort: stun host lookup received error 0
+[0518/210811.674:WARNING:webrtc_video_engine.cc(2096)] RTX SSRCs configured but there's no configured RTX payload type. Ignoring.
+[0518/210812.814:WARNING:balanced_degradation_settings.cc(96)] Unsupported size, value ignored.
+[0518/210813.603:WARNING:video_stream_encoder.cc(765)] Same/old NTP timestamp (3830357293603 <= 3830357293603) for incoming frame. Dropping.
+[0518/210813.603:WARNING:turn_port.cc(477)] Socket is bound to the address:192.168.1.x, rather than an address associated with network:Net[any:0.0.0.x/0:Wildcard:id=0]. Still allowing it since it's the 'any' address, possibly caused by multiple_routes being disabled.
+[0518/210813.621:WARNING:peer_connection.cc(6497)] Candidate has an unknown component: Cand[:2:2:udp:2013266429:3.235.111.x:19858:local::0:MdUF:yX17QCIe5hyFXfGPLBswUD:0:0:0] for mid 0
+[0518/210813.622:WARNING:jsep_transport_controller.cc(342)] Not adding candidate because the JsepTransport doesn't exist. Ignore it.
+[0518/210813.622:WARNING:jsep_transport_controller.cc(342)] Not adding candidate because the JsepTransport doesn't exist. Ignore it.
+[0518/210813.845:WARNING:basic_port_allocator.cc(929)] Discarding candidate because port is already done gathering.
+[0518/210814.139:WARNING:balanced_degradation_settings.cc(96)] Unsupported size, value ignored.
+[0518/210814.166:WARNING:basic_port_allocator.cc(929)] Discarding candidate because port is already done gathering.
+[0518/210814.166:WARNING:peer_connection.cc(6497)] Candidate has an unknown component: Cand[:2:2:udp:2013266429:3.235.111.x:19858:local::0:MdUF:yX17QCIe5hyFXfGPLBswUD:0:0:0] for mid 0
+[0518/210814.166:WARNING:jsep_transport_controller.cc(342)] Not adding candidate because the JsepTransport doesn't exist. Ignore it.
+[0518/210814.166:WARNING:jsep_transport_controller.cc(342)] Not adding candidate because the JsepTransport doesn't exist. Ignore it.
+[0518/210814.166:WARNING:jsep_transport_controller.cc(342)] Not adding candidate because the JsepTransport doesn't exist. Ignore it.
+[0518/210814.166:WARNING:jsep_transport_controller.cc(342)] Not adding candidate because the JsepTransport doesn't exist. Ignore it.
+[0518/210814.241:WARNING:peer_connection.cc(6497)] Candidate has an unknown component: Cand[:2:2:udp:2013266429:3.235.111.x:19858:local::0:MdUF:yX17QCIe5hyFXfGPLBswUD:0:0:0] for mid 0
+[0518/210814.241:WARNING:jsep_transport_controller.cc(342)] Not adding candidate because the JsepTransport doesn't exist. Ignore it.
+[0518/210814.241:WARNING:jsep_transport_controller.cc(342)] Not adding candidate because the JsepTransport doesn't exist. Ignore it.
+[0518/210814.241:WARNING:jsep_transport_controller.cc(342)] Not adding candidate because the JsepTransport doesn't exist. Ignore it.
+[0518/210814.241:WARNING:jsep_transport_controller.cc(342)] Not adding candidate because the JsepTransport doesn't exist. Ignore it.
+[0518/210817.262:WARNING:rtp_rtcp_impl.cc(312)] Failed to send RTCP BYE
+[0518/210817.270:WARNING:packet_router.cc(158)] Failed to send packet, rejected by RTP module.
+[0518/210817.270:WARNING:packet_router.cc(158)] Failed to send packet, rejected by RTP module.
+[0518/210817.270:WARNING:packet_router.cc(158)] Failed to send packet, rejected by RTP module.
+[0518/210817.270:WARNING:packet_router.cc(158)] Failed to send packet, rejected by RTP module.
+[0518/210817.270:WARNING:packet_router.cc(158)] Failed to send packet, rejected by RTP module.
+[0518/210817.270:WARNING:packet_router.cc(158)] Failed to send packet, rejected by RTP module.
+[0518/210817.270:WARNING:packet_router.cc(158)] Failed to send packet, rejected by RTP module.
+[0518/210818.086:INFO:user_input_monitor_win.cc(170)] RegisterRawInputDevices() failed for RIDEV_REMOVE: The parameter is incorrect. (0x57)

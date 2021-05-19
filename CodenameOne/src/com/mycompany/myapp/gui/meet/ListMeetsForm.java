@@ -5,24 +5,43 @@
  */
 package com.mycompany.myapp.gui.meet;
 
+import com.codename1.components.FloatingActionButton;
 import com.mycompany.myapp.gui.*;
-import com.codename1.components.SpanLabel;
+import com.codename1.components.ToastBar;
+import com.codename1.l10n.DateFormat;
 import com.codename1.ui.Button;
+import com.codename1.ui.ComboBox;
+import com.codename1.ui.Command;
 import com.codename1.ui.Component;
+import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Label;
+import com.codename1.ui.TextArea;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.table.DefaultTableModel;
-import com.codename1.ui.table.Table;
-import com.codename1.ui.table.TableModel;
+import com.codename1.ui.plaf.Border;
+import com.codename1.ui.plaf.Style;
+import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.entities.Meet;
-import com.mycompany.myapp.services.MeetTask;
-import com.mycompany.myapp.services.ServiceTask;
+import com.mycompany.myapp.services.MeetService;
+import com.mycompany.myapp.utils.Statics;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import com.codename1.ui.Image;
+import com.codename1.ui.Tabs;
+import com.codename1.util.DateUtil;
+import com.mycompany.myapp.utils.Session;
+import java.io.IOException;
+import net.glxn.qrgen.QRCode;
+import net.glxn.qrgen.image.ImageType;
 
 /**
  *
@@ -30,48 +49,20 @@ import java.util.ArrayList;
  */
 public class ListMeetsForm extends Form {
 
-    public ListMeetsForm(Form previous) {
+    public ListMeetsForm(Resources res) {
         setTitle("List meets");
         setLayout(new BorderLayout(BorderLayout.CENTER_BEHAVIOR_CENTER));
+        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> new HomeForm(res).showBack());
 
-
-        String[] headers = new String[]{"Student", "Helper", "Feedback", "Specialite", "Time","Etat","Action"};
-        
-        ArrayList<Meet> meets = MeetTask.getInstance().getAllMeets();
-        System.out.println(meets);
-        
-        Object[][] rows = new Object[meets.size()][];
-
-        for (int iter = 0; iter < rows.length; iter++) {
-            rows[iter] = new Object[]{
-                meets.get(iter).getId_student(), meets.get(iter).getId_helper(), meets.get(iter).getFeedback_id(),
-                meets.get(iter).getSpecialite(),meets.get(iter).getTime(),meets.get(iter).getEtat(),
-            };
-        }
-
-        MeetTableModel meetTableModel = new MeetTableModel(headers, rows);
-        Table dataTable = new Table(meetTableModel) {
-
-            @Override
-            protected Component createCell(Object value, final int row, final int column, boolean editable) {
-                if (row != -1 && column == headers.length - 1) {
-                    Button cell = new Button("test");
-                    cell.setUIID(getUIID() + "Cell");
-                    cell.getUnselectedStyle().setAlignment(Component.CENTER);
-                    cell.getSelectedStyle().setAlignment(Component.CENTER);
-                    cell.setFlatten(true);
-                    cell.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent evt) {
-
-                        }
-                    });
-                    return cell;
-                }
-                return super.createCell(value, row, column, editable); //To change body of generated methods, choose Tools | Templates.
-            }
-        };
-        add(BorderLayout.NORTH, dataTable);
-        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.showBack());
+        Tabs tb = new Tabs();
+        tb.setTabUIID(null);
+        tb.addTab("Student", FontImage.MATERIAL_3D_ROTATION, 4, new ListStudentMeetsForm(res));
+        System.out.println(Session.ConnectedUser.getRoles());
+        if(Session.ConnectedUser.getRoles().contains("ROLE_HELPER"))
+            tb.addTab("Helper", FontImage.MATERIAL_ACCESSIBILITY, 4, new ListHelperMeetsForm(res));
+        setScrollableY(true);
+        setScrollableX(true);
+        setScrollVisible(false);
+        add(BorderLayout.OVERLAY, tb);
     }
 }

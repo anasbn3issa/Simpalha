@@ -30,7 +30,7 @@ class Users implements UserInterface, \Serializable
      * @ORM\Column(name="Id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Groups("meet:search", "meet:index")
+     * @Groups("meet:search", "meet:index", "helpers:index", "meet:student")
      */
     private $id;
     /**
@@ -59,6 +59,7 @@ class Users implements UserInterface, \Serializable
     /**
      * @var string|null
      *
+     * @Groups("helpers:index", "meet:student")
      * @ORM\Column(name="username", type="string", length=255, nullable=true)
      */
     private $pseudo;
@@ -151,6 +152,7 @@ class Users implements UserInterface, \Serializable
     /**
      * @var string|null
      *
+     * @Groups("helpers:index")
      * @ORM\Column(name="Specialty", type="string", length=255, nullable=true)
      */
     private $specialty;
@@ -161,11 +163,6 @@ class Users implements UserInterface, \Serializable
      * @ORM\Column(name="code", type="string", length=255, nullable=true)
      */
     private $code;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Quizz::class, mappedBy="helper")
-     */
-    private $quizzs;
 
     /**
      * @return string
@@ -520,43 +517,12 @@ class Users implements UserInterface, \Serializable
         return true;
     }
 
-
     /**
      * @return bool
      */
     public function isEnabled()
     {
         return $this->isActive;
-    }
-
-    /**
-     * @return Collection|Quizz[]
-     */
-    public function getQuizzs(): Collection
-    {
-        return $this->quizzs;
-    }
-
-    public function addQuizz(Quizz $quizz): self
-    {
-        if (!$this->quizzs->contains($quizz)) {
-            $this->quizzs[] = $quizz;
-            $quizz->setHelper($this);
-        }
-
-        return $this;
-    }
-
-    public function removeQuizz(Quizz $quizz): self
-    {
-        if ($this->quizzs->removeElement($quizz)) {
-            // set the owning side to null (unless already changed)
-            if ($quizz->getHelper() === $this) {
-                $quizz->setHelper(null);
-            }
-        }
-
-        return $this;
     }
 
     /** @see \Serializable::serialize() */

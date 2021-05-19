@@ -12,7 +12,7 @@ import com.codename1.ui.Label;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BoxLayout;
 import com.mycompany.myapp.gui.meet.ListMeetsForm;
-import com.mycompany.myapp.services.MeetTask;
+import com.mycompany.myapp.services.MeetService;
 import com.codename1.ui.util.Resources;
 
 /**
