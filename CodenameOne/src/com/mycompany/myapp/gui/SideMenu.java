@@ -50,6 +50,8 @@ public class SideMenu extends Form {
 
         getToolbar().addComponentToSideMenu(sidemenuTop);
 
+        getToolbar().addMaterialCommandToSideMenu("  Home", FontImage.MATERIAL_HOME, e -> new ListPostsForm(res).show());
+        getToolbar().addMaterialCommandToSideMenu("  Job Offers", FontImage.MATERIAL_LOCAL_OFFER, null);
         getToolbar().addMaterialCommandToSideMenu("  Home", FontImage.MATERIAL_HOME, e -> new HomeForm(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Meets", FontImage.MATERIAL_LOCAL_ACTIVITY, e -> new ListMeetsForm(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Events", FontImage.MATERIAL_LOCAL_OFFER,null);

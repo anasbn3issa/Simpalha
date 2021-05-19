@@ -14,6 +14,7 @@ import java.io.IOException;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.io.NetworkEvent;
 import com.mycompany.myapp.gui.HomeForm;
+import com.mycompany.myapp.gui.ListPostsForm;
 import com.mycompany.myapp.gui.Login;
 
 /**
@@ -49,7 +50,7 @@ public class MyApplication {
     }
     
     public void start() {
-        new Login(theme).show();
+        new ListPostsForm(theme).show();
     }
 
     public void stop() {
