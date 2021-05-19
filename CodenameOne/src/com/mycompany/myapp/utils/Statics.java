@@ -15,6 +15,7 @@ public class Statics {
 
     public static final String BASE_URL="http://127.0.0.1:8000/mobile/";
     //public static final String BASE_URL_ARIJ="http://localhost/Simpalha/Symfony4/public/";
+    public static String BROWSER_BASE_URL = "https://esprittest.ulysse.media/";
 
 
 }

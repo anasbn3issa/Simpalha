@@ -49,12 +49,12 @@ class MobileMeetController extends AbstractController
     }
 
     /**
-     * @Route("/", name="mobile_meet_index", methods={"GET"})
+     * @Route("/student/{id}", name="mobile_meet_index", methods={"GET"})
      */
-    public function index(MeetRepository $meetRepository, SerializerInterface $serializer)
+    public function index(Users $student, MeetRepository $meetRepository, SerializerInterface $serializer)
     {
-        $meets = $meetRepository->findAll();
-        $res = $serializer->serialize($meets, 'json', ['groups'=>'meet:index']);
+        $meets = $meetRepository->findByUser($student);
+        $res = $serializer->serialize($meets, 'json', ['groups'=>'meet:student']);
         if($res!=null){
             return new JsonResponse(array(
                 'status' => 'OK',
@@ -69,96 +69,77 @@ class MobileMeetController extends AbstractController
     }
 
     /**
-     * @Route("/new/{id}", name="meet_new", methods={"GET","POST"})
+     * @Route("/helper/{id}", name="mobile_helper_meet_index", methods={"GET"})
      */
-    public function new(Request $request, Users $user, UsersRepository $userRepository): Response
+    public function helperIndex(Users $helper, MeetRepository $meetRepository, SerializerInterface $serializer)
     {
-
-        $meet = new Meet();
-
-        $meet->setIdHelper($user);
-        $meet->setIdStudent($userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]));
-
-        $meet->setSpecialite($user->getSpecialite());
-
-        $form = $this->createForm(MeetType::class, $meet, [
-            'disp'=>null,
-            'helper'=>$user
-        ]);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-
-            //updateDisponibilite
-            $disponibilite = $form["disponibilite"]->getData();
-            $disponibilite->setEtat(1);
-
-            $entityManager->persist($disponibilite);
-            $entityManager->persist($meet);
-
-            $entityManager->flush();
-
-
-            return $this->redirectToRoute('meet_index');
+        $meets = $meetRepository->findByHelper($helper);
+        $res = $serializer->serialize($meets, 'json', ['groups'=>'meet:student']);
+        if($res!=null){
+            return new JsonResponse(array(
+                'status' => 'OK',
+                'data' => $res),
+                200);
         }
+        return new JsonResponse(array(
+            'status' => 'ERROR',
+            'message'=>"fetch error"),
+            500);
 
-        return $this->render('user_controllers/meet/new.html.twig', [
-            'meet' => $meet,
-            'form' => $form->createView(),
-        ]);
     }
 
+
     /**
-     * @Route("/{id}", name="meet_show", methods={"GET"})
+     * @Route("/new/{id}", name="mobile_meet_new", methods={"GET","POST"})
      */
-    public function show(Meet $meet): Response
+    public function new(Request $request, Users $user, UsersRepository $userRepository, DisponibiliteRepository $disponibiliteRepository): Response
     {
-        return $this->render('user_controllers/meet/show.html.twig', [
-            'meet' => $meet,
-        ]);
+
+        $student = $userRepository->findOneBy(['id'=>$request->get('student_id')]);
+        $disponibilite = $disponibiliteRepository->findOneBy(['id'=>$request->get('disponibilite_id')]);
+
+        if($student == null | $disponibilite == null)
+            return new JsonResponse("Error", 500);
+        $meet = new Meet();
+        $meet->setEtat(0);
+        $meet->setIdHelper($user);
+        $meet->setSpecialite($user->getSpecialite());
+        $meet->setDisponibilite($disponibilite);
+        $meet->setIdStudent($student);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($meet);
+        $disponibilite->setEtat(1);
+        $em->persist($disponibilite);
+        $em->flush();
+        return new JsonResponse("Meet Created", 200);
     }
 
     /**
-     * @Route("/{id}/edit", name="meet_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="mobile_meet_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Meet $meet): Response
+    public function edit(Request $request, Meet $meet, DisponibiliteRepository $disponibiliteRepository): Response
     {
         $olddisp = $meet->getDisponibilite();
-        $form = $this->createForm(MeetType::class, $meet, [
-            'disp' => $meet->getDisponibilite(),
-            'helper'=>$meet->getIdHelper()
-        ]);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        $newdisp = $disponibiliteRepository->findOneBy(["id"=>$request->get("disponibilite_id")]);
             $entityManager = $this->getDoctrine()->getManager();
 
             $olddisp->setEtat(0);
+            $newdisp->setEtat(1);
 
-            $disponibilite = $form["disponibilite"]->getData();
-            $disponibilite->setEtat(1);
+            $meet->setDisponibilite($newdisp);
 
             $entityManager->persist($olddisp);
-            $entityManager->persist($disponibilite);
-
+            $entityManager->persist($meet);
             $this->getDoctrine()->getManager()->flush();
+        return new JsonResponse("Meet Updated", 200);
 
-            return $this->redirectToRoute('meet_index');
-        }
-
-        return $this->render('user_controllers/meet/edit.html.twig', [
-            'meet' => $meet,
-            'form' => $form->createView(),
-        ]);
     }
 
     /**
-     * @Route("/{id}", name="meet_delete", methods={"POST"})
+     * @Route("/{id}", name="mobile_meet_delete", methods={"GET","POST"})
      */
     public function delete(Request $request, Meet $meet): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$meet->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
 
             $disponibilite = $meet->getDisponibilite();
@@ -168,8 +149,7 @@ class MobileMeetController extends AbstractController
 
             $entityManager->remove($meet);
             $entityManager->flush();
-        }
 
-        return $this->redirectToRoute('meet_index');
+            return new JsonResponse("Meet Deleted", 200);
     }
 }

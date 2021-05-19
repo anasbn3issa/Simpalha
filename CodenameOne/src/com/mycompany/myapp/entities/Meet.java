@@ -15,7 +15,7 @@ import com.codename1.io.Util;
 public class Meet {
     
     private int id_student,id_helper, feedback_id, etat;
-    private String id, specialite, time;
+    private String id, specialite, time, feedback, unameStd, unameHlp;
     
     public Meet(){
         
@@ -39,6 +39,24 @@ public class Meet {
         this.specialite = specialite;
         this.etat = etat;
     }
+
+    public String getUnameStd() {
+        return unameStd;
+    }
+
+    public void setUnameStd(String unameStd) {
+        this.unameStd = unameStd;
+    }
+
+    public String getUnameHlp() {
+        return unameHlp;
+    }
+
+    public void setUnameHlp(String unameHlp) {
+        this.unameHlp = unameHlp;
+    }
+    
+    
     
     
 
@@ -66,6 +84,12 @@ public class Meet {
         this.feedback_id = feedback_id;
     }
 
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }
+    
+    
+
     public String getTime() {
         return time;
     }
@@ -90,7 +114,7 @@ public class Meet {
 
     @Override
     public String toString() {
-        return "Meet{" + "id_student=" + id_student + ", id_helper=" + id_helper + ", feedback_id=" + feedback_id + ", etat=" + etat + ", id=" + id + ", specialite=" + specialite + ", time=" + time + '}';
+        return "Meet{" + "id_student=" + id_student + ", id_helper=" + id_helper + ", feedback_id=" + feedback_id + ", etat=" + etat + ", id=" + id + ", specialite=" + specialite + ", time=" + time + ", feedback=" + feedback + ", unameStd=" + unameStd + ", unameHlp=" + unameHlp + '}';
     }
 
     public int getEtat() {

@@ -1,11 +1,12 @@
 <?php
 
 
-namespace App\Controller\UserControllers;
+namespace App\Controller\Mobile\UserControllers;
 
 
 
 use App\Entity\Users;
+use App\Repository\UsersRepository;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,9 +20,10 @@ use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Service\FileUploader;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * @Route("/api", name="security_")
+ * @Route("/mobile/user", name="security_")
  */
 class SecurityApiController extends AbstractController
 {
@@ -165,5 +167,24 @@ class SecurityApiController extends AbstractController
         $em->persist($user);
         $em->flush();
         return new JsonResponse('User Edited');
+    }
+
+    /**
+     * @Route("/helpers", name="helper_index")
+     */
+    public function helpers(UsersRepository $userRepository, SerializerInterface $serializer): Response
+    {
+        $helpers = $userRepository->findHelpers();
+        $res = $serializer->serialize($helpers, 'json', ['groups'=>'helpers:index']);
+        if($res!=null){
+            return new JsonResponse(array(
+                'status' => 'OK',
+                'data' => $res),
+                200);
+        }
+        return new JsonResponse(array(
+            'status' => 'ERROR',
+            'message'=>"fetch error"),
+            500);
     }
 }
