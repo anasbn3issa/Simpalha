@@ -9,6 +9,7 @@ package com.mycompany.myapp.gui;
  *
  * @author win10
  */
+import com.codename1.admob.AdMobManager;
 import com.mycompany.myapp.gui.AddTaskForm;
 import com.mycompany.myapp.gui.ListTasksForm;
 
@@ -19,6 +20,8 @@ import com.codename1.ui.util.Resources;
 
 public class SideMenu extends Form {
 
+     private AdMobManager admob;
+     int n = 0;
     Form current;
 
     public SideMenu(String title, Layout contentPaneLayout) {
@@ -37,6 +40,14 @@ public class SideMenu extends Form {
     }
 
     public void setupSideMenu(/*User u,*/ Resources res) {
+        
+           //String admobId = "ca-app-pub-3940256099942544/1033173712";
+           
+           //DECLARATION API ADMOB
+          String admobId = "ca-app-pub-3940256099942544/5224354917\n";
+          admob = new AdMobManager(admobId);
+          //FIN DECLARATION API ADMOB
+        
         Image profilePic = res.getImage("20187112601561032514-512.png");
         Image mask = res.getImage("round-mask.png");
         mask = mask.scaledHeight(mask.getHeight() / 4 * 3);
@@ -55,9 +66,18 @@ public class SideMenu extends Form {
         getToolbar().addMaterialCommandToSideMenu("  Statistics", FontImage.MATERIAL_ANALYTICS, null);
         getToolbar().addMaterialCommandToSideMenu("  Meetings", FontImage.MATERIAL_TRENDING_UP, null);
         getToolbar().addMaterialCommandToSideMenu("  Projects", FontImage.MATERIAL_ACCESS_TIME, null);
-        getToolbar().addMaterialCommandToSideMenu("  Releases", FontImage.MATERIAL_ACCESS_TIME, null);
+        getToolbar().addMaterialCommandToSideMenu("  Releases", FontImage.MATERIAL_ARTICLE, null);
 
-        getToolbar().addMaterialCommandToSideMenu("  Documents", FontImage.MATERIAL_TRENDING_UP, null);
+        getToolbar().addMaterialCommandToSideMenu("  Resources", FontImage.MATERIAL_ARTICLE, e -> {
+          if (n % 2 == 0) {
+               admob.loadAndShow();
+               n++;
+              
+           } else {
+                n++;
+              new ResourceHomePage(res).show();
+           }
+        });
         getToolbar().addMaterialCommandToSideMenu("  Issues", FontImage.MATERIAL_ACCESS_TIME, null);
 
         getToolbar().addMaterialCommandToSideMenu("  Meeting Claims", FontImage.MATERIAL_ACCESS_TIME, null);

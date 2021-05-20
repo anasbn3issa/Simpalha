@@ -55,8 +55,6 @@
     "symfony/yaml": "4.4.*",
     "twig/extra-bundle": "^2.12|^3.0",
     "twig/twig": "^2.12|^3.0",
-    "vonage/client": "^2.4",
-    "ext-fileinfo": "*",
     "vangrg/profanity-bundle": "^1.1",
     "vonage/client": "^2.4"
   },

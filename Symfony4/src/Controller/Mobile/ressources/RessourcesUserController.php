@@ -51,6 +51,33 @@ class RessourcesUserController extends AbstractController
     }
 
     /**
+     * @Route("/tri", name="mobile_ressourcesUser_tri", methods={"GET"})
+     */
+    public function tri(RessourcesRepository $ressourcesRepository, ModulesRepository $modulesRepository,SerializerInterface $serializer,NormalizerInterface $normalizer): Response
+    {
+        /*video : serializer
+        $ressources=$ressourcesRepository->findAll();
+        $json=$serializerInterface->serialize($ressources,'json',['groups'=>'$ressource']);
+        dump($ressources);
+        die;
+        */
+
+        //workshop: normalizer
+        $ressources=$ressourcesRepository->OrderBy();
+        ///  $jsonContent= $normalizer->normalize($ressources, 'json',['groups'=>'ressource']);
+        //return new Response(json_encode($jsonContent));
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($ressources);
+        return new JsonResponse($formatted);
+
+
+
+    }
+
+
+
+    /**
      * @Route("/{idr}", name="mobile_ressourcesUser_show", methods={"GET"})
      */
     public function show(Request $request, $idr,NormalizerInterface $normalizer): Response
