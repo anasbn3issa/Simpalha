@@ -8,7 +8,14 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.io.Log;
 import com.codename1.ui.Toolbar;
+<<<<<<< HEAD
+=======
+import java.io.IOException;
+import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.io.NetworkEvent;
+import com.mycompany.myapp.gui.HomeForm;
 import com.mycompany.myapp.gui.ListPostsForm;
+>>>>>>> b4f3875cc711f7402e946a2865893fa3e5259d04
 import com.mycompany.myapp.gui.Login;
 import com.mycompany.myapp.gui.quiz.Home;
 
@@ -45,8 +52,12 @@ public class MyApplication {
     }
     
     public void start() {
+<<<<<<< HEAD
+//        new Home(theme).show();
         new Login(theme).show();
-        //new ListPostsForm(theme).show();
+=======
+        new ListPostsForm(theme).show();
+>>>>>>> b4f3875cc711f7402e946a2865893fa3e5259d04
     }
 
     public void stop() {

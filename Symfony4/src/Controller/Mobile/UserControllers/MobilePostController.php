@@ -34,6 +34,27 @@ class MobilePostController extends AbstractController
      */
     public function getPosts(PostRepository $postRepository,SerializerInterface $serializer): Response
     {
+        $posts =$postRepository->findAll();
+        $res = $serializer->serialize($posts, 'json', ['groups'=>'post:index']);
+        if($res!=null){
+            return new JsonResponse(array(
+                'status' => 'OK',
+                'data' => $res),
+                200);
+        }
+        return new JsonResponse(array(
+            'status' => 'ERROR',
+            'message'=>"fetch error"),
+            500);
+
+    }
+
+
+    /**
+     * @Route("/getpostssorted", name="getpostssorted_mobile")
+     */
+    public function getPostsSorted(PostRepository $postRepository,SerializerInterface $serializer): Response
+    {
         $posts =$postRepository->findAllPostsOrderedByNewest();
 
         $res = $serializer->serialize($posts, 'json', ['groups'=>'post:index']);
@@ -49,6 +70,7 @@ class MobilePostController extends AbstractController
             500);
 
     }
+
 
     /**
      * @Route("/new/{problem}/{module}", name="addpost_mobile", methods={"POST"})

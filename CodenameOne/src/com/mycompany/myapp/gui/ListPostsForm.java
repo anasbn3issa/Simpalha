@@ -31,7 +31,8 @@ import java.util.ArrayList;
 public class ListPostsForm extends Form {
 
     private Container postsContainer;
-    private Button addButton;
+    private Button sort=new Button("Sort");
+    private ArrayList<Post> posts;
 
     public ListPostsForm(Resources theme) {
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> new HomeForm(theme).showBack());
@@ -41,11 +42,16 @@ public class ListPostsForm extends Form {
         //setScrollableY(true);
         //setScrollableX(true);
         //setScrollVisible(false);
-        addButton = new Button("Add Post");
+        posts = ServicePost.getInstance().getAllPosts();
+        postsContainer.add(sort);
+        sort.addActionListener(e->{ 
+                posts = ServicePost.getInstance().getAllPostsSorted();
+            });
+        
 
         setLayout(new BorderLayout(BorderLayout.CENTER_BEHAVIOR_SCALE));
         setTitle("Posts List");
-        ArrayList<Post> posts = ServicePost.getInstance().getAllPosts();
+        
 
         for (Post p : posts) {
             Container a = new Container(new FlowLayout(CENTER));

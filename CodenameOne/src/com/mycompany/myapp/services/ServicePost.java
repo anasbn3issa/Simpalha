@@ -112,6 +112,22 @@ public class ServicePost {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return posts;
     }
+    
+    public ArrayList<Post> getAllPostsSorted() {
+        String url = Statics.BASE_URL + "post/getpostssorted";
+        req.setPost(false);
+        req.setUrl(url);
+
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                posts = parsePosts(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return posts;
+    }
 
     public boolean deletePost(Post p) {
         String url = Statics.BASE_URL + "post/" + "delete/" + p.getId(); //création de l'URL
