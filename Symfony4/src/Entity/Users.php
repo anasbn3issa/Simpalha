@@ -59,7 +59,7 @@ class Users implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @Groups("helpers:index", "meet:student")
+     * @Groups("helpers:index", "meet:student", "meet:search")
      * @ORM\Column(name="username", type="string", length=255, nullable=true)
      * @Groups("post:index")
      * @Groups("quizz","quizz_result")

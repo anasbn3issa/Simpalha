@@ -125,10 +125,10 @@ public class P2PFXMLController implements Initializable {
 
         fetchStudentMeets();
         fetchHelperMeets();
-        
+
     }
-    
-    void fetchStudentMeets(){
+
+    void fetchStudentMeets() {
         TableColumn<Meet, String> idHlpCol = new TableColumn<>("Helper");
         idHlpCol.setCellValueFactory(new PropertyValueFactory<>("helperDisplay"));
 
@@ -303,10 +303,11 @@ public class P2PFXMLController implements Initializable {
                                         break;
                                     }
                                     default: {
-                                        EngineOptions options
-                                                = EngineOptions.newBuilder(HARDWARE_ACCELERATED).licenseKey(Constants.JXBROWSER_LSC)
-                                                        .build();
-                                        Engine engine = Engine.newInstance(options);
+                                        Engine engine = Engine.newInstance(
+                                                EngineOptions.newBuilder(HARDWARE_ACCELERATED)
+                                                        .licenseKey(Constants.JXBROWSER_LSC)
+                                                        .build());
+
                                         MediaDevices mediaDevices = engine.mediaDevices();
 
                                         // Get all available video devices, e.g. web camera.
@@ -378,7 +379,7 @@ public class P2PFXMLController implements Initializable {
                                             addressBar.addActionListener(e
                                                     -> browser.navigation().loadUrl(addressBar.getText()));
                                             //frame.add(addressBar, BorderLayout.NORTH);
-                                            
+
                                             frame.add(view, BorderLayout.CENTER);
                                             frame.setSize(800, 500);
                                             frame.setLocationRelativeTo(null);
@@ -409,10 +410,9 @@ public class P2PFXMLController implements Initializable {
         meets.getColumns().add(delCol);
         meets.getColumns().add(joinCol);
         dataList.addAll(service.ReadById(userId));
+        System.out.println("Student");
+        System.out.println(userId);
         meets.getItems().addAll(dataList);
-        
-        
-        
 
         // Wrap the ObservableList in a FilteredList (initially display all data).
         FilteredList<Meet> filteredData = new FilteredList<>(dataList, b -> true);
@@ -452,9 +452,9 @@ public class P2PFXMLController implements Initializable {
         meets.setItems(sortedData);
 
     }
-    
-    void fetchHelperMeets(){
-            
+
+    void fetchHelperMeets() {
+
         TableColumn<Meet, String> idStdCol = new TableColumn<>("Student");
         idStdCol.setCellValueFactory(new PropertyValueFactory<>("StudentDisplay"));
 
@@ -629,10 +629,10 @@ public class P2PFXMLController implements Initializable {
                                         break;
                                     }
                                     default: {
-                                        EngineOptions options
-                                                = EngineOptions.newBuilder(HARDWARE_ACCELERATED).licenseKey(Constants.JXBROWSER_LSC)
-                                                        .build();
-                                        Engine engine = Engine.newInstance(options);
+                                        Engine engine = Engine.newInstance(
+                                                EngineOptions.newBuilder(HARDWARE_ACCELERATED)
+                                                        .licenseKey(Constants.JXBROWSER_LSC)
+                                                        .build());
                                         MediaDevices mediaDevices = engine.mediaDevices();
 
                                         // Get all available video devices, e.g. web camera.
@@ -704,7 +704,7 @@ public class P2PFXMLController implements Initializable {
                                             addressBar.addActionListener(e
                                                     -> browser.navigation().loadUrl(addressBar.getText()));
                                             //frame.add(addressBar, BorderLayout.NORTH);
-                                            
+
                                             frame.add(view, BorderLayout.CENTER);
                                             frame.setSize(800, 500);
                                             frame.setLocationRelativeTo(null);
@@ -735,10 +735,9 @@ public class P2PFXMLController implements Initializable {
         meetsH.getColumns().add(delCol2);
         meetsH.getColumns().add(joinCol2);
         dataListH.addAll(service.ReadStudentsById(userId));
+        System.out.println("HS");
+        System.out.println(service.ReadStudentsById(userId));
         meetsH.getItems().addAll(dataListH);
-        
-        
-        
 
         // Wrap the ObservableList in a FilteredList (initially display all data).
         FilteredList<Meet> filteredData2 = new FilteredList<>(dataListH, b -> true);

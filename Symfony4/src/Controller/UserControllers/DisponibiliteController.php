@@ -77,7 +77,7 @@ class DisponibiliteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('user_controllers_disponibilite_index');
+            return $this->redirectToRoute('user_disponibilite_index');
         }
 
         return $this->render('user_controllers/disponibilite/edit.html.twig', [
@@ -97,6 +97,6 @@ class DisponibiliteController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('user_controllers_disponibilite_index');
+        return $this->redirectToRoute('user_disponibilite_index');
     }
 }

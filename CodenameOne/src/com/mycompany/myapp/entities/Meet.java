@@ -15,7 +15,7 @@ import com.codename1.io.Util;
 public class Meet {
     
     private int id_student,id_helper, feedback_id, etat;
-    private String id, specialite, time, feedback, unameStd, unameHlp;
+    private String id, specialite, time, feedback, unameStd, unameHlp, feedbackdesc;
     
     public Meet(){
         
@@ -39,6 +39,16 @@ public class Meet {
         this.specialite = specialite;
         this.etat = etat;
     }
+
+    public String getFeedbackdesc() {
+        return feedbackdesc;
+    }
+
+    public void setFeedbackdesc(String feedbackdesc) {
+        this.feedbackdesc = feedbackdesc;
+    }
+    
+    
 
     public String getUnameStd() {
         return unameStd;

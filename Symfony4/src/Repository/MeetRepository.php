@@ -29,9 +29,9 @@ class MeetRepository extends ServiceEntityRepository
         return $qb
             ->join("m.idHelper", "helper")
             ->join("m.idStudent", "student")
-            ->orWhere($qb->expr()->like('m.specialty', $qb->expr()->literal('%' . $value . '%')))
-            ->orWhere($qb->expr()->like('helper.username', $qb->expr()->literal('%' . $value . '%')))
-            ->orWhere($qb->expr()->like('student.username', $qb->expr()->literal('%' . $value . '%')))
+            ->orWhere($qb->expr()->like('m.specialite', $qb->expr()->literal('%' . $value . '%')))
+            ->orWhere($qb->expr()->like('helper.pseudo', $qb->expr()->literal('%' . $value . '%')))
+            ->orWhere($qb->expr()->like('student.pseudo', $qb->expr()->literal('%' . $value . '%')))
             ->getQuery()
             ->getResult()
             ;

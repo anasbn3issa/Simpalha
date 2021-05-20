@@ -5,9 +5,6 @@
  */
 package entities;
 
-import java.util.Base64;
-import static java.util.Collections.list;
-
 /**
  *
  * @author win10

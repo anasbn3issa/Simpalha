@@ -6,6 +6,7 @@ use App\Entity\Disponibilite;
 use App\Entity\Users;
 use App\Form\DisponibiliteType;
 use App\Repository\DisponibiliteRepository;
+use App\Repository\MeetRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -35,7 +36,7 @@ class MobileDisponibiliteController extends AbstractController
      */
     public function getdisps(Users $helper, DisponibiliteRepository $disponibiliteRepository, UsersRepository $userRepository, SerializerInterface $serializer): Response
     {
-        $disps = $disponibiliteRepository->getDisp($helper)->getQuery()->getResult();
+        $disps = $disponibiliteRepository->getHelperDispMeet($helper);
         $res = $serializer->serialize($disps, 'json', ['groups'=>'meet:new']);
         if($res!=null){
             return new JsonResponse(array(
@@ -51,36 +52,29 @@ class MobileDisponibiliteController extends AbstractController
 
 
     /**
-     * @Route("/new", name="user_disponibilite_new", methods={"GET","POST"})
+     * @Route("/new/{id}", name="mobile_user_disponibilite_new", methods={"GET","POST"})
      */
-    public function new(Request $request, UsersRepository $userRepository): Response
+    public function new(Request $request, Users $helper, UsersRepository $userRepository): Response
     {
         $disponibilite = new Disponibilite();
+        $start = new \DateTime( $request->get('start'));
+        $finish = new \DateTime( $request->get('finish'));
 
-        $disponibilite->setHelperid($userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]));
 
-        $form = $this->createForm(DisponibiliteType::class, $disponibilite);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $disponibilite->setHelperid($userRepository->findOneBy(['email'=>$this->getUser()->getUsername()]));
+        $disponibilite->setHelperid($helper);
+        $disponibilite->setEtat(0);
+        $disponibilite->setDatedeb($start);
+        $disponibilite->setDatefin($finish);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($disponibilite);
             $entityManager->flush();
+        return new JsonResponse("Disponibilite Created", 200);
 
-            return $this->redirectToRoute('user_disponibilite_index');
-        }
-
-        return $this->render('user_controllers/disponibilite/new.html.twig', [
-            'disponibilite' => $disponibilite,
-            'form' => $form->createView(),
-        ]);
     }
 
     /**
-     * @Route("/{id}", name="user_disponibilite_show", methods={"GET"})
+     * @Route("/{id}/details", name="mobile_user_disponibilite_show", methods={"GET"})
      */
     public function show(Disponibilite $disponibilite): Response
     {
@@ -90,36 +84,30 @@ class MobileDisponibiliteController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="user_disponibilite_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="mobile_user_disponibilite_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Disponibilite $disponibilite): Response
     {
-        $form = $this->createForm(DisponibiliteType::class, $disponibilite);
-        $form->handleRequest($request);
+        $start = new \DateTime( $request->get('start'));
+        $finish = new \DateTime( $request->get('finish'));
+        $disponibilite->setDatedeb($start);
+        $disponibilite->setDatefin($finish);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($disponibilite);
+        $entityManager->flush();
+        return new JsonResponse("Disponibilite Updated", 200);
 
-            return $this->redirectToRoute('user_controllers_disponibilite_index');
-        }
-
-        return $this->render('user_controllers/disponibilite/edit.html.twig', [
-            'disponibilite' => $disponibilite,
-            'form' => $form->createView(),
-        ]);
     }
 
     /**
-     * @Route("/{id}", name="user_controllers_disponibilite_delete", methods={"POST"})
+     * @Route("/{id}", name="mobile_user_controllers_disponibilite_delete", methods={"GET","POST"})
      */
-    public function delete(Request $request, Disponibilite $disponibilite): Response
+    public function delete(Disponibilite $disponibilite): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$disponibilite->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($disponibilite);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('user_controllers_disponibilite_index');
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($disponibilite);
+        $entityManager->flush();
+        return new JsonResponse("Disponibilite Deleted", 200);
     }
 }
