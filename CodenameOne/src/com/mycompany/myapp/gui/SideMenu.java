@@ -9,6 +9,9 @@ package com.mycompany.myapp.gui;
  *
  * @author win10
  */
+import com.mycompany.myapp.gui.user.AddCandidature;
+import com.mycompany.myapp.gui.user.EditProfile;
+import com.mycompany.myapp.gui.user.Login;
 import com.mycompany.myapp.gui.AddTaskForm;
 import com.mycompany.myapp.gui.ListTasksForm;
 
@@ -46,6 +49,7 @@ public class SideMenu extends Form {
 
         Container sidemenuTop = BorderLayout.center(profilePicLabel);
         sidemenuTop.setUIID("SidemenuTop");
+                
 
         getToolbar().addComponentToSideMenu(sidemenuTop);
 
@@ -54,8 +58,8 @@ public class SideMenu extends Form {
         getToolbar().addMaterialCommandToSideMenu("  Events", FontImage.MATERIAL_LOCAL_OFFER,null);
         getToolbar().addMaterialCommandToSideMenu("  Statistics", FontImage.MATERIAL_ANALYTICS, null);
         getToolbar().addMaterialCommandToSideMenu("  Meetings", FontImage.MATERIAL_TRENDING_UP, null);
-        getToolbar().addMaterialCommandToSideMenu("  Projects", FontImage.MATERIAL_ACCESS_TIME, null);
-        getToolbar().addMaterialCommandToSideMenu("  Releases", FontImage.MATERIAL_ACCESS_TIME, null);
+        getToolbar().addMaterialCommandToSideMenu("  Application", FontImage.MATERIAL_HOME, e -> new AddCandidature( current, res).show());
+        getToolbar().addMaterialCommandToSideMenu("  Edit Profile", FontImage.MATERIAL_HOME, e -> new EditProfile( current, res).show());
 
         getToolbar().addMaterialCommandToSideMenu("  Documents", FontImage.MATERIAL_TRENDING_UP, null);
         getToolbar().addMaterialCommandToSideMenu("  Issues", FontImage.MATERIAL_ACCESS_TIME, null);
@@ -63,7 +67,7 @@ public class SideMenu extends Form {
         getToolbar().addMaterialCommandToSideMenu("  Meeting Claims", FontImage.MATERIAL_ACCESS_TIME, null);
         getToolbar().addMaterialCommandToSideMenu("  Account Settings", FontImage.MATERIAL_SETTINGS, null);
 
-        getToolbar().addMaterialCommandToSideMenu("  Logout", FontImage.MATERIAL_EXIT_TO_APP, null/*e -> new Login(current, res).show()*/);
+        getToolbar().addMaterialCommandToSideMenu("  Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new Login( res).show());
 
     }
 }

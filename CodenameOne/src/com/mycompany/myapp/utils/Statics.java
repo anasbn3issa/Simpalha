@@ -11,6 +11,6 @@ package com.mycompany.myapp.utils;
  */
 public class Statics {
     public static final String BASE_URL="http://localhost:8000/mobile/";
-    public static final String BASE_URL_ARIJ="http://localhost/Simpalha/Symfony4/public/";
+    
 
 }

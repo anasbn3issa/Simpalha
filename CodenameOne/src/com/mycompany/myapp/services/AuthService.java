@@ -24,14 +24,32 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class AuthService {
+    
+    public ArrayList<User> users;
+    public static AuthService instance=null;
+    public boolean resultOK;
+    private ConnectionRequest req;
+    
+    public AuthService() {
+         req = new ConnectionRequest();
+    }
+
+    public static AuthService getInstance() {
+        if (instance == null) {
+            instance = new AuthService();
+        }
+        return instance;
+    }
 
       public void SingUp(String firstName , String lastName , Date dateOfBirth, int phone , String adresse , String professionalTitle , String password, String email ) {
         ConnectionRequest con=new ConnectionRequest();
-        con.setUrl(Statics.BASE_URL_ARIJ+ "api/register" + "?firstName=" + firstName + "&lastName=" + lastName + "&dateOfBirth=" + dateOfBirth + "&phone=" + phone + "&adresse=" + adresse + "&professionalTitle=" + professionalTitle + "&password=" + password + "&email=" + email);
+        con.setUrl(Statics.BASE_URL+ "user/register" + "?firstName=" + firstName + "&lastName=" + lastName + "&dateOfBirth=" + dateOfBirth + "&phone=" + phone + "&adresse=" + adresse + "&professionalTitle=" + professionalTitle + "&password=" + password + "&email=" + email);
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
@@ -85,7 +103,7 @@ public class AuthService {
         con.setPost(false);
         con.addArgument("email", email);
         con.addArgument("password", password);
-        con.setUrl(Statics.BASE_URL_ARIJ+"api/login");
+        con.setUrl(Statics.BASE_URL+"user/login");
         User user = new User();
         con.addResponseListener((NetworkEvent evt) -> {
             if (con.getResponseCode() == 200) {
@@ -118,5 +136,88 @@ public class AuthService {
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(con);    }
+    
+    public ArrayList<User> parseUsers(String jsonText){
+        try {
+            users=new ArrayList<>();
+            JSONParser j = new JSONParser();// Instanciation d'un objet JSONParser permettant le parsing du résultat json
 
+            Map<String,Object> tasksListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+            
+            System.out.println(tasksListJson.get("status"));
+            
+            
+            Map<String,Object> listdata = j.parseJSON(new CharArrayReader(tasksListJson.get("data").toString().toCharArray()));
+            
+            List<Map<String,Object>> list = (List<Map<String,Object>>)listdata.get("root");
+            System.out.println(list);
+            for(Map<String,Object> obj : list){
+                
+                User m = new User(
+                    (int)Float.parseFloat(obj.get("id").toString()),
+                    obj.get("pseudo").toString(),
+                    obj.get("specialty").toString()
+                );
+                users.add(m);
+            }
+            
+            
+        } catch (IOException ex) {
+            
+        }
+        return users;
+    }
+    
+    public ArrayList<User> getHelpers(){
+        String url = Statics.BASE_URL+"user/helpers";
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                users = parseUsers(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return users;
+    }
+     public void sendEmail(String email){
+        MultipartRequest con = new MultipartRequest();
+
+        System.out.println(email);
+
+        con.setUrl(Statics.BASE_URL+"api/request-password-api" + "?email="+email);
+        con.setPost(true);
+
+        con.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                if (con.getResponseCode() == 200) {
+                    Dialog.show("Success", "Reset Password Sent Successfuly", "Ok", null);
+                } else {
+                    Dialog.show("Failed", "Please enter a valid mail", "Ok", null);
+                }
+            }
+        });
+        NetworkManager.getInstance().addToQueue(con);
+
+    }
+   public boolean EditProfile(User u) {
+        String url = Statics.BASE_URL + "user/"+u.getId()+"/edit?pseudo=" +
+                u.getPseudo()+ "&password=" + u.getPassword()+
+                "&email=" + u.getEmail();
+        System.out.println(url);
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
 }
