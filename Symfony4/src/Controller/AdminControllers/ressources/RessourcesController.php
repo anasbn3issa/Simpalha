@@ -63,6 +63,8 @@ class RessourcesController extends AbstractController
             } else {
                 echo "The message failed with status: " . $message->getStatus() . "\n";
             }
+          //  END OF SMS API
+
             //  END OF SMS API :)
 
             return $this->redirectToRoute('ressources_index');

@@ -11,7 +11,10 @@ import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BoxLayout;
+import com.mycompany.myapp.services.MeetService;
+import com.mycompany.myapp.services.ServicePost;
 import com.mycompany.myapp.gui.meet.ListMeetsForm;
+import com.mycompany.myapp.gui.quiz.List;
 import com.mycompany.myapp.services.MeetService;
 import com.codename1.ui.util.Resources;
 
@@ -31,6 +34,15 @@ public class HomeForm extends SideMenu {
         setLayout(BoxLayout.y());
 
         add(new Label("Choose an option"));
+        Button btnAddTask = new Button("Add Task");
+        Button btnListTasks = new Button("List Tasks");
+        
+
+        btnAddTask.addActionListener(e -> new AddTaskForm(current).show());
+        btnListTasks.addActionListener(e -> System.out.println(MeetService.getInstance().getAllMeets().toString()));
+        
+        
+        addAll(btnAddTask, btnListTasks);
         Button btnApplications = new Button("Applications list");
         
 
