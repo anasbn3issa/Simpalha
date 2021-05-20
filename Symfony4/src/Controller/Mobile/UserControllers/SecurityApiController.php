@@ -6,12 +6,9 @@ namespace App\Controller\Mobile\UserControllers;
 
 
 use App\Entity\Users;
-<<<<<<< HEAD:Symfony4/src/Controller/Mobile/UserControllers/SecurityApiController.php
 use App\Service\Mailer;
 use App\Service\TokenGenerator;
-=======
 use App\Repository\UsersRepository;
->>>>>>> 515aac23d9dc210b54d3eaac6225863d0ed3aeff:Symfony4/src/Controller/UserControllers/SecurityApiController.php
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -157,7 +154,6 @@ class SecurityApiController extends AbstractController
         $em->flush();
         return new JsonResponse('User Edited');
     }
-<<<<<<< HEAD:Symfony4/src/Controller/Mobile/UserControllers/SecurityApiController.php
  /**
      * @Route("/request-password-api", name="request_password_reset")
      * @param Request $request
@@ -175,25 +171,20 @@ class SecurityApiController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository(Users::class)->findOneBy(['email' => $email]);
         if ($user) {
-                $token = $tokenGenerator->generateToken();
-                $user->setToken($token);
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($user);
-                $em->flush();
-                $mailer->sendResetPasswordEmailMessage($user);
-                return new JsonResponse("Email has been sent ", 200);
+            $token = $tokenGenerator->generateToken();
+            $user->setToken($token);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            $mailer->sendResetPasswordEmailMessage($user);
+            return new JsonResponse("Email has been sent ", 200);
 
-            } else {
+        } else {
             return new JsonResponse("user not found ", 500);
 
         }
 
-        return new JsonResponse('User Updated Password');
-
     }
-
-
-=======
 
     /**
      * @Route("/helpers", name="helper_index")
@@ -213,5 +204,4 @@ class SecurityApiController extends AbstractController
             'message'=>"fetch error"),
             500);
     }
->>>>>>> 515aac23d9dc210b54d3eaac6225863d0ed3aeff:Symfony4/src/Controller/UserControllers/SecurityApiController.php
 }
