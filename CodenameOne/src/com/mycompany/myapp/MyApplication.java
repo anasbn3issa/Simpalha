@@ -8,6 +8,13 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.io.Log;
 import com.codename1.ui.Toolbar;
+import java.io.IOException;
+import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.io.NetworkEvent;
+import com.mycompany.myapp.gui.HomeForm;
+import com.mycompany.myapp.gui.ListTasksForm;
+import com.mycompany.myapp.gui.Login;
+import com.mycompany.myapp.gui.ResourceHomePage;
 import com.mycompany.myapp.gui.ListPostsForm;
 import com.mycompany.myapp.gui.Login;
 import com.mycompany.myapp.gui.quiz.Home;
@@ -44,8 +51,10 @@ public class MyApplication {
         });        
     }
     
-    public void start() {
-        new Login(theme).show();
+    public void start(){
+        //new Login(theme).show();
+        new ResourceHomePage(theme).show();
+        
     }
 
     public void stop() {

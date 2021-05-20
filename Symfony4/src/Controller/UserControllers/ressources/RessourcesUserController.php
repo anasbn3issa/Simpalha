@@ -43,6 +43,14 @@ class RessourcesUserController extends AbstractController
      */
     public function pdf(Ressources $ressource, Request $request) : Response
     {
+        $logo =  $this->getParameter("directory")."/images/Simpalha.png";
+        $type1 = pathinfo($logo, PATHINFO_EXTENSION);
+        $data1 = file_get_contents($logo);
+        $base641 = 'data:image/' . $type1 . ';base64,' . base64_encode($data1);
+        $logo= $base641;
+
+
+
 
         $path = $this->getParameter("directory").$ressource->getPath();
         $type = pathinfo($path, PATHINFO_EXTENSION);
@@ -59,7 +67,6 @@ class RessourcesUserController extends AbstractController
 
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
-        $dompdf->set_options(array('enable_remote' => true));
 
 
 
@@ -72,6 +79,7 @@ class RessourcesUserController extends AbstractController
         */        // Retrieve the HTML generated in our twig file
         $html = $this->renderView('user_controllers/ressources/pdf.html.twig', [
             'ressource' => $ressource,
+            'logo' => $logo,
         ]);
         // Load HTML to Dompdf
         $dompdf->loadHtml($html);
