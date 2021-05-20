@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Meet
 {
     /**
-     * @Groups("meet:search", "meet:index")
+     * @Groups("meet:search", "meet:index", "meet:student")
      * @var string
      *
      * @ORM\Column(name="id", type="string", length=60, nullable=false)
@@ -26,17 +26,16 @@ class Meet
     private $id;
 
     /**
-     * @Groups("meet:search")
      * @var string
      * @Assert\NotBlank(message="Can't be blank.")
      * @ORM\Column(name="specialite", type="string", length=30, nullable=false)
-     * @Groups("meet:index")
+     * @Groups("meet:index", "meet:student", "meet:search")
      */
     private $specialite;
 
     /**
      * @var int
-     * @Groups("meet:search", "meet:index")
+     * @Groups("meet:search", "meet:index", "meet:student")
      *
      * @ORM\Column(name="etat", type="integer", nullable=false)
      */
@@ -49,7 +48,7 @@ class Meet
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="disponibilite_id", referencedColumnName="id")
      * })
-     * @Groups("meet:index")
+     * @Groups("meet:index", "meet:student")
      */
     private $disponibilite;
 
@@ -60,7 +59,7 @@ class Meet
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="feedback_id", referencedColumnName="id")
      * })
-     * @Groups("meet:search", "meet:index")
+     * @Groups("meet:search", "meet:index", "meet:student")
      */
     private $feedback;
 
@@ -72,7 +71,7 @@ class Meet
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_helper", referencedColumnName="Id")
      * })
-     * @Groups("meet:search", "meet:index")
+     * @Groups("meet:search", "meet:index", "meet:student")
      */
     private $idHelper;
 
@@ -84,7 +83,7 @@ class Meet
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_student", referencedColumnName="Id")
      * })
-     * @Groups("meet:search", "meet:index")
+     * @Groups("meet:search", "meet:index", "meet:student")
      */
     private $idStudent;
 

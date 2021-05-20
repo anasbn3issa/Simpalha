@@ -36,7 +36,8 @@ public class AuthService {
     public boolean resultOK;
     private ConnectionRequest req;
     
-    public AuthService() {
+
+    private AuthService() {
          req = new ConnectionRequest();
     }
 
@@ -49,6 +50,8 @@ public class AuthService {
 
       public void SingUp(String firstName , String lastName , Date dateOfBirth, int phone , String adresse , String professionalTitle , String password, String email ) {
         ConnectionRequest con=new ConnectionRequest();
+
+       
         con.setUrl(Statics.BASE_URL+ "user/register" + "?firstName=" + firstName + "&lastName=" + lastName + "&dateOfBirth=" + dateOfBirth + "&phone=" + phone + "&adresse=" + adresse + "&professionalTitle=" + professionalTitle + "&password=" + password + "&email=" + email);
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -103,6 +106,9 @@ public class AuthService {
         con.setPost(false);
         con.addArgument("email", email);
         con.addArgument("password", password);
+       
+
+
         con.setUrl(Statics.BASE_URL+"user/login");
         User user = new User();
         con.addResponseListener((NetworkEvent evt) -> {
@@ -110,6 +116,7 @@ public class AuthService {
                 try {
                     JSONParser jsonp = new JSONParser();
                     Map<String, Object> mapUser = (Map<String, Object>) jsonp.parseJSON(new CharArrayReader(new String(con.getResponseData()).toCharArray()));
+                    System.out.println(mapUser);
                     float id = (int) Float.parseFloat(mapUser.get("id").toString());
                     user.setId((int) id);
                     Session.ConnectedUser.setPassword(password);
@@ -184,6 +191,7 @@ public class AuthService {
     }
      public void sendEmail(String email){
         MultipartRequest con = new MultipartRequest();
+
 
         System.out.println(email);
 

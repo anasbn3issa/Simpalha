@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Module
@@ -21,6 +22,8 @@ class Module
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("ressource")
+     *
      */
     private $id;
 
@@ -28,6 +31,7 @@ class Module
      * @var string
      * @Assert\NotBlank(message="No file chosen. Please choose File.")
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @Groups("ressource")
      */
     private $name;
 

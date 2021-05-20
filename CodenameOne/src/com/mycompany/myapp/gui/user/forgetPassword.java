@@ -19,10 +19,7 @@ import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.entities.User;
 import com.mycompany.myapp.services.AuthService;
 import com.mycompany.myapp.utils.Session;
-import com.twilio.Twilio;
 import java.util.Random;
-import com.twilio.type.PhoneNumber;
-
 
 
 /**
@@ -66,7 +63,7 @@ ImageViewer img = new ImageViewer(res.getImage("Simpalhalogo.png").scaled(600, 3
 
             } else {
             //    Session.setForgetPassMail(email.getText());
-              AuthService ser = new AuthService();
+              AuthService ser = AuthService.getInstance();
               ser.sendEmail(email.getText());
          //       System.out.println(email.getText());
 
@@ -89,9 +86,6 @@ ImageViewer img = new ImageViewer(res.getImage("Simpalhalogo.png").scaled(600, 3
         }
         String saltStr = salt.toString();
         Session.setSaltToken(saltStr);
-        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-        com.twilio.rest.api.v2010.account.Message messages = com.twilio.rest.api.v2010.account.Message.creator(new PhoneNumber("+21629903274"),
-                new PhoneNumber("+14156505681"), "Votre Code est : " + saltStr).create();
         f = new Form();
 
         getTitleArea().setUIID("Container");

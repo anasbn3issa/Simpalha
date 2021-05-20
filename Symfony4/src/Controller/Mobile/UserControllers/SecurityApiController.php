@@ -6,8 +6,12 @@ namespace App\Controller\Mobile\UserControllers;
 
 
 use App\Entity\Users;
+<<<<<<< HEAD:Symfony4/src/Controller/Mobile/UserControllers/SecurityApiController.php
 use App\Service\Mailer;
 use App\Service\TokenGenerator;
+=======
+use App\Repository\UsersRepository;
+>>>>>>> 515aac23d9dc210b54d3eaac6225863d0ed3aeff:Symfony4/src/Controller/UserControllers/SecurityApiController.php
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,6 +25,7 @@ use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Service\FileUploader;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/mobile/user", name="security_")
@@ -152,6 +157,7 @@ class SecurityApiController extends AbstractController
         $em->flush();
         return new JsonResponse('User Edited');
     }
+<<<<<<< HEAD:Symfony4/src/Controller/Mobile/UserControllers/SecurityApiController.php
  /**
      * @Route("/request-password-api", name="request_password_reset")
      * @param Request $request
@@ -187,4 +193,25 @@ class SecurityApiController extends AbstractController
     }
 
 
+=======
+
+    /**
+     * @Route("/helpers", name="helper_index")
+     */
+    public function helpers(UsersRepository $userRepository, SerializerInterface $serializer): Response
+    {
+        $helpers = $userRepository->findHelpers();
+        $res = $serializer->serialize($helpers, 'json', ['groups'=>'helpers:index']);
+        if($res!=null){
+            return new JsonResponse(array(
+                'status' => 'OK',
+                'data' => $res),
+                200);
+        }
+        return new JsonResponse(array(
+            'status' => 'ERROR',
+            'message'=>"fetch error"),
+            500);
+    }
+>>>>>>> 515aac23d9dc210b54d3eaac6225863d0ed3aeff:Symfony4/src/Controller/UserControllers/SecurityApiController.php
 }

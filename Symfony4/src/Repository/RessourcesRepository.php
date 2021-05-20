@@ -30,4 +30,13 @@ class RessourcesRepository extends ServiceEntityRepository
             )->setParameter('str', '%'.$str.'%')->getResult();
     }
 
+    public function OrderBy()
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT p 
+        FROM App:Ressources p
+        ORDER BY p.module '
+            )->getResult();
+    }
+
 }

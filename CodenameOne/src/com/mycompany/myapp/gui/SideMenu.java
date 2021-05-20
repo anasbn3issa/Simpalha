@@ -12,16 +12,21 @@ package com.mycompany.myapp.gui;
 import com.mycompany.myapp.gui.user.AddCandidature;
 import com.mycompany.myapp.gui.user.EditProfile;
 import com.mycompany.myapp.gui.user.Login;
+
+import com.codename1.admob.AdMobManager;
 import com.mycompany.myapp.gui.AddTaskForm;
 import com.mycompany.myapp.gui.ListTasksForm;
-
+import com.mycompany.myapp.gui.quiz.List;
 import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.Layout;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.gui.meet.ListMeetsForm;
 
 public class SideMenu extends Form {
 
+     private AdMobManager admob;
+     int n = 0;
     Form current;
 
     public SideMenu(String title, Layout contentPaneLayout) {
@@ -40,6 +45,14 @@ public class SideMenu extends Form {
     }
 
     public void setupSideMenu(/*User u,*/ Resources res) {
+        
+           //String admobId = "ca-app-pub-3940256099942544/1033173712";
+           
+           //DECLARATION API ADMOB
+          String admobId = "ca-app-pub-3940256099942544/5224354917\n";
+          admob = new AdMobManager(admobId);
+          //FIN DECLARATION API ADMOB
+        
         Image profilePic = res.getImage("20187112601561032514-512.png");
         Image mask = res.getImage("round-mask.png");
         mask = mask.scaledHeight(mask.getHeight() / 4 * 3);
@@ -53,15 +66,31 @@ public class SideMenu extends Form {
 
         getToolbar().addComponentToSideMenu(sidemenuTop);
 
-        getToolbar().addMaterialCommandToSideMenu("  Home", FontImage.MATERIAL_HOME, e -> new HomeForm(res).show());
+        getToolbar().addMaterialCommandToSideMenu("  Home", FontImage.MATERIAL_HOME, e -> new ListPostsForm(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Job Offers", FontImage.MATERIAL_LOCAL_OFFER, null);
+        getToolbar().addMaterialCommandToSideMenu("  Home", FontImage.MATERIAL_HOME, e -> new HomeForm(res).show());
+        getToolbar().addMaterialCommandToSideMenu("  Meets", FontImage.MATERIAL_LOCAL_ACTIVITY, e -> new ListMeetsForm(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Events", FontImage.MATERIAL_LOCAL_OFFER,null);
         getToolbar().addMaterialCommandToSideMenu("  Statistics", FontImage.MATERIAL_ANALYTICS, null);
         getToolbar().addMaterialCommandToSideMenu("  Meetings", FontImage.MATERIAL_TRENDING_UP, null);
         getToolbar().addMaterialCommandToSideMenu("  Application", FontImage.MATERIAL_HOME, e -> new AddCandidature( current, res).show());
         getToolbar().addMaterialCommandToSideMenu("  Edit Profile", FontImage.MATERIAL_HOME, e -> new EditProfile( current, res).show());
+        getToolbar().addMaterialCommandToSideMenu("  Projects", FontImage.MATERIAL_ACCESS_TIME, null);
+        getToolbar().addMaterialCommandToSideMenu("  Releases", FontImage.MATERIAL_ARTICLE, null);
 
-        getToolbar().addMaterialCommandToSideMenu("  Documents", FontImage.MATERIAL_TRENDING_UP, null);
+        getToolbar().addMaterialCommandToSideMenu("  Resources", FontImage.MATERIAL_ARTICLE, e -> {
+          if (n % 2 == 0) {
+               admob.loadAndShow();
+               n++;
+              
+           } else {
+                n++;
+              new ResourceHomePage(res).show();
+           }
+        });
+        getToolbar().addMaterialCommandToSideMenu("  Releases", FontImage.MATERIAL_ACCESS_TIME, null);
+
+        getToolbar().addMaterialCommandToSideMenu("  Quiz", FontImage.MATERIAL_TRENDING_UP, e -> new List(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Issues", FontImage.MATERIAL_ACCESS_TIME, null);
 
         getToolbar().addMaterialCommandToSideMenu("  Meeting Claims", FontImage.MATERIAL_ACCESS_TIME, null);
@@ -69,5 +98,6 @@ public class SideMenu extends Form {
 
         getToolbar().addMaterialCommandToSideMenu("  Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new Login( res).show());
 
+        getToolbar().addMaterialCommandToSideMenu("  Logout", FontImage.MATERIAL_EXIT_TO_APP, null/*e -> new Login(current, res).show()*/);
     }
 }
