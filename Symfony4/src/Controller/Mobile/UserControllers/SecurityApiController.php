@@ -6,6 +6,8 @@ namespace App\Controller\Mobile\UserControllers;
 
 
 use App\Entity\Users;
+use App\Service\Mailer;
+use App\Service\TokenGenerator;
 use App\Repository\UsersRepository;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -131,42 +133,57 @@ class SecurityApiController extends AbstractController
     }
 
     /**
-     * @Route("/editProfileApi", name="candidateprofileEdit")
+     * @Route("/{id}/edit", name="userprofileEdit")
      * @param Request $request
-     * @param FileUploader $fileUploader
      * @param UserPasswordEncoderInterface $encoder
      * @return RedirectResponse|Response
      * @throws Exception
      */
-    public function editUserInfo(Request $request, FileUploader $fileUploader, UserPasswordEncoderInterface $encoder)
+    public function editUserInfo(Request $request,Users $loggedUser, UserPasswordEncoderInterface $encoder)
     {
-        if (!$this->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return new JsonResponse('Please SignIn');
-        }
+
         $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-        $loggedUser = $this->getDoctrine()->getRepository(Users::class)->find($user);
+
         $loggedUser->setEmail($request->get('email'));
-        $loggedUser->setFirstName($request->get('firstName'));
-        $loggedUser->setLastName($request->get('lastName'));
-        $loggedUser->setDateOfBirth(new \DateTime($request->get('dateOfBirth')));
-        $loggedUser->setPhone($request->get('phone'));
-        $loggedUser->setAdresse($request->get('adresse'));
-        $loggedUser->setProfessionalTitle($request->get('professionalTitle'));
-        $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
-        if ($request->isMethod('post')) {
-            /**
-             * @var FileUploader $image
-             */
-            $image = $request->get('imageName')->getData();
-            if ($image) {
-                $newFilename = $fileUploader->upload($image);
-                $user->setImageName($newFilename);
-            }
-        }
-        $em->persist($user);
+        $loggedUser->setPseudo($request->get('pseudo'));
+	if( $request->get('password')!= ""){
+ 	 $loggedUser->setPassword($encoder->encodePassword($loggedUser, $request->get('password')));
+	}
+      
+        $em->persist($loggedUser);
         $em->flush();
         return new JsonResponse('User Edited');
+    }
+ /**
+     * @Route("/request-password-api", name="request_password_reset")
+     * @param Request $request
+     * @param TokenGenerator $tokenGenerator
+     * @param Mailer $mailer
+     * @return Response
+     * @throws \Throwable
+     */
+    public function requestPasswordResetapi(Request $request, TokenGenerator $tokenGenerator, Mailer $mailer
+                                        )
+    {
+
+
+        $email = $request->query->get("email");
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(Users::class)->findOneBy(['email' => $email]);
+        if ($user) {
+            $token = $tokenGenerator->generateToken();
+            $user->setToken($token);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            $mailer->sendResetPasswordEmailMessage($user);
+            return new JsonResponse("Email has been sent ", 200);
+
+        } else {
+            return new JsonResponse("user not found ", 500);
+
+        }
+
     }
 
     /**
