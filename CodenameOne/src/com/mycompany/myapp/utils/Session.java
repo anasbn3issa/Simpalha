@@ -25,6 +25,7 @@ public class Session {
     private String password;
     private User user;
     private static Session session;
+    public static String saltToken;
 
     public Session() {
     }
@@ -70,7 +71,13 @@ public class Session {
     public void setPassword(String password) {
         this.password = password;
     }
+ public static String getSaltToken() {
+        return saltToken;
+    }
 
+    public static void setSaltToken(String saltToken) {
+        Session.saltToken = saltToken;
+    }
 
     public void setParameters(String email, String password) {
         this.email = email;

@@ -36,6 +36,7 @@ public class AuthService {
     public boolean resultOK;
     private ConnectionRequest req;
     
+
     private AuthService() {
          req = new ConnectionRequest();
     }
@@ -49,7 +50,8 @@ public class AuthService {
 
       public void SingUp(String firstName , String lastName , Date dateOfBirth, int phone , String adresse , String professionalTitle , String password, String email ) {
         ConnectionRequest con=new ConnectionRequest();
-        con.setUrl(Statics.BASE_URL+ "/user/register" + "?firstName=" + firstName + "&lastName=" + lastName + "&dateOfBirth=" + dateOfBirth + "&phone=" + phone + "&adresse=" + adresse + "&professionalTitle=" + professionalTitle + "&password=" + password + "&email=" + email);
+
+       
         con.setUrl(Statics.BASE_URL+ "user/register" + "?firstName=" + firstName + "&lastName=" + lastName + "&dateOfBirth=" + dateOfBirth + "&phone=" + phone + "&adresse=" + adresse + "&professionalTitle=" + professionalTitle + "&password=" + password + "&email=" + email);
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -104,7 +106,8 @@ public class AuthService {
         con.setPost(false);
         con.addArgument("email", email);
         con.addArgument("password", password);
-        con.setUrl(Statics.BASE_URL+"/user/login");
+       
+
 
         con.setUrl(Statics.BASE_URL+"user/login");
         User user = new User();
@@ -186,5 +189,43 @@ public class AuthService {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return users;
     }
+     public void sendEmail(String email){
+        MultipartRequest con = new MultipartRequest();
 
+
+        System.out.println(email);
+
+        con.setUrl(Statics.BASE_URL+"api/request-password-api" + "?email="+email);
+        con.setPost(true);
+
+        con.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                if (con.getResponseCode() == 200) {
+                    Dialog.show("Success", "Reset Password Sent Successfuly", "Ok", null);
+                } else {
+                    Dialog.show("Failed", "Please enter a valid mail", "Ok", null);
+                }
+            }
+        });
+        NetworkManager.getInstance().addToQueue(con);
+
+    }
+   public boolean EditProfile(User u) {
+        String url = Statics.BASE_URL + "user/"+u.getId()+"/edit?pseudo=" +
+                u.getPseudo()+ "&password=" + u.getPassword()+
+                "&email=" + u.getEmail();
+        System.out.println(url);
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
 }
