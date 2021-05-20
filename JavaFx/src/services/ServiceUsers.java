@@ -42,7 +42,7 @@ public class ServiceUsers implements IserviceUsers {
     public void Create(Users variable) {
         try {
             st = cnx.createStatement();
-            String query = "INSERT INTO `users` (`Email`, `Password`, `Username`,`about`) VALUES ('"
+            String query = "INSERT INTO `users` (`email`, `password`, `username`,`about`) VALUES ('"
                     + variable.getEmail()
                     + "','" + variable.getPassword()
                     + "','" + variable.getUsername()
@@ -59,7 +59,7 @@ public class ServiceUsers implements IserviceUsers {
 
     @Override
     public void Update(Users variable) {
-        String query = "update users set Specialty=? Username=?, Email=?"
+        String query = "update users set Specialty=? username=?, email=?"
                 + " where id=?";
         try {
             pstmt = cnx.prepareStatement(query);
@@ -85,7 +85,7 @@ public class ServiceUsers implements IserviceUsers {
             String query = "SELECT * FROM users";
             rs = st.executeQuery(query);
             while (rs.next()) {
-                Users user = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(7), rs.getInt(8));
+                Users user = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(20), rs.getString(19), rs.getString(15), rs.getInt(16));
                 Utilisateurs.add(user);
             }
 
@@ -192,7 +192,7 @@ public class ServiceUsers implements IserviceUsers {
             pstmt.setString(1, email);
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                student = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(7), rs.getInt(8));
+                student = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(20), rs.getString(19), rs.getString(15), rs.getInt(16));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServiceUsers.class.getName()).log(Level.SEVERE, null, ex);
@@ -262,7 +262,7 @@ public class ServiceUsers implements IserviceUsers {
     public boolean check(Users user) throws SQLException {
         Boolean res = false;
         try {
-            String request = "SELECT * FROM users WHERE Username=? AND Password=?";
+            String request = "SELECT * FROM users WHERE username=? AND password=?";
             pstmt = cnx.prepareStatement(request);
             pstmt.setString(1, user.getUsername());
             pstmt.setString(2, user.getPassword());
@@ -290,7 +290,7 @@ public class ServiceUsers implements IserviceUsers {
             pstmt.setInt(1, id);
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                student = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(6), rs.getString(7), rs.getInt(8));
+                student = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(20), rs.getString(19), rs.getString(15), rs.getInt(16));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServiceUsers.class.getName()).log(Level.SEVERE, null, ex);
@@ -305,10 +305,10 @@ public class ServiceUsers implements IserviceUsers {
         try {
 
             st = cnx.createStatement();
-            String query = "SELECT * FROM users where role=0 AND Spécialité IS NOT NULL";
+            String query = "SELECT * FROM users where Specialty IS NOT NULL";
             rs = st.executeQuery(query);
             while (rs.next()) {
-                Users user = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(6), rs.getString(7), rs.getInt(8));
+                Users user = new Users(rs.getInt(1), rs.getString(3), rs.getString(2), rs.getString(20), rs.getString(19), rs.getString(15), rs.getInt(16));
                 Utilisateurs.add(user);
             }
 

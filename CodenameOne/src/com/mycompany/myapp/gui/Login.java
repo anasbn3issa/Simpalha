@@ -37,8 +37,8 @@ public class Login extends Form {
                // new Label("Spir'IT", "WelcomeBlue")
         );
         getTitleArea().setUIID("Container");
-        TextField login = new TextField("bilel.taktak@esprit.tn", "Enter your username ! Exp: Admin_Admin", 20, TextField.ANY);
-        TextField password = new TextField("Maz123", "Enter tour password", 20, TextField.PASSWORD);
+        TextField login = new TextField("arij.zitouni@esprit.tn", "Enter your username ! Exp: Admin_Admin", 20, TextField.ANY);
+        TextField password = new TextField("Arij123", "Enter tour password", 20, TextField.PASSWORD);
         login.getAllStyles().setMargin(LEFT, 0);
         password.getAllStyles().setMargin(LEFT, 0);
         Label loginIcon = new Label("", "TextField");

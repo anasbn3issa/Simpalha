@@ -237,24 +237,25 @@ $(document).ready(function () {
                         for (var i = 0; i < meets.length; i++) {
                             evts.push({
                                 _id: meets[i].id,
-                                title: 'Helper '+ meets[i].idHelper.username + " meet with "+meets[i].idStudent.username,
+                                title: 'Helper '+ meets[i].idHelper.pseudo + " meet with "+meets[i].idStudent.pseudo,
                                 avatar: "",
                                 etat:meets[i].etat,
                                 description:
-                                    'Helper '+ meets[i].idHelper.username + " meet with "+meets[i].idStudent.username,
+                                    'Helper '+ meets[i].idHelper.pseudo + " meet with "+meets[i].idStudent.pseudo,
                                 start: moment(meets[i].disponibilite.datedeb),
                                 end: moment(meets[i].disponibilite.datefin),
                                 type: "Appointment",
                                 calendar: "",
                                 className: "colorAppointment",
-                                student: meets[i].idStudent.username,
+                                student: meets[i].idStudent.pseudo,
                                 specialite: meets[i].specialite,
-                                helper: meets[i].idHelper.username,
+                                helper: meets[i].idHelper.pseudo,
                                 backgroundColor: "#f4516c",
                                 textColor: "#ffffff",
                                 allDay: false,
                             });
                         }
+                        console.log(evts);
                         $("#calendar").fullCalendar("renderEvents", evts, false);
                     }
                 },

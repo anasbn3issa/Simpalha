@@ -159,7 +159,7 @@ public class ServiceP2P implements IServiceP2P {
 
             while (rs.next()) {
                 Meet meet = new Meet(rs.getString(1), rs.getInt(3), rs.getInt(4), rs.getInt(6), rs.getString(2), rs.getString(5), rs.getInt(7));
-
+                System.out.println("testtss");
                 Disponibilite disponibilite = serviceDisp.findOneByEtat(Integer.valueOf(meet.getTime()), 1);
                 meet.setTime(disponibilite.getDatedeb() + "->" + disponibilite.getDateFin());
 
@@ -172,12 +172,13 @@ public class ServiceP2P implements IServiceP2P {
                 Feedback feedback = serviceFeedback.findById(meet.getFeedback_id());
                 System.out.println(feedback);
                 meet.setFeedbackDisplay(feedback.getFeedback());
-
+                System.out.println(meet);
                 list.add(meet);
             }
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+                            System.out.println("error");
         }
         return list;
     }
@@ -256,7 +257,7 @@ public class ServiceP2P implements IServiceP2P {
                 Meet meet = new Meet(rs.getString(1), rs.getInt(3), rs.getInt(4), rs.getInt(6), rs.getString(2), rs.getString(5), rs.getInt(7));
                 Disponibilite disponibilite = serviceDisp.findOneByEtat(Integer.valueOf(meet.getTime()), 1);
                 System.out.println("disponibilite");
-                System.out.println(meet.getTime());
+                System.out.println(disponibilite);
                 meet.setTime(disponibilite.getDatedeb() + "->" + disponibilite.getDateFin());
 
                 Users helper = serviceUser.findById(meet.getId_helper());

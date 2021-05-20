@@ -57,7 +57,7 @@ public class ListHelpersFXMLController implements Initializable {
         nameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
 
         TableColumn<Users, String> specialiteCol = new TableColumn<>("Specialite");
-        specialiteCol.setCellValueFactory(new PropertyValueFactory<>("Specialité"));
+        specialiteCol.setCellValueFactory(new PropertyValueFactory<>("Specialty"));
 
         helpersList.getColumns().add(nameCol);
         helpersList.getColumns().add(specialiteCol);
@@ -105,6 +105,7 @@ public class ListHelpersFXMLController implements Initializable {
     private void fillData() {
         System.out.println(service.Read());
         helpersList.getItems().addAll(service.fetchHelpers());
+        System.out.println(service.fetchHelpers());
     }
 
     @FXML

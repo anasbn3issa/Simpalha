@@ -5,17 +5,13 @@
  */
 package com.mycompany.myapp.gui.meet;
 
-import com.codename1.components.FloatingActionButton;
-import com.mycompany.myapp.gui.*;
 import com.codename1.components.ToastBar;
-import com.codename1.l10n.DateFormat;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
-import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextArea;
@@ -36,7 +32,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import com.codename1.ui.Image;
-import com.codename1.ui.Tabs;
 import com.codename1.util.DateUtil;
 import java.io.IOException;
 import net.glxn.qrgen.QRCode;
@@ -106,11 +101,11 @@ public class ListHelperMeetsForm extends Form {
                         public void actionPerformed(ActionEvent evt) {
                             switch (combo.getSelectedItem()) {
                                 case "Navigator": {
-                                    new JoinMeetForm(res).show();
+                                    new JoinMeetForm(res, meet.getId()).show();
                                     break;
                                 }
                                 case "QR": {
-                                    showdialog();
+                                    showdialog(meet.getId());
                                     break;
                                 }
                                 default: {
@@ -161,7 +156,7 @@ public class ListHelperMeetsForm extends Form {
 
     }
 
-    void showdialog() {
+    void showdialog(String id) {
         Dialog dlg = new Dialog("SCAN QR CODE");
         Style dlgStyle = dlg.getDialogStyle();
         dlgStyle.setBorder(Border.createEmpty());
@@ -181,7 +176,7 @@ public class ListHelperMeetsForm extends Form {
         blueLabel.getUnselectedStyle().setPaddingUnit(Style.UNIT_TYPE_PIXELS);
         dlg.add(blueLabel);
 
-        ByteArrayOutputStream out = QRCode.from(Statics.BROWSER_BASE_URL).to(ImageType.PNG).withSize(200, 200).stream();
+        ByteArrayOutputStream out = QRCode.from(Statics.BROWSER_BASE_URL+id).to(ImageType.PNG).withSize(200, 200).stream();
         ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
         Image qrcode = null;
         try {

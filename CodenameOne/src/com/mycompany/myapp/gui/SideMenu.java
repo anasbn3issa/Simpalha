@@ -16,7 +16,9 @@ import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.Layout;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.gui.meet.ListHelperDisponibiliteForm;
 import com.mycompany.myapp.gui.meet.ListMeetsForm;
+import com.mycompany.myapp.utils.Session;
 
 public class SideMenu extends Form {
 
@@ -37,7 +39,12 @@ public class SideMenu extends Form {
         super(contentPaneLayout);
     }
 
-    public void setupSideMenu(/*User u,*/ Resources res) {
+    public void setupSideMenu(/*User u,*/Resources res) {
+        if (Session.ConnectedUser.getRoles().contains("ROLE_HELPER")) {
+            getToolbar().addCommandToOverflowMenu("Disponibilite", null, ev -> {
+                new ListHelperDisponibiliteForm(res).show();
+            });
+        }
         Image profilePic = res.getImage("20187112601561032514-512.png");
         Image mask = res.getImage("round-mask.png");
         mask = mask.scaledHeight(mask.getHeight() / 4 * 3);
@@ -52,7 +59,7 @@ public class SideMenu extends Form {
 
         getToolbar().addMaterialCommandToSideMenu("  Home", FontImage.MATERIAL_HOME, e -> new HomeForm(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Meets", FontImage.MATERIAL_LOCAL_ACTIVITY, e -> new ListMeetsForm(res).show());
-        getToolbar().addMaterialCommandToSideMenu("  Events", FontImage.MATERIAL_LOCAL_OFFER,null);
+        getToolbar().addMaterialCommandToSideMenu("  Events", FontImage.MATERIAL_LOCAL_OFFER, null);
         getToolbar().addMaterialCommandToSideMenu("  Statistics", FontImage.MATERIAL_ANALYTICS, null);
         getToolbar().addMaterialCommandToSideMenu("  Meetings", FontImage.MATERIAL_TRENDING_UP, null);
         getToolbar().addMaterialCommandToSideMenu("  Projects", FontImage.MATERIAL_ACCESS_TIME, null);
