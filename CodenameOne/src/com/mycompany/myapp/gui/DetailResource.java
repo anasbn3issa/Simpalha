@@ -41,77 +41,61 @@ import java.util.ArrayList;
  *
  * @author cyrin
  */
-public class DetailResource extends SideMenu  {
+public class DetailResource extends SideMenu {
 
     EncodedImage enc;
     Image imageloaded;
     ImageViewer imgviewer;
-    
-    public DetailResource(Ressources R,Resources res) {
-                setupSideMenu(res);
-                setTitle(R.getTitle());                
-                Button Back= new Button("Go Back\n\n\n");
-                Back.addActionListener(e->{
-                // DetailResource a = new DetailResource(R,res);
-                         new ResourceHomePage(res).show();
-                        });
-                add(Back);
-                
+
+    public DetailResource(Ressources R, Resources res) {
+        setupSideMenu(res);
+        setTitle(R.getTitle());
+        Button Back = new Button("get pdf\n\n\n");
+
+        Back.addActionListener(e -> {
+            // DetailResource a = new DetailResource(R,res);
+            new getPDF(res, R).show();
+//            new ResourceHomePage(res).show();
+        });
+        add(Back);
+        
         TextArea infos = new TextArea("Title:"
-                + " \n" + R.getTitle()+ "\n\n" +"Description:\n"
-                + R.getDescription()+"\n\n"+ "Module:\n"
-                + R.getModule()+ "\n\n"  , 8, 12);
+                + " \n" + R.getTitle() + "\n\n" + "Description:\n"
+                + R.getDescription() + "\n\n" + "Module:\n"
+                + R.getModule() + "\n\n", 8, 12);
         infos.setEditable(false);
-                
-        String url = "http://127.0.0.1:8000"+R.getPath();
+
+        String url = "http://127.0.0.1:8000" + R.getPath();
         System.out.println(url);
-     
+
         // Form f1 = new Form("",new BoxLayout(BoxLayout.Y_AXIS));
-       try{
-        enc=EncodedImage.create("/load.png");
-       } catch (IOException ex){};
-       
-            imageloaded = URLImage.createToStorage(enc, url, url, URLImage.RESIZE_SCALE);
-            imgviewer = new ImageViewer(imageloaded);
-  
-       // add(imgviewer);
-        
+        try {
+            enc = EncodedImage.create("/load.png");
+        } catch (IOException ex) {
+        };
+
+        imageloaded = URLImage.createToStorage(enc, url, url, URLImage.RESIZE_SCALE);
+        imgviewer = new ImageViewer(imageloaded);
+
+        // add(imgviewer);
         //add(infos);
-      
-        TextArea getpdf = new TextArea("Get \n" + R.getTitle()+ "'s PDF!"  , 8, 12);
-        getpdf.setEditable(false);
-                
-         
-           Container C1= new Container( new BoxLayout(BoxLayout.Y_AXIS));
-           C1.add(infos);
-           
-           Container C2= new Container( new BoxLayout(BoxLayout.Y_AXIS));
-           C2.add(imgviewer);
-      
-           
-           
-           add(C2);
-           add(C1); 
-           
+        Container C1 = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        C1.add(infos);
+
+        Container C2 = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        C2.add(imgviewer);
+
+        add(C2);
+        add(C1);
+
 //           
-               Button Back1= new Button("Get PDF ! \n\n\n");
-                Back1.addActionListener(e->{
-                    new getPDF(res,R).show();
-                        });
-                add(Back1);
-           
+        Button Back1 = new Button("Get PDF ! \n\n\n");
+        Back1.addActionListener(e -> {
+            new getPDF(res, R).show();
+        });
+        add(Back1);
+
         //add(C1);
-        
-               
-                
-    
     }
 
-
-
 }
-    
-    
-    
-
-   

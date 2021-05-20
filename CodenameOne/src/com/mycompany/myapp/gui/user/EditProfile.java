@@ -45,7 +45,7 @@ public class EditProfile extends SideMenu {
                     User usr = new User(password.getText(), pseudo.getText(), email.getText());
                     usr.setId(Session.ConnectedUser.getId());
                     if (AuthService.getInstance().EditProfile(usr)) {
-                        Dialog.show("Success", "Added Successfully !", new Command("OK"));
+                        Dialog.show("Success", "Updated Successfully !", new Command("OK"));
 
                     } else {
                         Dialog.show("ERROR", "Server error", new Command("OK"));

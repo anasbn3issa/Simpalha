@@ -21,6 +21,7 @@ import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.gui.HomeForm;
+import com.mycompany.myapp.gui.ListPostsForm;
 import com.mycompany.myapp.services.AuthService;
 
 
@@ -58,7 +59,7 @@ public class Login extends Form {
                 ser.login(login.getText(), password.getText());
                 if (Session.ConnectedUser.getId()>0) {
                     Toolbar.setGlobalToolbar(true);
-                    new HomeForm(res).show();
+                    new ListPostsForm(res).show();
                 } else {
                     Dialog.show("Error!", "Login ou mot de passe incorrect!", "Ok", null);
                 }

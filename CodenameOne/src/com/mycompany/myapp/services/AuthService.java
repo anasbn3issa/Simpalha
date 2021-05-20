@@ -195,7 +195,7 @@ public class AuthService {
 
         System.out.println(email);
 
-        con.setUrl(Statics.BASE_URL+"api/request-password-api" + "?email="+email);
+        con.setUrl(Statics.BASE_URL+"user/request-password-api" + "?email="+email);
         con.setPost(true);
 
         con.addResponseListener(new ActionListener<NetworkEvent>() {

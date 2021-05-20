@@ -45,7 +45,8 @@ public class ListPostsForm extends Form {
         posts = ServicePost.getInstance().getAllPosts();
         postsContainer.add(sort);
         sort.addActionListener(e->{ 
-                posts = ServicePost.getInstance().getAllPostsSorted();
+                
+                new ListPostsSortedForm(theme).show();
             });
         
 
@@ -79,7 +80,7 @@ public class ListPostsForm extends Form {
             bDelete.addActionListener(e->{
                 // ONCE I GET SESSION WORKING, I NEED TO CHANGE 11 with getUserId()
                 if( ServicePost.getInstance().deletePost(p))
-                    Dialog.show("Success","Quiz Deleted",new Command("OK"));
+                    Dialog.show("Success","Post Deleted",new Command("OK"));
                 else
                     Dialog.show("ERROR", "Server Error", new Command("OK"));
                 
