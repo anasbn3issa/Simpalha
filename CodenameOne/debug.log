@@ -58,3 +58,19 @@ Refresh the page if necessary.", source: https://esprittest.ulysse.media/static/
 [0518/210817.270:WARNING:packet_router.cc(158)] Failed to send packet, rejected by RTP module.
 [0518/210817.270:WARNING:packet_router.cc(158)] Failed to send packet, rejected by RTP module.
 [0518/210818.086:INFO:user_input_monitor_win.cc(170)] RegisterRawInputDevices() failed for RIDEV_REMOVE: The parameter is incorrect. (0x57)
+[0520/005145.957:INFO:CONSOLE(73988)] "[HMR] Waiting for update signal from WDS...", source: https://esprittest.ulysse.media/static/js/0.chunk.js (73988)
+[0520/005148.949:INFO:CONSOLE(9001)] "WebSocket connection to 'wss://esprittest.ulysse.media/sockjs-node' failed: Error during WebSocket handshake: Unexpected response code: 404", source: https://esprittest.ulysse.media/static/js/0.chunk.js (9001)
+[0520/005148.949:INFO:CONSOLE(9014)] "The development server has disconnected.
+Refresh the page if necessary.", source: https://esprittest.ulysse.media/static/js/0.chunk.js (9014)
+[0520/010357.482:INFO:CONSOLE(73988)] "[HMR] Waiting for update signal from WDS...", source: https://esprittest.ulysse.media/static/js/0.chunk.js (73988)
+[0520/010357.860:INFO:CONSOLE(9001)] "WebSocket connection to 'wss://esprittest.ulysse.media/sockjs-node' failed: Error during WebSocket handshake: Unexpected response code: 404", source: https://esprittest.ulysse.media/static/js/0.chunk.js (9001)
+[0520/010357.860:INFO:CONSOLE(9014)] "The development server has disconnected.
+Refresh the page if necessary.", source: https://esprittest.ulysse.media/static/js/0.chunk.js (9014)
+[0520/010427.432:INFO:CONSOLE(73988)] "[HMR] Waiting for update signal from WDS...", source: https://esprittest.ulysse.media/static/js/0.chunk.js (73988)
+[0520/010428.357:INFO:CONSOLE(9001)] "WebSocket connection to 'wss://esprittest.ulysse.media/sockjs-node' failed: Error during WebSocket handshake: Unexpected response code: 404", source: https://esprittest.ulysse.media/static/js/0.chunk.js (9001)
+[0520/010428.357:INFO:CONSOLE(9014)] "The development server has disconnected.
+Refresh the page if necessary.", source: https://esprittest.ulysse.media/static/js/0.chunk.js (9014)
+[0520/010507.429:INFO:CONSOLE(73988)] "[HMR] Waiting for update signal from WDS...", source: https://esprittest.ulysse.media/static/js/0.chunk.js (73988)
+[0520/010507.670:INFO:CONSOLE(9001)] "WebSocket connection to 'wss://esprittest.ulysse.media/sockjs-node' failed: Error during WebSocket handshake: Unexpected response code: 404", source: https://esprittest.ulysse.media/static/js/0.chunk.js (9001)
+[0520/010507.670:INFO:CONSOLE(9014)] "The development server has disconnected.
+Refresh the page if necessary.", source: https://esprittest.ulysse.media/static/js/0.chunk.js (9014)

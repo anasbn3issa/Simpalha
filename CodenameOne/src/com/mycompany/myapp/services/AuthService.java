@@ -145,13 +145,16 @@ public class AuthService {
         NetworkManager.getInstance().addToQueueAndWait(con);    }
     
     public ArrayList<User> parseUsers(String jsonText){
+        if(jsonText==null)
+                return users;
         try {
             users=new ArrayList<>();
             JSONParser j = new JSONParser();// Instanciation d'un objet JSONParser permettant le parsing du résultat json
 
             Map<String,Object> tasksListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
             
-            System.out.println(tasksListJson.get("status"));
+            if(tasksListJson.get("data")==null)
+                return users;
             
             
             Map<String,Object> listdata = j.parseJSON(new CharArrayReader(tasksListJson.get("data").toString().toCharArray()));

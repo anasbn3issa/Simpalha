@@ -6,9 +6,7 @@
 package com.mycompany.myapp.gui.meet;
 
 import com.codename1.components.FloatingActionButton;
-import com.mycompany.myapp.gui.*;
 import com.codename1.components.ToastBar;
-import com.codename1.l10n.DateFormat;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.Command;
@@ -36,7 +34,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import com.codename1.ui.Image;
-import com.codename1.ui.Tabs;
 import com.codename1.util.DateUtil;
 import java.io.IOException;
 import net.glxn.qrgen.QRCode;
@@ -78,6 +75,10 @@ public class ListStudentMeetsForm extends Form {
             Label lbtimes = new Label("Time");
             times.add(lbtimes);
 
+            Container feedbacks = new Container(BoxLayout.y());
+            Label lbfeedbacks = new Label("Feedback");
+            feedbacks.add(lbfeedbacks);
+
             Container actions = new Container(BoxLayout.y());
             Label lbsel = new Label("Action");
             actions.add(lbsel);
@@ -101,7 +102,10 @@ public class ListStudentMeetsForm extends Form {
                     //Label lbimg = new Label(res.getImage("user.png"));
                     lbhelpers = new Label(meet.getUnameHlp());
                     lbspec = new Label(meet.getSpecialite());
+                    lbspec = new Label(meet.getSpecialite());
                     lbtimes = new Label(dd);
+
+                    lbfeedbacks = new Label(meet.getFeedbackdesc());
                     Container cntbtns = new Container(BoxLayout.x());
                     ComboBox<String> combo = new ComboBox<>();
                     combo.addItem("Join");
@@ -112,11 +116,11 @@ public class ListStudentMeetsForm extends Form {
                         public void actionPerformed(ActionEvent evt) {
                             switch (combo.getSelectedItem()) {
                                 case "Navigator": {
-                                    new JoinMeetForm(res).show();
+                                    new JoinMeetForm(res, meet.getId()).show();
                                     break;
                                 }
                                 case "QR": {
-                                    showdialog();
+                                    showdialog(meet.getId());
                                     break;
                                 }
                                 default: {
@@ -148,18 +152,32 @@ public class ListStudentMeetsForm extends Form {
                     Date d1 = format1.parse(d1st);
                     Date d2 = format1.parse(d2st);
                     int diff = DateUtil.compare(d1, d2);
-
+                    System.out.println(diff);
                     if (meet.getEtat() != 1) {
                         if (diff == 0) {
                             cntbtns.add(combo);
-                        } else if (diff == -1) {
-                            add(btnedt);
+                        } else if (diff == 1) {
+                            cntbtns.add(btnedt);
                         }
                     }
                     cntbtns.add(btndel);
                     cnthelpers.add(lbhelpers);
                     speclts.add(lbspec);
                     times.add(lbtimes);
+
+                    if (meet.getFeedback_id() < 1) {
+                        Button lvfdbk = new Button("Leave feedback");
+                        lvfdbk.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent evt) {
+                                JoinMeetForm.leaveFeedback(res, meet.getId());
+                            }
+                        });
+                        feedbacks.add(lvfdbk);
+                    } else {
+                        feedbacks.add(lbfeedbacks);
+                    }
+
                     actions.add(cntbtns);
 
                 } catch (ParseException ex) {
@@ -168,7 +186,7 @@ public class ListStudentMeetsForm extends Form {
 
             }
             Container table = new Container(BoxLayout.x());
-            table.addAll(cnthelpers, speclts, times, actions);
+            table.addAll(cnthelpers, speclts, times, feedbacks, actions);
             table.setScrollableX(true);
             add(BorderLayout.OVERLAY, table);
         } else {
@@ -177,7 +195,7 @@ public class ListStudentMeetsForm extends Form {
 
     }
 
-    void showdialog() {
+    void showdialog(String id) {
         Dialog dlg = new Dialog("SCAN QR CODE");
         Style dlgStyle = dlg.getDialogStyle();
         dlgStyle.setBorder(Border.createEmpty());
@@ -197,7 +215,7 @@ public class ListStudentMeetsForm extends Form {
         blueLabel.getUnselectedStyle().setPaddingUnit(Style.UNIT_TYPE_PIXELS);
         dlg.add(blueLabel);
 
-        ByteArrayOutputStream out = QRCode.from(Statics.BROWSER_BASE_URL).to(ImageType.PNG).withSize(200, 200).stream();
+        ByteArrayOutputStream out = QRCode.from(Statics.BROWSER_BASE_URL+id).to(ImageType.PNG).withSize(200, 200).stream();
         ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
         Image qrcode = null;
         try {

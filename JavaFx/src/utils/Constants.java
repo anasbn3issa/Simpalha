@@ -26,7 +26,7 @@ public class Constants {
     
     //SERVER
     public static String BASE_URL = "https://esprittest.ulysse.media/";
-    public static String JXBROWSER_LSC="1BNDHFSC1FYI13WP1OWJBWGL2PRX6OPN2B11ZN74PR1U2CEHZHKZW0QF3PBNZ08JNDZ6J3";
+    public static String JXBROWSER_LSC="1BNDHFSC1FZ55J36CO61XF69C4XBIX1RZXVWGI7NL1G5I8IWL5GFU0THPFLU9LQX64F8KP";
     //////////////////////////////
     
     

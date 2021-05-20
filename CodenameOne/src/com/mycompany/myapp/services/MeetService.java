@@ -124,6 +124,9 @@ public class MeetService {
                         ((Map<String, Object>) obj.get("disponibilite")).get("datedeb").toString(),
                         (int) Float.parseFloat(obj.get("etat").toString())
                 );
+                if (((Map<String, Object>) obj.get("feedback")) != null) {
+                m.setFeedbackdesc(((Map<String, Object>) obj.get("feedback")).get("description").toString());
+                }
                 m.setUnameStd(((Map<String, Object>) obj.get("idStudent")).get("pseudo").toString());
                 m.setUnameHlp(((Map<String, Object>) obj.get("idHelper")).get("pseudo").toString());
                 if (((Map<String, Object>) obj.get("feedback")) != null) {

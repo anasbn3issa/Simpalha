@@ -12,8 +12,6 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import com.mycompany.myapp.entities.Disponibilite;
-import com.mycompany.myapp.entities.Meet;
-import com.mycompany.myapp.utils.Session;
 import com.mycompany.myapp.utils.Statics;
 import java.io.IOException;
 import java.text.ParseException;
@@ -109,5 +107,69 @@ public class DispoService {
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
         return dispMap;
+    }
+
+    public ArrayList<Disponibilite> getListAllDispsByHlpr(int id) {
+        disps = new ArrayList<>();
+        String url = Statics.BASE_URL + "disponibilite/helper/" + id;
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                disps = parseDispo(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return disps;
+    }
+
+    public boolean deleteDisp(int id) {
+        String url = Statics.BASE_URL + "disponibilite/" + id; //création de l'URL
+
+        req.setUrl(url);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+
+    public boolean addDispo(Disponibilite dis) {
+        String url = Statics.BASE_URL + "disponibilite/new/" + dis.getHelperid(); //création de l'URL
+        req.setUrl(url);
+        req.addArgument("start", dis.getDatedeb());
+        req.addArgument("finish", dis.getDateFin());
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+
+    public boolean editDispo(Disponibilite dis) {
+        String url = Statics.BASE_URL + "disponibilite/" + dis.getId() + "/edit"; //création de l'URL
+        req.setUrl(url);
+        req.addArgument("start", dis.getDatedeb());
+        req.addArgument("finish", dis.getDateFin());
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
     }
 }

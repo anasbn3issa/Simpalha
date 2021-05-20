@@ -21,7 +21,9 @@ import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.Layout;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.gui.meet.ListHelperDisponibiliteForm;
 import com.mycompany.myapp.gui.meet.ListMeetsForm;
+import com.mycompany.myapp.utils.Session;
 
 public class SideMenu extends Form {
 
@@ -44,15 +46,13 @@ public class SideMenu extends Form {
         super(contentPaneLayout);
     }
 
-    public void setupSideMenu(/*User u,*/ Resources res) {
-        
-           //String admobId = "ca-app-pub-3940256099942544/1033173712";
-           
-           //DECLARATION API ADMOB
-          String admobId = "ca-app-pub-3940256099942544/5224354917\n";
-          admob = new AdMobManager(admobId);
-          //FIN DECLARATION API ADMOB
-        
+    public void setupSideMenu(/*User u,*/Resources res) {
+        if (Session.ConnectedUser.getRoles().contains("ROLE_HELPER")) {
+            getToolbar().addCommandToOverflowMenu("Disponibilite", null, ev -> {
+                new ListHelperDisponibiliteForm(res).show();
+            });
+        }
+
         Image profilePic = res.getImage("20187112601561032514-512.png");
         Image mask = res.getImage("round-mask.png");
         mask = mask.scaledHeight(mask.getHeight() / 4 * 3);
@@ -70,7 +70,7 @@ public class SideMenu extends Form {
         getToolbar().addMaterialCommandToSideMenu("  Job Offers", FontImage.MATERIAL_LOCAL_OFFER, null);
         getToolbar().addMaterialCommandToSideMenu("  Home", FontImage.MATERIAL_HOME, e -> new HomeForm(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Meets", FontImage.MATERIAL_LOCAL_ACTIVITY, e -> new ListMeetsForm(res).show());
-        getToolbar().addMaterialCommandToSideMenu("  Events", FontImage.MATERIAL_LOCAL_OFFER,null);
+        getToolbar().addMaterialCommandToSideMenu("  Events", FontImage.MATERIAL_LOCAL_OFFER, null);
         getToolbar().addMaterialCommandToSideMenu("  Statistics", FontImage.MATERIAL_ANALYTICS, null);
         getToolbar().addMaterialCommandToSideMenu("  Meetings", FontImage.MATERIAL_TRENDING_UP, null);
         getToolbar().addMaterialCommandToSideMenu("  Application", FontImage.MATERIAL_HOME, e -> new AddCandidature( current, res).show());

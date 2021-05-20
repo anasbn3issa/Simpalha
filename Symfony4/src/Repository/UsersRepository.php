@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 
+use App\Entity\Disponibilite;
 use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -52,8 +53,12 @@ class UsersRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('u');
 
-        return $qb
+        return $qb->select('u')
+            ->from(Users::class,'u')
+            ->from(Disponibilite::class,'d')
+            ->join("u", "d.helperid")
             ->orwhere($qb->expr()->neq('u.specialty', "''"))
+            ->andWhere($qb->expr()->isNotNull('u.specialty'))
             ->andWhere($qb->expr()->isNotNull('u.specialty'))
             ->getQuery()
             ->getResult()

@@ -19,13 +19,14 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.entities.Meet;
+import com.mycompany.myapp.gui.SideMenu;
 import com.mycompany.myapp.services.DispoService;
 import com.mycompany.myapp.services.MeetService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddMeetForm extends Form {
+public class AddMeetForm extends SideMenu {
 
     ArrayList<String> disps;
     Map<Integer, String> dispMap;
@@ -33,6 +34,7 @@ public class AddMeetForm extends Form {
 
     public AddMeetForm(Resources res, User helper) {
         getDisps(helper.getId());
+        setupSideMenu(res);
         setTitle("New meet");
         setLayout(new BorderLayout(BorderLayout.CENTER_BEHAVIOR_CENTER));
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> new ListMeetsForm(res).showBack());

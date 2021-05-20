@@ -10,8 +10,6 @@ package com.mycompany.myapp.gui.meet;
  * @author win10
  */
 import com.codename1.components.ToastBar;
-import com.mycompany.myapp.entities.User;
-import com.mycompany.myapp.utils.Session;
 import com.codename1.ui.*;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
@@ -19,13 +17,14 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.entities.Meet;
+import com.mycompany.myapp.gui.SideMenu;
 import com.mycompany.myapp.services.DispoService;
 import com.mycompany.myapp.services.MeetService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EditMeetForm extends Form {
+public class EditMeetForm extends SideMenu {
 
     ArrayList<String> disps;
     Map<Integer, String> dispMap;
@@ -33,6 +32,7 @@ public class EditMeetForm extends Form {
 
     public EditMeetForm(Resources res, Meet meet) {
         getDisps(meet.getId_helper());
+        setupSideMenu(res);
         setTitle("Edit meet");
         setLayout(new BorderLayout(BorderLayout.CENTER_BEHAVIOR_CENTER));
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> new ListMeetsForm(res).showBack());
