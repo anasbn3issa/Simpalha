@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -19,6 +20,7 @@ class Answer
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("question","answer","quizz","answer:list")
      */
     private $id;
 
@@ -27,6 +29,7 @@ class Answer
      * @Assert\NotBlank
      *
      * @ORM\Column(name="suggestion", type="string", length=1000, nullable=false)
+     * @Groups("question","answer","quizz","answer:list")
      */
     private $suggestion;
 
@@ -35,6 +38,7 @@ class Answer
      *
      * @ORM\ManyToOne(targetEntity=Question::class, inversedBy="answers")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("answer")
      */
     private $question;
 

@@ -20,14 +20,14 @@ class Disponibilite
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Groups("meet:search", "meet:index")
+     * @Groups("meet:search", "meet:index", "meet:new")
      */
     private $id;
 
     /**
      * @var string
      *
-     * @Groups("meet:search")
+     * @Groups("meet:search", "meet:new", "meet:student")
      * @ORM\Column(name="dateDeb", type="string", length=255, nullable=false)
      */
     private $datedeb;
@@ -35,7 +35,7 @@ class Disponibilite
     /**
      * @var string
      *
-     * @Groups("meet:search")
+     * @Groups("meet:search", "meet:new")
      * @ORM\Column(name="dateFin", type="string", length=255, nullable=false)
      */
     private $datefin;
@@ -43,6 +43,7 @@ class Disponibilite
     /**
      * @var int
      *
+     * @Groups("meet:new")
      * @ORM\Column(name="etat", type="integer", nullable=false)
      */
     private $etat = '0';

@@ -129,6 +129,7 @@ class QuizController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
 
+
             $quizz = $form->getData();
 
             $em->persist($quizz);

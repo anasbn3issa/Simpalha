@@ -36,6 +36,16 @@ public class Session {
 
     public static User ConnectedUser = new User();
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    
+    
     public User getUser() {
         return user;
     }
