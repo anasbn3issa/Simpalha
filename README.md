@@ -1,5 +1,3 @@
-[![Contributors][contributors-shield]][contributors-url]
-
 # Simpalha
 <br />
 
