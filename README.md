@@ -8,10 +8,10 @@
     <img src="https://repository-images.githubusercontent.com/340984114/a6489def-ccf6-4376-b337-84a36c7ca0db" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">Simpa'لها</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+    From Students For Students
     <br />
     <a href="https://github.com/anasbn3issa/Simpalha"><strong>Explore the docs »</strong></a>
     <br />
